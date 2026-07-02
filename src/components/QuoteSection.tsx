@@ -36,30 +36,34 @@ export default function QuoteSection() {
 
         <form className="rounded-[2rem] bg-white p-6 text-[#07111F] shadow-2xl md:p-8">
           <div className="grid gap-4">
-            <input
-              className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100"
-              placeholder="Product type"
-            />
+            <div className="grid gap-4 md:grid-cols-2">
+              <input
+                className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100"
+                placeholder="Product type"
+              />
 
-            <input
-              className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100"
-              placeholder="Quantity"
-            />
+              <input
+                className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100"
+                placeholder="Quantity"
+              />
+            </div>
 
-            <input
-              className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100"
-              placeholder="Size / Dimensions"
-            />
+            <div className="grid gap-4 md:grid-cols-2">
+              <input
+                className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100"
+                placeholder="Size / Dimensions"
+              />
 
-            <select className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100">
-              <option>Select product category</option>
-              <option>Rigid Boxes</option>
-              <option>Folding Cartons</option>
-              <option>Butter Paper</option>
-              <option>Food Packaging</option>
-              <option>Paper Bags</option>
-              <option>Labels & Stickers</option>
-            </select>
+              <select className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100">
+                <option>Select category</option>
+                <option>Rigid Boxes</option>
+                <option>Folding Cartons</option>
+                <option>Butter Paper</option>
+                <option>Food Packaging</option>
+                <option>Paper Bags</option>
+                <option>Labels & Stickers</option>
+              </select>
+            </div>
 
             <select className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100">
               <option>Select finishing</option>
@@ -68,6 +72,7 @@ export default function QuoteSection() {
               <option>Spot UV</option>
               <option>Gold Foiling</option>
               <option>Embossing</option>
+              <option>Die Cutting</option>
             </select>
 
             <input

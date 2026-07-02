@@ -18,13 +18,18 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8">
-        <a href="#" className="text-2xl font-black tracking-tight text-[#07111F] md:text-3xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+        <a
+          href="#"
+          className="text-2xl font-black tracking-tight text-[#07111F] md:text-3xl"
+        >
           Printy<span className="text-[#FF6A00]">Packaging</span>
         </a>
 
-        <nav className="hidden items-center gap-8 text-sm font-black text-[#07111F] lg:flex">
-          <a className="transition hover:text-[#FF6A00]" href="#">Home</a>
+        <nav className="hidden items-center gap-7 text-sm font-black text-[#07111F] lg:flex">
+          <a className="transition hover:text-[#FF6A00]" href="#">
+            Home
+          </a>
 
           <div className="group relative">
             <a className="cursor-pointer transition hover:text-[#FF6A00]" href="#products">
@@ -32,6 +37,24 @@ export default function Header() {
             </a>
 
             <div className="invisible absolute left-1/2 top-8 w-[760px] -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100">
+              <div className="mb-5 flex items-center justify-between border-b border-slate-200 pb-4">
+                <div>
+                  <p className="text-lg font-black text-[#07111F]">
+                    Product Categories
+                  </p>
+                  <p className="mt-1 text-xs font-bold text-slate-500">
+                    Custom boxes, food packaging, bags, labels and wrapping papers.
+                  </p>
+                </div>
+
+                <a
+                  href="#quote"
+                  className="rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black text-white"
+                >
+                  Get Quote
+                </a>
+              </div>
+
               <div className="grid grid-cols-4 gap-4">
                 {productLinks.map((item) => (
                   <a
@@ -49,11 +72,21 @@ export default function Header() {
             </div>
           </div>
 
-          <a className="transition hover:text-[#FF6A00]" href="#industries">Industries</a>
-          <a className="transition hover:text-[#FF6A00]" href="#materials">Materials</a>
-          <a className="transition hover:text-[#FF6A00]" href="#finishing">Finishing</a>
-          <a className="transition hover:text-[#FF6A00]" href="#quote">Quote</a>
-          <a className="transition hover:text-[#FF6A00]" href="#contact">Contact</a>
+          <a className="transition hover:text-[#FF6A00]" href="#industries">
+            Industries
+          </a>
+          <a className="transition hover:text-[#FF6A00]" href="#materials">
+            Materials
+          </a>
+          <a className="transition hover:text-[#FF6A00]" href="#finishing">
+            Finishing
+          </a>
+          <a className="transition hover:text-[#FF6A00]" href="#blog">
+            Blog
+          </a>
+          <a className="transition hover:text-[#FF6A00]" href="#quote">
+            Quote
+          </a>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -72,7 +105,7 @@ export default function Header() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-black text-[#07111F] lg:hidden"
           >
-            Menu
+            {mobileOpen ? "Close" : "Menu"}
           </button>
         </div>
       </div>
@@ -80,13 +113,14 @@ export default function Header() {
       {mobileOpen && (
         <div className="border-t border-slate-200 bg-white px-5 py-5 lg:hidden">
           <div className="grid gap-4 text-sm font-black text-[#07111F]">
-            <a href="#">Home</a>
-            <a href="#products">Products</a>
-            <a href="#industries">Industries</a>
-            <a href="#materials">Materials</a>
-            <a href="#finishing">Finishing</a>
-            <a href="#quote">Quote</a>
-            <a href="#contact">Contact</a>
+            <a href="#" onClick={() => setMobileOpen(false)}>Home</a>
+            <a href="#products" onClick={() => setMobileOpen(false)}>Products</a>
+            <a href="#industries" onClick={() => setMobileOpen(false)}>Industries</a>
+            <a href="#materials" onClick={() => setMobileOpen(false)}>Materials</a>
+            <a href="#finishing" onClick={() => setMobileOpen(false)}>Finishing</a>
+            <a href="#blog" onClick={() => setMobileOpen(false)}>Blog</a>
+            <a href="#quote" onClick={() => setMobileOpen(false)}>Quote</a>
+            <a href="#contact" onClick={() => setMobileOpen(false)}>Contact</a>
           </div>
         </div>
       )}

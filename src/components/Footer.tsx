@@ -29,7 +29,7 @@ export default function Footer() {
   return (
     <footer id="contact" className="bg-[#07111F] px-5 py-16 text-white md:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[1.3fr_0.9fr_0.9fr_0.9fr]">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.9fr_0.9fr_0.9fr]">
           <div>
             <h3 className="text-3xl font-black">
               Printy<span className="text-[#00C2E8]">Packaging</span>
@@ -46,6 +46,18 @@ export default function Footer() {
                 Send your product details and our team will guide you with box
                 style, material and finishing options.
               </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span className="rounded-full bg-white/5 px-4 py-2 text-xs font-bold text-slate-300">
+                Custom Boxes
+              </span>
+              <span className="rounded-full bg-white/5 px-4 py-2 text-xs font-bold text-slate-300">
+                Rigid Boxes
+              </span>
+              <span className="rounded-full bg-white/5 px-4 py-2 text-xs font-bold text-slate-300">
+                Butter Paper
+              </span>
             </div>
           </div>
 
