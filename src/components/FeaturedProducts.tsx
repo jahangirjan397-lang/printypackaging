@@ -2,7 +2,10 @@ import { products } from "../data/products";
 
 export default function FeaturedProducts() {
   return (
-    <section id="products" className="bg-[#F7FAFC] px-4 py-20 sm:px-5 md:px-8 md:py-24">
+    <section
+      id="products"
+      className="bg-[#F7FAFC] px-4 py-20 sm:px-5 md:px-8 md:py-24"
+    >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-black uppercase tracking-[0.32em] text-[#FF6A00] md:text-sm">
@@ -24,7 +27,7 @@ export default function FeaturedProducts() {
             <a
               href={`/products/${item.slug}`}
               key={item.slug}
-              className="pp-card group overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-md md:rounded-[1.7rem]"
+              className="pp-card group block overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-md md:rounded-[1.7rem]"
             >
               <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8] p-5 sm:h-48 md:h-52">
                 <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />

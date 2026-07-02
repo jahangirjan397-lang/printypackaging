@@ -6,15 +6,15 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const productLinks = [
-    "Rigid Boxes",
-    "Folding Cartons",
-    "Mailer Boxes",
-    "Butter Paper",
-    "Food Packaging",
-    "Paper Bags",
-    "Labels & Stickers",
-    "Luxury Packaging",
-  ];
+  { name: "Rigid Boxes", href: "/products/rigid-boxes" },
+  { name: "Folding Cartons", href: "/products/folding-cartons" },
+  { name: "Mailer Boxes", href: "/products/mailer-boxes" },
+  { name: "Butter Paper", href: "/products/butter-paper" },
+  { name: "Food Packaging", href: "/products/food-packaging" },
+  { name: "Paper Bags", href: "/products/paper-bags" },
+  { name: "Labels & Stickers", href: "/products/labels-stickers" },
+  { name: "Luxury Packaging", href: "/products/luxury-packaging" },
+];
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
@@ -57,17 +57,17 @@ export default function Header() {
 
               <div className="grid grid-cols-4 gap-4">
                 {productLinks.map((item) => (
-                  <a
-                    href="#products"
-                    key={item}
-                    className="rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white"
-                  >
-                    <span className="block font-black">{item}</span>
-                    <span className="mt-1 block text-xs font-medium text-slate-500">
-                      Custom packaging
-                    </span>
-                  </a>
-                ))}
+  <a
+    href={item.href}
+    key={item.name}
+    className="rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white"
+  >
+    <span className="block font-black">{item.name}</span>
+    <span className="mt-1 block text-xs font-medium text-slate-500">
+      Custom packaging
+    </span>
+  </a>
+))}
               </div>
             </div>
           </div>
