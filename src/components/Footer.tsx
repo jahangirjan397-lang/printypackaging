@@ -1,61 +1,130 @@
+import { products } from "../data/products";
+import { categories } from "../data/categories";
+import { markets } from "../data/markets";
+import { blogPosts } from "../data/blogPosts";
+
 export default function Footer() {
-  const productLinks = ["Rigid Boxes", "Folding Cartons", "Butter Paper", "Food Packaging", "Paper Bags", "Labels"];
-  const companyLinks = ["About Us", "Industries", "Materials", "Finishing", "Portfolio", "Blog"];
-  const supportLinks = ["Get Quote", "Artwork Guide", "FAQ", "Client Support", "Contact", "Sample Kit"];
+  const footerProducts = products.slice(0, 8);
+  const footerBlogs = blogPosts.slice(0, 4);
 
   return (
-    <footer id="contact" className="bg-[#07111F] px-4 py-14 text-white sm:px-5 md:px-8 md:py-16">
+    <footer id="contact" className="bg-[#07111F] px-5 py-16 text-white md:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.9fr_0.9fr_0.9fr]">
-          <div className="sm:col-span-2 lg:col-span-1">
-            <h3 className="text-3xl font-black">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr]">
+          <div>
+            <a href="/" className="text-3xl font-black">
               Printy<span className="text-[#00C2E8]">Packaging</span>
-            </h3>
+            </a>
 
-            <p className="mt-5 max-w-sm leading-7 text-slate-400">
+            <p className="mt-5 max-w-sm leading-7 text-slate-300">
               Premium custom printing and packaging solutions for USA, UK,
-              Europe and worldwide brands.
+              Europe, Canada and worldwide brands.
             </p>
 
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.05] p-5">
               <p className="font-black text-[#FF6A00]">Need packaging help?</p>
-              <p className="mt-2 text-sm leading-6 text-slate-400">
-                Send your product details and our team will guide you with box
+              <p className="mt-2 text-sm leading-6 text-slate-300">
+                Share your product details and our team will guide you with box
                 style, material and finishing options.
               </p>
+
+              <a
+                href="/#quote"
+                className="mt-4 inline-flex rounded-full bg-[#FF6A00] px-5 py-3 text-sm font-black text-white"
+              >
+                Request Quote
+              </a>
             </div>
           </div>
 
-          <FooterColumn title="Products" links={productLinks} />
-          <FooterColumn title="Company" links={companyLinks} />
-          <FooterColumn title="Support" links={supportLinks} />
+          <div>
+            <h3 className="font-black">Products</h3>
+            <div className="mt-5 grid gap-3 text-sm text-slate-300">
+              {footerProducts.map((product) => (
+                <a
+                  key={product.slug}
+                  href={`/products/${product.slug}`}
+                  className="transition hover:text-[#FF6A00]"
+                >
+                  {product.name}
+                </a>
+              ))}
+              <a href="/products" className="font-black text-[#FF6A00]">
+                View All Products →
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-black">Categories</h3>
+            <div className="mt-5 grid gap-3 text-sm text-slate-300">
+              {categories.map((category) => (
+                <a
+                  key={category.slug}
+                  href={`/categories/${category.slug}`}
+                  className="transition hover:text-[#FF6A00]"
+                >
+                  {category.name}
+                </a>
+              ))}
+              <a href="/categories" className="font-black text-[#FF6A00]">
+                All Categories →
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-black">Markets</h3>
+            <div className="mt-5 grid gap-3 text-sm text-slate-300">
+              {markets.map((market) => (
+                <a
+                  key={market.slug}
+                  href={`/markets/${market.slug}`}
+                  className="transition hover:text-[#FF6A00]"
+                >
+                  {market.name}
+                </a>
+              ))}
+              <a href="/markets" className="font-black text-[#FF6A00]">
+                All Markets →
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-black">Company</h3>
+            <div className="mt-5 grid gap-3 text-sm text-slate-300">
+              <a href="/blog" className="transition hover:text-[#FF6A00]">
+                Blog
+              </a>
+              {footerBlogs.map((post) => (
+                <a
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="transition hover:text-[#FF6A00]"
+                >
+                  {post.title}
+                </a>
+              ))}
+              <a href="/#quote" className="transition hover:text-[#FF6A00]">
+                Get Quote
+              </a>
+              <a href="/#contact" className="transition hover:text-[#FF6A00]">
+                Contact
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-12 grid gap-4 border-t border-white/10 pt-6 text-sm text-slate-500 md:grid-cols-2">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
           <p>© 2026 Printy Packaging. All rights reserved.</p>
-          <p className="md:text-right">
-            Custom Boxes • Rigid Boxes • Butter Paper • Food Packaging
+
+          <p>
+            Custom Boxes • Rigid Boxes • Butter Paper • Food Packaging • Paper
+            Bags
           </p>
         </div>
       </div>
     </footer>
-  );
-}
-
-function FooterColumn({ title, links }: { title: string; links: string[] }) {
-  return (
-    <div>
-      <h4 className="font-black text-white">{title}</h4>
-
-      <ul className="mt-5 space-y-3 text-slate-400">
-        {links.map((link) => (
-          <li key={link}>
-            <a href="#quote" className="transition hover:text-[#00C2E8]">
-              {link}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

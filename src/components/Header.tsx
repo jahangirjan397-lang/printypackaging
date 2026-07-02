@@ -1,19 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { products } from "../data/products";
+import { categories } from "../data/categories";
+import { markets } from "../data/markets";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const productLinks = [
-    { name: "Rigid Boxes", href: "/products/rigid-boxes" },
-    { name: "Folding Cartons", href: "/products/folding-cartons" },
-    { name: "Mailer Boxes", href: "/products/mailer-boxes" },
-    { name: "Butter Paper", href: "/products/butter-paper" },
-    { name: "Food Packaging", href: "/products/food-packaging" },
-    { name: "Paper Bags", href: "/products/paper-bags" },
-    { name: "Labels & Stickers", href: "/products/labels-stickers" },
-    { name: "Luxury Packaging", href: "/products/luxury-packaging" },
+  const featuredProducts = products.slice(0, 12);
+
+  const mainLinks = [
+    { name: "Home", href: "/" },
+    { name: "Products", href: "/products" },
+    { name: "Categories", href: "/categories" },
+    { name: "Markets", href: "/markets" },
+    { name: "Blog", href: "/blog" },
+    { name: "Quote", href: "/#quote" },
   ];
 
   return (
@@ -26,48 +29,45 @@ export default function Header() {
           Printy<span className="text-[#FF6A00]">Packaging</span>
         </a>
 
-        <nav className="hidden items-center gap-7 text-sm font-black text-[#07111F] lg:flex">
+        <nav className="hidden items-center gap-6 text-sm font-black text-[#07111F] lg:flex">
           <a className="transition hover:text-[#FF6A00]" href="/">
             Home
           </a>
 
           <div className="group relative">
-            <a
-              className="cursor-pointer transition hover:text-[#FF6A00]"
-              href="/products"
-            >
+            <a className="transition hover:text-[#FF6A00]" href="/products">
               Products
             </a>
 
-            <div className="invisible absolute left-1/2 top-8 w-[760px] -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100">
+            <div className="invisible absolute left-1/2 top-8 w-[820px] -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100">
               <div className="mb-5 flex items-center justify-between border-b border-slate-200 pb-4">
                 <div>
                   <p className="text-lg font-black text-[#07111F]">
-                    Product Categories
+                    Product Pages
                   </p>
                   <p className="mt-1 text-xs font-bold text-slate-500">
-                    Custom boxes, food packaging, bags, labels and wrapping papers.
+                    Popular custom packaging products.
                   </p>
                 </div>
 
                 <a
-                  href="/#quote"
+                  href="/products"
                   className="rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black text-white"
                 >
-                  Get Quote
+                  View All Products
                 </a>
               </div>
 
-              <div className="grid grid-cols-4 gap-4">
-                {productLinks.map((item) => (
+              <div className="grid grid-cols-4 gap-3">
+                {featuredProducts.map((product) => (
                   <a
-                    href={item.href}
-                    key={item.name}
+                    href={`/products/${product.slug}`}
+                    key={product.slug}
                     className="rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white"
                   >
-                    <span className="block font-black">{item.name}</span>
+                    <span className="block font-black">{product.name}</span>
                     <span className="mt-1 block text-xs font-medium text-slate-500">
-                      Custom packaging
+                      {product.category}
                     </span>
                   </a>
                 ))}
@@ -75,17 +75,59 @@ export default function Header() {
             </div>
           </div>
 
-          <a className="transition hover:text-[#FF6A00]" href="/#industries">
-            Industries
-          </a>
+          <div className="group relative">
+            <a className="transition hover:text-[#FF6A00]" href="/categories">
+              Categories
+            </a>
 
-          <a className="transition hover:text-[#FF6A00]" href="/#materials">
-            Materials
-          </a>
+            <div className="invisible absolute left-1/2 top-8 w-[520px] -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100">
+              <p className="mb-5 text-lg font-black text-[#07111F]">
+                Packaging Categories
+              </p>
 
-          <a className="transition hover:text-[#FF6A00]" href="/#finishing">
-            Finishing
-          </a>
+              <div className="grid grid-cols-2 gap-3">
+                {categories.map((category) => (
+                  <a
+                    href={`/categories/${category.slug}`}
+                    key={category.slug}
+                    className="rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white"
+                  >
+                    <span className="block font-black">{category.name}</span>
+                    <span className="mt-1 block text-xs font-medium text-slate-500">
+                      {category.tagline}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="group relative">
+            <a className="transition hover:text-[#FF6A00]" href="/markets">
+              Markets
+            </a>
+
+            <div className="invisible absolute left-1/2 top-8 w-[520px] -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100">
+              <p className="mb-5 text-lg font-black text-[#07111F]">
+                International Markets
+              </p>
+
+              <div className="grid grid-cols-2 gap-3">
+                {markets.map((market) => (
+                  <a
+                    href={`/markets/${market.slug}`}
+                    key={market.slug}
+                    className="rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white"
+                  >
+                    <span className="block font-black">{market.name}</span>
+                    <span className="mt-1 block text-xs font-medium text-slate-500">
+                      {market.region}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
 
           <a className="transition hover:text-[#FF6A00]" href="/blog">
             Blog
@@ -120,25 +162,33 @@ export default function Header() {
       {mobileOpen && (
         <div className="border-t border-slate-200 bg-white px-4 py-5 shadow-xl lg:hidden">
           <div className="grid gap-3 text-sm font-black text-[#07111F]">
-            {[
-              ["Home", "/"],
-              ["Products", "/products"],
-              ["Industries", "/#industries"],
-              ["Materials", "/#materials"],
-              ["Finishing", "/#finishing"],
-              ["Blog", "/blog"],
-              ["Quote", "/#quote"],
-              ["Contact", "/#contact"],
-            ].map(([label, link]) => (
+            {mainLinks.map((link) => (
               <a
-                key={label}
-                href={link}
+                key={link.name}
+                href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className="rounded-2xl bg-[#F7FAFC] px-4 py-3"
               >
-                {label}
+                {link.name}
               </a>
             ))}
+
+            <div className="mt-2 grid gap-2">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">
+                Popular Products
+              </p>
+
+              {featuredProducts.slice(0, 8).map((product) => (
+                <a
+                  key={product.slug}
+                  href={`/products/${product.slug}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-2xl border border-slate-200 px-4 py-3"
+                >
+                  {product.name}
+                </a>
+              ))}
+            </div>
 
             <a
               href="/#quote"

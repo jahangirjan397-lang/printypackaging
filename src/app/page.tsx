@@ -20,6 +20,8 @@ import UploadArtworkCTA from "../components/UploadArtworkCTA";
 import ComparisonTable from "../components/ComparisonTable";
 import FAQ from "../components/FAQ";
 import PackagingAcademy from "../components/PackagingAcademy";
+import AuthorityHub from "../components/AuthorityHub";
+import MarketHub from "../components/MarketHub";
 import FinalCTA from "../components/FinalCTA";
 import QuoteSection from "../components/QuoteSection";
 import Footer from "../components/Footer";
@@ -50,6 +52,8 @@ export default function Home() {
       <ComparisonTable />
       <FAQ />
       <PackagingAcademy />
+      <AuthorityHub />
+      <MarketHub />
       <FinalCTA />
       <QuoteSection />
       <Footer />
