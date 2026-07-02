@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { products } from "../data/products";
 import { blogPosts } from "../data/blogPosts";
+import { categories } from "../data/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://printypackaging.com";
@@ -19,6 +20,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  const categoryUrls = categories.map((category) => ({
+    url: `${baseUrl}/categories/${category.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.88,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -33,12 +41,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      url: `${baseUrl}/categories`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.85,
     },
     ...productUrls,
+    ...categoryUrls,
     ...blogUrls,
   ];
 }
