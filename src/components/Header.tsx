@@ -78,15 +78,19 @@ export default function Header() {
           <a className="transition hover:text-[#FF6A00]" href="/#industries">
             Industries
           </a>
+
           <a className="transition hover:text-[#FF6A00]" href="/#materials">
             Materials
           </a>
+
           <a className="transition hover:text-[#FF6A00]" href="/#finishing">
             Finishing
           </a>
-          <a className="transition hover:text-[#FF6A00]" href="/#blog">
+
+          <a className="transition hover:text-[#FF6A00]" href="/blog">
             Blog
           </a>
+
           <a className="transition hover:text-[#FF6A00]" href="/#quote">
             Quote
           </a>
@@ -122,7 +126,7 @@ export default function Header() {
               ["Industries", "/#industries"],
               ["Materials", "/#materials"],
               ["Finishing", "/#finishing"],
-              ["Blog", "/#blog"],
+              ["Blog", "/blog"],
               ["Quote", "/#quote"],
               ["Contact", "/#contact"],
             ].map(([label, link]) => (
