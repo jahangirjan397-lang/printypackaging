@@ -16,6 +16,13 @@ body {
   margin: 0;
   background: #ffffff;
   color: #07111f;
+  padding-bottom: 68px;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
 }
 
 ::selection {

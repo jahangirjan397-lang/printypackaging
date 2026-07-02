@@ -1,36 +1,13 @@
 export default function Footer() {
-  const productLinks = [
-    "Rigid Boxes",
-    "Folding Cartons",
-    "Butter Paper",
-    "Food Packaging",
-    "Paper Bags",
-    "Labels",
-  ];
-
-  const companyLinks = [
-    "About Us",
-    "Industries",
-    "Materials",
-    "Finishing",
-    "Portfolio",
-    "Blog",
-  ];
-
-  const supportLinks = [
-    "Get Quote",
-    "Artwork Guide",
-    "FAQ",
-    "Client Support",
-    "Contact",
-    "Sample Kit",
-  ];
+  const productLinks = ["Rigid Boxes", "Folding Cartons", "Butter Paper", "Food Packaging", "Paper Bags", "Labels"];
+  const companyLinks = ["About Us", "Industries", "Materials", "Finishing", "Portfolio", "Blog"];
+  const supportLinks = ["Get Quote", "Artwork Guide", "FAQ", "Client Support", "Contact", "Sample Kit"];
 
   return (
-    <footer id="contact" className="bg-[#07111F] px-5 py-16 text-white md:px-8">
+    <footer id="contact" className="bg-[#07111F] px-4 py-14 text-white sm:px-5 md:px-8 md:py-16">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.9fr_0.9fr_0.9fr]">
-          <div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.9fr_0.9fr_0.9fr]">
+          <div className="sm:col-span-2 lg:col-span-1">
             <h3 className="text-3xl font-black">
               Printy<span className="text-[#00C2E8]">Packaging</span>
             </h3>
@@ -46,18 +23,6 @@ export default function Footer() {
                 Send your product details and our team will guide you with box
                 style, material and finishing options.
               </p>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <span className="rounded-full bg-white/5 px-4 py-2 text-xs font-bold text-slate-300">
-                Custom Boxes
-              </span>
-              <span className="rounded-full bg-white/5 px-4 py-2 text-xs font-bold text-slate-300">
-                Rigid Boxes
-              </span>
-              <span className="rounded-full bg-white/5 px-4 py-2 text-xs font-bold text-slate-300">
-                Butter Paper
-              </span>
             </div>
           </div>
 

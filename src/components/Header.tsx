@@ -18,10 +18,10 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-5 md:px-8 md:py-4">
         <a
           href="#"
-          className="text-2xl font-black tracking-tight text-[#07111F] md:text-3xl"
+          className="text-xl font-black tracking-tight text-[#07111F] sm:text-2xl md:text-3xl"
         >
           Printy<span className="text-[#FF6A00]">Packaging</span>
         </a>
@@ -89,14 +89,14 @@ export default function Header() {
           </a>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button className="hidden rounded-full border border-[#007C91]/20 bg-[#007C91]/10 px-5 py-3 text-sm font-black text-[#007C91] transition hover:bg-[#007C91] hover:text-white md:block">
             Translate
           </button>
 
           <a
             href="#quote"
-            className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
+            className="hidden rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] sm:inline-flex"
           >
             Get Quote
           </a>
@@ -111,16 +111,35 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-slate-200 bg-white px-5 py-5 lg:hidden">
-          <div className="grid gap-4 text-sm font-black text-[#07111F]">
-            <a href="#" onClick={() => setMobileOpen(false)}>Home</a>
-            <a href="#products" onClick={() => setMobileOpen(false)}>Products</a>
-            <a href="#industries" onClick={() => setMobileOpen(false)}>Industries</a>
-            <a href="#materials" onClick={() => setMobileOpen(false)}>Materials</a>
-            <a href="#finishing" onClick={() => setMobileOpen(false)}>Finishing</a>
-            <a href="#blog" onClick={() => setMobileOpen(false)}>Blog</a>
-            <a href="#quote" onClick={() => setMobileOpen(false)}>Quote</a>
-            <a href="#contact" onClick={() => setMobileOpen(false)}>Contact</a>
+        <div className="border-t border-slate-200 bg-white px-4 py-5 shadow-xl lg:hidden">
+          <div className="grid gap-3 text-sm font-black text-[#07111F]">
+            {[
+              ["Home", "#"],
+              ["Products", "#products"],
+              ["Industries", "#industries"],
+              ["Materials", "#materials"],
+              ["Finishing", "#finishing"],
+              ["Blog", "#blog"],
+              ["Quote", "#quote"],
+              ["Contact", "#contact"],
+            ].map(([label, link]) => (
+              <a
+                key={label}
+                href={link}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-2xl bg-[#F7FAFC] px-4 py-3"
+              >
+                {label}
+              </a>
+            ))}
+
+            <a
+              href="#quote"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-2xl bg-[#FF6A00] px-4 py-3 text-center text-white"
+            >
+              Get Custom Quote
+            </a>
           </div>
         </div>
       )}
