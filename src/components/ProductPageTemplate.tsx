@@ -1,55 +1,70 @@
 import type { Product } from "../data/products";
+import { products } from "../data/products";
 
 export default function ProductPageTemplate({ product }: { product: Product }) {
+  const relatedProducts = products
+    .filter((item) => item.slug !== product.slug)
+    .slice(0, 4);
+
   return (
     <main>
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
-              {product.category}
-            </p>
-
-            <h1 className="mt-5 text-4xl font-black leading-tight md:text-6xl">
-              {product.name}
-            </h1>
-
-            <p className="mt-5 text-2xl font-black text-[#FF6A00]">
-              {product.tagline}
-            </p>
-
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              {product.description}
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#quote"
-                className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:bg-[#007C91]"
-              >
-                Get Quote
-              </a>
-
-              <a
-                href="/"
-                className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
-              >
-                Back Home
-              </a>
-            </div>
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
+            <a href="/" className="hover:text-[#00C2E8]">Home</a>
+            <span>/</span>
+            <a href="/#products" className="hover:text-[#00C2E8]">Products</a>
+            <span>/</span>
+            <span className="text-[#FF6A00]">{product.name}</span>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl">
-            <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-              <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
-              <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
-              <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
-                <div className="mx-auto mt-12 h-16 w-16 rounded-full border border-[#FF6A00]" />
-                <p className="mt-8 text-center text-xl font-black tracking-widest text-white">
-                  {product.name.split(" ")[0]}
-                </p>
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
+                {product.category}
+              </p>
+
+              <h1 className="mt-5 text-4xl font-black leading-tight md:text-6xl">
+                {product.name}
+              </h1>
+
+              <p className="mt-5 text-2xl font-black text-[#FF6A00]">
+                {product.tagline}
+              </p>
+
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+                {product.description}
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="#quote"
+                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:bg-[#007C91]"
+                >
+                  Get Quote
+                </a>
+
+                <a
+                  href="/#products"
+                  className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
+                >
+                  View All Products
+                </a>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl">
+              <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
+                <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+                <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
+                <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
+                  <div className="mx-auto mt-12 h-16 w-16 rounded-full border border-[#FF6A00]" />
+                  <p className="mt-8 text-center text-xl font-black tracking-widest text-white">
+                    {product.name.split(" ")[0]}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -68,8 +83,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              This page is built for SEO authority with product-specific content,
-              keywords, FAQs, features, materials and finishing options.
+              {product.name} help brands improve presentation, product safety,
+              customer experience and professional shelf impact.
             </p>
           </div>
 
@@ -116,6 +131,37 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 <h3 className="font-black text-[#07111F]">{faq.question}</h3>
                 <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+            Related Products
+          </p>
+
+          <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
+            Explore more packaging solutions
+          </h2>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {relatedProducts.map((item) => (
+              <a
+                key={item.slug}
+                href={`/products/${item.slug}`}
+                className="pp-card rounded-[1.5rem] bg-white p-6 shadow-md"
+              >
+                <div className="mb-5 h-32 rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+                <h3 className="text-xl font-black text-[#07111F]">{item.name}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">
+                  {item.tagline}
+                </p>
+                <span className="mt-5 inline-flex font-black text-[#FF6A00]">
+                  View Page →
+                </span>
+              </a>
             ))}
           </div>
         </div>
