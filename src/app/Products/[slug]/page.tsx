@@ -53,7 +53,7 @@ export default async function ProductPage({ params }: PageProps) {
     notFound();
   }
 
-  const jsonLd = {
+  const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
@@ -66,6 +66,44 @@ export default async function ProductPage({ params }: PageProps) {
     url: `https://printypackaging.com/products/${product.slug}`,
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://printypackaging.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Products",
+        item: "https://printypackaging.com/products",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: `https://printypackaging.com/products/${product.slug}`,
+      },
+    ],
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: product.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <Header />
@@ -73,7 +111,21 @@ export default async function ProductPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd),
+          __html: JSON.stringify(productJsonLd),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd),
         }}
       />
 
