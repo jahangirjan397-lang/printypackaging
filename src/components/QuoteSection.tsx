@@ -1,79 +1,219 @@
+import { products } from "../data/products";
+
 export default function QuoteSection() {
   return (
-    <section
-      id="quote"
-      className="relative overflow-hidden bg-gradient-to-r from-[#00C2E8] via-[#7DA6A8] to-[#FF6A00] px-4 py-20 text-white sm:px-5 md:px-8 md:py-24"
-    >
-      <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(90deg,white_1px,transparent_1px),linear-gradient(white_1px,transparent_1px)] [background-size:40px_40px]" />
+    <section id="quote" className="bg-[#F7FAFC] px-5 py-24 md:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+              Request Custom Quote
+            </p>
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-center">
-        <div className="text-center lg:text-left">
-          <p className="text-xs font-black uppercase tracking-[0.35em] md:text-sm">
-            Get Quote
-          </p>
+            <h2 className="mt-4 text-4xl font-black leading-tight text-[#07111F] md:text-6xl">
+              Get packaging price guidance for your project
+            </h2>
 
-          <h2 className="mx-auto mt-4 max-w-xl text-3xl font-black leading-tight sm:text-4xl md:text-6xl lg:mx-0">
-            Ready to create custom packaging?
-          </h2>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              Share your product details, quantity, size, material and finishing
+              needs. Our team will guide you with the best packaging solution.
+            </p>
 
-          <p className="mx-auto mt-5 max-w-2xl text-base font-medium leading-7 text-white/95 md:text-lg md:leading-8 lg:mx-0">
-            Share product type, size, quantity and finishing. Our team will guide
-            you with the best packaging solution for your brand.
-          </p>
-
-          <div className="mx-auto mt-8 grid max-w-xl grid-cols-2 gap-4 lg:mx-0">
-            <div className="rounded-2xl bg-white/15 p-4 backdrop-blur">
-              <p className="text-2xl font-black">24h</p>
-              <p className="text-sm font-bold text-white/90">Fast Quote</p>
+            <div className="mt-8 grid gap-4">
+              {[
+                "Custom box style suggestion",
+                "Material and GSM guidance",
+                "Printing and finishing options",
+                "International buyer support",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#00C2E8] font-black text-[#07111F]">
+                    ✓
+                  </div>
+                  <p className="font-black text-[#07111F]">{item}</p>
+                </div>
+              ))}
             </div>
 
-            <div className="rounded-2xl bg-white/15 p-4 backdrop-blur">
-              <p className="text-2xl font-black">Custom</p>
-              <p className="text-sm font-bold text-white/90">Sizes & Finish</p>
+            <div className="mt-8 rounded-[1.7rem] bg-[#07111F] p-6 text-white">
+              <p className="text-xl font-black">Fast Quote Checklist</p>
+              <p className="mt-3 leading-7 text-slate-300">
+                For accurate quote, please send product size, quantity, box
+                style, material preference, printing colors and finishing details.
+              </p>
             </div>
           </div>
-        </div>
 
-        <form className="rounded-[1.6rem] bg-white p-5 text-[#07111F] shadow-2xl md:rounded-[2rem] md:p-8">
-          <div className="grid gap-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <input className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100" placeholder="Product type" />
-              <input className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100" placeholder="Quantity" />
+          <form
+            action="/thank-you"
+            method="get"
+            className="rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
+          >
+            <div className="grid gap-5 md:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  Full Name
+                </label>
+                <input
+                  name="name"
+                  required
+                  placeholder="Your name"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  Email
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="your@email.com"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  WhatsApp
+                </label>
+                <input
+                  name="whatsapp"
+                  placeholder="+1 000 000 0000"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  Country
+                </label>
+                <select
+                  name="country"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                >
+                  <option>USA</option>
+                  <option>UK</option>
+                  <option>Canada</option>
+                  <option>Europe</option>
+                  <option>UAE</option>
+                  <option>Australia</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  Product Type
+                </label>
+                <select
+                  name="product"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                >
+                  {products.map((product) => (
+                    <option key={product.slug}>{product.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  Quantity
+                </label>
+                <input
+                  name="quantity"
+                  placeholder="500 / 1000 / 5000"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  Size
+                </label>
+                <input
+                  name="size"
+                  placeholder="L x W x H"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-sm font-black text-[#07111F]">
+                  Material
+                </label>
+                <select
+                  name="material"
+                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                >
+                  <option>Need suggestion</option>
+                  <option>SBS Board</option>
+                  <option>Kraft Paper</option>
+                  <option>Rigid Board</option>
+                  <option>Corrugated Board</option>
+                  <option>Art Card</option>
+                  <option>Butter Paper</option>
+                </select>
+              </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <input className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100" placeholder="Size / Dimensions" />
-
-              <select className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100">
-                <option>Select category</option>
-                <option>Rigid Boxes</option>
-                <option>Folding Cartons</option>
-                <option>Butter Paper</option>
-                <option>Food Packaging</option>
-                <option>Paper Bags</option>
-                <option>Labels & Stickers</option>
+            <div className="mt-5">
+              <label className="mb-2 block text-sm font-black text-[#07111F]">
+                Finishing Options
+              </label>
+              <select
+                name="finishing"
+                className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+              >
+                <option>Need suggestion</option>
+                <option>Matte Lamination</option>
+                <option>Gloss Lamination</option>
+                <option>Spot UV</option>
+                <option>Gold Foiling</option>
+                <option>Embossing</option>
+                <option>Die Cutting</option>
+                <option>Multiple Finishes</option>
               </select>
             </div>
 
-            <select className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100">
-              <option>Select finishing</option>
-              <option>Matte Lamination</option>
-              <option>Gloss Lamination</option>
-              <option>Spot UV</option>
-              <option>Gold Foiling</option>
-              <option>Embossing</option>
-              <option>Die Cutting</option>
-            </select>
+            <div className="mt-5">
+              <label className="mb-2 block text-sm font-black text-[#07111F]">
+                Project Details
+              </label>
+              <textarea
+                name="message"
+                rows={5}
+                placeholder="Tell us about your product, packaging style, printing colors and artwork..."
+                className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+              />
+            </div>
 
-            <input className="w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100" placeholder="Email / WhatsApp" />
+            <div className="mt-5 rounded-2xl border border-dashed border-[#00C2E8] bg-[#00C2E8]/10 p-5">
+              <p className="font-black text-[#07111F]">Artwork Upload</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                File upload will be connected in the next backend level. For now,
+                mention if artwork is ready or needs design support.
+              </p>
+            </div>
 
-            <textarea className="min-h-28 w-full rounded-2xl border border-slate-300 p-4 outline-none transition focus:border-[#00C2E8] focus:ring-4 focus:ring-cyan-100" placeholder="Tell us more about your packaging project" />
-
-            <button className="rounded-2xl bg-[#07111F] p-4 font-black text-white transition hover:bg-[#007C91]">
-              Request Quote
+            <button
+              type="submit"
+              className="mt-6 w-full rounded-full bg-[#FF6A00] px-8 py-5 text-lg font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
+            >
+              Submit Quote Request
             </button>
-          </div>
-        </form>
+
+            <p className="mt-4 text-center text-sm text-slate-500">
+              This front-end form is ready. Email/backend connection will be added
+              in the next technical level.
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   );
