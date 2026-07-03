@@ -1,6 +1,50 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { products } from "../data/products";
 
 export default function QuoteSection() {
+  const router = useRouter();
+  const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setIsSending(true);
+    setErrorMessage("");
+
+    const formData = new FormData(event.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Quote request failed.");
+      }
+
+      router.push("/thank-you");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsSending(false);
+    }
+  }
+
   return (
     <section id="quote" className="bg-[#F7FAFC] px-5 py-24 md:px-8">
       <div className="mx-auto max-w-7xl">
@@ -48,8 +92,7 @@ export default function QuoteSection() {
           </div>
 
           <form
-            action="/thank-you"
-            method="get"
+            onSubmit={handleSubmit}
             className="rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
           >
             <div className="grid gap-5 md:grid-cols-2">
@@ -201,16 +244,22 @@ export default function QuoteSection() {
               </p>
             </div>
 
+            {errorMessage && (
+              <div className="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700">
+                {errorMessage}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="mt-6 w-full rounded-full bg-[#FF6A00] px-8 py-5 text-lg font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
+              disabled={isSending}
+              className="mt-6 w-full rounded-full bg-[#FF6A00] px-8 py-5 text-lg font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Submit Quote Request
+              {isSending ? "Sending Quote Request..." : "Submit Quote Request"}
             </button>
 
             <p className="mt-4 text-center text-sm text-slate-500">
-              This front-end form is ready. Email/backend connection will be added
-              in the next technical level.
+              Your quote request will be sent to our packaging team.
             </p>
           </form>
         </div>
