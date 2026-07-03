@@ -219,7 +219,7 @@ export async function POST(request: Request) {
           <hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0" />
 
           <p style="font-size:13px;color:#64748b">
-            This lead was submitted from Printy Packaging website and saved to Google Sheet CRM.
+            This lead was submitted from Printy Packaging website.
           </p>
         </div>
       </div>
@@ -252,7 +252,7 @@ export async function POST(request: Request) {
       </div>
     `;
 
-    await transporter.sendMail({
+    const adminEmailInfo = await transporter.sendMail({
       from: `"Printy Packaging Website" <${fromEmail}>`,
       to: receiverEmail,
       replyTo: lead.email,
@@ -279,13 +279,20 @@ ${lead.message}
 `,
     });
 
-    await transporter.sendMail({
-      from: `"Printy Packaging" <${fromEmail}>`,
-      to: lead.email,
-      replyTo: receiverEmail,
-      subject: clientSubject,
-      html: clientHtml,
-      text: `
+    console.log("Admin email sent:", adminEmailInfo.messageId);
+
+    let clientAutoReplySent = false;
+    let clientEmailMessageId = "";
+    let clientEmailError = "";
+
+    try {
+      const clientEmailInfo = await transporter.sendMail({
+        from: `"Printy Packaging" <${fromEmail}>`,
+        to: lead.email,
+        replyTo: receiverEmail,
+        subject: clientSubject,
+        html: clientHtml,
+        text: `
 Thank you ${lead.name},
 
 We received your custom packaging quote request.
@@ -296,7 +303,22 @@ Our packaging team will review your details and contact you soon.
 
 Printy Packaging
 `,
-    });
+      });
+
+      clientAutoReplySent = true;
+      clientEmailMessageId = clientEmailInfo.messageId;
+
+      console.log("Client auto reply sent to:", lead.email);
+      console.log("Client email message ID:", clientEmailInfo.messageId);
+    } catch (clientError) {
+      clientAutoReplySent = false;
+      clientEmailError =
+        clientError instanceof Error
+          ? clientError.message
+          : "Client auto reply failed.";
+
+      console.error("Client auto reply error:", clientEmailError);
+    }
 
     const crmResult = await saveLeadToGoogleSheet(lead);
 
@@ -306,6 +328,12 @@ Printy Packaging
       success: true,
       message: "Quote request sent successfully.",
       quoteId,
+      adminEmailSent: true,
+      adminEmailMessageId: adminEmailInfo.messageId,
+      clientAutoReplySent,
+      clientAutoReplySentTo: lead.email,
+      clientEmailMessageId,
+      clientEmailError,
       crm: crmResult,
     });
   } catch (error) {
