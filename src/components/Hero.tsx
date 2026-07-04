@@ -1,14 +1,20 @@
+const trustPoints = [
+  "Premium Quality",
+  "Fast Delivery",
+  "Custom Sizes",
+  "Global Support",
+];
+
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#07111F] text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.22),transparent_32%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.12),transparent_30%)]" />
-      <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:46px_46px]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.2),transparent_30%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.12),transparent_28%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-20 lg:grid-cols-2 lg:py-24">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-20 lg:grid-cols-2 lg:py-24">
         <div className="text-center lg:text-left">
-          <span className="inline-flex rounded-full border border-[#00C2E8]/40 bg-[#00C2E8]/10 px-4 py-2 text-[11px] font-black text-[#9FEFFF] shadow-lg shadow-cyan-500/10 sm:text-xs md:text-sm">
+          <p className="inline-flex rounded-full border border-[#00C2E8]/40 bg-[#00C2E8]/10 px-4 py-2 text-xs font-black text-[#9FEFFF] shadow-lg shadow-cyan-500/10 md:text-sm">
             Premium Custom Printing & Packaging
-          </span>
+          </p>
 
           <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Packaging That
@@ -29,7 +35,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
             <a
               href="#quote"
-              className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-xl shadow-orange-500/30 transition hover:-translate-y-1 hover:bg-[#007C91] md:px-7 md:py-4"
+              className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] md:px-7 md:py-4"
             >
               Get Instant Quote
             </a>
@@ -43,27 +49,25 @@ export default function Hero() {
           </div>
 
           <div className="mx-auto mt-9 grid max-w-2xl grid-cols-2 gap-3 rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur md:grid-cols-4 lg:mx-0">
-            {["Premium Quality", "Fast Delivery", "Custom Sizes", "Global Support"].map(
-              (item) => (
-                <div key={item} className="text-center lg:text-left">
-                  <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00C2E8]/15 text-sm font-black text-[#00C2E8] lg:mx-0">
-                    ✓
-                  </div>
-                  <p className="text-[11px] font-black text-white sm:text-xs md:text-sm">
-                    {item}
-                  </p>
+            {trustPoints.map((item) => (
+              <div key={item} className="text-center lg:text-left">
+                <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00C2E8]/15 text-sm font-black text-[#00C2E8] lg:mx-0">
+                  &#10003;
                 </div>
-              )
-            )}
+                <p className="text-[11px] font-black text-white sm:text-xs md:text-sm">
+                  {item}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="relative mx-auto w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-none">
           <div className="absolute -inset-4 rounded-[2rem] bg-[#00C2E8]/20 blur-3xl md:-inset-6" />
 
-          <div className="pp-float relative rounded-[1.6rem] border border-[#00C2E8]/20 bg-white/[0.07] p-3 shadow-2xl shadow-cyan-500/10 backdrop-blur md:rounded-[2rem] md:p-6">
+          <div className="relative rounded-[1.6rem] border border-[#00C2E8]/20 bg-white/[0.07] p-3 shadow-2xl shadow-cyan-500/10 backdrop-blur md:rounded-[2rem] md:p-6">
             <div className="relative h-[280px] overflow-hidden rounded-[1.3rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8] sm:h-[330px] md:h-[440px] md:rounded-[1.5rem]">
-              <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:28px_28px]" />
+              <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:28px_28px]" />
 
               <div className="absolute bottom-8 left-5 h-28 w-44 rotate-[-7deg] rounded-2xl border border-white/20 bg-[#007C91] shadow-2xl sm:h-32 sm:w-48 md:bottom-10 md:left-10 md:h-44 md:w-64" />
 
@@ -84,7 +88,7 @@ export default function Hero() {
                   Custom Rigid Boxes
                 </p>
                 <p className="text-[9px] text-slate-500 md:text-xs">
-                  Foil • Emboss • Premium Finish
+                  Foil &bull; Emboss &bull; Premium Finish
                 </p>
               </div>
             </div>
