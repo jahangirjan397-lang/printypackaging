@@ -2,9 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-
-  // Next.js 16: static shell + dynamic streaming/caching support
-  cacheComponents: true,
+  reactStrictMode: true,
 
   images: {
     formats: ["image/avif", "image/webp"],
@@ -23,8 +21,8 @@ const nextConfig: NextConfig = {
     optimizePackageImports: [
       "lucide-react",
       "framer-motion",
-      "date-fns",
       "react-icons",
+      "date-fns",
     ],
   },
 };
