@@ -6,6 +6,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
     .filter((item) => item.slug !== product.slug)
     .slice(0, 4);
 
+  const productQuoteLink = `/?product=${product.slug}#quote`;
+
   return (
     <main>
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
@@ -13,9 +15,13 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
-            <a href="/" className="hover:text-[#00C2E8]">Home</a>
+            <a href="/" className="hover:text-[#00C2E8]">
+              Home
+            </a>
             <span>/</span>
-            <a href="/#products" className="hover:text-[#00C2E8]">Products</a>
+            <a href="/products" className="hover:text-[#00C2E8]">
+              Products
+            </a>
             <span>/</span>
             <span className="text-[#FF6A00]">{product.name}</span>
           </div>
@@ -40,14 +46,14 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
-                  href="#quote"
+                  href={productQuoteLink}
                   className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:bg-[#007C91]"
                 >
                   Get Quote
                 </a>
 
                 <a
-                  href="/#products"
+                  href="/products"
                   className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
                 >
                   View All Products
@@ -71,7 +77,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
         </div>
       </section>
 
-      <section id="quote" className="bg-white px-5 py-20 md:px-8">
+      <section id="product-details" className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
@@ -154,7 +160,9 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 className="pp-card rounded-[1.5rem] bg-white p-6 shadow-md"
               >
                 <div className="mb-5 h-32 rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
-                <h3 className="text-xl font-black text-[#07111F]">{item.name}</h3>
+                <h3 className="text-xl font-black text-[#07111F]">
+                  {item.name}
+                </h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">
                   {item.tagline}
                 </p>
@@ -179,8 +187,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
           </p>
 
           <a
-            href="/#quote"
-            className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white"
+            href={productQuoteLink}
+            className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
           >
             Request Quote
           </a>

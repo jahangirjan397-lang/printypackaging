@@ -1,13 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { products } from "../data/products";
 
 export default function QuoteSection() {
   const router = useRouter();
+
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(
+    products[0]?.name || ""
+  );
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const productParam = params.get("product");
+
+    if (!productParam) return;
+
+    const cleanParam = productParam.toLowerCase().trim();
+
+    const matchedProduct = products.find((product) => {
+      const productSlug = product.slug.toLowerCase();
+      const productName = product.name.toLowerCase();
+      const productNameAsSlug = product.name.toLowerCase().replaceAll(" ", "-");
+
+      return (
+        productSlug === cleanParam ||
+        productName === cleanParam ||
+        productNameAsSlug === cleanParam
+      );
+    });
+
+    if (matchedProduct) {
+      setSelectedProduct(matchedProduct.name);
+    }
+  }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -86,7 +115,8 @@ export default function QuoteSection() {
               <p className="text-xl font-black">Fast Quote Checklist</p>
               <p className="mt-3 leading-7 text-slate-300">
                 For accurate quote, please send product size, quantity, box
-                style, material preference, printing colors and finishing details.
+                style, material preference, printing colors and finishing
+                details.
               </p>
             </div>
           </div>
@@ -156,10 +186,14 @@ export default function QuoteSection() {
                 </label>
                 <select
                   name="product"
+                  value={selectedProduct}
+                  onChange={(event) => setSelectedProduct(event.target.value)}
                   className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
                 >
                   {products.map((product) => (
-                    <option key={product.slug}>{product.name}</option>
+                    <option key={product.slug} value={product.name}>
+                      {product.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -239,8 +273,8 @@ export default function QuoteSection() {
             <div className="mt-5 rounded-2xl border border-dashed border-[#00C2E8] bg-[#00C2E8]/10 p-5">
               <p className="font-black text-[#07111F]">Artwork Upload</p>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                File upload will be connected in the next backend level. For now,
-                mention if artwork is ready or needs design support.
+                File upload will be connected in the next backend level. For
+                now, mention if artwork is ready or needs design support.
               </p>
             </div>
 
