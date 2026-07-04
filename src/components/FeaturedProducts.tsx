@@ -1,14 +1,17 @@
+import Link from "next/link";
 import { products } from "../data/products";
+
+const featuredProducts = products.slice(0, 8);
 
 export default function FeaturedProducts() {
   return (
     <section
       id="products"
-      className="bg-[#F7FAFC] px-4 py-20 sm:px-5 md:px-8 md:py-24"
+      className="bg-[#F7FAFC] px-4 py-16 sm:px-5 md:px-8 md:py-20"
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#FF6A00] md:text-sm">
+          <p className="text-xs font-black uppercase tracking-[0.28em] text-[#FF6A00] md:text-sm">
             Featured Products
           </p>
 
@@ -22,19 +25,21 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-6">
-          {products.map((item, index) => (
-            <a
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-6">
+          {featuredProducts.map((item, index) => (
+            <Link
               href={`/products/${item.slug}`}
+              prefetch={false}
               key={item.slug}
-              className="pp-card group block overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-md md:rounded-[1.7rem]"
+              aria-label={`View details for ${item.name}`}
+              className="group block overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl md:rounded-[1.7rem]"
             >
               <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8] p-5 sm:h-48 md:h-52">
-                <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
+                <div className="pointer-events-none absolute inset-0 opacity-15 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
 
-                <div className="absolute bottom-5 left-5 h-24 w-24 rotate-[-8deg] rounded-2xl bg-white shadow-2xl transition group-hover:rotate-[-3deg]" />
+                <div className="absolute bottom-5 left-5 h-24 w-24 rotate-[-8deg] rounded-2xl bg-white shadow-2xl transition duration-300 group-hover:rotate-[-3deg]" />
 
-                <div className="absolute bottom-8 right-7 h-32 w-24 rounded-2xl bg-[#07111F] shadow-2xl transition group-hover:-translate-y-2">
+                <div className="absolute bottom-8 right-7 h-32 w-24 rounded-2xl bg-[#07111F] shadow-2xl transition duration-300 group-hover:-translate-y-2">
                   <div className="mx-auto mt-6 h-9 w-9 rounded-full border border-[#FF6A00]" />
                   <p className="mt-4 text-center text-[10px] font-black tracking-widest text-white">
                     BOX
@@ -60,10 +65,10 @@ export default function FeaturedProducts() {
                 </p>
 
                 <span className="mt-5 inline-flex font-black text-[#FF6A00] transition group-hover:text-[#007C91]">
-                  View Details →
+                  View Details &rarr;
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
