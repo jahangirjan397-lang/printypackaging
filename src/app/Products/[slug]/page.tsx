@@ -5,11 +5,16 @@ import Footer from "../../../components/Footer";
 import ProductPageTemplate from "../../../components/ProductPageTemplate";
 import { getProductBySlug, products } from "../../../data/products";
 
+const siteUrl = "https://printypackaging.com";
+const brandName = "Printy Packaging";
+
 type PageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return products.map((product) => ({
@@ -25,22 +30,41 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | Printy Packaging",
+      title: `Product Not Found | ${brandName}`,
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
+  const productUrl = `${siteUrl}/products/${product.slug}`;
+  const title = `${product.name} | Custom ${product.name} Packaging | ${brandName}`;
+  const description = product.description;
+
   return {
-    title: `${product.name} | Custom ${product.name} Packaging | Printy Packaging`,
-    description: product.description,
+    title,
+    description,
     keywords: product.keywords,
     alternates: {
-      canonical: `https://printypackaging.com/products/${product.slug}`,
+      canonical: productUrl,
     },
     openGraph: {
-      title: `${product.name} | Printy Packaging`,
-      description: product.description,
-      url: `https://printypackaging.com/products/${product.slug}`,
+      title,
+      description,
+      url: productUrl,
+      siteName: brandName,
       type: "website",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -53,6 +77,8 @@ export default async function ProductPage({ params }: PageProps) {
     notFound();
   }
 
+  const productUrl = `${siteUrl}/products/${product.slug}`;
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -60,10 +86,10 @@ export default async function ProductPage({ params }: PageProps) {
     description: product.description,
     brand: {
       "@type": "Brand",
-      name: "Printy Packaging",
+      name: brandName,
     },
     category: product.category,
-    url: `https://printypackaging.com/products/${product.slug}`,
+    url: productUrl,
   };
 
   const breadcrumbJsonLd = {
@@ -74,34 +100,21 @@ export default async function ProductPage({ params }: PageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://printypackaging.com",
+        item: siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Products",
-        item: "https://printypackaging.com/products",
+        item: `${siteUrl}/products`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: product.name,
-        item: `https://printypackaging.com/products/${product.slug}`,
+        item: productUrl,
       },
     ],
-  };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: product.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
   };
 
   return (
@@ -119,13 +132,6 @@ export default async function ProductPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbJsonLd),
-        }}
-      />
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd),
         }}
       />
 
