@@ -1,5 +1,13 @@
+import Link from "next/link";
 import type { Category } from "../data/categories";
 import { products } from "../data/products";
+
+const authorityItems = [
+  "Clear product grouping",
+  "Better internal linking",
+  "Stronger SEO structure",
+  "Easy buyer navigation",
+];
 
 export default function CategoryPageTemplate({
   category,
@@ -21,13 +29,17 @@ export default function CategoryPageTemplate({
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
-            <a href="/" className="hover:text-[#00C2E8]">
+            <Link href="/" prefetch={false} className="hover:text-[#00C2E8]">
               Home
-            </a>
+            </Link>
             <span>/</span>
-            <a href="/categories" className="hover:text-[#00C2E8]">
+            <Link
+              href="/categories"
+              prefetch={false}
+              className="hover:text-[#00C2E8]"
+            >
               Categories
-            </a>
+            </Link>
             <span>/</span>
             <span className="text-[#FF6A00]">{category.name}</span>
           </div>
@@ -53,29 +65,48 @@ export default function CategoryPageTemplate({
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
                   href="#category-products"
-                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:bg-[#007C91]"
+                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
                 >
                   View Products
                 </a>
 
-                <a
+                <Link
                   href="/#quote"
+                  prefetch={false}
                   className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
                 >
                   Get Quote
-                </a>
+                </Link>
+              </div>
+
+              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-3">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                  Custom Sizes
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                  Print Support
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                  Global Buyers
+                </div>
               </div>
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl">
               <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
                 <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+
                 <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
+
                 <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
                   <div className="mx-auto mt-12 h-16 w-16 rounded-full border border-[#FF6A00]" />
-                  <p className="mt-8 text-center text-lg font-black tracking-widest text-white">
+                  <p className="mt-8 px-4 text-center text-lg font-black tracking-widest text-white">
                     {category.name.split(" ")[0]}
                   </p>
+                </div>
+
+                <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
+                  Category Hub
                 </div>
               </div>
             </div>
@@ -95,9 +126,10 @@ export default function CategoryPageTemplate({
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {categoryProducts.map((product) => (
-              <a
+              <Link
                 key={product.slug}
                 href={`/products/${product.slug}`}
+                prefetch={false}
                 className="pp-card overflow-hidden rounded-[1.7rem] bg-white shadow-md"
               >
                 <div className="h-48 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
@@ -116,10 +148,10 @@ export default function CategoryPageTemplate({
                   </p>
 
                   <span className="mt-5 inline-flex font-black text-[#FF6A00]">
-                    View Product →
+                    View Product &rarr;
                   </span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -137,22 +169,25 @@ export default function CategoryPageTemplate({
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Category pages help customers compare related products and help
-              search engines understand your website structure. This creates a
-              stronger internal linking system for SEO.
+              Category pages help customers compare related packaging products
+              and help search engines understand your website structure. This
+              creates a stronger internal linking system for SEO.
             </p>
+
+            <Link
+              href="/#quote"
+              prefetch={false}
+              className="mt-8 inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#FF6A00]"
+            >
+              Ask for Recommendation
+            </Link>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
-            {[
-              "Clear product grouping",
-              "Better internal linking",
-              "Stronger SEO structure",
-              "Easy buyer navigation",
-            ].map((item) => (
+            {authorityItems.map((item) => (
               <div
                 key={item}
-                className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6"
+                className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
                   ✓
@@ -176,19 +211,26 @@ export default function CategoryPageTemplate({
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {otherProducts.map((product) => (
-              <a
+              <Link
                 key={product.slug}
                 href={`/products/${product.slug}`}
+                prefetch={false}
                 className="pp-card rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-6"
               >
+                <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[#00C2E8]">
+                  {product.category}
+                </p>
+
                 <h3 className="text-xl font-black">{product.name}</h3>
+
                 <p className="mt-3 text-sm leading-6 text-slate-300">
                   {product.tagline}
                 </p>
+
                 <span className="mt-5 inline-flex font-black text-[#FF6A00]">
-                  View Page →
+                  View Page &rarr;
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -205,12 +247,13 @@ export default function CategoryPageTemplate({
             packaging style, material, printing and finishing.
           </p>
 
-          <a
+          <Link
             href="/#quote"
-            className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white"
+            prefetch={false}
+            className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
           >
             Request Quote
-          </a>
+          </Link>
         </div>
       </section>
     </main>
