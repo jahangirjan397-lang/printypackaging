@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FloatingActions from "../../../components/FloatingActions";
 import { blogPosts, getBlogPostBySlug } from "../../../data/blogPosts";
 
+const siteUrl = "https://printypackaging.com";
+const brandName = "Printy Packaging";
+
 type PageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -25,22 +31,41 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Blog Not Found | Printy Packaging",
+      title: `Blog Not Found | ${brandName}`,
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
+  const postUrl = `${siteUrl}/blog/${post.slug}`;
+  const title = `${post.title} | ${brandName}`;
+  const description = post.excerpt;
+
   return {
-    title: `${post.title} | Printy Packaging`,
-    description: post.excerpt,
+    title,
+    description,
     keywords: post.keywords,
     alternates: {
-      canonical: `https://printypackaging.com/blog/${post.slug}`,
+      canonical: postUrl,
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      url: `https://printypackaging.com/blog/${post.slug}`,
+      title,
+      description,
+      url: postUrl,
+      siteName: brandName,
       type: "article",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -53,20 +78,29 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
+  const postUrl = `${siteUrl}/blog/${post.slug}`;
+  const relatedProductUrl = `/products/${post.relatedProductSlug}`;
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
+    articleSection: post.category,
     author: {
       "@type": "Organization",
-      name: "Printy Packaging",
+      name: brandName,
+      url: siteUrl,
     },
     publisher: {
       "@type": "Organization",
-      name: "Printy Packaging",
+      name: brandName,
+      url: siteUrl,
     },
-    mainEntityOfPage: `https://printypackaging.com/blog/${post.slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": postUrl,
+    },
   };
 
   const breadcrumbJsonLd = {
@@ -77,19 +111,19 @@ export default async function BlogPostPage({ params }: PageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://printypackaging.com",
+        item: siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://printypackaging.com/blog",
+        item: `${siteUrl}/blog`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `https://printypackaging.com/blog/${post.slug}`,
+        item: postUrl,
       },
     ],
   };
@@ -118,13 +152,17 @@ export default async function BlogPostPage({ params }: PageProps) {
 
           <div className="relative mx-auto max-w-4xl">
             <div className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
-              <a href="/" className="hover:text-[#00C2E8]">
+              <Link href="/" prefetch={false} className="hover:text-[#00C2E8]">
                 Home
-              </a>
+              </Link>
               <span>/</span>
-              <a href="/blog" className="hover:text-[#00C2E8]">
+              <Link
+                href="/blog"
+                prefetch={false}
+                className="hover:text-[#00C2E8]"
+              >
                 Blog
-              </a>
+              </Link>
               <span>/</span>
               <span className="text-[#FF6A00]">{post.title}</span>
             </div>
@@ -142,19 +180,21 @@ export default async function BlogPostPage({ params }: PageProps) {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href={`/products/${post.relatedProductSlug}`}
-                className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:bg-[#007C91]"
+              <Link
+                href={relatedProductUrl}
+                prefetch={false}
+                className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
               >
                 View {post.relatedProductName}
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href="/#quote"
+                prefetch={false}
                 className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
               >
                 Get Quote
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -182,16 +222,28 @@ export default async function BlogPostPage({ params }: PageProps) {
                 {post.relatedProductName}
               </h3>
 
-              <p className="mt-4 text-slate-600">
-                Learn more about this packaging solution and request a custom quote.
+              <p className="mt-4 leading-7 text-slate-600">
+                Learn more about this packaging solution and request a custom
+                quote for size, material, printing and finishing guidance.
               </p>
 
-              <a
-                href={`/products/${post.relatedProductSlug}`}
-                className="mt-6 inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white"
-              >
-                Open Product Page
-              </a>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <Link
+                  href={relatedProductUrl}
+                  prefetch={false}
+                  className="inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#FF6A00]"
+                >
+                  Open Product Page
+                </Link>
+
+                <Link
+                  href="/#quote"
+                  prefetch={false}
+                  className="inline-flex rounded-full border border-slate-300 px-7 py-4 font-black text-[#07111F] transition hover:border-[#00C2E8] hover:text-[#007C91]"
+                >
+                  Request Quote
+                </Link>
+              </div>
             </div>
           </article>
         </section>
