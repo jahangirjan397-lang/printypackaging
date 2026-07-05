@@ -6,11 +6,16 @@ import FloatingActions from "../../../components/FloatingActions";
 import MarketPageTemplate from "../../../components/MarketPageTemplate";
 import { getMarketBySlug, markets } from "../../../data/markets";
 
+const siteUrl = "https://printypackaging.com";
+const brandName = "Printy Packaging";
+
 type PageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return markets.map((market) => ({
@@ -26,22 +31,41 @@ export async function generateMetadata({
 
   if (!market) {
     return {
-      title: "Market Not Found | Printy Packaging",
+      title: `Market Not Found | ${brandName}`,
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
+  const marketUrl = `${siteUrl}/markets/${market.slug}`;
+  const title = `Custom Packaging for ${market.name} | ${brandName}`;
+  const description = market.description;
+
   return {
-    title: `Custom Packaging for ${market.name} | Printy Packaging`,
-    description: market.description,
+    title,
+    description,
     keywords: market.keywords,
     alternates: {
-      canonical: `https://printypackaging.com/markets/${market.slug}`,
+      canonical: marketUrl,
     },
     openGraph: {
-      title: `Custom Packaging for ${market.name} | Printy Packaging`,
-      description: market.description,
-      url: `https://printypackaging.com/markets/${market.slug}`,
+      title,
+      description,
+      url: marketUrl,
+      siteName: brandName,
       type: "website",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -54,12 +78,25 @@ export default async function MarketPage({ params }: PageProps) {
     notFound();
   }
 
+  const marketUrl = `${siteUrl}/markets/${market.slug}`;
+  const pageTitle = `Custom Packaging for ${market.name}`;
+
   const webpageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `Custom Packaging for ${market.name}`,
+    name: pageTitle,
     description: market.description,
-    url: `https://printypackaging.com/markets/${market.slug}`,
+    url: marketUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: brandName,
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: brandName,
+      url: siteUrl,
+    },
   };
 
   const breadcrumbJsonLd = {
@@ -70,19 +107,19 @@ export default async function MarketPage({ params }: PageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://printypackaging.com",
+        item: siteUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Markets",
-        item: "https://printypackaging.com/markets",
+        item: `${siteUrl}/markets`,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: market.name,
-        item: `https://printypackaging.com/markets/${market.slug}`,
+        item: marketUrl,
       },
     ],
   };
