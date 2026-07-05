@@ -1,27 +1,59 @@
+import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
 
 export default function ProductPageTemplate({ product }: { product: Product }) {
-  const relatedProducts = products
+  const sameCategoryProducts = products
+    .filter(
+      (item) => item.slug !== product.slug && item.category === product.category
+    )
+    .slice(0, 4);
+
+  const fallbackProducts = products
     .filter((item) => item.slug !== product.slug)
     .slice(0, 4);
 
+  const relatedProducts =
+    sameCategoryProducts.length >= 4 ? sameCategoryProducts : fallbackProducts;
+
   const productQuoteLink = `/?product=${product.slug}#quote`;
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: product.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
-            <a href="/" className="hover:text-[#00C2E8]">
+            <Link href="/" prefetch={false} className="hover:text-[#00C2E8]">
               Home
-            </a>
+            </Link>
             <span>/</span>
-            <a href="/products" className="hover:text-[#00C2E8]">
+            <Link
+              href="/products"
+              prefetch={false}
+              className="hover:text-[#00C2E8]"
+            >
               Products
-            </a>
+            </Link>
             <span>/</span>
             <span className="text-[#FF6A00]">{product.name}</span>
           </div>
@@ -45,31 +77,51 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                <a
+                <Link
                   href={productQuoteLink}
-                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:bg-[#007C91]"
+                  prefetch={false}
+                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
                 >
                   Get Quote
-                </a>
+                </Link>
 
-                <a
+                <Link
                   href="/products"
+                  prefetch={false}
                   className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
                 >
                   View All Products
-                </a>
+                </Link>
+              </div>
+
+              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-3">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                  Low MOQ Support
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                  Custom Size
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                  Print Ready Help
+                </div>
               </div>
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl">
               <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
                 <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+
                 <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
+
                 <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
                   <div className="mx-auto mt-12 h-16 w-16 rounded-full border border-[#FF6A00]" />
-                  <p className="mt-8 text-center text-xl font-black tracking-widest text-white">
+                  <p className="mt-8 px-4 text-center text-xl font-black tracking-widest text-white">
                     {product.name.split(" ")[0]}
                   </p>
+                </div>
+
+                <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
+                  Custom Packaging
                 </div>
               </div>
             </div>
@@ -92,13 +144,21 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               {product.name} help brands improve presentation, product safety,
               customer experience and professional shelf impact.
             </p>
+
+            <Link
+              href={productQuoteLink}
+              prefetch={false}
+              className="mt-8 inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#FF6A00]"
+            >
+              Request Price Guidance
+            </Link>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
             {product.features.map((feature) => (
               <div
                 key={feature}
-                className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6"
+                className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
                   ✓
@@ -130,13 +190,21 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
           <div className="mt-10 space-y-4">
             {product.faqs.map((faq) => (
-              <div
+              <details
                 key={faq.question}
-                className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6"
+                className="group rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6"
               >
-                <h3 className="font-black text-[#07111F]">{faq.question}</h3>
+                <summary className="cursor-pointer list-none font-black text-[#07111F]">
+                  <span className="flex items-center justify-between gap-5">
+                    {faq.question}
+                    <span className="text-[#FF6A00] transition group-open:rotate-45">
+                      +
+                    </span>
+                  </span>
+                </summary>
+
                 <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
-              </div>
+              </details>
             ))}
           </div>
         </div>
@@ -154,22 +222,30 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {relatedProducts.map((item) => (
-              <a
+              <Link
                 key={item.slug}
                 href={`/products/${item.slug}`}
+                prefetch={false}
                 className="pp-card rounded-[1.5rem] bg-white p-6 shadow-md"
               >
                 <div className="mb-5 h-32 rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+
+                <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[#00C2E8]">
+                  {item.category}
+                </p>
+
                 <h3 className="text-xl font-black text-[#07111F]">
                   {item.name}
                 </h3>
+
                 <p className="mt-2 text-sm leading-6 text-slate-600">
                   {item.tagline}
                 </p>
+
                 <span className="mt-5 inline-flex font-black text-[#FF6A00]">
-                  View Page →
+                  View Page &rarr;
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -186,12 +262,13 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
             the best material, printing and finishing options.
           </p>
 
-          <a
+          <Link
             href={productQuoteLink}
+            prefetch={false}
             className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
           >
             Request Quote
-          </a>
+          </Link>
         </div>
       </section>
     </main>

@@ -72,3 +72,15 @@ body {
     transform: translateY(0);
   }
 }
+.field-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgb(226 232 240);
+  background: #f7fafc;
+  padding: 1rem;
+  outline: none;
+}
+
+.field-input:focus {
+  border-color: #00c2e8;
+}

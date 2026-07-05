@@ -1,8 +1,47 @@
 "use client";
 
+import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { products } from "../data/products";
+
+const quoteBenefits = [
+  "Custom box style suggestion",
+  "Material and GSM guidance",
+  "Printing and finishing options",
+  "International buyer support",
+];
+
+const countries = [
+  "USA",
+  "UK",
+  "Canada",
+  "Europe",
+  "UAE",
+  "Australia",
+  "Other",
+];
+
+const materials = [
+  "Need suggestion",
+  "SBS Board",
+  "Kraft Paper",
+  "Rigid Board",
+  "Corrugated Board",
+  "Art Card",
+  "Butter Paper",
+];
+
+const finishingOptions = [
+  "Need suggestion",
+  "Matte Lamination",
+  "Gloss Lamination",
+  "Spot UV",
+  "Gold Foiling",
+  "Embossing",
+  "Die Cutting",
+  "Multiple Finishes",
+];
 
 export default function QuoteSection() {
   const router = useRouter();
@@ -38,7 +77,7 @@ export default function QuoteSection() {
     }
   }, []);
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     setIsSending(true);
@@ -84,26 +123,22 @@ export default function QuoteSection() {
             </p>
 
             <h2 className="mt-4 text-4xl font-black leading-tight text-[#07111F] md:text-6xl">
-              Get packaging price guidance for your project
+              Get clear packaging price guidance for your project
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Share your product details, quantity, size, material and finishing
-              needs. Our team will guide you with the best packaging solution.
+              Share your box style, size, quantity, material and finishing
+              requirements. Our packaging team will review the details and guide
+              you with the best custom packaging solution.
             </p>
 
             <div className="mt-8 grid gap-4">
-              {[
-                "Custom box style suggestion",
-                "Material and GSM guidance",
-                "Printing and finishing options",
-                "International buyer support",
-              ].map((item) => (
+              {quoteBenefits.map((item) => (
                 <div
                   key={item}
                   className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#00C2E8] font-black text-[#07111F]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00C2E8] font-black text-[#07111F]">
                     ✓
                   </div>
                   <p className="font-black text-[#07111F]">{item}</p>
@@ -114,9 +149,9 @@ export default function QuoteSection() {
             <div className="mt-8 rounded-[1.7rem] bg-[#07111F] p-6 text-white">
               <p className="text-xl font-black">Fast Quote Checklist</p>
               <p className="mt-3 leading-7 text-slate-300">
-                For accurate quote, please send product size, quantity, box
-                style, material preference, printing colors and finishing
-                details.
+                For an accurate quote, please send product size, quantity, box
+                style, material preference, printing colors, finishing details
+                and artwork status.
               </p>
             </div>
           </div>
@@ -126,69 +161,50 @@ export default function QuoteSection() {
             className="rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
           >
             <div className="grid gap-5 md:grid-cols-2">
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  Full Name
-                </label>
+              <FormField label="Full Name">
                 <input
                   name="name"
                   required
+                  autoComplete="name"
                   placeholder="Your name"
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                  className="field-input"
                 />
-              </div>
+              </FormField>
 
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  Email
-                </label>
+              <FormField label="Email">
                 <input
                   name="email"
                   type="email"
                   required
+                  autoComplete="email"
                   placeholder="your@email.com"
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                  className="field-input"
                 />
-              </div>
+              </FormField>
 
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  WhatsApp
-                </label>
+              <FormField label="WhatsApp / Phone">
                 <input
                   name="whatsapp"
+                  autoComplete="tel"
                   placeholder="+1 000 000 0000"
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                  className="field-input"
                 />
-              </div>
+              </FormField>
 
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  Country
-                </label>
-                <select
-                  name="country"
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
-                >
-                  <option>USA</option>
-                  <option>UK</option>
-                  <option>Canada</option>
-                  <option>Europe</option>
-                  <option>UAE</option>
-                  <option>Australia</option>
-                  <option>Other</option>
+              <FormField label="Country">
+                <select name="country" className="field-input">
+                  {countries.map((country) => (
+                    <option key={country}>{country}</option>
+                  ))}
                 </select>
-              </div>
+              </FormField>
 
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  Product Type
-                </label>
+              <FormField label="Product Type">
                 <select
                   name="product"
                   value={selectedProduct}
                   onChange={(event) => setSelectedProduct(event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                  className="field-input"
                 >
                   {products.map((product) => (
                     <option key={product.slug} value={product.name}>
@@ -196,85 +212,59 @@ export default function QuoteSection() {
                     </option>
                   ))}
                 </select>
-              </div>
+              </FormField>
 
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  Quantity
-                </label>
+              <FormField label="Quantity">
                 <input
                   name="quantity"
                   placeholder="500 / 1000 / 5000"
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                  className="field-input"
                 />
-              </div>
+              </FormField>
 
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  Size
-                </label>
+              <FormField label="Size">
                 <input
                   name="size"
                   placeholder="L x W x H"
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
+                  className="field-input"
                 />
-              </div>
+              </FormField>
 
-              <div>
-                <label className="mb-2 block text-sm font-black text-[#07111F]">
-                  Material
-                </label>
-                <select
-                  name="material"
-                  className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
-                >
-                  <option>Need suggestion</option>
-                  <option>SBS Board</option>
-                  <option>Kraft Paper</option>
-                  <option>Rigid Board</option>
-                  <option>Corrugated Board</option>
-                  <option>Art Card</option>
-                  <option>Butter Paper</option>
+              <FormField label="Material">
+                <select name="material" className="field-input">
+                  {materials.map((material) => (
+                    <option key={material}>{material}</option>
+                  ))}
                 </select>
-              </div>
+              </FormField>
             </div>
 
             <div className="mt-5">
-              <label className="mb-2 block text-sm font-black text-[#07111F]">
-                Finishing Options
-              </label>
-              <select
-                name="finishing"
-                className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
-              >
-                <option>Need suggestion</option>
-                <option>Matte Lamination</option>
-                <option>Gloss Lamination</option>
-                <option>Spot UV</option>
-                <option>Gold Foiling</option>
-                <option>Embossing</option>
-                <option>Die Cutting</option>
-                <option>Multiple Finishes</option>
-              </select>
+              <FormField label="Finishing Options">
+                <select name="finishing" className="field-input">
+                  {finishingOptions.map((finish) => (
+                    <option key={finish}>{finish}</option>
+                  ))}
+                </select>
+              </FormField>
             </div>
 
             <div className="mt-5">
-              <label className="mb-2 block text-sm font-black text-[#07111F]">
-                Project Details
-              </label>
-              <textarea
-                name="message"
-                rows={5}
-                placeholder="Tell us about your product, packaging style, printing colors and artwork..."
-                className="w-full rounded-2xl border border-slate-200 bg-[#F7FAFC] px-4 py-4 outline-none focus:border-[#00C2E8]"
-              />
+              <FormField label="Project Details">
+                <textarea
+                  name="message"
+                  rows={5}
+                  placeholder="Tell us about your product, packaging style, printing colors, artwork and deadline..."
+                  className="field-input resize-none"
+                />
+              </FormField>
             </div>
 
             <div className="mt-5 rounded-2xl border border-dashed border-[#00C2E8] bg-[#00C2E8]/10 p-5">
               <p className="font-black text-[#07111F]">Artwork Upload</p>
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 File upload will be connected in the next backend level. For
-                now, mention if artwork is ready or needs design support.
+                now, mention if artwork is ready or if you need design support.
               </p>
             </div>
 
@@ -293,11 +283,28 @@ export default function QuoteSection() {
             </button>
 
             <p className="mt-4 text-center text-sm text-slate-500">
-              Your quote request will be sent to our packaging team.
+              Your request will be sent to our packaging team for review.
             </p>
           </form>
         </div>
       </div>
     </section>
+  );
+}
+
+function FormField({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm font-black text-[#07111F]">
+        {label}
+      </span>
+      {children}
+    </label>
   );
 }
