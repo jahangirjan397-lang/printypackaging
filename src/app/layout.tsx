@@ -1,8 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 
+const siteUrl = "https://printypackaging.com";
+const brandName = "Printy Packaging";
+
 export const metadata: Metadata = {
-  title: "Printy Packaging | Custom Boxes, Rigid Boxes & Food Packaging",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Printy Packaging | Custom Boxes, Rigid Boxes & Food Packaging",
+    template: "%s | Printy Packaging",
+  },
   description:
     "Printy Packaging provides premium custom boxes, rigid boxes, folding cartons, butter paper, paper bags, labels, stickers, food packaging and luxury printed packaging for brands worldwide.",
   keywords: [
@@ -18,24 +26,99 @@ export const metadata: Metadata = {
     "luxury packaging",
     "custom printed boxes",
     "packaging manufacturer",
+    "custom packaging USA",
+    "custom packaging UK",
+    "custom packaging Canada",
   ],
+  applicationName: brandName,
+  creator: brandName,
+  publisher: brandName,
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     title: "Printy Packaging | Premium Custom Printing & Packaging",
     description:
-      "Premium custom printing and packaging solutions for USA, UK, Europe and worldwide brands.",
+      "Premium custom printing and packaging solutions for USA, UK, Canada, Europe and worldwide brands.",
     type: "website",
-    url: "https://printypackaging.com",
+    url: siteUrl,
+    siteName: brandName,
+    locale: "en_US",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Printy Packaging | Premium Custom Printing & Packaging",
+    description:
+      "Premium custom boxes, rigid boxes, food packaging, paper bags, labels, stickers and luxury packaging for global brands.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: false,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#07111F",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: brandName,
+    url: siteUrl,
+    logo: `${siteUrl}/logo.png`,
+    description:
+      "Custom printing and packaging company providing custom boxes, rigid boxes, food packaging, paper bags, labels, stickers and luxury packaging.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      availableLanguage: ["English"],
+    },
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: brandName,
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}/products?search={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
+
+        {children}
+      </body>
     </html>
   );
 }
