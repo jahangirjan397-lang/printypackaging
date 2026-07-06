@@ -1,142 +1,141 @@
 import Link from "next/link";
 
 const productLinks = [
-  { label: "Products", href: "/products" },
-  { label: "Categories", href: "/categories" },
-  { label: "Markets", href: "/markets" },
-  { label: "Get Quote", href: "/?product=mailer-boxes#quote" },
+  { label: "Rigid Boxes", href: "/products/rigid-boxes" },
+  { label: "Mailer Boxes", href: "/products/mailer-boxes" },
+  { label: "Folding Cartons", href: "/products/folding-cartons" },
+  { label: "Food Packaging", href: "/products/food-packaging" },
+  { label: "Butter Paper", href: "/products/butter-paper" },
+  { label: "Labels & Stickers", href: "/products/labels-stickers" },
 ];
 
 const companyLinks = [
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+  { label: "Why Printy Packaging", href: "/why-printy-packaging" },
+  { label: "FAQ", href: "/faq" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms / Quote Policy", href: "/terms" },
 ];
 
+const guideLinks = [
+  { label: "Resources Hub", href: "/resources" },
+  { label: "Packaging Materials", href: "/packaging-materials" },
+  { label: "Finishing Options", href: "/finishing-options" },
+  { label: "Artwork & Dieline Guide", href: "/artwork-guide" },
+  { label: "Sample Kit Guide", href: "/sample-kit" },
+];
+
 const marketLinks = [
-  "USA custom packaging buyers",
-  "UK packaging brands",
-  "Canada ecommerce packaging",
-  "International box inquiries",
+  { label: "USA Packaging", href: "/markets/usa" },
+  { label: "UK Packaging", href: "/markets/uk" },
+  { label: "Canada Packaging", href: "/markets/canada" },
+  { label: "UAE Packaging", href: "/markets/uae" },
 ];
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-slate-950 text-white">
-      <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
+    <footer className="border-t border-cyan-400/10 bg-[#07111F] text-white">
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.8fr_0.8fr_0.8fr_0.8fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-400 text-lg font-black text-slate-950">
-                PP
-              </span>
-              <span>
-                <span className="block text-xl font-black tracking-tight">
-                  Printy Packaging
-                </span>
-                <span className="block text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
-                  Custom Boxes
-                </span>
-              </span>
+            <Link
+              href="/"
+              className="inline-flex text-3xl font-black tracking-tight text-white"
+            >
+              Printy<span className="text-[#FF6A00]">Packaging</span>
             </Link>
 
-            <p className="mt-5 max-w-md leading-7 text-slate-300">
-              Printy Packaging helps businesses with custom boxes, packaging
-              styles, materials, finishes and quote support for USA, UK, Canada
-              and international buyers.
+            <p className="mt-5 max-w-md leading-8 text-slate-300">
+              Printy Packaging helps brands with custom boxes, rigid boxes,
+              food packaging, materials, finishes, artwork guidance and quote
+              support for USA, UK, Canada, Europe, UAE and worldwide buyers.
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 text-sm text-slate-300">
+            <div className="mt-6 space-y-3 text-sm font-bold text-slate-300">
               <a
-                href="mailto:info@printypackaging.com"
-                className="transition hover:text-cyan-300"
+                href="mailto:sales@printypackaging.com"
+                className="block transition hover:text-[#FF6A00]"
               >
-                info@printypackaging.com
+                sales@printypackaging.com
               </a>
 
               <a
                 href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                 target="_blank"
                 rel="noreferrer"
-                className="transition hover:text-cyan-300"
+                className="block transition hover:text-[#FF6A00]"
               >
                 WhatsApp: +92 333 8889954
               </a>
 
-              <span>Lahore, Pakistan — Serving international buyers</span>
+              <p>Lahore, Pakistan — Serving global packaging buyers</p>
+            </div>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/?product=mailer-boxes#quote"
+                className="rounded-full bg-[#FF6A00] px-6 py-3 text-center text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91]"
+              >
+                Get Quote
+              </Link>
+
+              <Link
+                href="/resources"
+                className="rounded-full border border-white/15 px-6 py-3 text-center text-sm font-black text-white transition hover:border-cyan-300 hover:text-cyan-300"
+              >
+                Packaging Guides
+              </Link>
             </div>
           </div>
 
-          <div>
-            <h2 className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-              Explore
-            </h2>
-
-            <div className="mt-5 space-y-3">
-              {productLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block text-sm text-slate-300 transition hover:text-cyan-300"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-              Company
-            </h2>
-
-            <div className="mt-5 space-y-3">
-              {companyLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block text-sm text-slate-300 transition hover:text-cyan-300"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-              Markets
-            </h2>
-
-            <div className="mt-5 space-y-3">
-              {marketLinks.map((market) => (
-                <p key={market} className="text-sm text-slate-300">
-                  {market}
-                </p>
-              ))}
-            </div>
-
-            <Link
-              href="/?product=mailer-boxes#quote"
-              className="mt-6 inline-flex rounded-full bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
-            >
-              Start Quote
-            </Link>
-          </div>
+          <FooterColumn title="Products" links={productLinks} />
+          <FooterColumn title="Guides" links={guideLinks} />
+          <FooterColumn title="Markets" links={marketLinks} />
+          <FooterColumn title="Company" links={companyLinks} />
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} Printy Packaging. All rights reserved.</p>
+        <div className="mt-12 border-t border-white/10 pt-6">
+          <div className="flex flex-col gap-4 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
+            <p>© {year} Printy Packaging. All rights reserved.</p>
 
-          <p>
-            Custom packaging support for boxes, printing, materials and
-            finishing.
-          </p>
+            <p>
+              Custom boxes, printed packaging, premium finishes and quote
+              support.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <div>
+      <h2 className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
+        {title}
+      </h2>
+
+      <div className="mt-5 space-y-3">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="block text-sm font-bold text-slate-300 transition hover:text-[#FF6A00]"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }

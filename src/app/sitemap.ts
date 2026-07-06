@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/faq",
     "/privacy-policy",
     "/terms",
+    "/resources",
+    "/why-printy-packaging",
     "/packaging-materials",
     "/finishing-options",
     "/artwork-guide",
