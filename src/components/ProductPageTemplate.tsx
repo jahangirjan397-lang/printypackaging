@@ -43,8 +43,9 @@ function getProductSpecs(product: Product) {
     },
     {
       title: "Material Guidance",
-      description:
-        "SBS, art card, kraft, rigid board, corrugated, butter paper and food-grade options.",
+      description: `${product.materials
+        .slice(0, 2)
+        .join(", ")} and other professional material options can be selected according to product use.`,
     },
     {
       title: "Printing Support",
@@ -53,10 +54,46 @@ function getProductSpecs(product: Product) {
     },
     {
       title: "Finishing Options",
-      description:
-        "Matte, gloss, soft touch, spot UV, foil, embossing, debossing and die cutting.",
+      description: `${product.finishes
+        .slice(0, 2)
+        .join(", ")} and other finishing options are available for better brand presentation.`,
     },
   ];
+}
+
+function getProductVisualLabel(product: Product) {
+  const name = product.name.toLowerCase();
+
+  if (
+    name.includes("rigid") ||
+    name.includes("magnetic") ||
+    name.includes("drawer") ||
+    name.includes("luxury") ||
+    name.includes("jewelry") ||
+    name.includes("perfume")
+  ) {
+    return "LUX";
+  }
+
+  if (
+    name.includes("food") ||
+    name.includes("bakery") ||
+    name.includes("burger") ||
+    name.includes("pizza") ||
+    name.includes("butter")
+  ) {
+    return "FOOD";
+  }
+
+  if (name.includes("label") || name.includes("sticker")) {
+    return "LBL";
+  }
+
+  if (name.includes("bag")) {
+    return "BAG";
+  }
+
+  return "BOX";
 }
 
 export default function ProductPageTemplate({ product }: { product: Product }) {
@@ -76,6 +113,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
   const productQuoteLink = `/?product=${product.slug}#quote`;
   const galleryItems = getProductGallery(product);
   const productSpecs = getProductSpecs(product);
+  const visualLabel = getProductVisualLabel(product);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -100,12 +138,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
       "@type": "Brand",
       name: "Printy Packaging",
     },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      url: `https://printypackaging.com/products/${product.slug}`,
-    },
+    material: product.materials.join(", "),
+    url: `https://printypackaging.com/products/${product.slug}`,
   };
 
   return (
@@ -122,6 +156,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
+        <div className="absolute left-0 top-0 h-44 w-44 rounded-full bg-[#00C2E8]/10 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#FF6A00]/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-10 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
@@ -194,6 +230,10 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
                 <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
 
+                <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
+                  Custom Packaging
+                </div>
+
                 <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
 
                 <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
@@ -201,10 +241,6 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                   <p className="mt-8 px-4 text-center text-xl font-black tracking-widest text-white">
                     {product.name.split(" ")[0]}
                   </p>
-                </div>
-
-                <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
-                  Custom Packaging
                 </div>
 
                 <div className="absolute bottom-8 right-8 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white">
@@ -413,7 +449,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 <div className="relative mb-5 h-32 overflow-hidden rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
                   <div className="absolute bottom-4 left-5 h-16 w-20 rotate-[-8deg] rounded-xl bg-white shadow-xl" />
                   <div className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">
-                    Box
+                    {visualLabel}
                   </div>
                 </div>
 
