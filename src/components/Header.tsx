@@ -34,6 +34,8 @@ const mobileLinks = [
   { name: "Categories", href: "/categories" },
   { name: "Markets", href: "/markets" },
   { name: "Blog", href: "/blog" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
   { name: "Get Quote", href: "/#quote" },
 ];
 
@@ -42,17 +44,17 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-5 md:px-8 md:py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-3 sm:px-5 md:px-8 md:py-4">
         <Link
           href="/"
           prefetch={false}
-          className="text-xl font-black tracking-tight text-[#07111F] sm:text-2xl md:text-3xl"
+          className="shrink-0 text-xl font-black tracking-tight text-[#07111F] sm:text-2xl md:text-3xl"
           aria-label="PrintyPackaging home"
         >
           Printy<span className="text-[#FF6A00]">Packaging</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-black text-[#07111F] lg:flex">
+        <nav className="hidden items-center gap-5 text-sm font-black text-[#07111F] xl:flex">
           <NavLink href="/">Home</NavLink>
 
           <MegaMenu
@@ -87,10 +89,12 @@ export default function Header() {
           />
 
           <NavLink href="/blog">Blog</NavLink>
+          <NavLink href="/about">About</NavLink>
+          <NavLink href="/contact">Contact</NavLink>
           <NavLink href="/#quote">Quote</NavLink>
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <Link
             href="/#quote"
             prefetch={false}
@@ -102,7 +106,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setMobileOpen((current) => !current)}
-            className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-black text-[#07111F] transition hover:border-[#FF6A00] hover:text-[#FF6A00] lg:hidden"
+            className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-black text-[#07111F] transition hover:border-[#FF6A00] hover:text-[#FF6A00] xl:hidden"
             aria-expanded={mobileOpen}
             aria-label="Toggle mobile navigation"
           >
@@ -112,7 +116,7 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-slate-200 bg-white px-4 py-5 shadow-xl lg:hidden">
+        <div className="border-t border-slate-200 bg-white px-4 py-5 shadow-xl xl:hidden">
           <div className="grid gap-3 text-sm font-black text-[#07111F]">
             {mobileLinks.map((link) => (
               <Link
@@ -198,12 +202,16 @@ function MegaMenu({
 }) {
   return (
     <div className="group relative">
-      <Link href={href} prefetch={false} className="transition hover:text-[#FF6A00]">
+      <Link
+        href={href}
+        prefetch={false}
+        className="transition hover:text-[#FF6A00]"
+      >
         {title}
       </Link>
 
       <div
-        className={`invisible absolute left-1/2 top-8 -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100 ${
+        className={`invisible absolute left-1/2 top-8 z-50 -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100 ${
           wide ? "w-[760px]" : "w-[520px]"
         }`}
       >

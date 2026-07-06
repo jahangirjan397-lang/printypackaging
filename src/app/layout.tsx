@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import HeaderGate from "@/components/HeaderGate";
 import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
 
@@ -117,6 +118,8 @@ export default function RootLayout({
             __html: JSON.stringify(websiteJsonLd),
           }}
         />
+
+        <HeaderGate />
 
         {children}
 
