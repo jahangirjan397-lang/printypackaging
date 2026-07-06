@@ -1,6 +1,11 @@
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
+import BuyerTrustSection from "./BuyerTrustSection";
+import ProductBuyerJourneySection from "./ProductBuyerJourneySection";
+import ProductGuideLinksSection from "./ProductGuideLinksSection";
+import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
+import ProductSeoBlocks from "./ProductSeoBlocks";
 
 function getProductGallery(product: Product) {
   const firstWord = product.name.split(" ")[0] || "Box";
@@ -96,20 +101,22 @@ function getProductVisualLabel(product: Product) {
   return "BOX";
 }
 
+function getRelatedProducts(product: Product) {
+  const sameCategoryProducts = products.filter(
+    (item) => item.slug !== product.slug && item.category === product.category
+  );
+
+  const fallbackProducts = products.filter(
+    (item) =>
+      item.slug !== product.slug &&
+      !sameCategoryProducts.some((related) => related.slug === item.slug)
+  );
+
+  return [...sameCategoryProducts, ...fallbackProducts].slice(0, 4);
+}
+
 export default function ProductPageTemplate({ product }: { product: Product }) {
-  const sameCategoryProducts = products
-    .filter(
-      (item) => item.slug !== product.slug && item.category === product.category
-    )
-    .slice(0, 4);
-
-  const fallbackProducts = products
-    .filter((item) => item.slug !== product.slug)
-    .slice(0, 4);
-
-  const relatedProducts =
-    sameCategoryProducts.length >= 4 ? sameCategoryProducts : fallbackProducts;
-
+  const relatedProducts = getRelatedProducts(product);
   const productQuoteLink = `/?product=${product.slug}#quote`;
   const galleryItems = getProductGallery(product);
   const productSpecs = getProductSpecs(product);
@@ -140,6 +147,48 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
     },
     material: product.materials.join(", "),
     url: `https://printypackaging.com/products/${product.slug}`,
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Available materials",
+        value: product.materials.join(", "),
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Available finishes",
+        value: product.finishes.join(", "),
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Industries",
+        value: product.industries.join(", "),
+      },
+    ],
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://printypackaging.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Products",
+        item: "https://printypackaging.com/products",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.name,
+        item: `https://printypackaging.com/products/${product.slug}`,
+      },
+    ],
   };
 
   return (
@@ -152,6 +201,11 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
@@ -347,6 +401,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
         </div>
       </section>
 
+      <BuyerTrustSection />
+
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
           <InfoCard title="Materials" items={product.materials} />
@@ -354,6 +410,20 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
           <InfoCard title="Industries" items={product.industries} />
         </div>
       </section>
+
+      <ProductSeoBlocks />
+
+      <ProductGuideLinksSection product={product} />
+
+      <ProductBuyerJourneySection
+        product={product}
+        quoteLink={productQuoteLink}
+      />
+
+      <ProductQuoteChecklistSection
+        product={product}
+        quoteLink={productQuoteLink}
+      />
 
       <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
         <div className="mx-auto max-w-7xl">
@@ -449,7 +519,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 <div className="relative mb-5 h-32 overflow-hidden rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
                   <div className="absolute bottom-4 left-5 h-16 w-20 rotate-[-8deg] rounded-xl bg-white shadow-xl" />
                   <div className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">
-                    {visualLabel}
+                    {getProductVisualLabel(item)}
                   </div>
                 </div>
 
