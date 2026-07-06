@@ -16,6 +16,7 @@ import Process from "../components/Process";
 import PortfolioPreview from "../components/PortfolioPreview";
 import CustomerReviews from "../components/CustomerReviews";
 import SupplierComparison from "../components/SupplierComparison";
+import IndustryCaseStudies from "../components/IndustryCaseStudies";
 import ArtworkGuide from "../components/ArtworkGuide";
 import QualityControl from "../components/QualityControl";
 import UploadArtworkCTA from "../components/UploadArtworkCTA";
@@ -50,6 +51,7 @@ export default function Home() {
       <PortfolioPreview />
       <CustomerReviews />
       <SupplierComparison />
+      <IndustryCaseStudies />
       <ArtworkGuide />
       <QualityControl />
       <UploadArtworkCTA />
