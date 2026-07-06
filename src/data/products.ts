@@ -163,6 +163,81 @@ function getProductFinishes(name: string, category: string) {
   ];
 }
 
+function buildKeywords(name: string, category: string, keywords: string[]) {
+  const productName = name.toLowerCase();
+  const categoryName = category.toLowerCase();
+
+  return Array.from(
+    new Set([
+      ...keywords,
+      productName,
+      `custom ${productName}`,
+      `printed ${productName}`,
+      `${productName} packaging`,
+      `${productName} boxes`,
+      categoryName,
+      `custom ${categoryName}`,
+      "custom packaging",
+      "custom boxes",
+      "printed packaging",
+      "packaging manufacturer",
+      "custom packaging USA",
+      "custom packaging UK",
+      "custom packaging Canada",
+      "premium packaging",
+      "packaging quote",
+    ])
+  );
+}
+
+function buildFeatures(name: string) {
+  return [
+    `Custom ${name.toLowerCase()} in different sizes and styles`,
+    "Premium printing quality for brand-focused presentation",
+    "Material guidance based on product weight and usage",
+    "Finishing options for retail, ecommerce and luxury packaging",
+    "Artwork and dieline support for print-ready packaging",
+    "Quote guidance based on size, quantity, material and finish",
+    "Suitable for USA, UK, Canada and international buyers",
+    "Professional packaging structure for better customer experience",
+  ];
+}
+
+function buildFaqs(name: string, category: string) {
+  const lowerName = name.toLowerCase();
+
+  return [
+    {
+      question: `Can ${lowerName} be made in custom sizes?`,
+      answer: `Yes, ${lowerName} can be produced in custom sizes based on your product dimensions, quantity, packaging style and delivery requirement.`,
+    },
+    {
+      question: `Can ${lowerName} be printed with my logo and brand colors?`,
+      answer: `Yes, ${lowerName} can be custom printed with your logo, brand colors, product text, barcode, artwork and premium finishing options.`,
+    },
+    {
+      question: `Which material is best for ${lowerName}?`,
+      answer: `The best material depends on product weight, usage, shipping method, brand presentation and budget. Printy Packaging can guide you with suitable board, paper, kraft, corrugated or rigid material options.`,
+    },
+    {
+      question: `Which finishing options are available for ${lowerName}?`,
+      answer: `Finishing options can include matte lamination, gloss lamination, soft touch, foil stamping, embossing, debossing, spot UV, die cutting and other options depending on the product and material.`,
+    },
+    {
+      question: `Do you support ${category.toLowerCase()} inquiries for USA, UK and Canada buyers?`,
+      answer: `Yes, Printy Packaging is built for international custom packaging inquiries including USA, UK, Canada, Europe, UAE and worldwide buyers.`,
+    },
+    {
+      question: `Do I need artwork before requesting a quote for ${lowerName}?`,
+      answer: `Artwork is helpful but not required for the first quote request. You can share size, quantity, material, printing and finishing details first. Final production should use approved artwork and dieline files.`,
+    },
+    {
+      question: `What details should I send for a ${lowerName} quote?`,
+      answer: `For a better quote, send box style, product size, quantity, material preference, printing colors, finishing options, artwork status and delivery country.`,
+    },
+  ];
+}
+
 function makeProduct(
   slug: string,
   name: string,
@@ -178,30 +253,12 @@ function makeProduct(
     category,
     tagline,
     description,
-    keywords,
-    features: [
-      "Custom sizes and styles",
-      "Premium printing quality",
-      "Brand-focused packaging design",
-      "Professional material and finishing options",
-    ],
+    keywords: buildKeywords(name, category, keywords),
+    features: buildFeatures(name),
     materials: getProductMaterials(name, category),
     finishes: getProductFinishes(name, category),
     industries,
-    faqs: [
-      {
-        question: `Can ${name.toLowerCase()} be made in custom sizes?`,
-        answer: `Yes, ${name.toLowerCase()} can be produced in custom sizes based on your product dimensions, quantity and packaging style.`,
-      },
-      {
-        question: `Can ${name.toLowerCase()} be printed with my logo?`,
-        answer: `Yes, ${name.toLowerCase()} can be custom printed with your logo, brand colors, artwork and finishing options.`,
-      },
-      {
-        question: `Which material is best for ${name.toLowerCase()}?`,
-        answer: `The best material depends on product weight, usage, presentation and budget. Our team can guide you with the right board, paper and finish.`,
-      },
-    ],
+    faqs: buildFaqs(name, category),
   };
 }
 
@@ -211,12 +268,14 @@ export const products: Product[] = [
     "Rigid Boxes",
     "Luxury Packaging",
     "Luxury rigid packaging for premium brands",
-    "Custom rigid boxes are ideal for perfumes, cosmetics, jewelry, gifts, candles and premium retail products. Printy Packaging creates luxury rigid packaging with premium materials, printing and finishing options.",
+    "Custom rigid boxes are ideal for perfumes, cosmetics, jewelry, gifts, candles and premium retail products. Printy Packaging helps brands create luxury rigid packaging with strong structure, premium wrapping paper, high-end printing and finishing options such as foil, embossing, debossing and spot UV.",
     [
       "custom rigid boxes",
       "luxury rigid boxes",
       "rigid packaging",
       "premium gift boxes",
+      "magnetic rigid boxes",
+      "rigid gift packaging",
     ],
     ["Perfume", "Cosmetics", "Jewelry", "Gifts", "Luxury Retail"]
   ),
@@ -226,12 +285,14 @@ export const products: Product[] = [
     "Folding Cartons",
     "Folding Cartons",
     "Custom printed cartons for retail and product packaging",
-    "Custom folding cartons are suitable for cosmetics, food, pharma, retail and general product packaging. They are lightweight, printable and cost-effective for large production quantities.",
+    "Custom folding cartons are suitable for cosmetics, food, pharma, retail and general product packaging. They are lightweight, printable and cost-effective for brands that need professional product boxes with custom size, material, printing and finishing options.",
     [
       "custom folding cartons",
       "printed cartons",
       "retail packaging boxes",
       "product boxes",
+      "folding carton packaging",
+      "custom printed cartons",
     ],
     ["Cosmetics", "Pharma", "Food", "Retail", "Electronics"]
   ),
@@ -241,12 +302,14 @@ export const products: Product[] = [
     "Mailer Boxes",
     "Corrugated Packaging",
     "Branded mailer boxes for ecommerce and delivery",
-    "Custom mailer boxes are perfect for ecommerce, subscription boxes, shipping and product delivery. They provide protection and a premium unboxing experience.",
+    "Custom mailer boxes are perfect for ecommerce, subscription boxes, shipping and product delivery. They provide protection, easy opening, brand visibility and a premium unboxing experience for online stores and product-based businesses.",
     [
       "custom mailer boxes",
       "ecommerce packaging",
       "subscription boxes",
       "shipping boxes",
+      "corrugated mailer boxes",
+      "branded mailer boxes",
     ],
     ["E-commerce", "Subscription Brands", "Retail", "Apparel"]
   ),
@@ -256,13 +319,14 @@ export const products: Product[] = [
     "Butter Paper",
     "Food Wrapping",
     "Custom printed butter paper for food brands",
-    "Custom butter paper is used for burgers, sandwiches, bakery items, snacks and food wrapping. It helps food brands improve presentation while keeping products clean and professional.",
+    "Custom butter paper is used for burgers, sandwiches, bakery items, snacks and food wrapping. It helps food brands improve presentation, cleanliness and brand visibility with printed food wrapping paper for restaurants, cafes and takeaway businesses.",
     [
       "custom butter paper",
       "printed butter paper",
       "burger wrapping paper",
       "deli paper",
       "food wrapping paper",
+      "custom food paper",
     ],
     ["Restaurants", "Bakeries", "Burger Brands", "Cafes", "Food Trucks"]
   ),
@@ -272,13 +336,14 @@ export const products: Product[] = [
     "Food Packaging",
     "Food Packaging",
     "Food-safe custom packaging for restaurants and bakeries",
-    "Custom food packaging includes bakery boxes, burger boxes, pizza boxes, snack boxes and food-safe wrapping solutions for restaurants, cafes and food brands.",
+    "Custom food packaging includes bakery boxes, burger boxes, pizza boxes, snack boxes, food wraps and food-safe packaging solutions for restaurants, cafes, bakeries and food brands that need practical branded packaging.",
     [
       "custom food packaging",
       "bakery boxes",
       "burger boxes",
       "restaurant packaging",
       "food boxes",
+      "food-safe packaging",
     ],
     ["Restaurants", "Bakeries", "Cafes", "Pizza Brands", "Frozen Food"]
   ),
@@ -288,12 +353,14 @@ export const products: Product[] = [
     "Paper Bags",
     "Retail Packaging",
     "Custom printed paper bags for retail brands",
-    "Custom paper bags are used for retail stores, fashion brands, events, gifts and premium shopping experiences. They can be printed with custom designs and brand colors.",
+    "Custom paper bags are used for retail stores, fashion brands, events, gifts and premium shopping experiences. They can be printed with custom artwork, brand colors, logo placement and handle options for a professional retail look.",
     [
       "custom paper bags",
       "printed paper bags",
       "retail paper bags",
       "shopping bags",
+      "branded paper bags",
+      "kraft paper bags",
     ],
     ["Retail", "Fashion", "Events", "Gifts", "Luxury Brands"]
   ),
@@ -303,8 +370,15 @@ export const products: Product[] = [
     "Labels & Stickers",
     "Branding",
     "Custom labels and stickers for product branding",
-    "Custom labels and stickers help brands improve product presentation, packaging identity and promotional impact for jars, bottles, boxes, bags and retail packaging.",
-    ["custom labels", "custom stickers", "printed stickers", "product labels"],
+    "Custom labels and stickers help brands improve product presentation, packaging identity and promotional impact for jars, bottles, boxes, bags, mailers and retail packaging. They can be produced in different shapes, finishes and material options.",
+    [
+      "custom labels",
+      "custom stickers",
+      "printed stickers",
+      "product labels",
+      "branded stickers",
+      "packaging labels",
+    ],
     ["Cosmetics", "Food", "Retail", "Beverages", "E-commerce"]
   ),
 
@@ -313,12 +387,14 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Luxury Packaging",
     "Premium packaging with foiling, embossing and high-end finishes",
-    "Luxury packaging is designed for premium brands that want strong shelf impact, beautiful unboxing and high-value presentation.",
+    "Luxury packaging is designed for premium brands that want strong shelf impact, beautiful unboxing and high-value presentation. It can include rigid boxes, magnetic boxes, drawer boxes, textured paper, foil stamping, embossing and soft-touch finishes.",
     [
       "luxury packaging",
       "premium packaging",
       "custom luxury boxes",
       "foil packaging",
+      "high end packaging",
+      "luxury printed boxes",
     ],
     ["Perfume", "Jewelry", "Cosmetics", "Gifts", "Premium Retail"]
   ),
@@ -328,12 +404,14 @@ export const products: Product[] = [
     "Cosmetic Boxes",
     "Cosmetic Packaging",
     "Custom cosmetic packaging for beauty and skincare brands",
-    "Custom cosmetic boxes help beauty brands present skincare, makeup, creams, serums and cosmetics with premium printing and professional finishing.",
+    "Custom cosmetic boxes help beauty brands present skincare, makeup, creams, serums and cosmetics with premium printing, professional structure and attractive finishing options for retail and ecommerce sales.",
     [
       "custom cosmetic boxes",
       "makeup boxes",
       "skincare packaging",
       "beauty product packaging",
+      "cosmetic packaging boxes",
+      "printed cosmetic boxes",
     ],
     ["Cosmetics", "Skincare", "Beauty", "Retail"]
   ),
@@ -343,12 +421,14 @@ export const products: Product[] = [
     "Perfume Boxes",
     "Luxury Packaging",
     "Premium perfume boxes for fragrance brands",
-    "Custom perfume boxes are designed for fragrance brands that need luxury presentation, strong structure and premium finishing like foiling and embossing.",
+    "Custom perfume boxes are designed for fragrance brands that need luxury presentation, strong structure and premium finishing like foiling, embossing, spot UV and soft-touch lamination.",
     [
       "custom perfume boxes",
       "fragrance packaging",
       "luxury perfume boxes",
       "perfume packaging",
+      "perfume gift boxes",
+      "printed perfume boxes",
     ],
     ["Perfume", "Fragrance", "Luxury Retail", "Gifts"]
   ),
@@ -358,12 +438,14 @@ export const products: Product[] = [
     "Candle Boxes",
     "Retail Packaging",
     "Custom candle packaging for premium candle brands",
-    "Custom candle boxes protect candles and improve presentation for luxury, handmade and retail candle brands.",
+    "Custom candle boxes protect candles and improve presentation for luxury, handmade and retail candle brands. They can be made with custom size, board material, window options, premium printing and finishing.",
     [
       "custom candle boxes",
       "candle packaging",
       "luxury candle boxes",
       "printed candle boxes",
+      "candle gift boxes",
+      "retail candle packaging",
     ],
     ["Candles", "Gifts", "Retail", "Home Decor"]
   ),
@@ -373,12 +455,14 @@ export const products: Product[] = [
     "Soap Boxes",
     "Retail Packaging",
     "Custom soap boxes for handmade and beauty brands",
-    "Custom soap boxes are ideal for handmade soap, organic soap, skincare and beauty product packaging.",
+    "Custom soap boxes are ideal for handmade soap, organic soap, skincare products and beauty product packaging. They can be printed with product details, ingredients, logo, kraft style or premium finish.",
     [
       "custom soap boxes",
       "soap packaging",
       "printed soap boxes",
       "kraft soap boxes",
+      "organic soap packaging",
+      "handmade soap boxes",
     ],
     ["Soap", "Beauty", "Skincare", "Retail"]
   ),
@@ -388,12 +472,14 @@ export const products: Product[] = [
     "Jewelry Boxes",
     "Luxury Packaging",
     "Elegant jewelry boxes for premium presentation",
-    "Custom jewelry boxes are used for rings, necklaces, bracelets, watches and premium gift packaging.",
+    "Custom jewelry boxes are used for rings, necklaces, bracelets, watches and premium gift packaging. They can include rigid structure, inserts, velvet feel, textured wrap, foil stamping and luxury finishing.",
     [
       "custom jewelry boxes",
       "luxury jewelry packaging",
       "ring boxes",
       "gift jewelry boxes",
+      "watch packaging",
+      "jewelry gift packaging",
     ],
     ["Jewelry", "Luxury Retail", "Gifts", "Fashion"]
   ),
@@ -403,8 +489,15 @@ export const products: Product[] = [
     "Bakery Boxes",
     "Food Packaging",
     "Custom bakery boxes for cakes, pastries and desserts",
-    "Custom bakery boxes are suitable for cakes, cupcakes, pastries, cookies and dessert packaging.",
-    ["custom bakery boxes", "cake boxes", "pastry boxes", "dessert packaging"],
+    "Custom bakery boxes are suitable for cakes, cupcakes, pastries, cookies, desserts and takeaway bakery products. They can include food-safe board, window patching, custom printing and branded bakery presentation.",
+    [
+      "custom bakery boxes",
+      "cake boxes",
+      "pastry boxes",
+      "dessert packaging",
+      "cupcake boxes",
+      "bakery packaging",
+    ],
     ["Bakery", "Cafes", "Desserts", "Food"]
   ),
 
@@ -413,12 +506,14 @@ export const products: Product[] = [
     "Burger Boxes",
     "Food Packaging",
     "Custom burger boxes for restaurants and food delivery",
-    "Custom burger boxes are made for restaurants, cafes, food trucks and takeaway brands that need food-safe branded packaging.",
+    "Custom burger boxes are made for restaurants, cafes, food trucks and takeaway brands that need food-safe branded packaging. They help protect food while improving presentation and customer experience.",
     [
       "custom burger boxes",
       "burger packaging",
       "restaurant burger boxes",
       "takeaway packaging",
+      "burger takeaway boxes",
+      "food delivery burger boxes",
     ],
     ["Restaurants", "Burger Brands", "Food Trucks", "Cafes"]
   ),
@@ -428,12 +523,14 @@ export const products: Product[] = [
     "Pizza Boxes",
     "Food Packaging",
     "Custom pizza boxes for delivery and takeaway",
-    "Custom pizza boxes help pizza brands deliver food safely while promoting their logo and brand identity.",
+    "Custom pizza boxes help pizza brands deliver food safely while promoting their logo and brand identity. They can be made with corrugated board, kraft style, food-safe printing and custom size options.",
     [
       "custom pizza boxes",
       "printed pizza boxes",
       "pizza packaging",
       "food delivery boxes",
+      "branded pizza boxes",
+      "takeaway pizza boxes",
     ],
     ["Pizza Brands", "Restaurants", "Takeaway", "Food Delivery"]
   ),
@@ -443,12 +540,14 @@ export const products: Product[] = [
     "Display Boxes",
     "Retail Packaging",
     "Retail display boxes for shelf-ready product presentation",
-    "Custom display boxes help retail products stand out on shelves and counters with strong branding and practical structure.",
+    "Custom display boxes help retail products stand out on shelves and counters with strong branding, practical structure and clear product presentation for cosmetics, food, pharma and retail items.",
     [
       "custom display boxes",
       "retail display boxes",
       "counter display boxes",
       "shelf packaging",
+      "product display boxes",
+      "printed display boxes",
     ],
     ["Retail", "Cosmetics", "Food", "Pharma"]
   ),
@@ -458,12 +557,14 @@ export const products: Product[] = [
     "Window Boxes",
     "Retail Packaging",
     "Custom window boxes with clear product visibility",
-    "Custom window boxes allow customers to see the product inside while keeping packaging branded and professional.",
+    "Custom window boxes allow customers to see the product inside while keeping packaging branded and professional. They are useful for food, cosmetics, gifts and retail products that benefit from product visibility.",
     [
       "custom window boxes",
       "clear window packaging",
       "window cartons",
       "retail window boxes",
+      "window packaging boxes",
+      "printed window boxes",
     ],
     ["Retail", "Food", "Cosmetics", "Gifts"]
   ),
@@ -473,8 +574,15 @@ export const products: Product[] = [
     "Sleeve Boxes",
     "Retail Packaging",
     "Custom sleeve packaging for premium product presentation",
-    "Custom sleeve boxes are used for product wraps, tray sleeves, cosmetic sleeves and premium retail packaging.",
-    ["custom sleeve boxes", "sleeve packaging", "printed sleeves", "box sleeves"],
+    "Custom sleeve boxes are used for product wraps, tray sleeves, cosmetic sleeves and premium retail packaging. They give products a clean branded look with efficient material usage.",
+    [
+      "custom sleeve boxes",
+      "sleeve packaging",
+      "printed sleeves",
+      "box sleeves",
+      "product sleeve packaging",
+      "custom packaging sleeves",
+    ],
     ["Cosmetics", "Retail", "Food", "Gifts"]
   ),
 
@@ -483,12 +591,14 @@ export const products: Product[] = [
     "Magnetic Boxes",
     "Luxury Packaging",
     "Luxury magnetic closure boxes for premium brands",
-    "Custom magnetic boxes create a premium unboxing experience with strong structure and elegant closure.",
+    "Custom magnetic boxes create a premium unboxing experience with strong structure and elegant closure. They are popular for luxury gifts, perfumes, jewelry, cosmetics and premium retail products.",
     [
       "magnetic boxes",
       "custom magnetic boxes",
       "magnetic closure packaging",
       "luxury magnetic boxes",
+      "magnetic gift boxes",
+      "premium magnetic boxes",
     ],
     ["Perfume", "Jewelry", "Gifts", "Luxury Retail"]
   ),
@@ -498,12 +608,14 @@ export const products: Product[] = [
     "Drawer Boxes",
     "Luxury Packaging",
     "Premium drawer boxes for gifts and luxury products",
-    "Custom drawer boxes provide an elegant sliding structure for luxury products, gifts, cosmetics and premium retail packaging.",
+    "Custom drawer boxes provide an elegant sliding structure for luxury products, gifts, cosmetics and premium retail packaging. They can include inserts, textured wrap, foil stamping and special finishing.",
     [
       "drawer boxes",
       "custom drawer boxes",
       "sliding boxes",
       "luxury drawer packaging",
+      "drawer gift boxes",
+      "premium sliding boxes",
     ],
     ["Gifts", "Cosmetics", "Jewelry", "Luxury Retail"]
   ),
@@ -513,12 +625,14 @@ export const products: Product[] = [
     "Pharmaceutical Boxes",
     "Pharma Packaging",
     "Custom pharmaceutical packaging for healthcare products",
-    "Custom pharmaceutical boxes are designed for medicine, healthcare products, supplements and medical packaging with clear printing and reliable structure.",
+    "Custom pharmaceutical boxes are designed for medicine, healthcare products, supplements and medical packaging with clear printing, reliable structure and professional product information layout.",
     [
       "pharmaceutical boxes",
       "medicine packaging",
       "healthcare packaging",
       "custom pharma boxes",
+      "supplement packaging",
+      "medical packaging boxes",
     ],
     ["Pharma", "Healthcare", "Supplements", "Medical"]
   ),
@@ -528,12 +642,14 @@ export const products: Product[] = [
     "Apparel Boxes",
     "Fashion Packaging",
     "Custom apparel packaging for clothing and fashion brands",
-    "Custom apparel boxes are used for clothing, fashion accessories, shirts, scarves, shoes and premium retail delivery.",
+    "Custom apparel boxes are used for clothing, fashion accessories, shirts, scarves, shoes and premium retail delivery. They help fashion brands improve product presentation and unboxing experience.",
     [
       "apparel boxes",
       "clothing packaging",
       "fashion packaging",
       "custom clothing boxes",
+      "garment packaging",
+      "fashion mailer boxes",
     ],
     ["Fashion", "Apparel", "Retail", "E-commerce"]
   ),
@@ -543,8 +659,15 @@ export const products: Product[] = [
     "Hang Tags",
     "Branding",
     "Custom hang tags for apparel and retail products",
-    "Custom hang tags improve brand presentation for apparel, fashion accessories, handmade products and retail packaging.",
-    ["custom hang tags", "printed hang tags", "apparel tags", "retail tags"],
+    "Custom hang tags improve brand presentation for apparel, fashion accessories, handmade products and retail packaging. They can include brand story, price, product details, barcode and premium finishing.",
+    [
+      "custom hang tags",
+      "printed hang tags",
+      "apparel tags",
+      "retail tags",
+      "clothing hang tags",
+      "brand hang tags",
+    ],
     ["Fashion", "Apparel", "Retail", "Handmade Brands"]
   ),
 ];
