@@ -30,7 +30,9 @@ const marketLinks = [
   { label: "USA Packaging", href: "/markets/usa" },
   { label: "UK Packaging", href: "/markets/uk" },
   { label: "Canada Packaging", href: "/markets/canada" },
+  { label: "Europe Packaging", href: "/markets/europe" },
   { label: "UAE Packaging", href: "/markets/uae" },
+  { label: "Australia Packaging", href: "/markets/australia" },
 ];
 
 export default function SiteFooter() {
