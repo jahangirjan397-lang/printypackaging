@@ -15,6 +15,154 @@ export type Product = {
   }[];
 };
 
+function getProductMaterials(name: string, category: string) {
+  const text = `${name} ${category}`.toLowerCase();
+
+  if (
+    text.includes("rigid") ||
+    text.includes("magnetic") ||
+    text.includes("drawer") ||
+    text.includes("luxury") ||
+    text.includes("jewelry") ||
+    text.includes("perfume")
+  ) {
+    return [
+      "Rigid Board 1000-2000 GSM",
+      "Grey Board 1.5mm-3mm",
+      "Chipboard 1.5mm-3mm",
+      "Art Paper Wrap 128-170 GSM",
+      "Special Texture Paper",
+      "Kraft / Black Paper Wrap",
+    ];
+  }
+
+  if (
+    text.includes("mailer") ||
+    text.includes("shipping") ||
+    text.includes("pizza") ||
+    text.includes("corrugated")
+  ) {
+    return [
+      "E-Flute Corrugated Board",
+      "B-Flute Corrugated Board",
+      "Micro Flute Board",
+      "3 Ply Corrugated Board",
+      "5 Ply Corrugated Board",
+      "White Back / Kraft Corrugated Board",
+    ];
+  }
+
+  if (
+    text.includes("butter") ||
+    text.includes("food") ||
+    text.includes("bakery") ||
+    text.includes("burger")
+  ) {
+    return [
+      "Food Grade SBS 250-400 GSM",
+      "Food Grade Kraft 200-350 GSM",
+      "Butter Paper 30-80 GSM",
+      "Greaseproof Paper 40-70 GSM",
+      "PE Coated Paper",
+      "Glassine Paper",
+    ];
+  }
+
+  if (
+    text.includes("label") ||
+    text.includes("sticker") ||
+    text.includes("hang tag")
+  ) {
+    return [
+      "Gloss Sticker Stock",
+      "Matte Sticker Stock",
+      "Semi Gloss Sticker Stock",
+      "Vinyl Sticker",
+      "Transparent Sticker",
+      "Art Card / Kraft Card",
+    ];
+  }
+
+  if (text.includes("paper bag") || text.includes("bag")) {
+    return [
+      "Kraft Paper 120-200 GSM",
+      "Art Paper 157-200 GSM",
+      "White Kraft Paper",
+      "Brown Kraft Paper",
+      "Cotton / Rope Handles",
+      "Ribbon Handles",
+    ];
+  }
+
+  return [
+    "SBS / Bleach Card 250-450 GSM",
+    "Art Card 210-450 GSM",
+    "Art Paper 128-200 GSM",
+    "Duplex Board 300-500 GSM",
+    "Kraft Card 250-450 GSM",
+    "Food Grade Card",
+  ];
+}
+
+function getProductFinishes(name: string, category: string) {
+  const text = `${name} ${category}`.toLowerCase();
+
+  if (
+    text.includes("rigid") ||
+    text.includes("luxury") ||
+    text.includes("perfume") ||
+    text.includes("jewelry") ||
+    text.includes("magnetic") ||
+    text.includes("drawer")
+  ) {
+    return [
+      "Soft Touch Lamination",
+      "Matte Lamination",
+      "Gold / Silver Foiling",
+      "Embossing / Debossing",
+      "Spot UV",
+      "Magnetic Closure / Insert Options",
+    ];
+  }
+
+  if (
+    text.includes("food") ||
+    text.includes("butter") ||
+    text.includes("bakery") ||
+    text.includes("burger") ||
+    text.includes("pizza")
+  ) {
+    return [
+      "Food Safe Printing",
+      "Matte / Gloss Finish",
+      "Grease Resistant Coating",
+      "Die Cutting",
+      "Window Patching",
+      "Food Grade Ink Guidance",
+    ];
+  }
+
+  if (text.includes("sticker") || text.includes("label")) {
+    return [
+      "Gloss Finish",
+      "Matte Finish",
+      "UV Coating",
+      "Die Cut Shape",
+      "Waterproof Finish",
+      "Roll / Sheet Sticker Options",
+    ];
+  }
+
+  return [
+    "Matte Lamination",
+    "Gloss Lamination",
+    "Soft Touch Lamination",
+    "Spot UV",
+    "Foiling / Embossing",
+    "Die Cutting",
+  ];
+}
+
 function makeProduct(
   slug: string,
   name: string,
@@ -37,19 +185,8 @@ function makeProduct(
       "Brand-focused packaging design",
       "Professional material and finishing options",
     ],
-    materials: [
-      "SBS Board",
-      "Kraft Paper",
-      "Rigid Board",
-      "Corrugated Board",
-    ],
-    finishes: [
-      "Matte Lamination",
-      "Gloss Lamination",
-      "Spot UV",
-      "Gold Foiling",
-      "Embossing",
-    ],
+    materials: getProductMaterials(name, category),
+    finishes: getProductFinishes(name, category),
     industries,
     faqs: [
       {
@@ -75,7 +212,12 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Luxury rigid packaging for premium brands",
     "Custom rigid boxes are ideal for perfumes, cosmetics, jewelry, gifts, candles and premium retail products. Printy Packaging creates luxury rigid packaging with premium materials, printing and finishing options.",
-    ["custom rigid boxes", "luxury rigid boxes", "rigid packaging", "premium gift boxes"],
+    [
+      "custom rigid boxes",
+      "luxury rigid boxes",
+      "rigid packaging",
+      "premium gift boxes",
+    ],
     ["Perfume", "Cosmetics", "Jewelry", "Gifts", "Luxury Retail"]
   ),
 
@@ -85,7 +227,12 @@ export const products: Product[] = [
     "Folding Cartons",
     "Custom printed cartons for retail and product packaging",
     "Custom folding cartons are suitable for cosmetics, food, pharma, retail and general product packaging. They are lightweight, printable and cost-effective for large production quantities.",
-    ["custom folding cartons", "printed cartons", "retail packaging boxes", "product boxes"],
+    [
+      "custom folding cartons",
+      "printed cartons",
+      "retail packaging boxes",
+      "product boxes",
+    ],
     ["Cosmetics", "Pharma", "Food", "Retail", "Electronics"]
   ),
 
@@ -95,7 +242,12 @@ export const products: Product[] = [
     "Corrugated Packaging",
     "Branded mailer boxes for ecommerce and delivery",
     "Custom mailer boxes are perfect for ecommerce, subscription boxes, shipping and product delivery. They provide protection and a premium unboxing experience.",
-    ["custom mailer boxes", "ecommerce packaging", "subscription boxes", "shipping boxes"],
+    [
+      "custom mailer boxes",
+      "ecommerce packaging",
+      "subscription boxes",
+      "shipping boxes",
+    ],
     ["E-commerce", "Subscription Brands", "Retail", "Apparel"]
   ),
 
@@ -105,7 +257,13 @@ export const products: Product[] = [
     "Food Wrapping",
     "Custom printed butter paper for food brands",
     "Custom butter paper is used for burgers, sandwiches, bakery items, snacks and food wrapping. It helps food brands improve presentation while keeping products clean and professional.",
-    ["custom butter paper", "printed butter paper", "burger wrapping paper", "deli paper", "food wrapping paper"],
+    [
+      "custom butter paper",
+      "printed butter paper",
+      "burger wrapping paper",
+      "deli paper",
+      "food wrapping paper",
+    ],
     ["Restaurants", "Bakeries", "Burger Brands", "Cafes", "Food Trucks"]
   ),
 
@@ -115,7 +273,13 @@ export const products: Product[] = [
     "Food Packaging",
     "Food-safe custom packaging for restaurants and bakeries",
     "Custom food packaging includes bakery boxes, burger boxes, pizza boxes, snack boxes and food-safe wrapping solutions for restaurants, cafes and food brands.",
-    ["custom food packaging", "bakery boxes", "burger boxes", "restaurant packaging", "food boxes"],
+    [
+      "custom food packaging",
+      "bakery boxes",
+      "burger boxes",
+      "restaurant packaging",
+      "food boxes",
+    ],
     ["Restaurants", "Bakeries", "Cafes", "Pizza Brands", "Frozen Food"]
   ),
 
@@ -125,7 +289,12 @@ export const products: Product[] = [
     "Retail Packaging",
     "Custom printed paper bags for retail brands",
     "Custom paper bags are used for retail stores, fashion brands, events, gifts and premium shopping experiences. They can be printed with custom designs and brand colors.",
-    ["custom paper bags", "printed paper bags", "retail paper bags", "shopping bags"],
+    [
+      "custom paper bags",
+      "printed paper bags",
+      "retail paper bags",
+      "shopping bags",
+    ],
     ["Retail", "Fashion", "Events", "Gifts", "Luxury Brands"]
   ),
 
@@ -145,7 +314,12 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Premium packaging with foiling, embossing and high-end finishes",
     "Luxury packaging is designed for premium brands that want strong shelf impact, beautiful unboxing and high-value presentation.",
-    ["luxury packaging", "premium packaging", "custom luxury boxes", "foil packaging"],
+    [
+      "luxury packaging",
+      "premium packaging",
+      "custom luxury boxes",
+      "foil packaging",
+    ],
     ["Perfume", "Jewelry", "Cosmetics", "Gifts", "Premium Retail"]
   ),
 
@@ -155,7 +329,12 @@ export const products: Product[] = [
     "Cosmetic Packaging",
     "Custom cosmetic packaging for beauty and skincare brands",
     "Custom cosmetic boxes help beauty brands present skincare, makeup, creams, serums and cosmetics with premium printing and professional finishing.",
-    ["custom cosmetic boxes", "makeup boxes", "skincare packaging", "beauty product packaging"],
+    [
+      "custom cosmetic boxes",
+      "makeup boxes",
+      "skincare packaging",
+      "beauty product packaging",
+    ],
     ["Cosmetics", "Skincare", "Beauty", "Retail"]
   ),
 
@@ -165,7 +344,12 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Premium perfume boxes for fragrance brands",
     "Custom perfume boxes are designed for fragrance brands that need luxury presentation, strong structure and premium finishing like foiling and embossing.",
-    ["custom perfume boxes", "fragrance packaging", "luxury perfume boxes", "perfume packaging"],
+    [
+      "custom perfume boxes",
+      "fragrance packaging",
+      "luxury perfume boxes",
+      "perfume packaging",
+    ],
     ["Perfume", "Fragrance", "Luxury Retail", "Gifts"]
   ),
 
@@ -175,7 +359,12 @@ export const products: Product[] = [
     "Retail Packaging",
     "Custom candle packaging for premium candle brands",
     "Custom candle boxes protect candles and improve presentation for luxury, handmade and retail candle brands.",
-    ["custom candle boxes", "candle packaging", "luxury candle boxes", "printed candle boxes"],
+    [
+      "custom candle boxes",
+      "candle packaging",
+      "luxury candle boxes",
+      "printed candle boxes",
+    ],
     ["Candles", "Gifts", "Retail", "Home Decor"]
   ),
 
@@ -185,7 +374,12 @@ export const products: Product[] = [
     "Retail Packaging",
     "Custom soap boxes for handmade and beauty brands",
     "Custom soap boxes are ideal for handmade soap, organic soap, skincare and beauty product packaging.",
-    ["custom soap boxes", "soap packaging", "printed soap boxes", "kraft soap boxes"],
+    [
+      "custom soap boxes",
+      "soap packaging",
+      "printed soap boxes",
+      "kraft soap boxes",
+    ],
     ["Soap", "Beauty", "Skincare", "Retail"]
   ),
 
@@ -195,7 +389,12 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Elegant jewelry boxes for premium presentation",
     "Custom jewelry boxes are used for rings, necklaces, bracelets, watches and premium gift packaging.",
-    ["custom jewelry boxes", "luxury jewelry packaging", "ring boxes", "gift jewelry boxes"],
+    [
+      "custom jewelry boxes",
+      "luxury jewelry packaging",
+      "ring boxes",
+      "gift jewelry boxes",
+    ],
     ["Jewelry", "Luxury Retail", "Gifts", "Fashion"]
   ),
 
@@ -215,7 +414,12 @@ export const products: Product[] = [
     "Food Packaging",
     "Custom burger boxes for restaurants and food delivery",
     "Custom burger boxes are made for restaurants, cafes, food trucks and takeaway brands that need food-safe branded packaging.",
-    ["custom burger boxes", "burger packaging", "restaurant burger boxes", "takeaway packaging"],
+    [
+      "custom burger boxes",
+      "burger packaging",
+      "restaurant burger boxes",
+      "takeaway packaging",
+    ],
     ["Restaurants", "Burger Brands", "Food Trucks", "Cafes"]
   ),
 
@@ -225,7 +429,12 @@ export const products: Product[] = [
     "Food Packaging",
     "Custom pizza boxes for delivery and takeaway",
     "Custom pizza boxes help pizza brands deliver food safely while promoting their logo and brand identity.",
-    ["custom pizza boxes", "printed pizza boxes", "pizza packaging", "food delivery boxes"],
+    [
+      "custom pizza boxes",
+      "printed pizza boxes",
+      "pizza packaging",
+      "food delivery boxes",
+    ],
     ["Pizza Brands", "Restaurants", "Takeaway", "Food Delivery"]
   ),
 
@@ -235,7 +444,12 @@ export const products: Product[] = [
     "Retail Packaging",
     "Retail display boxes for shelf-ready product presentation",
     "Custom display boxes help retail products stand out on shelves and counters with strong branding and practical structure.",
-    ["custom display boxes", "retail display boxes", "counter display boxes", "shelf packaging"],
+    [
+      "custom display boxes",
+      "retail display boxes",
+      "counter display boxes",
+      "shelf packaging",
+    ],
     ["Retail", "Cosmetics", "Food", "Pharma"]
   ),
 
@@ -245,7 +459,12 @@ export const products: Product[] = [
     "Retail Packaging",
     "Custom window boxes with clear product visibility",
     "Custom window boxes allow customers to see the product inside while keeping packaging branded and professional.",
-    ["custom window boxes", "clear window packaging", "window cartons", "retail window boxes"],
+    [
+      "custom window boxes",
+      "clear window packaging",
+      "window cartons",
+      "retail window boxes",
+    ],
     ["Retail", "Food", "Cosmetics", "Gifts"]
   ),
 
@@ -265,7 +484,12 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Luxury magnetic closure boxes for premium brands",
     "Custom magnetic boxes create a premium unboxing experience with strong structure and elegant closure.",
-    ["magnetic boxes", "custom magnetic boxes", "magnetic closure packaging", "luxury magnetic boxes"],
+    [
+      "magnetic boxes",
+      "custom magnetic boxes",
+      "magnetic closure packaging",
+      "luxury magnetic boxes",
+    ],
     ["Perfume", "Jewelry", "Gifts", "Luxury Retail"]
   ),
 
@@ -275,7 +499,12 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Premium drawer boxes for gifts and luxury products",
     "Custom drawer boxes provide an elegant sliding structure for luxury products, gifts, cosmetics and premium retail packaging.",
-    ["drawer boxes", "custom drawer boxes", "sliding boxes", "luxury drawer packaging"],
+    [
+      "drawer boxes",
+      "custom drawer boxes",
+      "sliding boxes",
+      "luxury drawer packaging",
+    ],
     ["Gifts", "Cosmetics", "Jewelry", "Luxury Retail"]
   ),
 
@@ -285,7 +514,12 @@ export const products: Product[] = [
     "Pharma Packaging",
     "Custom pharmaceutical packaging for healthcare products",
     "Custom pharmaceutical boxes are designed for medicine, healthcare products, supplements and medical packaging with clear printing and reliable structure.",
-    ["pharmaceutical boxes", "medicine packaging", "healthcare packaging", "custom pharma boxes"],
+    [
+      "pharmaceutical boxes",
+      "medicine packaging",
+      "healthcare packaging",
+      "custom pharma boxes",
+    ],
     ["Pharma", "Healthcare", "Supplements", "Medical"]
   ),
 
@@ -295,7 +529,12 @@ export const products: Product[] = [
     "Fashion Packaging",
     "Custom apparel packaging for clothing and fashion brands",
     "Custom apparel boxes are used for clothing, fashion accessories, shirts, scarves, shoes and premium retail delivery.",
-    ["apparel boxes", "clothing packaging", "fashion packaging", "custom clothing boxes"],
+    [
+      "apparel boxes",
+      "clothing packaging",
+      "fashion packaging",
+      "custom clothing boxes",
+    ],
     ["Fashion", "Apparel", "Retail", "E-commerce"]
   ),
 
