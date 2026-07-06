@@ -33,11 +33,15 @@ const finishingOptions = [
   "Raised UV",
   "Gold Foiling",
   "Silver Foiling",
+  "Rose Gold Foiling",
+  "Holographic Foiling",
   "Embossing",
   "Debossing",
   "Die Cutting",
   "Window Patching",
+  "Aqueous Coating",
   "Drip Off / Varnish",
+  "UV Varnish",
   "Multiple Finishes",
 ];
 
@@ -61,45 +65,124 @@ const printingOptions = [
 const materialLibrary = {
   general: [
     "Need suggestion",
-    "SBS Board / Bleach Card",
-    "Art Card 250-400 GSM",
-    "Duplex Board 300-500 GSM",
-    "Kraft Card 250-450 GSM",
-    "Food Grade Card 250-400 GSM",
-    "Corrugated Board",
+
+    "SBS / Bleach Card 250 GSM",
+    "SBS / Bleach Card 300 GSM",
+    "SBS / Bleach Card 350 GSM",
+    "SBS / Bleach Card 400 GSM",
+    "SBS / Bleach Card 450 GSM",
+
+    "Art Card 210 GSM",
+    "Art Card 230 GSM",
+    "Art Card 250 GSM",
+    "Art Card 260 GSM",
+    "Art Card 300 GSM",
+    "Art Card 350 GSM",
+    "Art Card 400 GSM",
+    "Art Card 450 GSM",
+
+    "Art Paper 80 GSM",
+    "Art Paper 100 GSM",
+    "Art Paper 115 GSM",
+    "Art Paper 128 GSM",
+    "Art Paper 150 GSM",
+    "Art Paper 157 GSM",
+    "Art Paper 170 GSM",
+    "Art Paper 200 GSM",
+
+    "Duplex Board 250 GSM",
+    "Duplex Board 300 GSM",
+    "Duplex Board 350 GSM",
+    "Duplex Board 400 GSM",
+    "Duplex Board 450 GSM",
+    "Duplex Board 500 GSM",
+
+    "Kraft Card 200 GSM",
+    "Kraft Card 250 GSM",
+    "Kraft Card 300 GSM",
+    "Kraft Card 350 GSM",
+    "Kraft Card 400 GSM",
+    "Kraft Card 450 GSM",
+
+    "Food Grade Card 250 GSM",
+    "Food Grade Card 300 GSM",
+    "Food Grade Card 350 GSM",
+    "Food Grade Card 400 GSM",
+
+    "Sticker Stock Paper",
+    "Gloss Sticker Stock",
+    "Matte Sticker Stock",
+    "Semi Gloss Sticker Stock",
+    "Vinyl Sticker Stock",
+    "Transparent Sticker Stock",
+
     "Rigid Board / Grey Board",
+    "Corrugated Board",
   ],
+
   rigid: [
     "Need suggestion",
+
     "Rigid Board 800 GSM",
     "Rigid Board 1000 GSM",
     "Rigid Board 1200 GSM",
     "Rigid Board 1500 GSM",
     "Rigid Board 1800 GSM",
+    "Rigid Board 2000 GSM",
+
+    "Grey Board 1.2mm",
     "Grey Board 1.5mm",
     "Grey Board 2mm",
     "Grey Board 2.5mm",
     "Grey Board 3mm",
-    "Art Paper Wrap 128-157 GSM",
+
+    "Chipboard 1.5mm",
+    "Chipboard 2mm",
+    "Chipboard 2.5mm",
+    "Chipboard 3mm",
+
+    "Art Paper Wrap 128 GSM",
+    "Art Paper Wrap 157 GSM",
+    "Art Paper Wrap 170 GSM",
     "Special Texture Paper Wrap",
+    "Kraft Paper Wrap",
+    "Black Paper Wrap",
   ],
+
   folding: [
     "Need suggestion",
-    "SBS Board 250 GSM",
-    "SBS Board 300 GSM",
-    "SBS Board 350 GSM",
-    "SBS Board 400 GSM",
-    "Bleach Card 300 GSM",
-    "Bleach Card 350 GSM",
+
+    "SBS / Bleach Card 250 GSM",
+    "SBS / Bleach Card 300 GSM",
+    "SBS / Bleach Card 350 GSM",
+    "SBS / Bleach Card 400 GSM",
+    "SBS / Bleach Card 450 GSM",
+
+    "Art Card 210 GSM",
+    "Art Card 230 GSM",
+    "Art Card 250 GSM",
+    "Art Card 260 GSM",
     "Art Card 300 GSM",
     "Art Card 350 GSM",
+    "Art Card 400 GSM",
+    "Art Card 450 GSM",
+
+    "Duplex Board 300 GSM",
     "Duplex Board 350 GSM",
     "Duplex Board 400 GSM",
+    "Duplex Board 450 GSM",
+    "Duplex Board 500 GSM",
+
+    "Kraft Card 250 GSM",
     "Kraft Card 300 GSM",
     "Kraft Card 350 GSM",
+    "Kraft Card 400 GSM",
+    "Kraft Card 450 GSM",
   ],
+
   corrugated: [
     "Need suggestion",
+
     "E-Flute Corrugated Board",
     "B-Flute Corrugated Board",
     "C-Flute Corrugated Board",
@@ -107,81 +190,160 @@ const materialLibrary = {
     "Kraft E-Flute Board",
     "White Back E-Flute Board",
     "Black E-Flute Board",
+
     "3 Ply Corrugated Board",
     "5 Ply Corrugated Board",
-    "Mailer Box Corrugated Board",
+    "7 Ply Corrugated Board",
+
+    "Mailer Box E-Flute Board",
+    "Mailer Box B-Flute Board",
+    "Shipping Box 3 Ply Board",
+    "Shipping Box 5 Ply Board",
+    "Display Box Corrugated Board",
   ],
+
   food: [
     "Need suggestion",
+
     "Food Grade SBS 250 GSM",
     "Food Grade SBS 300 GSM",
     "Food Grade SBS 350 GSM",
+    "Food Grade SBS 400 GSM",
+
+    "Food Grade Kraft 200 GSM",
     "Food Grade Kraft 250 GSM",
     "Food Grade Kraft 300 GSM",
+    "Food Grade Kraft 350 GSM",
+
     "PE Coated Paper",
-    "Greaseproof Paper",
-    "Butter Paper",
-    "Glassine Paper",
     "Cup Stock Paper",
+
+    "Greaseproof Paper 40 GSM",
+    "Greaseproof Paper 45 GSM",
+    "Greaseproof Paper 50 GSM",
+    "Greaseproof Paper 60 GSM",
+    "Greaseproof Paper 70 GSM",
+
+    "Butter Paper 30 GSM",
+    "Butter Paper 40 GSM",
+    "Butter Paper 45 GSM",
+    "Butter Paper 50 GSM",
+    "Butter Paper 60 GSM",
+    "Butter Paper 70 GSM",
+    "Butter Paper 80 GSM",
+
+    "Glassine Paper",
     "Bakery Box Card",
   ],
+
   sticker: [
     "Need suggestion",
+
     "Sticker Stock Paper",
     "Gloss Sticker Paper",
     "Matte Sticker Paper",
     "Semi Gloss Sticker Paper",
+    "Kraft Sticker Paper",
     "Vinyl Sticker",
     "Transparent Sticker",
-    "Kraft Sticker",
+    "Waterproof Label Stock",
     "Gold Foil Sticker",
     "Silver Foil Sticker",
-    "Waterproof Label Stock",
+    "Removable Sticker Stock",
+    "Permanent Adhesive Sticker Stock",
   ],
+
   paper: [
     "Need suggestion",
+
+    "Art Paper 80 GSM",
+    "Art Paper 100 GSM",
+    "Art Paper 115 GSM",
     "Art Paper 128 GSM",
+    "Art Paper 150 GSM",
     "Art Paper 157 GSM",
     "Art Paper 170 GSM",
+    "Art Paper 200 GSM",
+
     "Kraft Paper 80 GSM",
     "Kraft Paper 100 GSM",
     "Kraft Paper 120 GSM",
-    "Butter Paper",
+    "Kraft Paper 150 GSM",
+    "Kraft Paper 170 GSM",
+    "Kraft Paper 200 GSM",
+
+    "Butter Paper 30 GSM",
+    "Butter Paper 40 GSM",
+    "Butter Paper 45 GSM",
+    "Butter Paper 50 GSM",
+    "Butter Paper 60 GSM",
+    "Butter Paper 70 GSM",
+    "Butter Paper 80 GSM",
+
     "Greaseproof Paper",
+    "Glassine Paper",
     "Wrapping Paper",
     "Tissue Paper",
   ],
 };
 
+type MaterialType = keyof typeof materialLibrary;
+
 const gsmOptions = [
   "Need suggestion",
+
+  "30 GSM",
+  "40 GSM",
+  "45 GSM",
+  "50 GSM",
+  "60 GSM",
+  "70 GSM",
   "80 GSM",
+  "90 GSM",
   "100 GSM",
+  "115 GSM",
   "120 GSM",
   "128 GSM",
+  "150 GSM",
   "157 GSM",
   "170 GSM",
+  "180 GSM",
   "200 GSM",
+
+  "210 GSM",
+  "230 GSM",
   "250 GSM",
+  "260 GSM",
   "300 GSM",
   "350 GSM",
   "400 GSM",
   "450 GSM",
   "500 GSM",
+
+  "700 GSM rigid",
   "800 GSM rigid",
   "1000 GSM rigid",
   "1200 GSM rigid",
   "1500 GSM rigid",
+  "1800 GSM rigid",
+  "2000 GSM rigid",
+
+  "1.2mm board",
   "1.5mm board",
   "2mm board",
   "2.5mm board",
   "3mm board",
+
   "E-Flute",
   "B-Flute",
+  "C-Flute",
   "Micro Flute",
+  "3 Ply",
+  "5 Ply",
+  "7 Ply",
 ];
 
-function getMaterialType(productName: string) {
+function getMaterialType(productName: string): MaterialType {
   const name = productName.toLowerCase();
 
   if (
@@ -245,7 +407,7 @@ function getMaterialType(productName: string) {
   return "general";
 }
 
-function uniqueValues(values: string[]) {
+function uniqueValues(values: readonly string[]) {
   return Array.from(new Set(values));
 }
 
@@ -260,6 +422,7 @@ export default function QuoteSection() {
 
   const materialOptions = useMemo(() => {
     const materialType = getMaterialType(selectedProduct);
+
     return uniqueValues([
       ...materialLibrary[materialType],
       ...materialLibrary.general,
