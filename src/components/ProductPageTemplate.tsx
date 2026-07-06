@@ -2,6 +2,63 @@ import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
 
+function getProductGallery(product: Product) {
+  const firstWord = product.name.split(" ")[0] || "Box";
+
+  return [
+    {
+      title: "Front View",
+      label: firstWord,
+      description: "Premium branded front packaging presentation.",
+    },
+    {
+      title: "Side View",
+      label: "SIDE",
+      description: "Clear structure and product protection view.",
+    },
+    {
+      title: "Open View",
+      label: "OPEN",
+      description: "Unboxing experience and inside packaging layout.",
+    },
+    {
+      title: "Material View",
+      label: "GSM",
+      description: "Board, paper, flute or wrap material selection.",
+    },
+    {
+      title: "Finish View",
+      label: "UV",
+      description: "Lamination, UV, foiling and embossing options.",
+    },
+  ];
+}
+
+function getProductSpecs(product: Product) {
+  return [
+    {
+      title: "Custom Size",
+      description:
+        "Produced according to product dimensions, structure and packing requirement.",
+    },
+    {
+      title: "Material Guidance",
+      description:
+        "SBS, art card, kraft, rigid board, corrugated, butter paper and food-grade options.",
+    },
+    {
+      title: "Printing Support",
+      description:
+        "CMYK, Pantone, inside/outside printing and brand-focused artwork support.",
+    },
+    {
+      title: "Finishing Options",
+      description:
+        "Matte, gloss, soft touch, spot UV, foil, embossing, debossing and die cutting.",
+    },
+  ];
+}
+
 export default function ProductPageTemplate({ product }: { product: Product }) {
   const sameCategoryProducts = products
     .filter(
@@ -17,6 +74,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
     sameCategoryProducts.length >= 4 ? sameCategoryProducts : fallbackProducts;
 
   const productQuoteLink = `/?product=${product.slug}#quote`;
+  const galleryItems = getProductGallery(product);
+  const productSpecs = getProductSpecs(product);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -31,11 +90,34 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
     })),
   };
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    category: product.category,
+    brand: {
+      "@type": "Brand",
+      name: "Printy Packaging",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: `https://printypackaging.com/products/${product.slug}`,
+    },
+  };
+
   return (
     <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
 
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
@@ -95,15 +177,16 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               </div>
 
               <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-3">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                  Low MOQ Support
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                  Custom Size
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
-                  Print Ready Help
-                </div>
+                {["Low MOQ Support", "Custom Size", "Print Ready Help"].map(
+                  (item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-white/10 bg-white/[0.06] p-4"
+                    >
+                      {item}
+                    </div>
+                  )
+                )}
               </div>
             </div>
 
@@ -123,13 +206,68 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
                   Custom Packaging
                 </div>
+
+                <div className="absolute bottom-8 right-8 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white">
+                  Premium Mockup
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="product-details" className="bg-white px-5 py-20 md:px-8">
+      <section id="product-gallery" className="bg-white px-5 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+                Product Gallery
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
+                5 visual angles for {product.name}
+              </h2>
+            </div>
+
+            <p className="max-w-xl text-sm leading-6 text-slate-600 md:text-right">
+              These are fast-loading professional placeholders. Real packaging
+              images can be replaced later without changing the page structure.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-5">
+            {galleryItems.map((item, index) => (
+              <div
+                key={item.title}
+                className="group overflow-hidden rounded-[1.7rem] border border-slate-200 bg-[#F7FAFC] shadow-sm transition hover:-translate-y-1 hover:border-[#00C2E8] hover:shadow-md"
+              >
+                <div className="relative h-52 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
+                  <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
+
+                  <div className="absolute bottom-6 left-1/2 h-24 w-24 -translate-x-1/2 rotate-[-7deg] rounded-2xl bg-white shadow-2xl transition group-hover:rotate-0" />
+
+                  <div className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
+                    {index + 1}
+                  </div>
+
+                  <div className="absolute bottom-5 right-5 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                    {item.label}
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <h3 className="font-black text-[#07111F]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="product-details" className="bg-[#F7FAFC] px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
@@ -155,26 +293,70 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
-            {product.features.map((feature) => (
+            {productSpecs.map((feature) => (
               <div
-                key={feature}
-                className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
+                key={feature.title}
+                className="rounded-[1.5rem] border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
                   ✓
                 </div>
-                <h3 className="font-black text-[#07111F]">{feature}</h3>
+                <h3 className="font-black text-[#07111F]">{feature.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
+      <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
           <InfoCard title="Materials" items={product.materials} />
           <InfoCard title="Finishing Options" items={product.finishes} />
           <InfoCard title="Industries" items={product.industries} />
+        </div>
+      </section>
+
+      <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+                Buyer Guidance
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
+                Make your packaging decision faster
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-slate-600">
+                Share your product size, quantity, material choice, GSM,
+                printing colors and finishing needs. Our sales team will review
+                your details and suggest the most practical packaging solution.
+              </p>
+            </div>
+
+            <div className="grid gap-4">
+              {[
+                "Send product size and quantity",
+                "Select material and GSM",
+                "Choose printing and finishing",
+                "Receive quote guidance from sales team",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] font-black text-white">
+                    ✓
+                  </div>
+                  <p className="font-black text-[#07111F]">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -228,7 +410,12 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 prefetch={false}
                 className="pp-card rounded-[1.5rem] bg-white p-6 shadow-md"
               >
-                <div className="mb-5 h-32 rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+                <div className="relative mb-5 h-32 overflow-hidden rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
+                  <div className="absolute bottom-4 left-5 h-16 w-20 rotate-[-8deg] rounded-xl bg-white shadow-xl" />
+                  <div className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">
+                    Box
+                  </div>
+                </div>
 
                 <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[#00C2E8]">
                   {item.category}
@@ -277,14 +464,14 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
 function InfoCard({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-[1.7rem] bg-white p-7 shadow-md">
+    <div className="rounded-[1.7rem] bg-[#F7FAFC] p-7 shadow-sm">
       <h3 className="text-2xl font-black text-[#07111F]">{title}</h3>
 
       <div className="mt-6 grid gap-3">
         {items.map((item) => (
           <div
             key={item}
-            className="rounded-2xl bg-[#F7FAFC] px-4 py-3 font-bold text-slate-700"
+            className="rounded-2xl bg-white px-4 py-3 font-bold text-slate-700"
           >
             {item}
           </div>
