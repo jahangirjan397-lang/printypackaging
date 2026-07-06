@@ -14,6 +14,7 @@ import Materials from "../components/Materials";
 import FinishingOptions from "../components/FinishingOptions";
 import Process from "../components/Process";
 import PortfolioPreview from "../components/PortfolioPreview";
+import CustomerReviews from "../components/CustomerReviews";
 import ArtworkGuide from "../components/ArtworkGuide";
 import QualityControl from "../components/QualityControl";
 import UploadArtworkCTA from "../components/UploadArtworkCTA";
@@ -46,6 +47,7 @@ export default function Home() {
       <FinishingOptions />
       <Process />
       <PortfolioPreview />
+      <CustomerReviews />
       <ArtworkGuide />
       <QualityControl />
       <UploadArtworkCTA />
