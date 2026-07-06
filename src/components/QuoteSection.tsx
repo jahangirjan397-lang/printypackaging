@@ -1,7 +1,7 @@
 "use client";
 
-import type { FormEvent } from "react";
-import { useEffect, useState } from "react";
+import type { FormEvent, ReactNode } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { products } from "../data/products";
 
@@ -19,29 +19,235 @@ const countries = [
   "Europe",
   "UAE",
   "Australia",
+  "Pakistan",
   "Other",
-];
-
-const materials = [
-  "Need suggestion",
-  "SBS Board",
-  "Kraft Paper",
-  "Rigid Board",
-  "Corrugated Board",
-  "Art Card",
-  "Butter Paper",
 ];
 
 const finishingOptions = [
   "Need suggestion",
   "Matte Lamination",
   "Gloss Lamination",
+  "Soft Touch Lamination",
+  "Anti Scratch Matte Lamination",
   "Spot UV",
+  "Raised UV",
   "Gold Foiling",
+  "Silver Foiling",
   "Embossing",
+  "Debossing",
   "Die Cutting",
+  "Window Patching",
+  "Drip Off / Varnish",
   "Multiple Finishes",
 ];
+
+const artworkOptions = [
+  "Artwork ready",
+  "Need design support",
+  "Need dieline/template",
+  "Will send artwork later",
+];
+
+const printingOptions = [
+  "Need suggestion",
+  "No printing / plain packaging",
+  "1 Color Printing",
+  "2 Color Printing",
+  "CMYK Full Color Printing",
+  "CMYK + Pantone",
+  "Inside + Outside Printing",
+];
+
+const materialLibrary = {
+  general: [
+    "Need suggestion",
+    "SBS Board / Bleach Card",
+    "Art Card 250-400 GSM",
+    "Duplex Board 300-500 GSM",
+    "Kraft Card 250-450 GSM",
+    "Food Grade Card 250-400 GSM",
+    "Corrugated Board",
+    "Rigid Board / Grey Board",
+  ],
+  rigid: [
+    "Need suggestion",
+    "Rigid Board 800 GSM",
+    "Rigid Board 1000 GSM",
+    "Rigid Board 1200 GSM",
+    "Rigid Board 1500 GSM",
+    "Rigid Board 1800 GSM",
+    "Grey Board 1.5mm",
+    "Grey Board 2mm",
+    "Grey Board 2.5mm",
+    "Grey Board 3mm",
+    "Art Paper Wrap 128-157 GSM",
+    "Special Texture Paper Wrap",
+  ],
+  folding: [
+    "Need suggestion",
+    "SBS Board 250 GSM",
+    "SBS Board 300 GSM",
+    "SBS Board 350 GSM",
+    "SBS Board 400 GSM",
+    "Bleach Card 300 GSM",
+    "Bleach Card 350 GSM",
+    "Art Card 300 GSM",
+    "Art Card 350 GSM",
+    "Duplex Board 350 GSM",
+    "Duplex Board 400 GSM",
+    "Kraft Card 300 GSM",
+    "Kraft Card 350 GSM",
+  ],
+  corrugated: [
+    "Need suggestion",
+    "E-Flute Corrugated Board",
+    "B-Flute Corrugated Board",
+    "C-Flute Corrugated Board",
+    "Micro Flute Board",
+    "Kraft E-Flute Board",
+    "White Back E-Flute Board",
+    "Black E-Flute Board",
+    "3 Ply Corrugated Board",
+    "5 Ply Corrugated Board",
+    "Mailer Box Corrugated Board",
+  ],
+  food: [
+    "Need suggestion",
+    "Food Grade SBS 250 GSM",
+    "Food Grade SBS 300 GSM",
+    "Food Grade SBS 350 GSM",
+    "Food Grade Kraft 250 GSM",
+    "Food Grade Kraft 300 GSM",
+    "PE Coated Paper",
+    "Greaseproof Paper",
+    "Butter Paper",
+    "Glassine Paper",
+    "Cup Stock Paper",
+    "Bakery Box Card",
+  ],
+  sticker: [
+    "Need suggestion",
+    "Sticker Stock Paper",
+    "Gloss Sticker Paper",
+    "Matte Sticker Paper",
+    "Semi Gloss Sticker Paper",
+    "Vinyl Sticker",
+    "Transparent Sticker",
+    "Kraft Sticker",
+    "Gold Foil Sticker",
+    "Silver Foil Sticker",
+    "Waterproof Label Stock",
+  ],
+  paper: [
+    "Need suggestion",
+    "Art Paper 128 GSM",
+    "Art Paper 157 GSM",
+    "Art Paper 170 GSM",
+    "Kraft Paper 80 GSM",
+    "Kraft Paper 100 GSM",
+    "Kraft Paper 120 GSM",
+    "Butter Paper",
+    "Greaseproof Paper",
+    "Wrapping Paper",
+    "Tissue Paper",
+  ],
+};
+
+const gsmOptions = [
+  "Need suggestion",
+  "80 GSM",
+  "100 GSM",
+  "120 GSM",
+  "128 GSM",
+  "157 GSM",
+  "170 GSM",
+  "200 GSM",
+  "250 GSM",
+  "300 GSM",
+  "350 GSM",
+  "400 GSM",
+  "450 GSM",
+  "500 GSM",
+  "800 GSM rigid",
+  "1000 GSM rigid",
+  "1200 GSM rigid",
+  "1500 GSM rigid",
+  "1.5mm board",
+  "2mm board",
+  "2.5mm board",
+  "3mm board",
+  "E-Flute",
+  "B-Flute",
+  "Micro Flute",
+];
+
+function getMaterialType(productName: string) {
+  const name = productName.toLowerCase();
+
+  if (
+    name.includes("rigid") ||
+    name.includes("drawer") ||
+    name.includes("magnetic") ||
+    name.includes("luxury") ||
+    name.includes("gift")
+  ) {
+    return "rigid";
+  }
+
+  if (
+    name.includes("mailer") ||
+    name.includes("shipping") ||
+    name.includes("corrugated") ||
+    name.includes("e-flute") ||
+    name.includes("flute")
+  ) {
+    return "corrugated";
+  }
+
+  if (
+    name.includes("food") ||
+    name.includes("bakery") ||
+    name.includes("butter") ||
+    name.includes("paper cup") ||
+    name.includes("takeaway") ||
+    name.includes("restaurant")
+  ) {
+    return "food";
+  }
+
+  if (
+    name.includes("sticker") ||
+    name.includes("label") ||
+    name.includes("vinyl")
+  ) {
+    return "sticker";
+  }
+
+  if (
+    name.includes("paper") ||
+    name.includes("bag") ||
+    name.includes("wrap") ||
+    name.includes("tissue")
+  ) {
+    return "paper";
+  }
+
+  if (
+    name.includes("folding") ||
+    name.includes("carton") ||
+    name.includes("cosmetic") ||
+    name.includes("display") ||
+    name.includes("retail")
+  ) {
+    return "folding";
+  }
+
+  return "general";
+}
+
+function uniqueValues(values: string[]) {
+  return Array.from(new Set(values));
+}
 
 export default function QuoteSection() {
   const router = useRouter();
@@ -51,6 +257,14 @@ export default function QuoteSection() {
   const [selectedProduct, setSelectedProduct] = useState(
     products[0]?.name || ""
   );
+
+  const materialOptions = useMemo(() => {
+    const materialType = getMaterialType(selectedProduct);
+    return uniqueValues([
+      ...materialLibrary[materialType],
+      ...materialLibrary.general,
+    ]);
+  }, [selectedProduct]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -84,7 +298,23 @@ export default function QuoteSection() {
     setErrorMessage("");
 
     const formData = new FormData(event.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = Object.fromEntries(formData.entries()) as Record<
+      string,
+      string
+    >;
+
+    const originalMessage = payload.message || "";
+
+    payload.message = [
+      originalMessage,
+      "",
+      "Extra Quote Details:",
+      `Material GSM / Thickness: ${payload.gsm || "Not selected"}`,
+      `Printing Colors: ${payload.printing || "Not selected"}`,
+      `Artwork Status: ${payload.artworkStatus || "Not selected"}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     try {
       const response = await fetch("/api/quote", {
@@ -127,7 +357,7 @@ export default function QuoteSection() {
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Share your box style, size, quantity, material and finishing
+              Share your box style, size, quantity, material, GSM and finishing
               requirements. Our packaging team will review the details and guide
               you with the best custom packaging solution.
             </p>
@@ -150,8 +380,8 @@ export default function QuoteSection() {
               <p className="text-xl font-black">Fast Quote Checklist</p>
               <p className="mt-3 leading-7 text-slate-300">
                 For an accurate quote, please send product size, quantity, box
-                style, material preference, printing colors, finishing details
-                and artwork status.
+                style, material preference, GSM or board thickness, printing
+                colors, finishing details and artwork status.
               </p>
             </div>
           </div>
@@ -194,7 +424,9 @@ export default function QuoteSection() {
               <FormField label="Country">
                 <select name="country" className="field-input">
                   {countries.map((country) => (
-                    <option key={country}>{country}</option>
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
                   ))}
                 </select>
               </FormField>
@@ -232,18 +464,52 @@ export default function QuoteSection() {
 
               <FormField label="Material">
                 <select name="material" className="field-input">
-                  {materials.map((material) => (
-                    <option key={material}>{material}</option>
+                  {materialOptions.map((material) => (
+                    <option key={material} value={material}>
+                      {material}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
+
+              <FormField label="GSM / Board Thickness">
+                <select name="gsm" className="field-input">
+                  {gsmOptions.map((gsm) => (
+                    <option key={gsm} value={gsm}>
+                      {gsm}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
+
+              <FormField label="Printing Colors">
+                <select name="printing" className="field-input">
+                  {printingOptions.map((printing) => (
+                    <option key={printing} value={printing}>
+                      {printing}
+                    </option>
                   ))}
                 </select>
               </FormField>
             </div>
 
-            <div className="mt-5">
+            <div className="mt-5 grid gap-5 md:grid-cols-2">
               <FormField label="Finishing Options">
                 <select name="finishing" className="field-input">
                   {finishingOptions.map((finish) => (
-                    <option key={finish}>{finish}</option>
+                    <option key={finish} value={finish}>
+                      {finish}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
+
+              <FormField label="Artwork Status">
+                <select name="artworkStatus" className="field-input">
+                  {artworkOptions.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
                   ))}
                 </select>
               </FormField>
@@ -254,7 +520,7 @@ export default function QuoteSection() {
                 <textarea
                   name="message"
                   rows={5}
-                  placeholder="Tell us about your product, packaging style, printing colors, artwork and deadline..."
+                  placeholder="Tell us about your product, packaging style, deadline, shipping country and any special requirement..."
                   className="field-input resize-none"
                 />
               </FormField>
@@ -264,7 +530,8 @@ export default function QuoteSection() {
               <p className="font-black text-[#07111F]">Artwork Upload</p>
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 File upload will be connected in the next backend level. For
-                now, mention if artwork is ready or if you need design support.
+                now, select artwork status above and mention any design support
+                requirement in project details.
               </p>
             </div>
 
@@ -297,7 +564,7 @@ function FormField({
   children,
 }: {
   label: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <label className="block">
