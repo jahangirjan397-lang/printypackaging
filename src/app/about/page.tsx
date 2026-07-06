@@ -2,151 +2,315 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Printy Packaging | Custom Packaging Partner",
+  title: "About Printy Packaging | Premium Custom Boxes & Packaging Partner",
   description:
-    "Learn about Printy Packaging, a custom packaging partner helping USA, UK, Canada and international buyers with boxes, materials, finishes and professional quote support.",
+    "Learn about Printy Packaging, a custom packaging partner helping USA, UK, Canada, Europe and worldwide buyers with custom boxes, rigid boxes, food packaging, materials, finishes and quote support.",
 };
 
-const values = [
+const strengths = [
   {
     title: "Custom Packaging Focus",
-    text: "We help brands choose the right box style, material, finish and production route for their packaging needs.",
+    text: "We help brands plan custom boxes, rigid boxes, folding cartons, food packaging, labels, stickers and premium retail packaging.",
   },
   {
-    title: "Buyer-Friendly Support",
-    text: "Our quote process is simple, clear and helpful for businesses that need professional packaging guidance.",
+    title: "Buyer-Friendly Quote Support",
+    text: "Our quote process is simple for international buyers. Share size, quantity, material, printing and finishing details to get better guidance.",
   },
   {
-    title: "International Market Ready",
-    text: "Printy Packaging is built for USA, UK, Canada and global buyers looking for reliable custom packaging solutions.",
+    title: "Premium Finish Planning",
+    text: "We guide customers through lamination, foil stamping, embossing, debossing, spot UV, window patching and other finishing options.",
+  },
+  {
+    title: "Global Market Direction",
+    text: "Printy Packaging is built for USA, UK, Canada, Europe, UAE and worldwide packaging inquiries.",
   },
 ];
 
 const processSteps = [
-  "Share product size, quantity and packaging style.",
-  "We review material, printing, finishing and production needs.",
-  "You receive quote guidance with the best possible packaging direction.",
-  "After approval, production planning and delivery support can begin.",
+  {
+    title: "Share Packaging Details",
+    text: "Tell us your box style, size, quantity, material preference, artwork status and delivery country.",
+  },
+  {
+    title: "Review Materials & Finishes",
+    text: "We help review paperboard, kraft, corrugated, rigid board, food-safe materials and finishing options.",
+  },
+  {
+    title: "Quote Guidance",
+    text: "You receive clear quote support based on the details you provide and the packaging direction you need.",
+  },
+  {
+    title: "Production Planning",
+    text: "After approval, final artwork, dieline, printing, finishing and production details can be planned properly.",
+  },
+];
+
+const markets = [
+  "USA custom packaging buyers",
+  "UK retail and ecommerce brands",
+  "Canada product packaging inquiries",
+  "Europe luxury packaging projects",
+  "UAE and worldwide business support",
+];
+
+const productTypes = [
+  "Rigid Boxes",
+  "Mailer Boxes",
+  "Folding Cartons",
+  "Food Packaging",
+  "Butter Paper",
+  "Paper Bags",
+  "Labels & Stickers",
+  "Luxury Packaging",
 ];
 
 export default function AboutPage() {
   return (
-    <main className="bg-slate-950 text-white">
-      <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950">
-        <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
+    <main className="bg-[#07111F] text-white">
+      <section className="relative overflow-hidden border-b border-cyan-400/10 bg-gradient-to-br from-[#07111F] via-[#09243A] to-[#061525]">
+        <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300">
+        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
+          <div>
+            <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200 shadow-lg shadow-cyan-500/10">
               About Printy Packaging
-            </p>
+            </div>
 
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Professional custom packaging support for growing brands.
+            <h1 className="mt-8 max-w-4xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Custom packaging support for{" "}
+              <span className="bg-gradient-to-r from-orange-400 via-orange-300 to-cyan-300 bg-clip-text text-transparent">
+                serious brands worldwide.
+              </span>
             </h1>
 
-            <p className="mt-6 text-lg leading-8 text-slate-300">
-              Printy Packaging helps businesses create custom boxes with a clear
-              focus on box style, material selection, finishing options and fast
-              quote support. Our goal is to make packaging simple for brands,
-              startups, ecommerce stores and international buyers.
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+              Printy Packaging helps businesses plan premium custom boxes,
+              printed packaging, materials, finishes and quote details for
+              retail, ecommerce, food, cosmetic, luxury and international
+              packaging projects.
             </p>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/?product=mailer-boxes#quote"
-                className="rounded-full bg-cyan-400 px-7 py-3 text-center text-sm font-bold text-slate-950 shadow-lg shadow-cyan-400/20 transition hover:bg-cyan-300"
+                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
-                Request a Quote
+                Get Quote
               </Link>
 
               <Link
                 href="/products"
-                className="rounded-full border border-white/20 px-7 py-3 text-center text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
+                className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
               >
                 View Products
               </Link>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-3">
-          {values.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-3xl border border-white/10 bg-white/[0.04] p-8 shadow-2xl shadow-black/20"
-            >
-              <h2 className="text-xl font-bold text-white">{item.title}</h2>
-              <p className="mt-4 leading-7 text-slate-300">{item.text}</p>
+          <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-5 shadow-2xl shadow-cyan-950/40">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[#07111F] p-6">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
+                What We Help With
+              </p>
+
+              <h2 className="mt-4 text-3xl font-black tracking-tight">
+                Boxes, materials, finishing and quote-ready planning.
+              </h2>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {productTypes.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-slate-200"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 rounded-3xl border border-orange-400/20 bg-orange-500/10 p-5">
+                <p className="text-sm leading-7 text-slate-300">
+                  Our goal is to make packaging easier for buyers by giving
+                  clear direction before final quote and production planning.
+                </p>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-white/[0.03]">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
-              What We Do
+      <section className="bg-slate-50 text-slate-950">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Why Printy Packaging
             </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              We guide buyers from packaging idea to quote-ready details.
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+              Built for custom packaging buyers who need clear guidance.
             </h2>
-            <p className="mt-5 leading-8 text-slate-300">
-              From mailer boxes and folding cartons to rigid boxes, display
-              boxes and premium retail packaging, our website is designed to
-              help customers understand options and quickly request the right
-              packaging quote.
+
+            <p className="mt-5 leading-8 text-slate-600">
+              We focus on product style, packaging structure, material choice,
+              printing requirements, finishing options and buyer communication.
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-8">
-            <h3 className="text-2xl font-bold">Our Quote Process</h3>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {strengths.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
+              >
+                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20" />
+                <h3 className="text-xl font-black tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="mt-4 leading-7 text-slate-600">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="mt-8 space-y-5">
-              {processSteps.map((step, index) => (
-                <div key={step} className="flex gap-4">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cyan-400 text-sm font-black text-slate-950">
+      <section className="bg-white text-slate-950">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Our Process
+            </p>
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+              From packaging idea to quote-ready details.
+            </h2>
+
+            <p className="mt-5 leading-8 text-slate-600">
+              A professional packaging quote needs correct size, quantity,
+              material, printing, finishing, artwork and shipping details. Our
+              process is designed to make those details clear.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="/contact"
+                className="rounded-full bg-[#07111F] px-7 py-3 text-center text-sm font-black text-white transition hover:bg-[#FF6A00]"
+              >
+                Contact Us
+              </Link>
+
+              <Link
+                href="/faq"
+                className="rounded-full border border-slate-300 px-7 py-3 text-center text-sm font-black text-slate-950 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
+              >
+                Read FAQ
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid gap-5">
+            {processSteps.map((step, index) => (
+              <article
+                key={step.title}
+                className="rounded-3xl border border-slate-200 bg-slate-50 p-7"
+              >
+                <div className="flex gap-5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-white shadow-lg shadow-orange-500/20">
                     {index + 1}
                   </div>
-                  <p className="pt-1 leading-7 text-slate-300">{step}</p>
+
+                  <div>
+                    <h3 className="text-xl font-black tracking-tight">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 leading-7 text-slate-600">
+                      {step.text}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-50 text-slate-950">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-200/70">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Markets We Serve
+            </p>
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight">
+              Packaging support for international buyers.
+            </h2>
+
+            <div className="mt-7 grid gap-3">
+              {markets.map((market) => (
+                <div
+                  key={market}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm font-black text-slate-700"
+                >
+                  {market}
                 </div>
               ))}
             </div>
           </div>
+
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-700">
+              Website Goal
+            </p>
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+              Faster, cleaner and more helpful than old-style packaging websites.
+            </h2>
+
+            <p className="mt-5 leading-8 text-slate-600">
+              Printy Packaging is being built as a modern, fast and SEO-friendly
+              custom packaging website. The goal is to give buyers a better
+              experience with clear product pages, category pages, market pages,
+              quote support and helpful packaging education.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="rounded-3xl border border-cyan-300/20 bg-gradient-to-br from-blue-950 to-slate-950 p-8 sm:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+      <section className="bg-[#07111F] px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-gradient-to-br from-[#07111F] via-[#09243A] to-[#061525] p-8 shadow-2xl shadow-cyan-950/40 sm:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight">
-                Built for USA, UK, Canada and international packaging buyers.
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
+                Ready to build custom packaging?
+              </p>
+
+              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+                Send your product details and get packaging quote support.
               </h2>
-              <p className="mt-4 leading-8 text-slate-300">
-                Our website structure is focused on clear product pages,
-                material guidance, finish options, market pages and easy quote
-                actions so customers can move quickly from idea to inquiry.
+
+              <p className="mt-4 max-w-3xl leading-8 text-slate-300">
+                Share your product size, quantity, material, printing colors,
+                finishing options and delivery country. We will guide you with
+                the right custom packaging direction.
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <Link
-                href="/markets"
-                className="rounded-full border border-white/20 px-6 py-3 text-center text-sm font-bold transition hover:border-cyan-300 hover:text-cyan-300"
+            <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
+              <a
+                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-black text-white transition hover:border-cyan-300 hover:text-cyan-300"
               >
-                Explore Markets
-              </Link>
+                WhatsApp
+              </a>
 
               <Link
-                href="/contact"
-                className="rounded-full bg-white px-6 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-100"
+                href="/?product=mailer-boxes#quote"
+                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
-                Contact Us
+                Request a Quote
               </Link>
             </div>
           </div>
