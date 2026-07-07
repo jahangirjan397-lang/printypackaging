@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const productLinks = [
   { name: "Rigid Boxes", href: "/products/rigid-boxes", label: "Luxury boxes" },
@@ -44,16 +44,55 @@ const mobileLinks = [
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hideTopBar, setHideTopBar] = useState(false);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    function updateHeader() {
+      const currentScrollY = window.scrollY;
+      const scrollingDown = currentScrollY > lastScrollY.current;
+      const scrollDifference = Math.abs(currentScrollY - lastScrollY.current);
+
+      if (currentScrollY < 90) {
+        setHideTopBar(false);
+      } else if (scrollDifference > 8) {
+        setHideTopBar(scrollingDown);
+      }
+
+      lastScrollY.current = currentScrollY;
+      ticking.current = false;
+    }
+
+    function onScroll() {
+      if (!ticking.current) {
+        window.requestAnimationFrame(updateHeader);
+        ticking.current = true;
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-white">
-      <div className="hidden border-b border-[#0B1B2A] bg-[#07111F] text-white md:block">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2 text-xs font-black lg:px-8">
+      <div
+        className={`overflow-hidden border-b border-[#0B1B2A] bg-[#07111F] text-white transition-all duration-300 ease-in-out ${
+          hideTopBar ? "max-h-0 opacity-0" : "max-h-24 opacity-100"
+        }`}
+      >
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 text-xs font-black sm:px-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
           <p className="text-white">
             Premium Custom Boxes • Butter Paper • Food Packaging • Labels & Stickers
           </p>
 
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center gap-3 md:gap-5">
             <a
               href="mailto:sales@printypackaging.com"
               className="text-cyan-300 transition hover:text-[#FF6A00]"
@@ -61,9 +100,9 @@ export default function Header() {
               sales@printypackaging.com
             </a>
 
-            <span className="h-4 w-px bg-white/30" />
+            <span className="hidden h-4 w-px bg-white/30 md:block" />
             <span className="text-cyan-300">USA Sales Support Coming Soon</span>
-            <span className="h-4 w-px bg-white/30" />
+            <span className="hidden h-4 w-px bg-white/30 md:block" />
             <span>USA • UK • Europe • UAE • Worldwide</span>
           </div>
         </div>
@@ -259,7 +298,9 @@ function MegaMenu({
           </Link>
         </div>
 
-        <div className={wide ? "grid grid-cols-4 gap-3" : "grid grid-cols-2 gap-3"}>
+        <div
+          className={wide ? "grid grid-cols-4 gap-3" : "grid grid-cols-2 gap-3"}
+        >
           {links.map((item) => (
             <Link
               href={item.href}
