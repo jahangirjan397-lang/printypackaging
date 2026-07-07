@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 600">
+  <!-- Generator: Adobe Illustrator 29.6.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 9)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st1 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st2 {
+        fill: url(#linear-gradient4);
+      }
+
+      .st3 {
+        fill: url(#linear-gradient3);
+      }
+
+      .st4 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="177.68" y1="318.73" x2="177.68" y2="-1.43" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#02b5b6"/>
+      <stop offset="1" stop-color="#94e0e0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="297.75" y1="158.65" x2="542.38" y2="158.65" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient2" x1="140.22" y1="601.43" x2="140.22" y2="236.99" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient3" x1="57.62" y1="298.3" x2="297.75" y2="298.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#44b8b9"/>
+      <stop offset="1" stop-color="#94e0e0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient4" x1="542.38" y1="294.89" x2="297.75" y2="294.89" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#94e0e0"/>
+      <stop offset="1" stop-color="#02b5b6"/>
+    </linearGradient>
+  </defs>
+  <polygon class="st4" points="297.75 -1.43 57.62 138.21 57.62 318.73 297.75 179.09 297.75 -1.43"/>
+  <polygon class="st1" points="297.75 -1.43 542.38 131.4 542.38 318.73 297.75 179.09 297.75 -1.43"/>
+  <polygon class="st0" points="222.81 502.66 57.62 601.43 57.62 236.99 222.81 236.99 222.81 502.66"/>
+  <polygon class="st3" points="297.75 458.38 57.62 318.73 57.62 138.21 297.75 277.86 297.75 458.38"/>
+  <polygon class="st2" points="297.75 458.38 542.38 318.73 542.38 131.4 297.75 277.86 297.75 458.38"/>
+</svg>

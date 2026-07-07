@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import BrandLogo from "@/components/BrandLogo";
 
 const productLinks = [
   { name: "Rigid Boxes", href: "/products/rigid-boxes", label: "Luxury boxes" },
@@ -110,14 +111,9 @@ export default function Header() {
 
       <div className="border-b border-slate-200 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-4 sm:px-5 md:px-8 md:py-5">
-          <Link
-            href="/"
-            prefetch={false}
-            className="shrink-0 text-xl font-black tracking-tight text-[#07111F] sm:text-2xl md:text-3xl"
-            aria-label="PrintyPackaging home"
-          >
-            Printy<span className="text-[#FF6A00]">Packaging</span>
-          </Link>
+          <div className="shrink-0">
+            <BrandLogo variant="dark" size="default" />
+          </div>
 
           <nav className="hidden items-center gap-5 text-sm font-black text-[#07111F] xl:flex">
             <NavLink href="/">Home</NavLink>
