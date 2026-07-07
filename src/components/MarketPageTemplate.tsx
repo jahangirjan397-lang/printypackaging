@@ -1,14 +1,57 @@
 import Link from "next/link";
 import type { Market } from "../data/markets";
 import { products } from "../data/products";
+import BuyerTrustSection from "./BuyerTrustSection";
 
 const siteUrl = "https://printypackaging.com";
+
+const guideLinks = [
+  {
+    title: "Packaging Materials",
+    href: "/packaging-materials",
+    text: "Compare paperboard, kraft, corrugated, rigid board and food-safe material options.",
+  },
+  {
+    title: "Finishing Options",
+    href: "/finishing-options",
+    text: "Explore lamination, foil stamping, embossing, debossing, spot UV and premium coatings.",
+  },
+  {
+    title: "Artwork & Dieline Guide",
+    href: "/artwork-guide",
+    text: "Understand bleed, safe area, dieline, CMYK, Pantone, barcode and final approval.",
+  },
+  {
+    title: "Sample Kit Guide",
+    href: "/sample-kit",
+    text: "Learn how samples help review material, structure, print quality and presentation.",
+  },
+];
 
 const marketTrustSteps = [
   "Share product size and quantity",
   "Select material and GSM",
   "Choose printing and finishing",
   "Get quote guidance from sales team",
+];
+
+const marketSupportItems = [
+  {
+    title: "International Buyer Support",
+    text: "Market pages help international buyers understand product options, packaging styles and quote requirements.",
+  },
+  {
+    title: "Product-Specific Navigation",
+    text: "Buyers can open product pages directly from each market page and compare recommended packaging products.",
+  },
+  {
+    title: "Quote-Ready Direction",
+    text: "Each page guides buyers to share size, quantity, material, GSM, printing, finishing and delivery details.",
+  },
+  {
+    title: "SEO Market Structure",
+    text: "Market pages support country-specific search intent and connect products, guides and quote flow together.",
+  },
 ];
 
 function getProductLabel(productName: string) {
@@ -51,6 +94,12 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
     market.productSlugs.includes(product.slug)
   );
 
+  const otherProducts = products
+    .filter((product) => !market.productSlugs.includes(product.slug))
+    .slice(0, 4);
+
+  const quoteLink = "/#quote";
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -69,12 +118,47 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
     "@type": "CollectionPage",
     name: `Custom Packaging for ${market.name}`,
     description: market.description,
-    url: `${siteUrl}/markets`,
+    url: `${siteUrl}/markets/${market.slug}`,
+    keywords: market.keywords.join(", "),
     publisher: {
       "@type": "Organization",
       name: "Printy Packaging",
       url: siteUrl,
     },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: marketProducts.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: product.name,
+        url: `${siteUrl}/products/${product.slug}`,
+      })),
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Markets",
+        item: `${siteUrl}/markets`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: market.name,
+        item: `${siteUrl}/markets/${market.slug}`,
+      },
+    ],
   };
 
   return (
@@ -87,6 +171,11 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(marketPageSchema) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
@@ -138,7 +227,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 </a>
 
                 <Link
-                  href="/#quote"
+                  href={quoteLink}
                   prefetch={false}
                   className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
                 >
@@ -286,6 +375,8 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
         </div>
       </section>
 
+      <BuyerTrustSection />
+
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
@@ -300,11 +391,12 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
             <p className="mt-5 text-lg leading-8 text-slate-600">
               Market pages help buyers find packaging options by region and help
               search engines understand international service relevance. This
-              creates better internal linking for product and market pages.
+              creates better internal linking for product, guide and market
+              pages.
             </p>
 
             <Link
-              href="/#quote"
+              href={quoteLink}
               prefetch={false}
               className="mt-8 inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#FF6A00]"
             >
@@ -321,8 +413,93 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
                   ✓
                 </div>
-                <h3 className="font-black text-[#07111F]">{benefit}</h3>
+                <h3 className="font-black leading-7 text-[#07111F]">
+                  {benefit}
+                </h3>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+                Helpful Guides
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
+                Packaging guides for {market.name} buyers.
+              </h2>
+            </div>
+
+            <p className="text-lg leading-8 text-slate-600 lg:text-right">
+              These resources help buyers understand materials, finishing,
+              artwork, dielines and samples before sending a quote inquiry.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {guideLinks.map((guide) => (
+              <Link
+                key={guide.href}
+                href={guide.href}
+                prefetch={false}
+                className="group rounded-[1.7rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg"
+              >
+                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91]" />
+
+                <h3 className="text-xl font-black tracking-tight text-[#07111F]">
+                  {guide.title}
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-600">{guide.text}</p>
+
+                <span className="mt-6 inline-flex text-sm font-black text-[#FF6A00]">
+                  Read guide →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-5 py-20 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+              Market Page Authority
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
+              Built for international packaging search.
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              A strong market page connects buyer intent, product solutions,
+              guide pages and quote actions. This helps both customers and
+              search engines understand the website structure clearly.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            {marketSupportItems.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
+              >
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
+                  ✓
+                </div>
+
+                <h3 className="font-black text-[#07111F]">{item.title}</h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {item.text}
+                </p>
+              </article>
             ))}
           </div>
         </div>
@@ -396,6 +573,43 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
         </div>
       </section>
 
+      <section className="bg-[#07111F] px-5 py-20 text-white md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#00C2E8]">
+            More Packaging Options
+          </p>
+
+          <h2 className="mt-4 text-4xl font-black md:text-5xl">
+            Explore more product pages
+          </h2>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {otherProducts.map((product) => (
+              <Link
+                key={product.slug}
+                href={`/products/${product.slug}`}
+                prefetch={false}
+                className="pp-card rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-6"
+              >
+                <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[#00C2E8]">
+                  {product.category}
+                </p>
+
+                <h3 className="text-xl font-black">{product.name}</h3>
+
+                <p className="mt-3 text-sm leading-6 text-slate-300">
+                  {product.tagline}
+                </p>
+
+                <span className="mt-5 inline-flex font-black text-[#FF6A00]">
+                  View Page &rarr;
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-gradient-to-r from-[#00C2E8] to-[#FF6A00] px-5 py-20 text-white md:px-8">
         <div className="mx-auto max-w-5xl text-center">
           <h2 className="text-4xl font-black md:text-6xl">
@@ -408,7 +622,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
           </p>
 
           <Link
-            href="/#quote"
+            href={quoteLink}
             prefetch={false}
             className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
           >

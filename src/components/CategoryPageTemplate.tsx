@@ -1,6 +1,30 @@
 import Link from "next/link";
 import type { Category } from "../data/categories";
 import { products } from "../data/products";
+import BuyerTrustSection from "./BuyerTrustSection";
+
+const guideLinks = [
+  {
+    title: "Packaging Materials",
+    href: "/packaging-materials",
+    text: "Compare paperboard, kraft, corrugated, rigid board and food-safe material options.",
+  },
+  {
+    title: "Finishing Options",
+    href: "/finishing-options",
+    text: "Explore lamination, foil stamping, embossing, debossing, spot UV and premium coatings.",
+  },
+  {
+    title: "Artwork & Dieline Guide",
+    href: "/artwork-guide",
+    text: "Understand bleed, safe area, dieline, CMYK, Pantone, barcode and final approval.",
+  },
+  {
+    title: "Sample Kit Guide",
+    href: "/sample-kit",
+    text: "Learn how samples help review material, structure, print quality and presentation.",
+  },
+];
 
 const authorityItems = [
   {
@@ -74,11 +98,88 @@ export default function CategoryPageTemplate({
     .filter((product) => !category.productSlugs.includes(product.slug))
     .slice(0, 4);
 
+  const quoteLink = "/#quote";
+
+  const categorySchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${category.name} | Printy Packaging`,
+    description: category.description,
+    url: `https://printypackaging.com/categories/${category.slug}`,
+    keywords: category.keywords.join(", "),
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Printy Packaging",
+      url: "https://printypackaging.com",
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: categoryProducts.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: product.name,
+        url: `https://printypackaging.com/products/${product.slug}`,
+      })),
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://printypackaging.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Categories",
+        item: "https://printypackaging.com/categories",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.name,
+        item: `https://printypackaging.com/categories/${category.slug}`,
+      },
+    ],
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: category.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(categorySchema) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
-
         <div className="absolute left-0 top-0 h-44 w-44 rounded-full bg-[#00C2E8]/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#FF6A00]/10 blur-3xl" />
 
@@ -126,7 +227,7 @@ export default function CategoryPageTemplate({
                 </a>
 
                 <Link
-                  href="/#quote"
+                  href={quoteLink}
                   prefetch={false}
                   className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
                 >
@@ -274,6 +375,96 @@ export default function CategoryPageTemplate({
         </div>
       </section>
 
+      <BuyerTrustSection />
+
+      <section className="bg-white px-5 py-20 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+              Category Benefits
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
+              Why choose {category.name.toLowerCase()}?
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              This category helps buyers understand product styles, material
+              choices, finishing options and quote requirements before starting
+              a packaging project.
+            </p>
+
+            <Link
+              href={quoteLink}
+              prefetch={false}
+              className="mt-8 inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#FF6A00]"
+            >
+              Ask for Recommendation
+            </Link>
+          </div>
+
+          <div className="grid gap-4">
+            {category.benefits.map((benefit) => (
+              <div
+                key={benefit}
+                className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-[#F7FAFC] p-5"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] font-black text-white">
+                  ✓
+                </div>
+                <p className="font-black leading-7 text-[#07111F]">
+                  {benefit}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+                Helpful Guides
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
+                Learn before choosing packaging.
+              </h2>
+            </div>
+
+            <p className="text-lg leading-8 text-slate-600 lg:text-right">
+              These guide pages help buyers understand materials, finishes,
+              artwork and samples before requesting a custom packaging quote.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {guideLinks.map((guide) => (
+              <Link
+                key={guide.href}
+                href={guide.href}
+                prefetch={false}
+                className="group rounded-[1.7rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg"
+              >
+                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91]" />
+
+                <h3 className="text-xl font-black tracking-tight text-[#07111F]">
+                  {guide.title}
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-600">{guide.text}</p>
+
+                <span className="mt-6 inline-flex text-sm font-black text-[#FF6A00]">
+                  Read guide →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
@@ -290,14 +481,6 @@ export default function CategoryPageTemplate({
               and help search engines understand your website structure. This
               creates a stronger internal linking system for SEO.
             </p>
-
-            <Link
-              href="/#quote"
-              prefetch={false}
-              className="mt-8 inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#FF6A00]"
-            >
-              Ask for Recommendation
-            </Link>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
@@ -355,6 +538,38 @@ export default function CategoryPageTemplate({
         </div>
       </section>
 
+      <section className="bg-white px-5 py-20 md:px-8">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+            FAQ
+          </p>
+
+          <h2 className="mt-4 text-4xl font-black text-[#07111F]">
+            Questions about {category.name}
+          </h2>
+
+          <div className="mt-10 space-y-4">
+            {category.faqs.map((faq) => (
+              <details
+                key={faq.question}
+                className="group rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6"
+              >
+                <summary className="cursor-pointer list-none font-black text-[#07111F]">
+                  <span className="flex items-center justify-between gap-5">
+                    {faq.question}
+                    <span className="text-[#FF6A00] transition group-open:rotate-45">
+                      +
+                    </span>
+                  </span>
+                </summary>
+
+                <p className="mt-3 leading-7 text-slate-600">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[#07111F] px-5 py-20 text-white md:px-8">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-black uppercase tracking-[0.32em] text-[#00C2E8]">
@@ -404,7 +619,7 @@ export default function CategoryPageTemplate({
           </p>
 
           <Link
-            href="/#quote"
+            href={quoteLink}
             prefetch={false}
             className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
           >
