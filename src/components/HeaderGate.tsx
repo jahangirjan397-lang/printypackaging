@@ -8,7 +8,6 @@ const pagesWithOwnHeader = [
   "/products",
   "/categories",
   "/markets",
-  "/blog",
 ];
 
 export default function HeaderGate() {

@@ -1,4 +1,3 @@
-import TopBar from "../components/TopBar";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import TrustedBy from "../components/TrustedBy";
@@ -27,13 +26,11 @@ import AuthorityHub from "../components/AuthorityHub";
 import MarketHub from "../components/MarketHub";
 import FinalCTA from "../components/FinalCTA";
 import QuoteSection from "../components/QuoteSection";
-import Footer from "../components/Footer";
 import FloatingActions from "../components/FloatingActions";
 
 export default function Home() {
   return (
     <>
-      <TopBar />
       <Header />
       <Hero />
       <TrustedBy />
@@ -62,7 +59,6 @@ export default function Home() {
       <MarketHub />
       <FinalCTA />
       <QuoteSection />
-      <Footer />
       <FloatingActions />
     </>
   );

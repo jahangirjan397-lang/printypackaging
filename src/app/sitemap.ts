@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { markets } from "@/data/markets";
+import { blogPosts } from "@/data/blogs";
 
 const siteUrl = "https://printypackaging.com";
 
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/products",
     "/categories",
     "/markets",
+    "/blog",
     "/about",
     "/contact",
     "/faq",
@@ -50,10 +52,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const blogRoutes = blogPosts.map((post) => ({
+    url: `${siteUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+  }));
+
   return [
     ...staticRoutes,
     ...productRoutes,
     ...categoryRoutes,
     ...marketRoutes,
+    ...blogRoutes,
   ];
 }

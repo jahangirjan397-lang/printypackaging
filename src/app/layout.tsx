@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import HeaderGate from "@/components/HeaderGate";
-import SiteFooter from "@/components/SiteFooter";
+import SiteFooterGate from "@/components/SiteFooterGate";
 import "./globals.css";
 
 const siteUrl = "https://printypackaging.com";
@@ -123,7 +123,7 @@ export default function RootLayout({
 
         {children}
 
-        <SiteFooter />
+        <SiteFooterGate />
       </body>
     </html>
   );

@@ -1,216 +1,136 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import FloatingActions from "../../components/FloatingActions";
-import { blogPosts } from "../../data/blogPosts";
-
-const siteUrl = "https://printypackaging.com";
-const brandName = "Printy Packaging";
+import { blogPosts } from "@/data/blogs";
 
 export const metadata: Metadata = {
-  title: "Packaging Academy | Custom Packaging Guides | Printy Packaging",
+  title: "Packaging Blog | Custom Boxes, Materials, Finishes & Quote Guides",
   description:
-    "Read professional packaging guides about rigid boxes, butter paper, food packaging, mailer boxes, paper bags, cosmetic boxes and premium finishing options.",
-  alternates: {
-    canonical: `${siteUrl}/blog`,
-  },
-  openGraph: {
-    title: "Packaging Academy | Custom Packaging Guides | Printy Packaging",
-    description:
-      "Learn about custom packaging, printing finishes, materials and buyer decisions before starting your packaging project.",
-    url: `${siteUrl}/blog`,
-    siteName: brandName,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Packaging Academy | Printy Packaging",
-    description:
-      "Custom packaging guides for smart buyers, brands and ecommerce businesses.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+    "Read Printy Packaging blog guides about custom boxes, packaging materials, finishing options, artwork, dielines, ecommerce packaging and food packaging.",
 };
 
 export default function BlogPage() {
-  const blogPageJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "Packaging Academy",
-    description:
-      "Packaging guides about custom boxes, materials, printing, finishing and product packaging decisions.",
-    url: `${siteUrl}/blog`,
-    isPartOf: {
-      "@type": "WebSite",
-      name: brandName,
-      url: siteUrl,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: brandName,
-      url: siteUrl,
-    },
-  };
-
-  const blogListJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: blogPosts.map((post, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: post.title,
-      url: `${siteUrl}/blog/${post.slug}`,
-    })),
-  };
+  const featuredPost = blogPosts[0];
+  const otherPosts = blogPosts.slice(1);
 
   return (
-    <>
-      <Header />
+    <main className="bg-[#07111F] text-white">
+      <section className="relative overflow-hidden border-b border-cyan-400/10 bg-gradient-to-br from-[#07111F] via-[#09243A] to-[#061525]">
+        <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(blogPageJsonLd),
-        }}
-      />
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
+          <div className="max-w-4xl">
+            <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
+              Packaging Blog
+            </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(blogListJsonLd),
-        }}
-      />
-
-      <main>
-        <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
-
-          <div className="relative mx-auto max-w-7xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
-              Packaging Academy
-            </p>
-
-            <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
-              Packaging Guides for Smart Buyers
+            <h1 className="mt-8 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+              Packaging guides for{" "}
+              <span className="bg-gradient-to-r from-orange-400 via-orange-300 to-cyan-300 bg-clip-text text-transparent">
+                custom box buyers.
+              </span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Learn about custom boxes, food packaging, butter paper, printing
-              finishes and product packaging decisions before starting your
-              project.
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+              Learn about custom packaging quotes, materials, finishing,
+              artwork, dielines, ecommerce boxes and food packaging before
+              starting your project.
             </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/products"
-                prefetch={false}
-                className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
-              >
-                Explore Products
-              </Link>
-
-              <Link
-                href="/#quote"
-                prefetch={false}
-                className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
+                href="/?product=mailer-boxes#quote"
+                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Quote
               </Link>
+
+              <Link
+                href="/resources"
+                className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
+              >
+                Resources
+              </Link>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-                  Latest Guides
-                </p>
+      <section className="bg-slate-50 text-slate-950">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+          <Link
+            href={`/blog/${featuredPost.slug}`}
+            className="group grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70 transition hover:-translate-y-1 hover:border-[#FF6A00] lg:grid-cols-[0.95fr_1.05fr]"
+          >
+            <div className="relative min-h-80 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
+              <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+              <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
+                Featured
+              </div>
+              <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
+              <div className="absolute bottom-14 right-10 h-48 w-36 rounded-2xl bg-[#07111F] shadow-2xl">
+                <div className="mx-auto mt-10 h-14 w-14 rounded-full border border-[#FF6A00]" />
+              </div>
+            </div>
 
-                <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-                  Learn before you order
-                </h2>
+            <div className="p-8 sm:p-10">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+                {featuredPost.category}
+              </p>
+
+              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+                {featuredPost.title}
+              </h2>
+
+              <p className="mt-5 leading-8 text-slate-600">
+                {featuredPost.excerpt}
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-500">
+                <span>{featuredPost.readTime}</span>
+                <span>•</span>
+                <span>{featuredPost.publishedAt}</span>
               </div>
 
-              <p className="max-w-xl text-sm leading-6 text-slate-600 md:text-right">
-                These guides help clients understand packaging style, material,
-                finishing and quote requirements before speaking with the sales
-                team.
-              </p>
+              <span className="mt-8 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#007C91]">
+                Read Article
+              </span>
             </div>
+          </Link>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {blogPosts.map((post) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  prefetch={false}
-                  className="pp-card overflow-hidden rounded-[1.7rem] bg-white shadow-md"
-                >
-                  <div className="relative h-44 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                    <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {otherPosts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60 transition hover:-translate-y-1 hover:border-[#FF6A00]"
+              >
+                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91]" />
 
-                    <div className="absolute left-5 top-5 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                      Guide
-                    </div>
-                  </div>
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+                  {post.category}
+                </p>
 
-                  <div className="p-6">
-                    <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-                      {post.category}
-                    </p>
+                <h2 className="mt-4 text-2xl font-black tracking-tight">
+                  {post.title}
+                </h2>
 
-                    <h2 className="mt-3 text-xl font-black text-[#07111F]">
-                      {post.title}
-                    </h2>
+                <p className="mt-4 leading-7 text-slate-600">{post.excerpt}</p>
 
-                    <p className="mt-3 min-h-24 text-sm leading-6 text-slate-600">
-                      {post.excerpt}
-                    </p>
+                <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-500">
+                  <span>{post.readTime}</span>
+                  <span>•</span>
+                  <span>{post.publishedAt}</span>
+                </div>
 
-                    <span className="mt-5 inline-flex font-black text-[#FF6A00]">
-                      Read Guide &rarr;
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                <span className="mt-6 inline-flex text-sm font-black text-[#FF6A00]">
+                  Read guide →
+                </span>
+              </Link>
+            ))}
           </div>
-        </section>
-
-        <section className="bg-white px-5 py-20 md:px-8">
-          <div className="mx-auto max-w-5xl rounded-[2rem] bg-[#07111F] p-8 text-center text-white md:p-12">
-            <p className="text-sm font-black uppercase tracking-[0.32em] text-[#00C2E8]">
-              Need Help Choosing Packaging?
-            </p>
-
-            <h2 className="mt-4 text-4xl font-black md:text-5xl">
-              Share your product details with our team
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-300">
-              Our sales team can guide you about box style, material, printing,
-              finishing and quantity before production.
-            </p>
-
-            <Link
-              href="/#quote"
-              prefetch={false}
-              className="mt-8 inline-flex rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
-            >
-              Request Custom Quote
-            </Link>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-      <FloatingActions />
-    </>
+        </div>
+      </section>
+    </main>
   );
 }
