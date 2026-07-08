@@ -41,29 +41,33 @@ function WhatsAppIcon() {
 
 export default function FloatingActions() {
   return (
-    <div className="fixed bottom-5 right-4 z-[1000000] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-5 right-4 z-[999997] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       <a
         href="/#quote"
-        className="group flex h-12 items-center gap-3 rounded-full bg-[#FF6A00] px-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00] sm:h-13 sm:px-5"
+        className="group flex h-12 w-12 items-center justify-center rounded-full bg-[#FF6A00] text-white shadow-[0_18px_45px_rgba(255,106,0,0.35)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:bg-[#E85F00] sm:w-auto sm:justify-start sm:gap-3 sm:px-5"
         aria-label="Get a custom packaging quote"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/18">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
           <QuoteIcon />
         </span>
-        <span className="hidden whitespace-nowrap sm:inline">Get Quote</span>
+        <span className="hidden whitespace-nowrap text-sm font-black sm:inline">
+          Get Quote
+        </span>
       </a>
 
       <a
         href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex h-12 items-center gap-3 rounded-full bg-[#19C463] px-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(25,196,99,0.28)] transition hover:-translate-y-0.5 hover:bg-[#12A955] sm:h-13 sm:px-5"
+        className="group flex h-12 w-12 items-center justify-center rounded-full bg-[#19C463] text-white shadow-[0_18px_45px_rgba(25,196,99,0.32)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:bg-[#12A955] sm:w-auto sm:justify-start sm:gap-3 sm:px-5"
         aria-label="Chat with PrintyPackaging on WhatsApp"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/18">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
           <WhatsAppIcon />
         </span>
-        <span className="hidden whitespace-nowrap sm:inline">WhatsApp</span>
+        <span className="hidden whitespace-nowrap text-sm font-black sm:inline">
+          WhatsApp
+        </span>
       </a>
     </div>
   );
