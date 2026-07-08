@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import HeaderGate from "@/components/HeaderGate";
 import SiteFooterGate from "@/components/SiteFooterGate";
+import LiveChatWidget from "@/components/LiveChatWidget";
 import "./globals.css";
 
 const siteUrl = "https://printypackaging.com";
@@ -72,9 +73,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+}: Readonly<{ children: ReactNode }>) {
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -120,10 +119,9 @@ export default function RootLayout({
         />
 
         <HeaderGate />
-
         {children}
-
         <SiteFooterGate />
+        <LiveChatWidget />
       </body>
     </html>
   );
