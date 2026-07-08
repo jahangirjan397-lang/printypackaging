@@ -27,6 +27,7 @@ import MarketHub from "../components/MarketHub";
 import FinalCTA from "../components/FinalCTA";
 import QuoteSection from "../components/QuoteSection";
 import FloatingActions from "../components/FloatingActions";
+import SalesSupportSection from "../components/SalesSupportSection";
 
 export default function Home() {
   return (
@@ -58,6 +59,7 @@ export default function Home() {
       <AuthorityHub />
       <MarketHub />
       <FinalCTA />
+      <SalesSupportSection />
       <QuoteSection />
       <FloatingActions />
     </>

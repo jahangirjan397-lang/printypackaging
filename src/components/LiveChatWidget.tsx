@@ -2,6 +2,17 @@
 
 import { useEffect } from "react";
 
+type TawkWindow = Window &
+  typeof globalThis & {
+    Tawk_API?: {
+      customStyle?: {
+        zIndex?: number;
+      };
+      [key: string]: unknown;
+    };
+    Tawk_LoadStart?: Date;
+  };
+
 export default function LiveChatWidget() {
   useEffect(() => {
     const propertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
@@ -11,13 +22,14 @@ export default function LiveChatWidget() {
       return;
     }
 
-    const hostname = window.location.hostname;
+    const tawkWindow = window as TawkWindow;
+    const hostname = tawkWindow.location.hostname;
 
     const isLiveWebsite =
       hostname === "printypackaging.com" ||
       hostname === "www.printypackaging.com";
 
-    const allowLocalTesting = window.location.search.includes("showchat=1");
+    const allowLocalTesting = tawkWindow.location.search.includes("showchat=1");
 
     if (!isLiveWebsite && !allowLocalTesting) {
       return;
@@ -27,10 +39,10 @@ export default function LiveChatWidget() {
       return;
     }
 
-    window.Tawk_API = window.Tawk_API || {};
-    window.Tawk_LoadStart = new Date();
+    tawkWindow.Tawk_API = tawkWindow.Tawk_API || {};
+    tawkWindow.Tawk_LoadStart = new Date();
 
-    window.Tawk_API.customStyle = {
+    tawkWindow.Tawk_API.customStyle = {
       zIndex: 999998,
     };
 
