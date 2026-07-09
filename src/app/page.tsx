@@ -28,6 +28,7 @@ import FinalCTA from "../components/FinalCTA";
 import QuoteSection from "../components/QuoteSection";
 import FloatingActions from "../components/FloatingActions";
 import SalesSupportSection from "../components/SalesSupportSection";
+import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
       <TrustedBy />
       <StatsBar />
       <FeaturedProducts />
+      <PremiumPackagingShowcase />
       <ProductExplorer />
       <Services />
       <BoxStyles />
