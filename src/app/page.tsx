@@ -29,6 +29,9 @@ import QuoteSection from "../components/QuoteSection";
 import FloatingActions from "../components/FloatingActions";
 import SalesSupportSection from "../components/SalesSupportSection";
 import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
+import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
+import QuoteConversionStrip from "../components/QuoteConversionStrip";
+import OrderProcessSection from "../components/OrderProcessSection";
 
 export default function Home() {
   return (
@@ -39,6 +42,8 @@ export default function Home() {
       <StatsBar />
       <FeaturedProducts />
       <PremiumPackagingShowcase />
+      <WhyChoosePrintySection />
+      <OrderProcessSection />
       <ProductExplorer />
       <Services />
       <BoxStyles />
@@ -62,6 +67,7 @@ export default function Home() {
       <MarketHub />
       <FinalCTA />
       <SalesSupportSection />
+      <QuoteConversionStrip />
       <QuoteSection />
       <FloatingActions />
     </>
