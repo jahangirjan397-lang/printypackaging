@@ -16,17 +16,17 @@ export default function BrandLogo({
 
   const wrapperSize =
     size === "large"
-      ? "h-[58px] w-[58px]"
+      ? "h-[64px] w-[64px]"
       : size === "small"
-        ? "h-[38px] w-[38px]"
-        : "h-[48px] w-[48px]";
+        ? "h-[42px] w-[42px]"
+        : "h-[54px] w-[54px]";
 
-  const imageScale =
+  const imageSize =
     size === "large"
-      ? "scale-[1.12]"
+      ? "h-[60px] w-[60px]"
       : size === "small"
-        ? "scale-[1.08]"
-        : "scale-[1.1]";
+        ? "h-[40px] w-[40px]"
+        : "h-[52px] w-[52px]";
 
   const textSize =
     size === "large"
@@ -37,10 +37,17 @@ export default function BrandLogo({
 
   const gapSize =
     size === "large"
-      ? "gap-2.5"
+      ? "gap-2"
       : size === "small"
         ? "gap-1.5"
-        : "gap-2";
+        : "gap-1.5";
+
+  const textMove =
+    size === "large"
+      ? "-translate-y-[2px]"
+      : size === "small"
+        ? "-translate-y-[1px]"
+        : "-translate-y-[2px]";
 
   return (
     <Link
@@ -51,13 +58,13 @@ export default function BrandLogo({
     >
       {!logoError ? (
         <span
-          className={`${wrapperSize} relative flex shrink-0 items-center justify-center overflow-hidden`}
+          className={`${wrapperSize} relative flex shrink-0 items-center justify-center overflow-visible`}
         >
           <img
             src="/logo-icon.svg"
             alt="PrintyPackaging logo icon"
             onError={() => setLogoError(true)}
-            className={`h-full w-full object-contain ${imageScale}`}
+            className={`${imageSize} block object-contain`}
           />
         </span>
       ) : (
@@ -69,7 +76,7 @@ export default function BrandLogo({
       )}
 
       <span
-        className={`flex translate-y-[1px] items-center whitespace-nowrap ${textSize} font-black tracking-tight ${textColor}`}
+        className={`flex ${textMove} items-center whitespace-nowrap ${textSize} font-black tracking-tight ${textColor}`}
       >
         <span>Printy</span>
         <span className="text-[#FF6A00]">Packaging</span>
