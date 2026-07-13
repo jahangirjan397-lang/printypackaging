@@ -32,6 +32,10 @@ import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
 import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import QuoteConversionStrip from "../components/QuoteConversionStrip";
 import OrderProcessSection from "../components/OrderProcessSection";
+import IndustryBuyerSection from "../components/IndustryBuyerSection";
+import SeoKeywordSalesSection from "../components/SeoKeywordSalesSection";
+import CompetitorAdvantageSection from "../components/CompetitorAdvantageSection";
+import SeoGrowthLinksSection from "../components/SeoGrowthLinksSection";
 
 export default function Home() {
   return (
@@ -43,7 +47,10 @@ export default function Home() {
       <FeaturedProducts />
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
+      <CompetitorAdvantageSection />
       <OrderProcessSection />
+      <IndustryBuyerSection />
+      <SeoKeywordSalesSection />
       <ProductExplorer />
       <Services />
       <BoxStyles />
@@ -67,6 +74,7 @@ export default function Home() {
       <MarketHub />
       <FinalCTA />
       <SalesSupportSection />
+      <SeoGrowthLinksSection />
       <QuoteConversionStrip />
       <QuoteSection />
       <FloatingActions />
