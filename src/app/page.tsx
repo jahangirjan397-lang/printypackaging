@@ -36,6 +36,7 @@ import IndustryBuyerSection from "../components/IndustryBuyerSection";
 import SeoKeywordSalesSection from "../components/SeoKeywordSalesSection";
 import CompetitorAdvantageSection from "../components/CompetitorAdvantageSection";
 import SeoGrowthLinksSection from "../components/SeoGrowthLinksSection";
+import TopSeoLinksSection from "../components/TopSeoLinksSection";
 
 export default function Home() {
   return (
@@ -75,6 +76,7 @@ export default function Home() {
       <FinalCTA />
       <SalesSupportSection />
       <SeoGrowthLinksSection />
+      <TopSeoLinksSection />
       <QuoteConversionStrip />
       <QuoteSection />
       <FloatingActions />
