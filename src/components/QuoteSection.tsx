@@ -455,56 +455,70 @@ export default function QuoteSection() {
   }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  event.preventDefault();
 
-    setIsSending(true);
-    setErrorMessage("");
+  setIsSending(true);
+  setErrorMessage("");
 
-    const formData = new FormData(event.currentTarget);
-    const payload = Object.fromEntries(formData.entries()) as Record<
-      string,
-      string
-    >;
+  const formData = new FormData(event.currentTarget);
+  const payload = Object.fromEntries(formData.entries()) as Record<
+    string,
+    string
+  >;
 
-    const originalMessage = payload.message || "";
+  const originalMessage = payload.message || "";
 
-    payload.message = [
-      originalMessage,
-      "",
-      "Extra Quote Details:",
-      `Material GSM / Thickness: ${payload.gsm || "Not selected"}`,
-      `Printing Colors: ${payload.printing || "Not selected"}`,
-      `Artwork Status: ${payload.artworkStatus || "Not selected"}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
+  payload.message = [
+    originalMessage,
+    "",
+    "Extra Quote Details:",
+    `Material GSM / Thickness: ${payload.gsm || "Not selected"}`,
+    `Printing Colors: ${payload.printing || "Not selected"}`,
+    `Artwork Status: ${payload.artworkStatus || "Not selected"}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  try {
+    const response = await fetch("/api/quote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const responseText = await response.text();
+
+    let result: {
+      success?: boolean;
+      message?: string;
+      quoteId?: string;
+    } = {};
 
     try {
-      const response = await fetch("/api/quote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Quote request failed.");
-      }
-
-      router.push("/thank-you");
-    } catch (error) {
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : "Something went wrong. Please try again."
+      result = JSON.parse(responseText);
+    } catch {
+      throw new Error(
+        "Quote API returned an invalid response. Please open /api/quote and check terminal error logs.",
       );
-    } finally {
-      setIsSending(false);
     }
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Quote request failed.");
+    }
+
+    router.push("/thank-you");
+  } catch (error) {
+    setErrorMessage(
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again.",
+    );
+  } finally {
+    setIsSending(false);
   }
+}
 
   return (
     <section id="quote" className="bg-[#F7FAFC] px-5 py-24 md:px-8">

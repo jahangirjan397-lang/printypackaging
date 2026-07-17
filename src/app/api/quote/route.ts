@@ -400,9 +400,11 @@ export async function POST(request: Request) {
       );
     }
 
-    const crmResult = await saveLeadToGoogleSheet(lead);
-    const adminEmailResult = await sendAdminEmail(lead);
-    const clientEmailResult = await sendClientAutoReply(lead);
+    const [crmResult, adminEmailResult, clientEmailResult] = await Promise.all([
+  saveLeadToGoogleSheet(lead),
+  sendAdminEmail(lead),
+  sendClientAutoReply(lead),
+]);
 
     console.log("Quote lead:", lead.quoteId);
     console.log("Google Sheet CRM Result:", crmResult);
