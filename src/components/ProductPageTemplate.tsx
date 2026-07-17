@@ -6,7 +6,7 @@ import ProductBuyerJourneySection from "./ProductBuyerJourneySection";
 import ProductGuideLinksSection from "./ProductGuideLinksSection";
 import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
 import ProductSeoBlocks from "./ProductSeoBlocks";
-
+import ProductMerchantCtaPanel from "./ProductMerchantCtaPanel";
 function getProductGallery(product: Product) {
   const firstWord = product.name.split(" ")[0] || "Box";
 
@@ -420,10 +420,12 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
         quoteLink={productQuoteLink}
       />
 
-      <ProductQuoteChecklistSection
+            <ProductQuoteChecklistSection
         product={product}
         quoteLink={productQuoteLink}
       />
+
+      <ProductMerchantCtaPanel productTitle={product.name} />
 
       <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
         <div className="mx-auto max-w-7xl">
@@ -564,6 +566,12 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
           </Link>
         </div>
       </section>
+                  <ProductQuoteChecklistSection
+        product={product}
+        quoteLink={productQuoteLink}
+      />
+
+      <ProductMerchantCtaPanel productTitle={product.name} />
     </main>
   );
 }
