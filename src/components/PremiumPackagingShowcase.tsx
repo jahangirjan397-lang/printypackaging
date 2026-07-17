@@ -1,33 +1,32 @@
 import SmartImage from "./SmartImage";
-import { siteImages } from "../data/siteImages";
 
 const showcaseItems = [
   {
     title: "Rigid Boxes",
     tag: "Luxury Packaging",
     note: "Premium boxes for cosmetics, gifts, retail and high-end products.",
-    image: siteImages.products.rigidBoxes,
+    image: "",
     alt: "Custom rigid boxes by Printy Packaging",
   },
   {
     title: "Mailer Boxes",
     tag: "Ecommerce Ready",
     note: "Strong printed mailer boxes for online brands and subscription kits.",
-    image: siteImages.products.mailerBoxes,
+    image: "",
     alt: "Custom printed mailer boxes",
   },
   {
     title: "Folding Cartons",
     tag: "Retail Packaging",
     note: "Custom printed folding cartons with material and finish options.",
-    image: siteImages.products.foldingCartons,
+    image: "",
     alt: "Custom printed folding cartons",
   },
   {
     title: "Butter Paper",
     tag: "Food Wrapping",
     note: "Printed butter paper and greaseproof wrapping for food brands.",
-    image: siteImages.products.butterPaper,
+    image: "",
     alt: "Custom printed butter paper food wrapping",
   },
 ];
@@ -46,8 +45,9 @@ export default function PremiumPackagingShowcase() {
           </h2>
 
           <p className="mt-5 text-base leading-8 text-slate-600">
-            Real product photos can be added later. Until then, the website will
-            show clean premium packaging previews instead of broken images.
+            Real product photos will be added in the final image phase. Until
+            then, the website shows clean premium packaging previews without
+            loading missing image files.
           </p>
         </div>
 
