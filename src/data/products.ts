@@ -263,12 +263,12 @@ function makeProduct(
 }
 
 export const products: Product[] = [
-  makeProduct(
+    makeProduct(
     "rigid-boxes",
     "Rigid Boxes",
     "Luxury Packaging",
     "Luxury rigid packaging for premium brands",
-    "Custom rigid boxes are ideal for perfumes, cosmetics, jewelry, gifts, candles and premium retail products. Printy Packaging helps brands create luxury rigid packaging with strong structure, premium wrapping paper, high-end printing and finishing options such as foil, embossing, debossing and spot UV.",
+    "Custom rigid boxes are ideal for perfumes, cosmetics, jewelry, gifts, candles and premium retail products. Printy Packaging helps brands create luxury rigid packaging with strong structure, premium wrapping paper, custom inserts, high-end printing and finishing options such as foil stamping, embossing, debossing, spot UV and soft-touch lamination.",
     [
       "custom rigid boxes",
       "luxury rigid boxes",
@@ -276,6 +276,12 @@ export const products: Product[] = [
       "premium gift boxes",
       "magnetic rigid boxes",
       "rigid gift packaging",
+      "custom rigid box packaging",
+      "luxury gift boxes",
+      "perfume rigid boxes",
+      "jewelry rigid boxes",
+      "premium product packaging",
+      "high end rigid boxes",
     ],
     ["Perfume", "Cosmetics", "Jewelry", "Gifts", "Luxury Retail"]
   ),
@@ -285,7 +291,7 @@ export const products: Product[] = [
     "Folding Cartons",
     "Folding Cartons",
     "Custom printed cartons for retail and product packaging",
-    "Custom folding cartons are suitable for cosmetics, food, pharma, retail and general product packaging. They are lightweight, printable and cost-effective for brands that need professional product boxes with custom size, material, printing and finishing options.",
+    "Custom folding cartons are suitable for cosmetics, food, pharma, retail and general product packaging. They are lightweight, printable and cost-effective for brands that need professional paperboard boxes with custom size, material, printing, barcode placement, dieline support and finishing options.",
     [
       "custom folding cartons",
       "printed cartons",
@@ -293,6 +299,12 @@ export const products: Product[] = [
       "product boxes",
       "folding carton packaging",
       "custom printed cartons",
+      "paperboard cartons",
+      "retail carton boxes",
+      "custom carton packaging",
+      "cosmetic folding cartons",
+      "food folding cartons",
+      "printed product boxes",
     ],
     ["Cosmetics", "Pharma", "Food", "Retail", "Electronics"]
   ),
@@ -302,7 +314,7 @@ export const products: Product[] = [
     "Mailer Boxes",
     "Corrugated Packaging",
     "Branded mailer boxes for ecommerce and delivery",
-    "Custom mailer boxes are perfect for ecommerce, subscription boxes, shipping and product delivery. They provide protection, easy opening, brand visibility and a premium unboxing experience for online stores and product-based businesses.",
+    "Custom mailer boxes are perfect for ecommerce, subscription boxes, shipping and product delivery. They provide protection, easy opening, brand visibility and a premium unboxing experience for online stores, apparel brands, subscription businesses and product-based companies.",
     [
       "custom mailer boxes",
       "ecommerce packaging",
@@ -310,6 +322,12 @@ export const products: Product[] = [
       "shipping boxes",
       "corrugated mailer boxes",
       "branded mailer boxes",
+      "printed mailer boxes",
+      "custom ecommerce boxes",
+      "subscription mailer boxes",
+      "corrugated shipping mailers",
+      "unboxing packaging",
+      "branded shipping boxes",
     ],
     ["E-commerce", "Subscription Brands", "Retail", "Apparel"]
   ),
@@ -319,7 +337,7 @@ export const products: Product[] = [
     "Butter Paper",
     "Food Wrapping",
     "Custom printed butter paper for food brands",
-    "Custom butter paper is used for burgers, sandwiches, bakery items, snacks and food wrapping. It helps food brands improve presentation, cleanliness and brand visibility with printed food wrapping paper for restaurants, cafes and takeaway businesses.",
+    "Custom butter paper is used for burgers, sandwiches, bakery items, snacks and food wrapping. It helps food brands improve presentation, cleanliness and brand visibility with printed food wrapping paper for restaurants, cafes, bakeries, burger brands and takeaway businesses.",
     [
       "custom butter paper",
       "printed butter paper",
@@ -327,6 +345,12 @@ export const products: Product[] = [
       "deli paper",
       "food wrapping paper",
       "custom food paper",
+      "branded butter paper",
+      "printed food paper",
+      "sandwich wrapping paper",
+      "bakery wrapping paper",
+      "restaurant wrapping paper",
+      "greaseproof paper",
     ],
     ["Restaurants", "Bakeries", "Burger Brands", "Cafes", "Food Trucks"]
   ),
@@ -336,7 +360,7 @@ export const products: Product[] = [
     "Food Packaging",
     "Food Packaging",
     "Food-safe custom packaging for restaurants and bakeries",
-    "Custom food packaging includes bakery boxes, burger boxes, pizza boxes, snack boxes, food wraps and food-safe packaging solutions for restaurants, cafes, bakeries and food brands that need practical branded packaging.",
+    "Custom food packaging includes bakery boxes, burger boxes, pizza boxes, snack boxes, food wraps, paper bags and food-safe packaging solutions for restaurants, cafes, bakeries, takeaway shops and food brands that need practical branded packaging.",
     [
       "custom food packaging",
       "bakery boxes",
@@ -344,6 +368,12 @@ export const products: Product[] = [
       "restaurant packaging",
       "food boxes",
       "food-safe packaging",
+      "takeaway packaging",
+      "printed food boxes",
+      "custom bakery packaging",
+      "food delivery packaging",
+      "snack packaging",
+      "branded food packaging",
     ],
     ["Restaurants", "Bakeries", "Cafes", "Pizza Brands", "Frozen Food"]
   ),
@@ -353,7 +383,7 @@ export const products: Product[] = [
     "Paper Bags",
     "Retail Packaging",
     "Custom printed paper bags for retail brands",
-    "Custom paper bags are used for retail stores, fashion brands, events, gifts and premium shopping experiences. They can be printed with custom artwork, brand colors, logo placement and handle options for a professional retail look.",
+    "Custom paper bags are used for retail stores, fashion brands, events, gifts and premium shopping experiences. They can be printed with custom artwork, brand colors, logo placement and handle options for a professional retail, boutique or luxury brand look.",
     [
       "custom paper bags",
       "printed paper bags",
@@ -361,6 +391,12 @@ export const products: Product[] = [
       "shopping bags",
       "branded paper bags",
       "kraft paper bags",
+      "custom shopping bags",
+      "paper bags with logo",
+      "luxury paper bags",
+      "boutique paper bags",
+      "takeaway paper bags",
+      "retail carry bags",
     ],
     ["Retail", "Fashion", "Events", "Gifts", "Luxury Brands"]
   ),
@@ -370,7 +406,7 @@ export const products: Product[] = [
     "Labels & Stickers",
     "Branding",
     "Custom labels and stickers for product branding",
-    "Custom labels and stickers help brands improve product presentation, packaging identity and promotional impact for jars, bottles, boxes, bags, mailers and retail packaging. They can be produced in different shapes, finishes and material options.",
+    "Custom labels and stickers help brands improve product presentation, packaging identity and promotional impact for jars, bottles, boxes, bags, mailers and retail packaging. They can be produced in different shapes, materials, adhesive options and finishes for professional product branding.",
     [
       "custom labels",
       "custom stickers",
@@ -378,6 +414,12 @@ export const products: Product[] = [
       "product labels",
       "branded stickers",
       "packaging labels",
+      "custom product labels",
+      "printed product labels",
+      "logo stickers",
+      "bottle labels",
+      "jar labels",
+      "packaging stickers",
     ],
     ["Cosmetics", "Food", "Retail", "Beverages", "E-commerce"]
   ),
@@ -387,7 +429,7 @@ export const products: Product[] = [
     "Luxury Packaging",
     "Luxury Packaging",
     "Premium packaging with foiling, embossing and high-end finishes",
-    "Luxury packaging is designed for premium brands that want strong shelf impact, beautiful unboxing and high-value presentation. It can include rigid boxes, magnetic boxes, drawer boxes, textured paper, foil stamping, embossing and soft-touch finishes.",
+    "Luxury packaging is designed for premium brands that want strong shelf impact, beautiful unboxing and high-value presentation. It can include rigid boxes, magnetic boxes, drawer boxes, textured paper, custom inserts, foil stamping, embossing, debossing, spot UV and soft-touch finishes.",
     [
       "luxury packaging",
       "premium packaging",
@@ -395,6 +437,12 @@ export const products: Product[] = [
       "foil packaging",
       "high end packaging",
       "luxury printed boxes",
+      "premium boxes",
+      "luxury product packaging",
+      "high end custom boxes",
+      "luxury retail packaging",
+      "foil stamped boxes",
+      "embossed packaging",
     ],
     ["Perfume", "Jewelry", "Cosmetics", "Gifts", "Premium Retail"]
   ),
