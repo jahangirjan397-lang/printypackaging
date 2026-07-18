@@ -8,7 +8,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
+               disallow: [
+          "/competitor-upgrade-plan",
           "/launch-checklist",
           "/status",
           "/missing-items",
