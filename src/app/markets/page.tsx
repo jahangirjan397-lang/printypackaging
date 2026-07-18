@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import FloatingActions from "../../components/FloatingActions";
 import { markets } from "../../data/markets";
 
@@ -255,7 +254,7 @@ export default function MarketsPage() {
         </section>
       </main>
 
-      <Footer />
+    
       <FloatingActions />
     </>
   );

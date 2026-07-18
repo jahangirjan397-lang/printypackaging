@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
-import Footer from "../../../components/Footer";
 import ProductPageTemplate from "../../../components/ProductPageTemplate";
 import { getProductBySlug, products } from "../../../data/products";
 
@@ -137,7 +136,7 @@ export default async function ProductPage({ params }: PageProps) {
 
       <ProductPageTemplate product={product} />
 
-      <Footer />
+  
     </>
   );
 }

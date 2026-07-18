@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
-import Footer from "../../../components/Footer";
 import FloatingActions from "../../../components/FloatingActions";
 import CategoryPageTemplate from "../../../components/CategoryPageTemplate";
 import { categories, getCategoryBySlug } from "../../../data/categories";

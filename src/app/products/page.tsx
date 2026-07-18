@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import FloatingActions from "../../components/FloatingActions";
 import type { Product } from "../../data/products";
 import { products } from "../../data/products";
@@ -374,7 +373,7 @@ export default function ProductsPage() {
         </section>
       </main>
 
-      <Footer />
+    
       <FloatingActions />
     </>
   );

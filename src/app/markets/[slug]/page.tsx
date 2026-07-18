@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
-import Footer from "../../../components/Footer";
 import FloatingActions from "../../../components/FloatingActions";
 import MarketPageTemplate from "../../../components/MarketPageTemplate";
 import { getMarketBySlug, markets } from "../../../data/markets";
@@ -144,7 +143,7 @@ export default async function MarketPage({ params }: PageProps) {
 
       <MarketPageTemplate market={market} />
 
-      <Footer />
+      
       <FloatingActions />
     </>
   );

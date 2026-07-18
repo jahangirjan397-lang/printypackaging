@@ -13,6 +13,7 @@ import QuoteSection from "../components/QuoteSection";
 import FloatingActions from "../components/FloatingActions";
 import ContactTrustSection from "../components/ContactTrustSection";
 import SeoGrowthLinksSection from "../components/SeoGrowthLinksSection";
+import PaymentMethodsSection from "../components/PaymentMethodsSection";
 
 export const metadata: Metadata = {
   title: "Custom Boxes, Rigid Boxes & Food Packaging | Printy Packaging",
@@ -60,6 +61,7 @@ export default function Home() {
       <IndustryBuyerSection />
       <SalesSupportSection />
       <ContactTrustSection />
+      <PaymentMethodsSection />
       <QuoteSection />
       <FloatingActions />
     </>
