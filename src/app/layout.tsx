@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import HeaderGate from "@/components/HeaderGate";
 import SiteFooterGate from "@/components/SiteFooterGate";
 import LiveChatWidget from "@/components/LiveChatWidget";
+import FloatingActions from "@/components/FloatingActions";
 import "./globals.css";
 
 const siteUrl = "https://printypackaging.com";
@@ -227,6 +228,7 @@ export default function RootLayout({
         {children}
         <SiteFooterGate />
         <LiveChatWidget />
+        <FloatingActions />
       </body>
     </html>
   );

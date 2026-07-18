@@ -142,7 +142,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
       <CategoryPageTemplate category={category} />
 
-      <Footer />
+  
       <FloatingActions />
     </>
   );

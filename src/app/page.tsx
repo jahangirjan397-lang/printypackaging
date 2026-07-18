@@ -10,7 +10,6 @@ import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
 import SalesSupportSection from "../components/SalesSupportSection";
 import QuoteSection from "../components/QuoteSection";
-import FloatingActions from "../components/FloatingActions";
 import ContactTrustSection from "../components/ContactTrustSection";
 import SeoGrowthLinksSection from "../components/SeoGrowthLinksSection";
 import PaymentMethodsSection from "../components/PaymentMethodsSection";
@@ -63,7 +62,7 @@ export default function Home() {
       <ContactTrustSection />
       <PaymentMethodsSection />
       <QuoteSection />
-      <FloatingActions />
+  
     </>
   );
 }
