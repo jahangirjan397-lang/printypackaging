@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../../components/Header";
 import { markets } from "../../data/markets";
@@ -222,7 +222,7 @@ export default function MarketsPage() {
                   className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
                 >
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
-                    âœ“
+                    ✓
                   </div>
                   <h3 className="font-black text-[#07111F]">{item}</h3>
                 </div>
@@ -255,3 +255,4 @@ export default function MarketsPage() {
     </>
   );
 }
+

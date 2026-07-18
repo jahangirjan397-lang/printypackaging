@@ -400,7 +400,47 @@ export const products: Product[] = [
     ],
     ["Retail", "Fashion", "Events", "Gifts", "Luxury Brands"]
   ),
+  makeProduct(
+    "labels-stickers",
+    "Labels & Stickers",
+    "Branding",
+    "Custom labels and stickers for product and packaging branding",
+    "Custom labels and stickers help brands improve product presentation, packaging identity and promotional impact for jars, bottles, boxes, bags, mailers and retail packaging. They can be produced in different shapes, sizes, materials and finishes for product labels, packaging labels and branded stickers.",
+    [
+      "custom labels",
+      "custom stickers",
+      "printed stickers",
+      "product labels",
+      "branded stickers",
+      "packaging labels",
+      "custom product labels",
+      "printed labels",
+      "logo stickers",
+      "sticker labels",
+    ],
+    ["Cosmetics", "Food", "Retail", "Beverages", "E-commerce"]
+  ),
 
+  makeProduct(
+    "luxury-packaging",
+    "Luxury Packaging",
+    "Luxury Packaging",
+    "Luxury packaging with foiling, embossing and premium finishes",
+    "Luxury packaging is designed for premium brands that want strong shelf impact, beautiful unboxing and high-value presentation. It can include rigid boxes, magnetic boxes, drawer boxes, textured paper, foil stamping, embossing, debossing, spot UV and soft-touch finishes for perfumes, jewelry, cosmetics, gifts and premium retail products.",
+    [
+      "luxury packaging",
+      "premium packaging",
+      "custom luxury boxes",
+      "foil packaging",
+      "high end packaging",
+      "luxury printed boxes",
+      "premium product packaging",
+      "luxury brand packaging",
+      "foil stamped boxes",
+      "soft touch packaging",
+    ],
+    ["Perfume", "Jewelry", "Cosmetics", "Gifts", "Premium Retail"]
+  ),
     makeProduct(
     "cosmetic-boxes",
     "Cosmetic Boxes",
@@ -709,3 +749,4 @@ export const products: Product[] = [
 export function getProductBySlug(slug: string) {
   return products.find((product) => product.slug === slug);
 }
+

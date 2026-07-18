@@ -594,3 +594,4 @@ function InfoCard({ title, items }: { title: string; items: string[] }) {
     </div>
   );
 }
+

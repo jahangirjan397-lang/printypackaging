@@ -40,3 +40,4 @@ export const competitorUpgradePlan = [
     status: "Critical",
   },
 ] as const;
+

@@ -635,3 +635,4 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
     </main>
   );
 }
+

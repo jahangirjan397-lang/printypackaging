@@ -50,3 +50,4 @@ export const siteImages = {
 } as const;
 
 export type SiteImages = typeof siteImages;
+

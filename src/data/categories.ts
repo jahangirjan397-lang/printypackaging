@@ -294,3 +294,4 @@ export const categories: Category[] = [
 export function getCategoryBySlug(slug: string) {
   return categories.find((category) => category.slug === slug);
 }
+

@@ -27,3 +27,4 @@ export default function HeaderGate() {
 
   return <Header />;
 }
+

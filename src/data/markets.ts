@@ -265,3 +265,4 @@ export const markets: Market[] = [
 export function getMarketBySlug(slug: string) {
   return markets.find((market) => market.slug === slug);
 }
+

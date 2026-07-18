@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
 import MarketPageTemplate from "../../../components/MarketPageTemplate";
@@ -144,3 +144,4 @@ export default async function MarketPage({ params }: PageProps) {
     </>
   );
 }
+

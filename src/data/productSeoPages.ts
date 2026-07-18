@@ -86,3 +86,4 @@ export const productSeoPages = {
 } as const;
 
 export type ProductSeoSlug = keyof typeof productSeoPages;
+

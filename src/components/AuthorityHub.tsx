@@ -103,3 +103,4 @@ function LinkBox({ title, items }: { title: string; items: HubProduct[] }) {
     </article>
   );
 }
+

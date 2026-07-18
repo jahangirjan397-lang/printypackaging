@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../../components/Header";
 import type { Product } from "../../data/products";
@@ -512,7 +512,7 @@ function GuideCard({ title, text }: { title: string; text: string }) {
   return (
     <div className="rounded-[1.7rem] border border-slate-200 bg-[#F7FAFC] p-7 transition hover:-translate-y-1 hover:border-[#00C2E8]">
       <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
-        âœ“
+        ✓
       </div>
 
       <h3 className="text-xl font-black text-[#07111F]">{title}</h3>
@@ -521,3 +521,4 @@ function GuideCard({ title, text }: { title: string; text: string }) {
     </div>
   );
 }
+
