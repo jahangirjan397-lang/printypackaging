@@ -401,58 +401,12 @@ export const products: Product[] = [
     ["Retail", "Fashion", "Events", "Gifts", "Luxury Brands"]
   ),
 
-  makeProduct(
-    "labels-stickers",
-    "Labels & Stickers",
-    "Branding",
-    "Custom labels and stickers for product branding",
-    "Custom labels and stickers help brands improve product presentation, packaging identity and promotional impact for jars, bottles, boxes, bags, mailers and retail packaging. They can be produced in different shapes, materials, adhesive options and finishes for professional product branding.",
-    [
-      "custom labels",
-      "custom stickers",
-      "printed stickers",
-      "product labels",
-      "branded stickers",
-      "packaging labels",
-      "custom product labels",
-      "printed product labels",
-      "logo stickers",
-      "bottle labels",
-      "jar labels",
-      "packaging stickers",
-    ],
-    ["Cosmetics", "Food", "Retail", "Beverages", "E-commerce"]
-  ),
-
-  makeProduct(
-    "luxury-packaging",
-    "Luxury Packaging",
-    "Luxury Packaging",
-    "Premium packaging with foiling, embossing and high-end finishes",
-    "Luxury packaging is designed for premium brands that want strong shelf impact, beautiful unboxing and high-value presentation. It can include rigid boxes, magnetic boxes, drawer boxes, textured paper, custom inserts, foil stamping, embossing, debossing, spot UV and soft-touch finishes.",
-    [
-      "luxury packaging",
-      "premium packaging",
-      "custom luxury boxes",
-      "foil packaging",
-      "high end packaging",
-      "luxury printed boxes",
-      "premium boxes",
-      "luxury product packaging",
-      "high end custom boxes",
-      "luxury retail packaging",
-      "foil stamped boxes",
-      "embossed packaging",
-    ],
-    ["Perfume", "Jewelry", "Cosmetics", "Gifts", "Premium Retail"]
-  ),
-
-  makeProduct(
+    makeProduct(
     "cosmetic-boxes",
     "Cosmetic Boxes",
     "Cosmetic Packaging",
-    "Custom cosmetic packaging for beauty and skincare brands",
-    "Custom cosmetic boxes help beauty brands present skincare, makeup, creams, serums and cosmetics with premium printing, professional structure and attractive finishing options for retail and ecommerce sales.",
+    "Custom cosmetic boxes for beauty, skincare and makeup brands",
+    "Custom cosmetic boxes help beauty brands present skincare, makeup, creams, serums, haircare and cosmetic products with premium printing, professional structure and attractive finishing options. Printy Packaging supports cosmetic packaging with custom size, paperboard, rigid style, inserts, foil stamping, spot UV and soft-touch finish guidance.",
     [
       "custom cosmetic boxes",
       "makeup boxes",
@@ -460,16 +414,20 @@ export const products: Product[] = [
       "beauty product packaging",
       "cosmetic packaging boxes",
       "printed cosmetic boxes",
+      "custom makeup boxes",
+      "skincare boxes",
+      "beauty packaging boxes",
+      "cosmetic product packaging",
     ],
-    ["Cosmetics", "Skincare", "Beauty", "Retail"]
+    ["Cosmetics", "Skincare", "Beauty", "Retail", "E-commerce"]
   ),
 
   makeProduct(
     "perfume-boxes",
     "Perfume Boxes",
     "Luxury Packaging",
-    "Premium perfume boxes for fragrance brands",
-    "Custom perfume boxes are designed for fragrance brands that need luxury presentation, strong structure and premium finishing like foiling, embossing, spot UV and soft-touch lamination.",
+    "Luxury perfume boxes for fragrance and premium retail brands",
+    "Custom perfume boxes are designed for fragrance brands that need luxury presentation, strong structure and premium finishing. Perfume packaging can include rigid boxes, folding cartons, inserts, textured paper, foil stamping, embossing, debossing, spot UV and soft-touch lamination for a premium shelf and gift experience.",
     [
       "custom perfume boxes",
       "fragrance packaging",
@@ -477,16 +435,20 @@ export const products: Product[] = [
       "perfume packaging",
       "perfume gift boxes",
       "printed perfume boxes",
+      "luxury perfume packaging",
+      "fragrance boxes",
+      "perfume rigid boxes",
+      "premium perfume packaging",
     ],
-    ["Perfume", "Fragrance", "Luxury Retail", "Gifts"]
+    ["Perfume", "Fragrance", "Luxury Retail", "Gifts", "Cosmetics"]
   ),
 
   makeProduct(
     "candle-boxes",
     "Candle Boxes",
     "Retail Packaging",
-    "Custom candle packaging for premium candle brands",
-    "Custom candle boxes protect candles and improve presentation for luxury, handmade and retail candle brands. They can be made with custom size, board material, window options, premium printing and finishing.",
+    "Custom candle boxes for premium candle and gift brands",
+    "Custom candle boxes protect candles and improve presentation for luxury, handmade, scented and retail candle brands. They can be made with custom size, paperboard, rigid structure, inserts, window options, premium printing and finishing for gift packaging and retail shelf display.",
     [
       "custom candle boxes",
       "candle packaging",
@@ -494,16 +456,20 @@ export const products: Product[] = [
       "printed candle boxes",
       "candle gift boxes",
       "retail candle packaging",
+      "scented candle boxes",
+      "premium candle packaging",
+      "custom candle packaging",
+      "luxury candle packaging",
     ],
-    ["Candles", "Gifts", "Retail", "Home Decor"]
+    ["Candles", "Gifts", "Retail", "Home Decor", "Luxury Brands"]
   ),
 
   makeProduct(
     "soap-boxes",
     "Soap Boxes",
     "Retail Packaging",
-    "Custom soap boxes for handmade and beauty brands",
-    "Custom soap boxes are ideal for handmade soap, organic soap, skincare products and beauty product packaging. They can be printed with product details, ingredients, logo, kraft style or premium finish.",
+    "Custom soap boxes for handmade, organic and beauty brands",
+    "Custom soap boxes are ideal for handmade soap, organic soap, skincare products and beauty product packaging. They can be printed with product details, ingredients, logo, kraft style, window cutouts or premium finishes to support retail display and brand presentation.",
     [
       "custom soap boxes",
       "soap packaging",
@@ -511,16 +477,20 @@ export const products: Product[] = [
       "kraft soap boxes",
       "organic soap packaging",
       "handmade soap boxes",
+      "soap packaging boxes",
+      "custom skincare boxes",
+      "natural soap boxes",
+      "retail soap packaging",
     ],
-    ["Soap", "Beauty", "Skincare", "Retail"]
+    ["Soap", "Beauty", "Skincare", "Retail", "Organic Brands"]
   ),
 
   makeProduct(
     "jewelry-boxes",
     "Jewelry Boxes",
     "Luxury Packaging",
-    "Elegant jewelry boxes for premium presentation",
-    "Custom jewelry boxes are used for rings, necklaces, bracelets, watches and premium gift packaging. They can include rigid structure, inserts, velvet feel, textured wrap, foil stamping and luxury finishing.",
+    "Luxury jewelry boxes for premium presentation and gifting",
+    "Custom jewelry boxes are used for rings, necklaces, bracelets, watches and premium gift packaging. They can include rigid structure, drawer style, magnetic closure, custom inserts, velvet feel, textured wrap, foil stamping and luxury finishing for elegant product presentation.",
     [
       "custom jewelry boxes",
       "luxury jewelry packaging",
@@ -528,8 +498,12 @@ export const products: Product[] = [
       "gift jewelry boxes",
       "watch packaging",
       "jewelry gift packaging",
+      "luxury jewelry boxes",
+      "custom ring boxes",
+      "bracelet boxes",
+      "premium jewelry packaging",
     ],
-    ["Jewelry", "Luxury Retail", "Gifts", "Fashion"]
+    ["Jewelry", "Luxury Retail", "Gifts", "Fashion", "Premium Brands"]
   ),
 
   makeProduct(
