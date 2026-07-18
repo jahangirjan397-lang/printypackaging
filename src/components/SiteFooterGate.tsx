@@ -66,10 +66,13 @@ export default function SiteFooter() {
                 rel="noreferrer"
                 className="block transition hover:text-[#FF6A00]"
               >
-                                WhatsApp: +92 333 888 9954
+                               WhatsApp: +92 333 888 9954
               </a>
 
-                            <p>Lahore, Pakistan - Serving USA | UK | Europe | UAE and worldwide packaging buyers</p>
+                                          <p>
+                Lahore, Pakistan - Serving USA | UK | Europe | UAE and worldwide
+                packaging buyers
+              </p>
             </div>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -97,7 +100,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 border-t border-white/10 pt-6">
           <div className="flex flex-col gap-4 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-                        <p>Copyright {year} Printy Packaging. All rights reserved.</p>
+                                    <p>Copyright {year} Printy Packaging. All rights reserved.</p>
 
             <p>
               Custom boxes, printed packaging, premium finishes and quote
