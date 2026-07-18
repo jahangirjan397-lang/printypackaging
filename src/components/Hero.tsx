@@ -12,13 +12,13 @@ export default function Hero() {
     <section className="relative overflow-hidden bg-[#07111F] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.2),transparent_30%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.14),transparent_28%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-20 lg:grid-cols-2 lg:gap-12 lg:py-24">
-        <div className="text-center lg:text-left">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-20 lg:grid-cols-2 lg:py-24">
+        <div className="max-w-3xl text-center lg:text-left">
           <p className="inline-flex rounded-full border border-[#00C2E8]/40 bg-[#00C2E8]/10 px-4 py-2 text-xs font-black text-[#9FEFFF] shadow-lg shadow-cyan-500/10 md:text-sm">
             Premium Custom Printing & Packaging
           </p>
 
-          <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="mt-6 text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
             Packaging That
             <br />
             Makes Brands
@@ -28,7 +28,7 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base md:text-lg md:leading-8 lg:mx-0">
+          <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base md:text-lg md:leading-8 lg:mx-0">
             Premium rigid boxes, folding cartons, food packaging, butter paper,
             labels, stickers and luxury printed packaging for USA, UK, Europe
             and worldwide brands.
@@ -56,6 +56,7 @@ export default function Hero() {
                 <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00C2E8]/15 text-sm font-black text-[#00C2E8] lg:mx-0">
                   ✓
                 </div>
+
                 <p className="text-[11px] font-black text-white sm:text-xs md:text-sm">
                   {item}
                 </p>
@@ -64,39 +65,42 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-none">
-          <div className="absolute -inset-4 rounded-[2rem] bg-[#00C2E8]/20 blur-3xl md:-inset-6" />
+        <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
+          <div className="absolute -inset-5 rounded-[2.4rem] bg-[#00C2E8]/20 blur-3xl md:-inset-8" />
 
-          <div className="relative rounded-[1.6rem] border border-[#00C2E8]/20 bg-white/[0.06] p-3 shadow-2xl shadow-cyan-500/10 backdrop-blur md:rounded-[2rem] md:p-5">
-            <div className="rounded-[1.3rem] border border-white/10 bg-gradient-to-br from-[#baf5f4] via-[#dcffff] to-[#d9f6f2] p-4 md:rounded-[1.5rem] md:p-5">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[1rem] bg-transparent">
-                <Image
-                  src="/images/hero/hero-packaging.webp"
-                  alt="Premium custom printed packaging boxes by Printy Packaging"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain object-center"
-                />
-              </div>
+          <div className="relative overflow-hidden rounded-[2rem] border border-[#00C2E8]/25 bg-white/[0.06] p-3 shadow-2xl shadow-cyan-500/10 backdrop-blur md:rounded-[2.4rem] md:p-4">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem] bg-[#b8f3ee] md:rounded-[2rem]">
+              <Image
+                src="/images/hero/hero-packaging.webp"
+                alt="Premium custom printed packaging boxes by Printy Packaging"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-center"
+              />
+            </div>
+          </div>
+
+          <div className="mt-5 grid grid-cols-3 gap-3">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#00C2E8]">
+                Boxes
+              </p>
+              <p className="mt-1 text-sm font-black text-white">Custom</p>
             </div>
 
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-[#07111F]/70 px-4 py-3">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                  Custom Box Experts
-                </p>
-                <p className="mt-1 text-sm font-semibold text-slate-300 md:text-base">
-                  Premium mockups, luxury presentation and custom packaging support.
-                </p>
-              </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#00C2E8]">
+                Finish
+              </p>
+              <p className="mt-1 text-sm font-black text-white">Premium</p>
+            </div>
 
-              <a
-                href="#quote"
-                className="shrink-0 rounded-full bg-[#FF6A00] px-5 py-2.5 text-sm font-black text-white transition hover:bg-[#007C91]"
-              >
-                Request Quote
-              </a>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#00C2E8]">
+                Support
+              </p>
+              <p className="mt-1 text-sm font-black text-white">Global</p>
             </div>
           </div>
         </div>
