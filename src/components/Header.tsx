@@ -46,24 +46,20 @@ const mobileLinks = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hideTopBar, setHideTopBar] = useState(false);
-  const lastScrollY = useRef(0);
   const ticking = useRef(false);
 
   useEffect(() => {
-    lastScrollY.current = window.scrollY;
-
     function updateHeader() {
-      const currentScrollY = window.scrollY;
-      const scrollingDown = currentScrollY > lastScrollY.current;
-      const scrollDifference = Math.abs(currentScrollY - lastScrollY.current);
+      const shouldHideTopBar = window.scrollY > 80;
 
-      if (currentScrollY < 90) {
-        setHideTopBar(false);
-      } else if (scrollDifference > 8) {
-        setHideTopBar(scrollingDown);
-      }
+      setHideTopBar((current) => {
+        if (current === shouldHideTopBar) {
+          return current;
+        }
 
-      lastScrollY.current = currentScrollY;
+        return shouldHideTopBar;
+      });
+
       ticking.current = false;
     }
 
@@ -74,6 +70,7 @@ export default function Header() {
       }
     }
 
+    updateHeader();
     window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
@@ -82,29 +79,35 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white">
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
       <div
-        className={`overflow-hidden border-b border-[#0B1B2A] bg-[#07111F] text-white transition-all duration-300 ease-in-out ${
-          hideTopBar ? "max-h-0 opacity-0" : "max-h-24 opacity-100"
+        className={`grid overflow-hidden bg-[#07111F] text-white transition-[grid-template-rows,opacity] duration-300 ease-out ${
+          hideTopBar ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 text-xs font-black sm:px-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
-          <p className="text-white">
-            Premium Custom Boxes | Butter Paper | Food Packaging | Labels & Stickers
-          </p>
+        <div className="min-h-0">
+          <div className="border-b border-[#0B1B2A]">
+            <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 text-xs font-black sm:px-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
+              <p className="text-white">
+                Premium Custom Boxes | Butter Paper | Food Packaging | Labels & Stickers
+              </p>
 
-          <div className="flex flex-wrap items-center gap-3 md:gap-5">
-            <a
-              href="mailto:sales@printypackaging.com"
-              className="text-cyan-300 transition hover:text-[#FF6A00]"
-            >
-              sales@printypackaging.com
-            </a>
+              <div className="flex flex-wrap items-center gap-3 md:gap-5">
+                <a
+                  href="mailto:sales@printypackaging.com"
+                  className="text-cyan-300 transition hover:text-[#FF6A00]"
+                >
+                  sales@printypackaging.com
+                </a>
 
-            <span className="hidden h-4 w-px bg-white/30 md:block" />
-            <span className="text-cyan-300">USA | UK | Europe Quote Support</span>
-            <span className="hidden h-4 w-px bg-white/30 md:block" />
-            <span>USA | UK | Europe | UAE | Worldwide</span>
+                <span className="hidden h-4 w-px bg-white/30 md:block" />
+                <span className="text-cyan-300">
+                  USA | UK | Europe Quote Support
+                </span>
+                <span className="hidden h-4 w-px bg-white/30 md:block" />
+                <span>USA | UK | Europe | UAE | Worldwide</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
