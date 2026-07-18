@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "About Printy Packaging | Premium Custom Boxes & Packaging Partner",
   description:
     "Learn about Printy Packaging, a custom packaging partner helping USA, UK, Canada, Europe and worldwide buyers with custom boxes, rigid boxes, food packaging, materials, finishes and quote support.",
+  alternates: {
+    canonical: "https://printypackaging.com/about",
+  },
 };
 
 const strengths = [
@@ -65,8 +68,29 @@ const productTypes = [
 ];
 
 export default function AboutPage() {
+  const aboutJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "About Printy Packaging",
+    url: "https://printypackaging.com/about",
+    description:
+      "Printy Packaging helps brands plan custom boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels, stickers and luxury printed packaging.",
+    mainEntity: {
+      "@type": "Organization",
+      name: "Printy Packaging",
+      url: "https://printypackaging.com",
+      email: "sales@printypackaging.com",
+    },
+  };
+
   return (
     <main className="bg-[#07111F] text-white">
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(aboutJsonLd),
+  }}
+/>
       <section className="relative overflow-hidden border-b border-cyan-400/10 bg-gradient-to-br from-[#07111F] via-[#09243A] to-[#061525]">
         <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
         <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
@@ -201,11 +225,11 @@ export default function AboutPage() {
               </Link>
 
               <Link
-                href="/faq"
-                className="rounded-full border border-slate-300 px-7 py-3 text-center text-sm font-black text-slate-950 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
-              >
-                Read FAQ
-              </Link>
+  href="/contact"
+  className="rounded-full border border-slate-300 px-7 py-3 text-center text-sm font-black text-slate-950 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
+>
+  Ask a Question
+</Link>
             </div>
           </div>
 
