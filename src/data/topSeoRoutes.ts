@@ -29,6 +29,12 @@ export const topSeoRoutes = [
     priority: 0.85,
     changeFrequency: "weekly",
   },
+    {
+    title: "Custom Packaging UAE",
+    href: "/custom-packaging/uae",
+    priority: 0.87,
+    changeFrequency: "weekly",
+  },
   {
     title: "Custom Packaging Australia",
     href: "/custom-packaging/australia",

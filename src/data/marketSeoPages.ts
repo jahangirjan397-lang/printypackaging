@@ -59,6 +59,21 @@ export const marketSeoPages = {
       "Packaging support for global buyer needs",
     ],
   },
+    uae: {
+    title: "Custom Packaging UAE",
+    metaTitle: "Custom Packaging UAE | Luxury Printed Boxes & Packaging",
+    description:
+      "Custom packaging, rigid boxes, perfume boxes, luxury packaging, paper bags, labels and printed packaging support for UAE brands.",
+    heading: "Custom packaging support for UAE luxury and retail brands.",
+    intro:
+      "Printy Packaging supports UAE businesses with premium custom boxes, rigid boxes, perfume packaging, jewelry boxes, paper bags, labels, stickers and luxury finishing guidance.",
+    points: [
+      "Luxury rigid boxes for perfume, jewelry and premium products",
+      "Custom printed boxes for retail and ecommerce brands",
+      "Paper bags, labels, stickers and food packaging options",
+      "Quote support for size, material, printing, finishing and delivery",
+    ],
+  },
   australia: {
     title: "Custom Packaging Australia",
     metaTitle: "Custom Packaging Australia | Custom Printed Boxes",
