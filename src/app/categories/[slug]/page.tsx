@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
-import FloatingActions from "../../../components/FloatingActions";
 import CategoryPageTemplate from "../../../components/CategoryPageTemplate";
 import { categories, getCategoryBySlug } from "../../../data/categories";
 
@@ -143,7 +142,6 @@ export default async function CategoryPage({ params }: PageProps) {
       <CategoryPageTemplate category={category} />
 
   
-      <FloatingActions />
     </>
   );
 }
