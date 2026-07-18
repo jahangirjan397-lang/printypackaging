@@ -178,13 +178,13 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
+            <section className="relative overflow-hidden bg-[#07111F] px-5 py-16 text-white md:px-8 md:py-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.18),transparent_34%),radial-gradient(circle_at_82%_28%,rgba(255,106,0,0.12),transparent_30%)]" />
         <div className="absolute left-0 top-0 h-44 w-44 rounded-full bg-[#00C2E8]/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#FF6A00]/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl">
-          <div className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-2 text-sm font-bold text-slate-300 lg:justify-start">
             <Link href="/" prefetch={false} className="hover:text-[#00C2E8]">
               Home
             </Link>
@@ -200,28 +200,28 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
             <span className="text-[#FF6A00]">{market.name}</span>
           </div>
 
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
-              <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
+          <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+            <div className="mx-auto max-w-3xl text-center lg:mx-0 lg:text-left">
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#00C2E8] sm:text-sm">
                 International Market
               </p>
 
-              <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
+              <h1 className="mx-auto mt-5 max-w-2xl text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:mx-0 lg:text-6xl">
                 Custom Packaging for {market.name}
               </h1>
 
-              <p className="mt-5 text-2xl font-black text-[#FF6A00]">
+              <p className="mx-auto mt-5 max-w-2xl text-xl font-black leading-8 text-[#FF6A00] sm:text-2xl lg:mx-0">
                 {market.tagline}
               </p>
 
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+              <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg lg:mx-0">
                 {market.description}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
                 <a
                   href="#market-products"
-                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#FF6A00] px-7 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91] sm:px-8 sm:py-4"
                 >
                   View Products
                 </a>
@@ -229,44 +229,46 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 <Link
                   href={quoteLink}
                   prefetch={false}
-                  className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
+                  className="rounded-full border border-white/20 px-7 py-3 text-sm font-black text-white transition hover:bg-white hover:text-[#07111F] sm:px-8 sm:py-4"
                 >
                   Get Quote
                 </Link>
               </div>
 
-              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-3">
-                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+              <div className="mx-auto mt-8 grid max-w-2xl gap-3 text-center text-sm font-bold text-slate-300 sm:grid-cols-3 lg:mx-0 lg:text-left">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3">
                   Global Buyer Support
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3">
                   Material Guidance
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-4">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3">
                   Fast Quote Access
                 </div>
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl">
-              <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+            <div className="mx-auto w-full max-w-xl lg:mr-0">
+              <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl sm:p-5">
+                <div className="relative h-[300px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8] sm:h-[360px]">
+                  <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
 
-                <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
-                  {market.region}
-                </div>
+                  <div className="absolute left-6 top-6 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur sm:left-8 sm:top-8">
+                    {market.region}
+                  </div>
 
-                <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
+                  <div className="absolute bottom-8 left-7 h-28 w-36 rotate-[-7deg] rounded-2xl bg-white shadow-2xl sm:left-8 sm:h-36 sm:w-44" />
 
-                <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
-                  <div className="mx-auto mt-12 h-16 w-16 rounded-full border border-[#FF6A00]" />
-                  <p className="mt-8 px-4 text-center text-xl font-black tracking-widest text-white">
-                    {market.name}
-                  </p>
-                </div>
+                  <div className="absolute bottom-14 right-8 h-48 w-36 rounded-2xl bg-[#07111F] shadow-2xl sm:bottom-16 sm:right-10 sm:h-56 sm:w-40">
+                    <div className="mx-auto mt-10 h-14 w-14 rounded-full border border-[#FF6A00] sm:mt-12 sm:h-16 sm:w-16" />
+                    <p className="mt-7 px-4 text-center text-lg font-black tracking-widest text-white sm:mt-8 sm:text-xl">
+                      {market.name}
+                    </p>
+                  </div>
 
-                <div className="absolute bottom-8 right-8 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white">
-                  Market Ready
+                  <div className="absolute bottom-7 right-7 rounded-full bg-[#FF6A00] px-4 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-white sm:bottom-8 sm:right-8 sm:px-5 sm:text-xs">
+                    Market Ready
+                  </div>
                 </div>
               </div>
             </div>
@@ -411,7 +413,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
-                  ✓
+                                    OK
                 </div>
                 <h3 className="font-black leading-7 text-[#07111F]">
                   {benefit}
@@ -458,7 +460,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 <p className="mt-4 leading-7 text-slate-600">{guide.text}</p>
 
                 <span className="mt-6 inline-flex text-sm font-black text-[#FF6A00]">
-                  Read guide →
+                                    Read guide - View
                 </span>
               </Link>
             ))}
@@ -491,7 +493,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
-                  ✓
+                                    OK
                 </div>
 
                 <h3 className="font-black text-[#07111F]">{item.title}</h3>
