@@ -2,12 +2,15 @@ import Link from "next/link";
 
 const linkGroups = [
   {
-    title: "Custom Packaging",
+    title: "Custom Packaging by Market",
     links: [
       { label: "Custom Packaging", href: "/custom-packaging" },
       { label: "Custom Packaging USA", href: "/custom-packaging/usa" },
       { label: "Custom Packaging UK", href: "/custom-packaging/uk" },
       { label: "Custom Packaging Canada", href: "/custom-packaging/canada" },
+      { label: "Custom Packaging Europe", href: "/custom-packaging/europe" },
+      { label: "Custom Packaging UAE", href: "/custom-packaging/uae" },
+      { label: "Custom Packaging Australia", href: "/custom-packaging/australia" },
     ],
   },
   {
@@ -17,15 +20,19 @@ const linkGroups = [
       { label: "Mailer Boxes", href: "/packaging/mailer-boxes" },
       { label: "Folding Cartons", href: "/packaging/folding-cartons" },
       { label: "Food Packaging", href: "/packaging/food-packaging" },
+      { label: "Paper Bags", href: "/packaging/paper-bags" },
+      { label: "Labels and Stickers", href: "/packaging/labels-stickers" },
     ],
   },
   {
-    title: "Brand Packaging",
+    title: "Buyer Guides",
     links: [
-      { label: "Paper Bags", href: "/packaging/paper-bags" },
-      { label: "Labels and Stickers", href: "/packaging/labels-stickers" },
+      { label: "Packaging Guide", href: "/packaging-guide" },
       { label: "Packaging Materials", href: "/packaging-materials" },
       { label: "Finishing Options", href: "/finishing-options" },
+      { label: "Artwork Guide", href: "/artwork-guide" },
+      { label: "Sample Kit Guide", href: "/sample-kit" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
 ];

@@ -12,6 +12,7 @@ import SalesSupportSection from "../components/SalesSupportSection";
 import QuoteSection from "../components/QuoteSection";
 import FloatingActions from "../components/FloatingActions";
 import ContactTrustSection from "../components/ContactTrustSection";
+import SeoGrowthLinksSection from "../components/SeoGrowthLinksSection";
 
 export const metadata: Metadata = {
   title: "Custom Boxes, Rigid Boxes & Food Packaging | Printy Packaging",
@@ -52,6 +53,7 @@ export default function Home() {
       <TrustedBy />
       <StatsBar />
       <FeaturedProducts />
+      <SeoGrowthLinksSection />
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
       <OrderProcessSection />
