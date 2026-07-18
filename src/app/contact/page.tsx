@@ -1,285 +1,233 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import QuoteSection from "@/components/QuoteSection";
 
 export const metadata: Metadata = {
-  title: "Contact Printy Packaging | Custom Box Quote Support",
+  title: "Contact Printy Packaging | Custom Packaging Quote Support",
   description:
-    "Contact Printy Packaging for custom box quotes, packaging questions, materials, finishes, artwork guidance and international packaging support for USA, UK, Canada, Europe and worldwide buyers.",
+    "Contact Printy Packaging for custom boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, labels, stickers and luxury printed packaging quote support.",
+  alternates: {
+    canonical: "https://printypackaging.com/contact",
+  },
 };
 
-const contactCards = [
+const contactOptions = [
   {
-    title: "Quote Support",
-    value: "Fast Packaging Guidance",
-    text: "Share product size, quantity, material, printing colors and finishing details for better quote support.",
-  },
-  {
-    title: "WhatsApp",
-    value: "+92 333 8889954",
-    text: "Message Printy Packaging directly for quick custom packaging inquiry support.",
-  },
-  {
-    title: "Email",
+    title: "Email Quote Support",
     value: "sales@printypackaging.com",
-    text: "Send artwork notes, product details, packaging requirements or business inquiries.",
+    detail:
+      "Send your box size, quantity, material, printing colors, finishing options and artwork details.",
+    href: "mailto:sales@printypackaging.com",
+    action: "Email Us",
+  },
+  {
+    title: "WhatsApp Support",
+    value: "+92 333 888 9954",
+    detail:
+      "Fast support for packaging questions, artwork guidance, quote details and order discussion.",
+    href: "https://wa.me/923338889954",
+    action: "Open WhatsApp",
+  },
+  {
+    title: "USA Quote Support",
+    value: "Online support available",
+    detail:
+      "Official USA phone support will be added after business number verification. Quotes are available online now.",
+    href: "/#quote",
+    action: "Request Quote",
   },
 ];
 
-const quoteDetails = [
-  "Box style or packaging type",
-  "Product size with unit",
-  "Required quantity",
-  "Material preference",
-  "Printing colors",
-  "Finishing options",
-  "Artwork status",
-  "Delivery country",
-];
-
-const supportTopics = [
-  {
-    title: "Custom Boxes",
-    text: "Mailer boxes, rigid boxes, folding cartons, retail boxes and ecommerce packaging.",
-  },
-  {
-    title: "Food Packaging",
-    text: "Butter paper, food boxes, food-safe materials, paper bags and brand packaging.",
-  },
-  {
-    title: "Premium Finishes",
-    text: "Foil stamping, embossing, spot UV, lamination, window patching and luxury finishes.",
-  },
-  {
-    title: "International Buyers",
-    text: "Quote support for USA, UK, Canada, Europe, UAE and worldwide packaging inquiries.",
-  },
+const supportSteps = [
+  "Share product size, quantity and box style",
+  "Choose material, printing colors and finishing",
+  "Upload artwork or ask for design guidance",
+  "Receive quote support and production guidance",
 ];
 
 export default function ContactPage() {
+  const contactJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Printy Packaging",
+    url: "https://printypackaging.com/contact",
+    description:
+      "Contact Printy Packaging for custom packaging quote support, email support and WhatsApp guidance.",
+    mainEntity: {
+      "@type": "Organization",
+      name: "Printy Packaging",
+      url: "https://printypackaging.com",
+      email: "sales@printypackaging.com",
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          email: "sales@printypackaging.com",
+          contactType: "sales",
+          areaServed: ["US", "GB", "EU", "AE"],
+          availableLanguage: ["English"],
+        },
+      ],
+    },
+  };
+
   return (
-    <main className="bg-[#07111F] text-white">
-      <section className="relative overflow-hidden border-b border-cyan-400/10 bg-gradient-to-br from-[#07111F] via-[#09243A] to-[#061525]">
-        <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
-        <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+    <main className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(contactJsonLd),
+        }}
+      />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
-          <div>
-            <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200 shadow-lg shadow-cyan-500/10">
+      <section className="relative overflow-hidden bg-[#07111F] px-4 py-20 text-white sm:px-5 md:px-8">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.22),transparent_30%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.14),transparent_28%)]" />
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="inline-flex rounded-full border border-[#00C2E8]/40 bg-[#00C2E8]/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#9FEFFF]">
               Contact Printy Packaging
-            </div>
+            </p>
 
-            <h1 className="mt-8 max-w-4xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Need custom packaging?{" "}
-              <span className="bg-gradient-to-r from-orange-400 via-orange-300 to-cyan-300 bg-clip-text text-transparent">
-                Send your quote details.
-              </span>
+            <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight md:text-6xl">
+              Custom packaging quote support for serious brands.
             </h1>
 
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Contact Printy Packaging for custom boxes, materials, printing,
-              finishing, artwork guidance and international packaging quote
-              support.
+            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+              Need custom boxes, rigid boxes, mailer boxes, folding cartons,
+              food packaging, butter paper, paper bags, labels or stickers?
+              Share your details and our team will guide you.
             </p>
 
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/#quote"
+                className="rounded-full bg-[#FF6A00] px-7 py-4 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
+              >
+                Request Custom Quote
+              </Link>
+
               <a
-                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                href="mailto:sales@printypackaging.com"
+                className="rounded-full border border-[#00C2E8]/40 bg-white/5 px-7 py-4 text-sm font-black text-white backdrop-blur transition hover:-translate-y-1 hover:bg-[#00C2E8] hover:text-[#07111F]"
               >
-                Chat on WhatsApp
+                Email Sales Team
               </a>
-
-              <Link
-                href="/?product=mailer-boxes#quote"
-                className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
-              >
-                Open Quote Form
-              </Link>
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-5 shadow-2xl shadow-cyan-950/40">
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#07111F] p-6">
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
-                Faster Quote Help
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight">
-                Send complete details for better packaging pricing.
-              </h2>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {quoteDetails.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-slate-200"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 rounded-3xl border border-orange-400/20 bg-orange-500/10 p-5">
-                <p className="text-sm leading-7 text-slate-300">
-                  Complete product information helps us understand your custom
-                  packaging project and guide you with the right direction.
-                </p>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-slate-50 text-slate-950">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-              Contact Options
-            </p>
-
-            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-              Talk to us about your packaging project.
-            </h2>
-
-            <p className="mt-5 leading-8 text-slate-600">
-              Send a quote request, WhatsApp message or email with your product
-              details. We will guide you about box style, material, printing and
-              finishing options.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {contactCards.map((card) => (
-              <article
-                key={card.title}
-                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
+      <section className="px-4 py-16 sm:px-5 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-5 md:grid-cols-3">
+            {contactOptions.map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                className="group rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-[#00C2E8]/60 hover:shadow-xl"
               >
-                <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-                  {card.title}
-                </p>
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#00C2E8]/12 text-xl font-black text-[#007C91]">
+                  ✓
+                </div>
 
-                <h3 className="mt-4 text-2xl font-black tracking-tight">
-                  {card.value}
-                </h3>
-
-                <p className="mt-4 leading-7 text-slate-600">{card.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white text-slate-950">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-              What We Can Help With
-            </p>
-
-            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-              Packaging support for products, brands and international buyers.
-            </h2>
-
-            <p className="mt-5 leading-8 text-slate-600">
-              From basic box inquiries to premium packaging planning, we help
-              buyers understand packaging options before moving toward final
-              quote and production details.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/products"
-                className="rounded-full bg-[#07111F] px-7 py-3 text-center text-sm font-black text-white transition hover:bg-[#FF6A00]"
-              >
-                View Products
-              </Link>
-
-              <Link
-                href="/faq"
-                className="rounded-full border border-slate-300 px-7 py-3 text-center text-sm font-black text-slate-950 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
-              >
-                Read FAQ
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2">
-            {supportTopics.map((topic) => (
-              <article
-                key={topic.title}
-                className="rounded-3xl border border-slate-200 bg-slate-50 p-7"
-              >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20" />
-
-                <h3 className="text-xl font-black tracking-tight">
-                  {topic.title}
-                </h3>
-
-                <p className="mt-4 leading-7 text-slate-600">{topic.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-slate-50 text-slate-950">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70">
-            <div className="grid gap-0 lg:grid-cols-[0.85fr_1.15fr]">
-              <div className="bg-[#07111F] p-8 text-white sm:p-10">
-                <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
-                  Quote Form
-                </p>
-
-                <h2 className="mt-4 text-3xl font-black tracking-tight">
-                  Use the form below for packaging quote requests.
+                <h2 className="mt-5 text-xl font-black text-[#07111F]">
+                  {item.title}
                 </h2>
 
-                <p className="mt-5 leading-8 text-slate-300">
-                  Our quote form is connected with email and internal CRM
-                  tracking. Submit your details carefully so your inquiry can be
-                  reviewed properly.
+                <p className="mt-2 text-base font-black text-[#FF6A00]">
+                  {item.value}
                 </p>
 
-                <div className="mt-8 rounded-3xl border border-orange-400/20 bg-orange-500/10 p-5">
-                  <p className="text-sm leading-7 text-slate-300">
-                    Backend quote form is already working. This page only
-                    improves presentation and buyer guidance.
+                <p className="mt-4 text-sm leading-7 text-slate-600">
+                  {item.detail}
+                </p>
+
+                <p className="mt-5 text-xs font-black uppercase tracking-[0.18em] text-[#007C91] group-hover:text-[#FF6A00]">
+                  {item.action}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#F7FAFC] px-4 py-16 sm:px-5 md:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#007C91]">
+              How To Get A Quote
+            </p>
+
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-[#07111F] md:text-4xl">
+              Send the right details and get faster packaging guidance.
+            </h2>
+
+            <p className="mt-4 max-w-2xl text-base leading-8 text-slate-600">
+              For accurate pricing, share product dimensions, required quantity,
+              material preference, printing colors and finishing requirements.
+              Artwork files can be shared later if they are not ready yet.
+            </p>
+          </div>
+
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+            <div className="grid gap-4">
+              {supportSteps.map((step, index) => (
+                <div
+                  key={step}
+                  className="flex gap-4 rounded-2xl border border-slate-100 bg-[#F7FAFC] p-4"
+                >
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF6A00] text-sm font-black text-white">
+                    {index + 1}
+                  </div>
+
+                  <p className="text-sm font-bold leading-6 text-[#07111F]">
+                    {step}
                   </p>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              <div className="bg-white p-8 sm:p-10">
-                <h3 className="text-2xl font-black tracking-tight text-slate-950">
-                  Before submitting your inquiry
-                </h3>
-
-                <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {quoteDetails.map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-black text-slate-700"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-
-                <p className="mt-6 leading-8 text-slate-600">
-                  After submitting your inquiry, our team can review your
-                  packaging requirements and guide you with the next step.
-                </p>
-              </div>
+            <div className="mt-6 rounded-2xl border border-[#00C2E8]/30 bg-[#00C2E8]/10 p-5">
+              <p className="text-sm font-black text-[#07111F]">
+                Buyer trust note:
+              </p>
+              <p className="mt-2 text-sm leading-7 text-slate-700">
+                Printy Packaging uses email, WhatsApp, quote form and live chat
+                support. USA phone support will be added after official business
+                number setup and verification.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <QuoteSection />
+      <section className="px-4 py-16 sm:px-5 md:px-8">
+        <div className="mx-auto max-w-7xl rounded-[2rem] bg-[#07111F] p-6 text-white shadow-2xl md:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#00C2E8]">
+                Ready To Start?
+              </p>
+
+              <h2 className="mt-4 text-3xl font-black tracking-tight md:text-4xl">
+                Request a packaging quote for your next product.
+              </h2>
+
+              <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
+                Get guidance for custom box sizes, rigid packaging, ecommerce
+                mailers, food packaging, printed butter paper, labels and
+                stickers.
+              </p>
+            </div>
+
+            <Link
+              href="/#quote"
+              className="rounded-full bg-[#FF6A00] px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
+            >
+              Go To Quote Form
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
