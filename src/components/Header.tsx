@@ -90,7 +90,7 @@ export default function Header() {
       >
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 text-xs font-black sm:px-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
           <p className="text-white">
-            Premium Custom Boxes • Butter Paper • Food Packaging • Labels & Stickers
+            Premium Custom Boxes | Butter Paper | Food Packaging | Labels & Stickers
           </p>
 
           <div className="flex flex-wrap items-center gap-3 md:gap-5">
@@ -102,9 +102,9 @@ export default function Header() {
             </a>
 
             <span className="hidden h-4 w-px bg-white/30 md:block" />
-            <span className="text-cyan-300">USA Sales Support Coming Soon</span>
+            <span className="text-cyan-300">USA | UK | Europe Quote Support</span>
             <span className="hidden h-4 w-px bg-white/30 md:block" />
-            <span>USA • UK • Europe • UAE • Worldwide</span>
+            <span>USA | UK | Europe | UAE | Worldwide</span>
           </div>
         </div>
       </div>
