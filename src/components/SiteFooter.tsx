@@ -12,18 +12,18 @@ const productLinks = [
 const companyLinks = [
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Why Printy Packaging", href: "/why-printy-packaging" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Products", href: "/products" },
+  { label: "Markets", href: "/markets" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms / Quote Policy", href: "/terms" },
 ];
 
 const guideLinks = [
-  { label: "Resources Hub", href: "/resources" },
-  { label: "Packaging Materials", href: "/packaging-materials" },
-  { label: "Finishing Options", href: "/finishing-options" },
-  { label: "Artwork & Dieline Guide", href: "/artwork-guide" },
-  { label: "Sample Kit Guide", href: "/sample-kit" },
+  { label: "Packaging Guide", href: "/packaging-guide" },
+  { label: "Custom Packaging", href: "/custom-packaging" },
+  { label: "Product Pages", href: "/products" },
+  { label: "Packaging Categories", href: "/categories" },
+  { label: "Packaging Blog", href: "/blog" },
 ];
 
 const marketLinks = [
@@ -70,10 +70,10 @@ export default function SiteFooter() {
                 rel="noreferrer"
                 className="block transition hover:text-[#FF6A00]"
               >
-                WhatsApp: +92 333 8889954
+                                WhatsApp: +92 333 888 9954
               </a>
 
-              <p>Lahore, Pakistan — Serving global packaging buyers</p>
+                            <p>Lahore, Pakistan - Serving USA | UK | Europe | UAE and worldwide packaging buyers</p>
             </div>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -84,11 +84,11 @@ export default function SiteFooter() {
                 Get Quote
               </Link>
 
-              <Link
-                href="/resources"
+                            <Link
+                href="/packaging-guide"
                 className="rounded-full border border-white/15 px-6 py-3 text-center text-sm font-black text-white transition hover:border-cyan-300 hover:text-cyan-300"
               >
-                Packaging Guides
+                Packaging Guide
               </Link>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function SiteFooter() {
 
         <div className="mt-12 border-t border-white/10 pt-6">
           <div className="flex flex-col gap-4 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-            <p>© {year} Printy Packaging. All rights reserved.</p>
+                        <p>Copyright {year} Printy Packaging. All rights reserved.</p>
 
             <p>
               Custom boxes, printed packaging, premium finishes and quote
