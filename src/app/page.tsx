@@ -10,6 +10,7 @@ import IndustryBuyerSection from "../components/IndustryBuyerSection";
 import SalesSupportSection from "../components/SalesSupportSection";
 import QuoteSection from "../components/QuoteSection";
 import FloatingActions from "../components/FloatingActions";
+import ContactTrustSection from "../components/ContactTrustSection";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <OrderProcessSection />
       <IndustryBuyerSection />
       <SalesSupportSection />
+      <ContactTrustSection />
       <QuoteSection />
       <FloatingActions />
     </>
