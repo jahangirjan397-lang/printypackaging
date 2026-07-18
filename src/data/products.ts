@@ -642,12 +642,12 @@ export const products: Product[] = [
     ["Gifts", "Cosmetics", "Jewelry", "Luxury Retail"]
   ),
 
-  makeProduct(
+    makeProduct(
     "pharmaceutical-boxes",
     "Pharmaceutical Boxes",
     "Pharma Packaging",
-    "Custom pharmaceutical packaging for healthcare products",
-    "Custom pharmaceutical boxes are designed for medicine, healthcare products, supplements and medical packaging with clear printing, reliable structure and professional product information layout.",
+    "Custom pharmaceutical boxes for medicine and healthcare products",
+    "Custom pharmaceutical boxes are designed for medicine, healthcare products, supplements, medical devices and wellness packaging with clear printing, reliable structure and professional product information layout. Printy Packaging supports pharma packaging with custom size, paperboard, folding cartons, labeling space, barcode area and clean retail presentation.",
     [
       "pharmaceutical boxes",
       "medicine packaging",
@@ -655,16 +655,20 @@ export const products: Product[] = [
       "custom pharma boxes",
       "supplement packaging",
       "medical packaging boxes",
+      "custom pharmaceutical boxes",
+      "medicine boxes",
+      "pharma carton boxes",
+      "healthcare product packaging",
     ],
-    ["Pharma", "Healthcare", "Supplements", "Medical"]
+    ["Pharma", "Healthcare", "Supplements", "Medical", "Wellness"]
   ),
 
   makeProduct(
     "apparel-boxes",
     "Apparel Boxes",
     "Fashion Packaging",
-    "Custom apparel packaging for clothing and fashion brands",
-    "Custom apparel boxes are used for clothing, fashion accessories, shirts, scarves, shoes and premium retail delivery. They help fashion brands improve product presentation and unboxing experience.",
+    "Custom apparel boxes for clothing, fashion and ecommerce brands",
+    "Custom apparel boxes are used for clothing, fashion accessories, shirts, scarves, shoes, premium retail delivery and ecommerce packaging. They help fashion brands improve product presentation, shipping protection and unboxing experience with custom mailer boxes, rigid apparel boxes, printed clothing boxes and branded garment packaging.",
     [
       "apparel boxes",
       "clothing packaging",
@@ -672,16 +676,20 @@ export const products: Product[] = [
       "custom clothing boxes",
       "garment packaging",
       "fashion mailer boxes",
+      "custom apparel boxes",
+      "printed apparel boxes",
+      "clothing boxes",
+      "ecommerce apparel packaging",
     ],
-    ["Fashion", "Apparel", "Retail", "E-commerce"]
+    ["Fashion", "Apparel", "Retail", "E-commerce", "Clothing Brands"]
   ),
 
   makeProduct(
     "hang-tags",
     "Hang Tags",
     "Branding",
-    "Custom hang tags for apparel and retail products",
-    "Custom hang tags improve brand presentation for apparel, fashion accessories, handmade products and retail packaging. They can include brand story, price, product details, barcode and premium finishing.",
+    "Custom hang tags for apparel, fashion and retail products",
+    "Custom hang tags improve brand presentation for apparel, fashion accessories, handmade products, retail packaging and premium product branding. They can include brand story, price, product details, barcode, care instructions, logo, custom shape and premium finishing for a professional retail look.",
     [
       "custom hang tags",
       "printed hang tags",
@@ -689,8 +697,12 @@ export const products: Product[] = [
       "retail tags",
       "clothing hang tags",
       "brand hang tags",
+      "custom clothing tags",
+      "product hang tags",
+      "fashion tags",
+      "premium hang tags",
     ],
-    ["Fashion", "Apparel", "Retail", "Handmade Brands"]
+    ["Fashion", "Apparel", "Retail", "Handmade Brands", "Product Branding"]
   ),
 ];
 

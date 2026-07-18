@@ -43,37 +43,37 @@ export const topSeoRoutes = [
   },
   {
     title: "Rigid Boxes",
-    href: "/packaging/rigid-boxes",
+    href: "/products/rigid-boxes",
     priority: 0.9,
     changeFrequency: "weekly",
   },
   {
     title: "Mailer Boxes",
-    href: "/packaging/mailer-boxes",
+    href: "/products/mailer-boxes",
     priority: 0.9,
     changeFrequency: "weekly",
   },
   {
     title: "Folding Cartons",
-    href: "/packaging/folding-cartons",
+    href: "/products/folding-cartons",
     priority: 0.88,
     changeFrequency: "weekly",
   },
   {
     title: "Food Packaging",
-    href: "/packaging/food-packaging",
+    href: "/products/food-packaging",
     priority: 0.88,
     changeFrequency: "weekly",
   },
   {
     title: "Paper Bags",
-    href: "/packaging/paper-bags",
+    href: "/products/paper-bags",
     priority: 0.84,
     changeFrequency: "weekly",
   },
   {
     title: "Labels and Stickers",
-    href: "/packaging/labels-stickers",
+    href: "/products/labels-stickers",
     priority: 0.84,
     changeFrequency: "weekly",
   },
@@ -110,3 +110,4 @@ export const topSeoRoutes = [
 ] as const;
 
 export type TopSeoRoute = (typeof topSeoRoutes)[number];
+

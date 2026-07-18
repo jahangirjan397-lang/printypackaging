@@ -16,12 +16,12 @@ const linkGroups = [
   {
     title: "Product Packaging",
     links: [
-      { label: "Rigid Boxes", href: "/packaging/rigid-boxes" },
-      { label: "Mailer Boxes", href: "/packaging/mailer-boxes" },
-      { label: "Folding Cartons", href: "/packaging/folding-cartons" },
-      { label: "Food Packaging", href: "/packaging/food-packaging" },
-      { label: "Paper Bags", href: "/packaging/paper-bags" },
-      { label: "Labels and Stickers", href: "/packaging/labels-stickers" },
+      { label: "Rigid Boxes", href: "/products/rigid-boxes" },
+      { label: "Mailer Boxes", href: "/products/mailer-boxes" },
+      { label: "Folding Cartons", href: "/products/folding-cartons" },
+      { label: "Food Packaging", href: "/products/food-packaging" },
+      { label: "Paper Bags", href: "/products/paper-bags" },
+      { label: "Labels and Stickers", href: "/products/labels-stickers" },
     ],
   },
   {
@@ -84,3 +84,4 @@ export default function SeoGrowthLinksSection() {
     </section>
   );
 }
+

@@ -8,17 +8,17 @@ const merchantLinks = [
   },
   {
     title: "Custom Mailer Boxes",
-    href: "/packaging/mailer-boxes",
+    href: "/products/mailer-boxes",
     text: "Ecommerce-ready mailer boxes for brand shipping.",
   },
   {
     title: "Custom Rigid Boxes",
-    href: "/packaging/rigid-boxes",
+    href: "/products/rigid-boxes",
     text: "Premium rigid boxes for luxury product packaging.",
   },
   {
     title: "Food Packaging",
-    href: "/packaging/food-packaging",
+    href: "/products/food-packaging",
     text: "Food boxes, butter paper and wrapping solutions.",
   },
   {
@@ -77,3 +77,4 @@ export default function MerchantSeoLinksSection() {
     </section>
   );
 }
+
