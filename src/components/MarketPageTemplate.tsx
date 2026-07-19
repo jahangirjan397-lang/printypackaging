@@ -533,7 +533,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                   className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm"
                 >
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] font-black text-white">
-                    ✓
+                    <span aria-hidden="true">&#10003;</span>
                   </div>
                   <p className="font-black text-[#07111F]">{step}</p>
                 </div>
@@ -635,4 +635,3 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
     </main>
   );
 }
-
