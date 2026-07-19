@@ -16,12 +16,12 @@ const linkGroups = [
   {
     title: "Product Packaging",
     links: [
-      { label: "Rigid Boxes", href: "/products/rigid-boxes" },
-      { label: "Mailer Boxes", href: "/products/mailer-boxes" },
-      { label: "Folding Cartons", href: "/products/folding-cartons" },
-      { label: "Food Packaging", href: "/products/food-packaging" },
-      { label: "Paper Bags", href: "/products/paper-bags" },
-      { label: "Labels and Stickers", href: "/products/labels-stickers" },
+      { label: "Rigid Boxes", href: "/packaging/rigid-boxes" },
+      { label: "Mailer Boxes", href: "/packaging/mailer-boxes" },
+      { label: "Folding Cartons", href: "/packaging/folding-cartons" },
+      { label: "Food Packaging", href: "/packaging/food-packaging" },
+      { label: "Paper Bags", href: "/packaging/paper-bags" },
+      { label: "Labels and Stickers", href: "/packaging/labels-stickers" },
     ],
   },
   {
@@ -73,7 +73,7 @@ export default function SeoGrowthLinksSection() {
                     href={link.href}
                     className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-black text-slate-700 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
                   >
-                    {link.label} →
+                                        {link.label} - View
                   </Link>
                 ))}
               </div>
@@ -84,6 +84,3 @@ export default function SeoGrowthLinksSection() {
     </section>
   );
 }
-
-
-
