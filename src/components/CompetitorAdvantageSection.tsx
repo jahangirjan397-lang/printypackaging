@@ -36,7 +36,7 @@ export default function CompetitorAdvantageSection() {
             </h2>
 
             <p className="mt-5 text-base leading-8 text-slate-300">
-              Our website is being built to compete with strong packaging
+              Our service is designed to compete with leading packaging
               brands by combining premium design, fast response, SEO-focused
               content and practical factory-level packaging knowledge.
             </p>

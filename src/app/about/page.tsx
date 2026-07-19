@@ -292,7 +292,7 @@ export default function AboutPage() {
             </h2>
 
             <p className="mt-5 leading-8 text-slate-600">
-              Printy Packaging is being built as a modern, fast and SEO-friendly
+              Printy Packaging is a modern, fast and SEO-friendly
               custom packaging website. The goal is to give buyers a better
               experience with clear product pages, category pages, market pages,
               quote support and helpful packaging education.

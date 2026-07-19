@@ -31,7 +31,7 @@ const contactOptions = [
     title: "USA Quote Support",
     value: "Online support available",
     detail:
-      "Official USA phone support will be added after business number verification. Quotes are available online now.",
+     "Fast quote support is available through email, WhatsApp, live chat and our secure online quote form.",
     href: "/#quote",
     action: "Request Quote",
   },
@@ -191,9 +191,8 @@ export default function ContactPage() {
                 Buyer trust note:
               </p>
               <p className="mt-2 text-sm leading-7 text-slate-700">
-                Printy Packaging uses email, WhatsApp, quote form and live chat
-                support. USA phone support will be added after official business
-                number setup and verification.
+                                 Printy Packaging provides responsive email, WhatsApp, secure
+                quote form and live chat support for packaging projects worldwide.
               </p>
             </div>
           </div>

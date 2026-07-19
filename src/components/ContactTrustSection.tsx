@@ -16,7 +16,7 @@ const contactCards = [
   {
     title: "USA Quote Support",
     value: "Online quote support available",
-    detail: "USA phone support will be added after official business number setup.",
+    detail: "Request pricing and packaging guidance online for deliveries across the USA.",
     href: "#quote",
   },
 ];

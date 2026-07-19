@@ -39,7 +39,7 @@ export default function WhyPrintyPackagingPage() {
             </h1>
 
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Printy Packaging is being built as a fast, professional and
+              Printy Packaging provides a fast, professional and
               SEO-friendly custom packaging website for global buyers who need
               clear quote guidance, product education and premium packaging
               options.

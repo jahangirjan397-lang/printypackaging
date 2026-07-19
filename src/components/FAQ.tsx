@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: "Do you support USA and Europe clients?",
-    a: "Yes. PrintyPackaging is being built for international clients including USA, UK, Europe, Canada, Australia and UAE.",
+    a: "Yes. Printy Packaging supports clients across the USA, UK, Europe, Canada, Australia and UAE.",
   },
   {
     q: "Can you help with material and finishing selection?",

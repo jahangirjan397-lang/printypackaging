@@ -103,7 +103,7 @@ export default function ComparisonTable() {
 
         <div className="mx-auto mt-8 max-w-3xl rounded-3xl border border-[#FF6A00]/20 bg-[#FF6A00]/10 p-5 text-center">
           <p className="text-sm font-bold leading-6 text-slate-200 md:text-base">
-            PrintyPackaging is being built as a complete packaging quote,
+            Printy Packaging provides a complete packaging quote,
             production guidance and CRM-ready platform for global buyers.
           </p>
         </div>
