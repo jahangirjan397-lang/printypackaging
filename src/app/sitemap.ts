@@ -96,7 +96,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72,
   }));
 
-  return [
+    const allRoutes: MetadataRoute.Sitemap = [
     ...staticRoutes,
     ...seoRoutes,
     ...productRoutes,
@@ -104,5 +104,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...marketRoutes,
     ...blogRoutes,
   ];
+
+  return allRoutes.filter(
+    (route, index) =>
+      allRoutes.findIndex((item) => item.url === route.url) === index
+  );
 }
 
