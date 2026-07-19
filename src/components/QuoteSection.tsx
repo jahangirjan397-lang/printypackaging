@@ -717,11 +717,12 @@ export default function QuoteSection() {
             </div>
 
             <div className="mt-5 rounded-2xl border border-dashed border-[#00C2E8] bg-[#00C2E8]/10 p-5">
-              <p className="font-black text-[#07111F]">Artwork Upload</p>
+                            <p className="font-black text-[#07111F]">
+                Artwork & Design Files
+              </p>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                File upload will be connected in the next backend level. For
-                now, select artwork status above and mention any design support
-                requirement in project details.
+                After submitting your request, our packaging team will contact
+                you to collect artwork and reference files securely when required.
               </p>
             </div>
 
