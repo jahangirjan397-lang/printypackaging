@@ -566,13 +566,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
           </Link>
         </div>
       </section>
-                  <ProductQuoteChecklistSection
-        product={product}
-        quoteLink={productQuoteLink}
-      />
-
-      <ProductMerchantCtaPanel productTitle={product.name} />
-    </main>
+            </main>
   );
 }
 
