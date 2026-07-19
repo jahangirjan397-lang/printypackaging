@@ -210,8 +210,11 @@ export default function ProductsPage() {
                 </p>
 
                 <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
-                  Custom Packaging Products
-                </h1>
+  Custom Packaging{" "}
+  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+    Products
+  </span>
+</h1>
 
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
                   Explore premium custom boxes, food packaging, butter paper,

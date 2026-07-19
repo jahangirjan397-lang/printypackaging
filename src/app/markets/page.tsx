@@ -93,8 +93,11 @@ export default function MarketsPage() {
             </p>
 
             <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
-              Packaging for Global Buyers
-            </h1>
+  Packaging for{" "}
+  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+    Global Buyers
+  </span>
+</h1>
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
               Explore custom packaging pages for USA, UK, Canada, Europe, UAE

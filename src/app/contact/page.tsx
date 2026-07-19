@@ -88,8 +88,11 @@ export default function ContactPage() {
             </p>
 
             <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight md:text-6xl">
-              Custom packaging quote support for serious brands.
-            </h1>
+  Custom packaging quote support for{" "}
+  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+    serious brands.
+  </span>
+</h1>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
               Need custom boxes, rigid boxes, mailer boxes, folding cartons,

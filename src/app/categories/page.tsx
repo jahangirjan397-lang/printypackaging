@@ -93,8 +93,11 @@ export default function CategoriesPage() {
             </p>
 
             <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
-              Find Packaging by Category
-            </h1>
+  Find Packaging by{" "}
+  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+    Category
+  </span>
+</h1>
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
               Browse custom packaging solutions by product type, business need,

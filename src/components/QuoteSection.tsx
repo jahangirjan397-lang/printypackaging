@@ -521,7 +521,7 @@ export default function QuoteSection() {
 }
 
   return (
-    <section id="quote" className="bg-[#F7FAFC] px-5 py-24 md:px-8">
+    <section className="bg-[#F7FAFC] px-5 py-24 md:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
@@ -563,10 +563,11 @@ export default function QuoteSection() {
             </div>
           </div>
 
-                    <form
-            onSubmit={handleSubmit}
-            className="relative rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
-          >
+            <form
+  id="quote"
+  onSubmit={handleSubmit}
+  className="relative scroll-mt-28 rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
+>
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
