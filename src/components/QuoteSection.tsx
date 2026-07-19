@@ -563,10 +563,23 @@ export default function QuoteSection() {
             </div>
           </div>
 
-          <form
+                    <form
             onSubmit={handleSubmit}
-            className="rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
+            className="relative rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
           >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+            >
+              <input
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                defaultValue=""
+              />
+            </div>
+
             <div className="grid gap-5 md:grid-cols-2">
               <FormField label="Full Name">
                 <input
