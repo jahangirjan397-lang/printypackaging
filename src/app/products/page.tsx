@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../../components/Header";
+import { categories as packagingCategories } from "../../data/categories";
 import type { Product } from "../../data/products";
 import { products } from "../../data/products";
 
@@ -242,7 +243,9 @@ export default function ProductsPage() {
 
                 <div className="mt-10 grid gap-4 sm:grid-cols-3">
                   <HeroStat value={`${products.length}+`} label="Products" />
-                  <HeroStat value={`${categories.length}+`} label="Categories" />
+                  <HeroStat value={`${packagingCategories.length}+`}
+  label="Categories"
+/>
                   <HeroStat value="24/7" label="Quote Access" />
                 </div>
               </div>
@@ -278,16 +281,14 @@ export default function ProductsPage() {
         <section className="bg-white px-5 py-10 md:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="flex gap-3 overflow-x-auto pb-3">
-              {categories.map((category) => (
+                            {packagingCategories.map((category) => (
                 <Link
-                  key={category}
-                  href={`/categories/${category
-                    .toLowerCase()
-                    .replaceAll(" ", "-")}`}
+                  key={category.slug}
+                  href={`/categories/${category.slug}`}
                   prefetch={false}
                   className="shrink-0 rounded-full border border-slate-200 bg-[#F7FAFC] px-5 py-3 text-sm font-black text-[#07111F] transition hover:border-[#00C2E8] hover:bg-[#00C2E8] hover:text-white"
                 >
-                  {category}
+                  {category.name}
                 </Link>
               ))}
             </div>
