@@ -12,6 +12,56 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 
+  async redirects() {
+    return [
+      {
+        source: "/shop",
+        destination: "/products",
+        permanent: true,
+      },
+      {
+        source: "/shop/:path*",
+        destination: "/products",
+        permanent: true,
+      },
+      {
+        source: "/product/:path*",
+        destination: "/products",
+        permanent: true,
+      },
+      {
+        source: "/product-category/:path*",
+        destination: "/products",
+        permanent: true,
+      },
+      {
+        source: "/testimonials",
+        destination: "/why-printy-packaging",
+        permanent: true,
+      },
+      {
+        source: "/testimonials/:path*",
+        destination: "/why-printy-packaging",
+        permanent: true,
+      },
+      {
+        source: "/cart",
+        destination: "/products",
+        permanent: true,
+      },
+      {
+        source: "/checkout",
+        destination: "/products",
+        permanent: true,
+      },
+      {
+        source: "/my-account",
+        destination: "/contact",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
