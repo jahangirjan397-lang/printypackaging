@@ -1,3 +1,9 @@
+export type ProductImage = {
+  src: string;
+  alt: string;
+  title: string;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -5,6 +11,7 @@ export type Product = {
   category: string;
   description: string;
   keywords: string[];
+  images?: ProductImage[];
   features: string[];
   materials: string[];
   finishes: string[];
