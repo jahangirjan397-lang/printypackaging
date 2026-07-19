@@ -109,11 +109,7 @@ function getProductMockupShape(product: Product) {
 }
 
 export default function ProductsPage() {
-  const categories = Array.from(
-    new Set(products.map((product) => product.category))
-  );
-
-  const collectionPageJsonLd = {
+   const collectionPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Custom Packaging Products",
@@ -270,7 +266,7 @@ export default function ProductsPage() {
                   <div className="absolute right-8 top-24 h-24 w-24 rotate-12 rounded-2xl bg-white/90 shadow-2xl" />
 
                   <div className="absolute bottom-8 right-8 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white">
-                    Fast Loading
+                    Fast Quotes
                   </div>
                 </div>
               </div>
@@ -503,7 +499,7 @@ function ProductVisual({ product, index }: { product: Product; index: number }) 
       )}
 
       <div className="absolute bottom-5 right-5 rounded-full bg-white/15 px-4 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white backdrop-blur">
-        Fast Mockup
+        Custom Made
       </div>
     </div>
   );

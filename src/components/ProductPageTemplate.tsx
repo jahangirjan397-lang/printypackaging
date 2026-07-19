@@ -298,7 +298,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 </div>
 
                 <div className="absolute bottom-8 right-8 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white">
-                  Premium Mockup
+                  Packaging Preview
                 </div>
               </div>
             </div>
@@ -320,8 +320,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
             </div>
 
             <p className="max-w-xl text-sm leading-6 text-slate-600 md:text-right">
-              These are fast-loading professional placeholders. Real packaging
-              images can be replaced later without changing the page structure.
+              Preview custom packaging possibilities for your product. Materials,
+printing and finishes are tailored to your requirements.
             </p>
           </div>
 
