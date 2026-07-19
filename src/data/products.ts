@@ -546,55 +546,93 @@ export const products: Product[] = [
     ["Jewelry", "Luxury Retail", "Gifts", "Fashion", "Premium Brands"]
   ),
 
-  makeProduct(
+    makeProduct(
     "bakery-boxes",
     "Bakery Boxes",
     "Food Packaging",
-    "Custom bakery boxes for cakes, pastries and desserts",
-    "Custom bakery boxes are suitable for cakes, cupcakes, pastries, cookies, desserts and takeaway bakery products. They can include food-safe board, window patching, custom printing and branded bakery presentation.",
+    "Food-grade custom boxes for cakes, pastries and desserts",
+    "Custom bakery boxes provide secure and attractive packaging for cakes, cupcakes, pastries, cookies, donuts and desserts. Choose food-grade board, custom sizes, window options, branded logo printing and practical finishing to create professional takeaway and retail packaging for bakeries, cafes, cake shops and dessert brands.",
     [
       "custom bakery boxes",
+      "printed bakery boxes",
+      "bakery packaging boxes",
       "cake boxes",
-      "pastry boxes",
-      "dessert packaging",
+      "cake boxes with window",
       "cupcake boxes",
-      "bakery packaging",
+      "pastry boxes",
+      "cookie boxes",
+      "donut boxes",
+      "food grade bakery boxes",
+      "bakery boxes with logo",
+      "wholesale bakery boxes",
+      "takeaway dessert boxes",
+      "custom bakery packaging",
     ],
-    ["Bakery", "Cafes", "Desserts", "Food"]
+    ["Bakeries", "Cake Shops", "Cafes", "Dessert Brands", "Food Delivery"]
   ),
 
   makeProduct(
     "burger-boxes",
     "Burger Boxes",
     "Food Packaging",
-    "Custom burger boxes for restaurants and food delivery",
-    "Custom burger boxes are made for restaurants, cafes, food trucks and takeaway brands that need food-safe branded packaging. They help protect food while improving presentation and customer experience.",
+    "Food-grade branded burger boxes for takeaway and delivery",
+    "Custom burger boxes help restaurants, fast-food brands, cafes and food trucks serve burgers in secure food-grade packaging. Choose kraft or white board, custom sizes, logo printing and grease-resistant finish guidance for professional dine-in, takeaway and food delivery presentation.",
     [
       "custom burger boxes",
-      "burger packaging",
-      "restaurant burger boxes",
-      "takeaway packaging",
+      "printed burger boxes",
+      "burger packaging boxes",
       "burger takeaway boxes",
-      "food delivery burger boxes",
+      "burger boxes with logo",
+      "food grade burger boxes",
+      "kraft burger boxes",
+      "cardboard burger boxes",
+      "restaurant burger packaging",
+      "fast food packaging boxes",
+      "takeaway food boxes",
+      "custom fast food packaging",
+      "wholesale burger boxes",
+      "clamshell burger boxes",
     ],
-    ["Restaurants", "Burger Brands", "Food Trucks", "Cafes"]
+    [
+      "Restaurants",
+      "Burger Brands",
+      "Fast Food",
+      "Food Trucks",
+      "Cafes",
+      "Food Delivery",
+    ]
   ),
 
   makeProduct(
     "pizza-boxes",
     "Pizza Boxes",
     "Food Packaging",
-    "Custom pizza boxes for delivery and takeaway",
-    "Custom pizza boxes help pizza brands deliver food safely while promoting their logo and brand identity. They can be made with corrugated board, kraft style, food-safe printing and custom size options.",
+    "Custom printed pizza boxes for secure delivery and takeaway",
+    "Custom pizza boxes are designed for safe takeaway, stacking and food delivery in sizes suited to your menu. Choose corrugated or kraft board, food-safe printing, branded artwork and practical finishing for pizzerias, restaurants, cloud kitchens and food delivery brands.",
     [
       "custom pizza boxes",
       "printed pizza boxes",
-      "pizza packaging",
-      "food delivery boxes",
+      "pizza boxes with logo",
       "branded pizza boxes",
+      "corrugated pizza boxes",
+      "kraft pizza boxes",
+      "food grade pizza boxes",
       "takeaway pizza boxes",
+      "pizza delivery boxes",
+      "custom size pizza boxes",
+      "wholesale pizza boxes",
+      "restaurant pizza packaging",
+      "personal pizza boxes",
+      "large pizza boxes",
     ],
-    ["Pizza Brands", "Restaurants", "Takeaway", "Food Delivery"]
+    [
+      "Pizza Brands",
+      "Pizzerias",
+      "Restaurants",
+      "Cloud Kitchens",
+      "Takeaway",
+      "Food Delivery",
+    ]
   ),
 
   makeProduct(
