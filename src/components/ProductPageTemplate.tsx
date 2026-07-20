@@ -7,37 +7,7 @@ import ProductGuideLinksSection from "./ProductGuideLinksSection";
 import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
 import ProductSeoBlocks from "./ProductSeoBlocks";
 import ProductMerchantCtaPanel from "./ProductMerchantCtaPanel";
-function getProductGallery(product: Product) {
-  const firstWord = product.name.split(" ")[0] || "Box";
-
-  return [
-    {
-      title: "Front View",
-      label: firstWord,
-      description: "Premium branded front packaging presentation.",
-    },
-    {
-      title: "Side View",
-      label: "SIDE",
-      description: "Clear structure and product protection view.",
-    },
-    {
-      title: "Open View",
-      label: "OPEN",
-      description: "Unboxing experience and inside packaging layout.",
-    },
-    {
-      title: "Material View",
-      label: "GSM",
-      description: "Board, paper, flute or wrap material selection.",
-    },
-    {
-      title: "Finish View",
-      label: "UV",
-      description: "Lamination, UV, foiling and embossing options.",
-    },
-  ];
-}
+import ProductImageGallery from "./ProductImageGallery";
 
 function getProductSpecs(product: Product) {
   return [
@@ -118,9 +88,7 @@ function getRelatedProducts(product: Product) {
 export default function ProductPageTemplate({ product }: { product: Product }) {
   const relatedProducts = getRelatedProducts(product);
   const productQuoteLink = `/?product=${product.slug}#quote`;
-  const galleryItems = getProductGallery(product);
   const productSpecs = getProductSpecs(product);
-  const visualLabel = getProductVisualLabel(product);
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -280,84 +248,15 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl">
-              <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
-
-                <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
-                  Custom Packaging
-                </div>
-
-                <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
-
-                <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
-                  <div className="mx-auto mt-12 h-16 w-16 rounded-full border border-[#FF6A00]" />
-                  <p className="mt-8 px-4 text-center text-xl font-black tracking-widest text-white">
-                    {product.name.split(" ")[0]}
-                  </p>
-                </div>
-
-                <div className="absolute bottom-8 right-8 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white">
-                  Packaging Preview
-                </div>
-              </div>
-            </div>
+                        <ProductImageGallery
+              productName={product.name}
+              images={product.images}
+            />
           </div>
         </div>
       </section>
 
-      <section id="product-gallery" className="bg-white px-5 py-20 md:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-                Product Gallery
-              </p>
-
-              <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-                5 visual angles for {product.name}
-              </h2>
-            </div>
-
-            <p className="max-w-xl text-sm leading-6 text-slate-600 md:text-right">
-              Preview custom packaging possibilities for your product. Materials,
-printing and finishes are tailored to your requirements.
-            </p>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-            {galleryItems.map((item, index) => (
-              <div
-                key={item.title}
-                className="group overflow-hidden rounded-[1.7rem] border border-slate-200 bg-[#F7FAFC] shadow-sm transition hover:-translate-y-1 hover:border-[#00C2E8] hover:shadow-md"
-              >
-                <div className="relative h-52 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                  <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
-
-                  <div className="absolute bottom-6 left-1/2 h-24 w-24 -translate-x-1/2 rotate-[-7deg] rounded-2xl bg-white shadow-2xl transition group-hover:rotate-0" />
-
-                  <div className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
-                    {index + 1}
-                  </div>
-
-                  <div className="absolute bottom-5 right-5 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                    {item.label}
-                  </div>
-                </div>
-
-                <div className="p-5">
-                  <h3 className="font-black text-[#07111F]">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="product-details" className="bg-[#F7FAFC] px-5 py-20 md:px-8">
+          <section id="product-details" className="bg-[#F7FAFC] px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
