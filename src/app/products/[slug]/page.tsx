@@ -40,6 +40,16 @@ export async function generateMetadata({
   const productUrl = `${siteUrl}/products/${product.slug}`;
   const title = `${product.name} | Custom ${product.name} Packaging | ${brandName}`;
   const description = product.description;
+  const primaryImage = product.images?.[0];
+
+  const socialImage = primaryImage
+    ? {
+        url: `${siteUrl}${primaryImage.src}`,
+        width: 1200,
+        height: 1200,
+        alt: primaryImage.alt,
+      }
+    : undefined;
 
   return {
     title,
@@ -55,11 +65,13 @@ export async function generateMetadata({
       siteName: brandName,
       type: "website",
       locale: "en_US",
+      ...(socialImage ? { images: [socialImage] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      ...(socialImage ? { images: [socialImage.url] } : {}),
     },
     robots: {
       index: true,

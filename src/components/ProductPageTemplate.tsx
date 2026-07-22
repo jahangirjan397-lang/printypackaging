@@ -109,6 +109,9 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
     name: product.name,
     description: product.description,
     category: product.category,
+        image: product.images?.map(
+      (image) => `https://printypackaging.com${image.src}`
+    ),
     brand: {
       "@type": "Brand",
       name: "Printy Packaging",
