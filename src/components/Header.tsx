@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
+import PackagingSearch from "@/components/PackagingSearch";
 
 const productLinks = [
   { name: "Rigid Boxes", href: "/products/rigid-boxes", label: "Luxury boxes" },
@@ -112,7 +113,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="border-b border-slate-200 bg-white/95 backdrop-blur-xl">
+            <div className="border-b border-slate-200 bg-white/95">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-4 sm:px-5 md:px-8 md:py-5">
           <div className="shrink-0">
             <BrandLogo variant="dark" size="default" />
@@ -159,6 +160,7 @@ export default function Header() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <PackagingSearch />
             <Link
               href="/#quote"
               prefetch={false}
