@@ -607,7 +607,7 @@ export const products: Product[] = [
     ]
   ),
 
-  makeProduct(
+    makeProduct(
     "burger-boxes",
     "Burger Boxes",
     "Food Packaging",
@@ -636,9 +636,35 @@ export const products: Product[] = [
       "Food Trucks",
       "Cafes",
       "Food Delivery",
+    ],
+    [
+      {
+        src: "/images/products/burger-boxes/burger-boxes-hero.webp",
+        alt: "Custom printed burger box with branded food-grade design",
+        title: "Burger Box Hero View",
+      },
+      {
+        src: "/images/products/burger-boxes/burger-boxes-front.webp",
+        alt: "Closed custom burger box showing branded front panel",
+        title: "Burger Box Front View",
+      },
+      {
+        src: "/images/products/burger-boxes/burger-boxes-open.webp",
+        alt: "Open food-grade burger box containing a gourmet burger",
+        title: "Burger Box Open View",
+      },
+      {
+        src: "/images/products/burger-boxes/burger-boxes-finish.webp",
+        alt: "Close-up of burger box paperboard, fold and locking tab",
+        title: "Material and Finish Detail",
+      },
+      {
+        src: "/images/products/burger-boxes/burger-boxes-lifestyle.webp",
+        alt: "Branded burger box displayed on a restaurant counter",
+        title: "Burger Box Lifestyle View",
+      },
     ]
   ),
-
   makeProduct(
     "pizza-boxes",
     "Pizza Boxes",
