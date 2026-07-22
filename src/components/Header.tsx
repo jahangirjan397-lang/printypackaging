@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import PackagingSearch from "@/components/PackagingSearch";
+import CategoryIcon from "@/components/CategoryIcon";
 
 const productLinks = [
   { name: "Rigid Boxes", href: "/products/rigid-boxes", label: "Luxury boxes" },
@@ -17,11 +18,36 @@ const productLinks = [
 ];
 
 const categoryLinks = [
-  { name: "Luxury Packaging", href: "/categories/luxury-packaging", label: "Premium brands" },
-  { name: "Food Packaging", href: "/categories/food-packaging", label: "Food-safe options" },
-  { name: "Retail Packaging", href: "/categories/retail-packaging", label: "Shops and brands" },
-  { name: "Cosmetic Packaging", href: "/categories/cosmetic-packaging", label: "Beauty brands" },
-  { name: "Printing & Finishing", href: "/categories/printing-finishing", label: "Premium finishes" },
+  {
+    name: "Luxury Packaging",
+    href: "/categories/luxury-packaging",
+    label: "Premium brands",
+    iconSlug: "luxury-packaging",
+  },
+  {
+    name: "Food Packaging",
+    href: "/categories/food-packaging",
+    label: "Food-safe options",
+    iconSlug: "food-packaging",
+  },
+  {
+    name: "Retail Packaging",
+    href: "/categories/retail-packaging",
+    label: "Shops and brands",
+    iconSlug: "retail-packaging",
+  },
+  {
+    name: "Cosmetic Packaging",
+    href: "/categories/cosmetic-packaging",
+    label: "Beauty brands",
+    iconSlug: "cosmetic-packaging",
+  },
+  {
+    name: "Printing & Finishing",
+    href: "/categories/printing-finishing",
+    label: "Premium finishes",
+    iconSlug: "printing-finishing",
+  },
 ];
 
 const marketLinks = [
@@ -262,7 +288,12 @@ function MegaMenu({
   href: string;
   heading: string;
   description: string;
-  links: { name: string; href: string; label: string }[];
+    links: {
+    name: string;
+    href: string;
+    label: string;
+    iconSlug?: string;
+  }[];
   ctaText: string;
   ctaHref: string;
   wide?: boolean;
@@ -302,17 +333,34 @@ function MegaMenu({
         <div
           className={wide ? "grid grid-cols-4 gap-3" : "grid grid-cols-2 gap-3"}
         >
-          {links.map((item) => (
+                    {links.map((item) => (
             <Link
               href={item.href}
               prefetch={false}
               key={item.href}
-              className="rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white"
+              className={`rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white ${
+                item.iconSlug ? "flex items-center gap-3" : ""
+              }`}
             >
-              <span className="block font-black">{item.name}</span>
-              <span className="mt-1 block text-xs font-medium text-slate-500">
-                {item.label}
-              </span>
+              {item.iconSlug ? (
+                <>
+                  <CategoryIcon slug={item.iconSlug} size="sm" tone="orange" />
+
+                  <span className="min-w-0">
+                    <span className="block font-black">{item.name}</span>
+                    <span className="mt-1 block text-xs font-medium text-slate-500">
+                      {item.label}
+                    </span>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="block font-black">{item.name}</span>
+                  <span className="mt-1 block text-xs font-medium text-slate-500">
+                    {item.label}
+                  </span>
+                </>
+              )}
             </Link>
           ))}
         </div>

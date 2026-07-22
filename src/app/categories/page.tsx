@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../../components/Header";
 import { categories } from "../../data/categories";
+import CategoryIcon from "../../components/CategoryIcon";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -151,20 +152,23 @@ export default function CategoriesPage() {
                   prefetch={false}
                   className="pp-card group rounded-[2rem] bg-white p-7 shadow-md"
                 >
-                  <div className="relative mb-6 h-44 overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                    <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
+                                      <div className="relative mb-6 flex h-44 items-center justify-center overflow-hidden rounded-[1.5rem] border border-[#007C91]/15 bg-[#F0F8F9]">
+                                        <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle,#07111F_1px,transparent_1px)] [background-size:22px_22px]" />
 
-                    <div className="absolute bottom-5 left-5 h-20 w-24 rotate-[-8deg] rounded-2xl bg-white shadow-2xl" />
-
-                    <span className="absolute left-5 top-5 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                                      <span className="absolute left-5 top-5 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
                       Category
                     </span>
 
-                    <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
+                    <CategoryIcon
+                      slug={category.slug}
+                      size="lg"
+                      className="relative scale-125 transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.35]"
+                    />
+
+                    <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-[#07111F]">
                       {index + 1}
                     </span>
                   </div>
-
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
                     Packaging Category
                   </p>
