@@ -252,7 +252,8 @@ function makeProduct(
   tagline: string,
   description: string,
   keywords: string[],
-  industries: string[]
+  industries: string[],
+  images?: ProductImage[]
 ): Product {
   return {
     slug,
@@ -265,6 +266,7 @@ function makeProduct(
     materials: getProductMaterials(name, category),
     finishes: getProductFinishes(name, category),
     industries,
+    images,
     faqs: buildFaqs(name, category),
   };
 }
@@ -553,7 +555,7 @@ export const products: Product[] = [
     ["Jewelry", "Luxury Retail", "Gifts", "Fashion", "Premium Brands"]
   ),
 
-    makeProduct(
+      makeProduct(
     "bakery-boxes",
     "Bakery Boxes",
     "Food Packaging",
@@ -575,7 +577,34 @@ export const products: Product[] = [
       "takeaway dessert boxes",
       "custom bakery packaging",
     ],
-    ["Bakeries", "Cake Shops", "Cafes", "Dessert Brands", "Food Delivery"]
+    ["Bakeries", "Cake Shops", "Cafes", "Dessert Brands", "Food Delivery"],
+    [
+      {
+        src: "/images/products/bakery-boxes/bakery-boxes-hero.webp",
+        alt: "Custom printed bakery box with window and branded design",
+        title: "Bakery Box Hero View",
+      },
+      {
+        src: "/images/products/bakery-boxes/bakery-boxes-front.webp",
+        alt: "Front view of a custom printed bakery box with pastries",
+        title: "Bakery Box Front View",
+      },
+      {
+        src: "/images/products/bakery-boxes/bakery-boxes-open.webp",
+        alt: "Open custom bakery box showing pastries and food-grade interior",
+        title: "Bakery Box Open View",
+      },
+      {
+        src: "/images/products/bakery-boxes/bakery-boxes-finish.webp",
+        alt: "Close-up of bakery box printing, window and paperboard finish",
+        title: "Material and Finish Detail",
+      },
+      {
+        src: "/images/products/bakery-boxes/bakery-boxes-lifestyle.webp",
+        alt: "Branded bakery box displayed inside a professional bakery",
+        title: "Bakery Box Lifestyle View",
+      },
+    ]
   ),
 
   makeProduct(
