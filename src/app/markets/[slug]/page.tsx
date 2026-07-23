@@ -42,7 +42,7 @@ export async function generateMetadata({
   const description = market.description;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: market.keywords,
     alternates: {

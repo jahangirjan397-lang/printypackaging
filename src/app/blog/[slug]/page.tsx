@@ -30,7 +30,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.title} | Printy Packaging Blog`,
+    title: { absolute: `${post.title} | Printy Packaging Blog` },
     description: post.excerpt,
     keywords: post.keywords,
     alternates: {

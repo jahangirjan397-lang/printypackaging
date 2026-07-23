@@ -42,7 +42,7 @@ export async function generateMetadata({
   const description = category.description;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: category.keywords,
     alternates: {

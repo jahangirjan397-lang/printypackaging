@@ -52,7 +52,7 @@ export async function generateMetadata({
     : undefined;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: product.keywords,
     alternates: {
