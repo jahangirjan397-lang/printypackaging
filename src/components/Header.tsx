@@ -114,7 +114,7 @@ export default function Header() {
       >
         <div className="min-h-0">
           <div className="border-b border-[#0B1B2A]">
-            <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 text-xs font-black sm:px-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8">
+            <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 text-xs font-black sm:px-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8 2xl:max-w-[1520px] 2xl:px-10">
               <p className="text-white">
                 Premium Custom Boxes | Butter Paper | Food Packaging | Labels & Stickers
               </p>
@@ -140,7 +140,7 @@ export default function Header() {
       </div>
 
             <div className="border-b border-slate-200 bg-white/95">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-4 sm:px-5 md:px-8 md:py-5">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-4 sm:px-5 md:px-8 md:py-5 2xl:max-w-[1520px] 2xl:px-10">
           <div className="shrink-0">
             <BrandLogo variant="dark" size="default" />
           </div>
