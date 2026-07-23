@@ -2,14 +2,19 @@
 
 import { useEffect } from "react";
 
+type TawkApi = {
+  customStyle?: {
+    zIndex?: number;
+  };
+  onLoad?: () => void;
+  hideWidget?: () => void;
+  showWidget?: () => void;
+  [key: string]: unknown;
+};
+
 type TawkWindow = Window &
   typeof globalThis & {
-    Tawk_API?: {
-      customStyle?: {
-        zIndex?: number;
-      };
-      [key: string]: unknown;
-    };
+    Tawk_API?: TawkApi;
     Tawk_LoadStart?: Date;
   };
 
@@ -35,10 +40,6 @@ export default function LiveChatWidget() {
       return;
     }
 
-    if (document.getElementById("tawk-live-chat-script")) {
-      return;
-    }
-
     tawkWindow.Tawk_API = tawkWindow.Tawk_API || {};
     tawkWindow.Tawk_LoadStart = new Date();
 
@@ -46,16 +47,42 @@ export default function LiveChatWidget() {
       zIndex: 999998,
     };
 
-    const script = document.createElement("script");
-    script.id = "tawk-live-chat-script";
-    script.async = true;
-    script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
-    script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
+    function syncWidgetVisibility() {
+      const tawkApi = tawkWindow.Tawk_API;
 
-    document.body.appendChild(script);
+      if (!tawkApi) {
+        return;
+      }
+
+      const isMobileOrTablet = window.matchMedia("(max-width: 1023px)").matches;
+
+      if (isMobileOrTablet) {
+        tawkApi.hideWidget?.();
+      } else {
+        tawkApi.showWidget?.();
+      }
+    }
+
+    tawkWindow.Tawk_API.onLoad = syncWidgetVisibility;
+    window.addEventListener("resize", syncWidgetVisibility);
+
+    if (!document.getElementById("tawk-live-chat-script")) {
+      const script = document.createElement("script");
+      script.id = "tawk-live-chat-script";
+      script.async = true;
+      script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
+      script.charset = "UTF-8";
+      script.setAttribute("crossorigin", "*");
+
+      document.body.appendChild(script);
+    } else {
+      syncWidgetVisibility();
+    }
+
+    return () => {
+      window.removeEventListener("resize", syncWidgetVisibility);
+    };
   }, []);
 
   return null;
 }
-

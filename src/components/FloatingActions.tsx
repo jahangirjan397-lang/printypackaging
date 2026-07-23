@@ -41,7 +41,7 @@ function WhatsAppIcon() {
 
 export default function FloatingActions() {
   return (
-    <div className="fixed bottom-5 right-4 z-[999997] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 left-1/2 z-[999997] flex -translate-x-1/2 items-center gap-3 sm:bottom-6 lg:hidden">
       <a
         href="/#quote"
         className="group flex h-12 w-12 items-center justify-center rounded-full bg-[#FF6A00] text-white shadow-[0_18px_45px_rgba(255,106,0,0.35)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:bg-[#E85F00] sm:w-auto sm:justify-start sm:gap-3 sm:px-5"
