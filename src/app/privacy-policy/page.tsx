@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Printy Packaging",
+  title: "Privacy Policy",
   description:
     "Read the Printy Packaging privacy policy for quote inquiries, customer information, website forms, cookies, data use and contact details.",
 };

@@ -43,7 +43,7 @@ const missingGroups = [
 ];
 
 export const metadata = {
-  title: "Missing Items Tracker | Printy Packaging",
+  title: "Missing Items Tracker",
   description: "Internal tracker for Printy Packaging website missing items.",
   robots: {
     index: false,

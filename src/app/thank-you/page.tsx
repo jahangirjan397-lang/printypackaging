@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Thank You | Printy Packaging",
+  title: "Thank You",
   description:
     "Thank you for submitting your custom packaging quote request to Printy Packaging.",
   robots: {

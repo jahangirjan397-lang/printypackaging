@@ -27,7 +27,7 @@ const checks = [
 ];
 
 export const metadata = {
-  title: "Website Status | Printy Packaging",
+  title: "Website Status",
   description: "Website status check for Printy Packaging.",
   robots: {
     index: false,

@@ -1,7 +1,7 @@
 import { competitorUpgradePlan } from "@/data/competitorUpgradePlan";
 
 export const metadata = {
-  title: "Competitor Upgrade Plan | Printy Packaging",
+  title: "Competitor Upgrade Plan",
   description:
     "Internal competitor upgrade tracker for Printy Packaging website.",
   robots: {

@@ -57,7 +57,7 @@ const faqItems = [
 ];
 
 export const metadata = {
-  title: "Custom Packaging Guide | Printy Packaging",
+  title: "Custom Packaging Guide",
   description:
     "Learn how to choose custom boxes, packaging materials, finishing options, artwork setup and quote details for custom printed packaging.",
 };

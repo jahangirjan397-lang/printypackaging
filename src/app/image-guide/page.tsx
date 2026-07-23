@@ -18,7 +18,7 @@ const fileNames = [
 ];
 
 export const metadata = {
-  title: "Image Guide | Printy Packaging",
+  title: "Image Guide",
   description:
     "Internal image sourcing and naming guide for Printy Packaging website.",
   robots: {
