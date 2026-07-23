@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Printy Packaging | Premium Custom Boxes & Packaging Partner",
+  title: "About Us | Premium Custom Boxes & Packaging Partner",
   description:
     "Learn about Printy Packaging, a custom packaging partner helping USA, UK, Canada, Europe and worldwide buyers with custom boxes, rigid boxes, food packaging, materials, finishes and quote support.",
   alternates: {

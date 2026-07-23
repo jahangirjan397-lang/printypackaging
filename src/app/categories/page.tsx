@@ -8,7 +8,7 @@ const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
 
 export const metadata: Metadata = {
-  title: "Packaging Categories | Printy Packaging",
+  title: "Packaging Categories",
   description:
     "Explore packaging categories including luxury packaging, food packaging, retail packaging, cosmetic packaging and printing finishing solutions.",
   alternates: {

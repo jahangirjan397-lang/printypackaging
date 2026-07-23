@@ -7,7 +7,7 @@ const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
 
 export const metadata: Metadata = {
-  title: "International Packaging Markets | Printy Packaging",
+  title: "International Packaging Markets",
   description:
     "Explore custom packaging solutions for USA, UK, Canada, Europe, UAE and Australia buyers. Get custom boxes, food packaging, paper bags, labels and luxury packaging support.",
   alternates: {

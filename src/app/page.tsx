@@ -15,7 +15,7 @@ import SeoGrowthLinksSection from "../components/SeoGrowthLinksSection";
 import PaymentMethodsSection from "../components/PaymentMethodsSection";
 
 export const metadata: Metadata = {
-  title: "Custom Boxes, Rigid Boxes & Food Packaging | Printy Packaging",
+  title: "Custom Boxes, Rigid Boxes & Food Packaging",
   description:
     "Printy Packaging provides premium custom boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels and stickers for USA, UK, Europe, UAE and worldwide brands.",
   alternates: {
