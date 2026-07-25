@@ -1,24 +1,16 @@
-import type { MetadataRoute } from "next";
+import type { MetadataRoute } from 'next';
 
-const siteUrl = "https://printypackaging.com";
+const siteUrl = 'https://printypackaging.com';
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: "*",
-        allow: "/",
-               disallow: [
-          "/competitor-upgrade-plan",
-          "/launch-checklist",
-          "/status",
-          "/missing-items",
-          "/image-guide",
-        ],
+        userAgent: '*',
+        allow: '/',
       },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: siteUrl + '/sitemap.xml',
     host: siteUrl,
   };
 }
-
