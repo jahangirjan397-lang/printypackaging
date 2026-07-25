@@ -45,6 +45,9 @@ const missingGroups = [
 export const metadata = {
   title: "Missing Items Tracker",
   description: "Internal tracker for Printy Packaging website missing items.",
+  alternates: {
+    canonical: "https://printypackaging.com/missing-items",
+  },
   robots: {
     index: false,
     follow: false,

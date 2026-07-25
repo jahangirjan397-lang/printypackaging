@@ -21,6 +21,9 @@ export const metadata = {
   title: "Image Guide",
   description:
     "Internal image sourcing and naming guide for Printy Packaging website.",
+  alternates: {
+    canonical: "https://printypackaging.com/image-guide",
+  },
   robots: {
     index: false,
     follow: false,

@@ -49,6 +49,9 @@ const checklist = [
 export const metadata = {
   title: "Launch Checklist",
   description: "Internal launch QA checklist for Printy Packaging website.",
+  alternates: {
+    canonical: "https://printypackaging.com/launch-checklist",
+  },
   robots: {
     index: false,
     follow: false,

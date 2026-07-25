@@ -4,6 +4,9 @@ export const metadata = {
   title: "Competitor Upgrade Plan",
   description:
     "Internal competitor upgrade tracker for Printy Packaging website.",
+  alternates: {
+    canonical: "https://printypackaging.com/competitor-upgrade-plan",
+  },
   robots: {
     index: false,
     follow: false,

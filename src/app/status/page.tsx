@@ -29,6 +29,9 @@ const checks = [
 export const metadata = {
   title: "Website Status",
   description: "Website status check for Printy Packaging.",
+  alternates: {
+    canonical: "https://printypackaging.com/status",
+  },
   robots: {
     index: false,
     follow: false,
