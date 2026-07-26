@@ -51,39 +51,37 @@ export default function AnalyticsConsent() {
           role="dialog"
           aria-labelledby="analytics-consent-title"
           aria-describedby="analytics-consent-description"
-          className="fixed inset-x-3 bottom-3 z-[1000000] mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white p-5 text-[#07111F] shadow-[0_24px_80px_rgba(7,17,31,0.28)] sm:p-6"
+          className="fixed bottom-20 left-1/2 z-[1000000] w-[calc(100%-1.5rem)] max-w-2xl -translate-x-1/2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-[#07111F] shadow-[0_18px_55px_rgba(7,17,31,0.24)] sm:bottom-4"
         >
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
               <p
                 id="analytics-consent-title"
-                className="text-base font-black sm:text-lg"
+                className="text-sm font-black"
               >
-                Help us improve your packaging experience
+                Privacy & analytics
               </p>
 
               <p
                 id="analytics-consent-description"
-                className="mt-2 text-sm leading-6 text-slate-600"
+                className="mt-1 text-xs leading-5 text-slate-600"
               >
-                We use optional analytics to understand website performance and
-                improve product, quote and support pages. Essential website
-                features work without analytics.
+                Optional analytics help us improve products and quote support.
+                Essential features always work.
+                <Link
+                  href="/privacy-policy"
+                  className="ml-1 font-black text-[#007C91] hover:text-[#FF6A00]"
+                >
+                  Privacy Policy
+                </Link>
               </p>
-
-              <Link
-                href="/privacy-policy"
-                className="mt-2 inline-flex text-sm font-black text-[#007C91] hover:text-[#FF6A00]"
-              >
-                Read Privacy Policy
-              </Link>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="grid shrink-0 grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => saveConsent("denied")}
-                className="rounded-full border border-slate-300 px-5 py-3 text-sm font-black transition hover:border-[#07111F] hover:bg-slate-100"
+                className="rounded-full border border-slate-300 px-4 py-2 text-xs font-black transition hover:border-[#07111F] hover:bg-slate-100"
               >
                 Essential Only
               </button>
@@ -91,9 +89,9 @@ export default function AnalyticsConsent() {
               <button
                 type="button"
                 onClick={() => saveConsent("granted")}
-                className="rounded-full bg-[#FF6A00] px-5 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-4 py-2 text-xs font-black text-white shadow-md shadow-orange-500/20 transition hover:bg-[#007C91]"
               >
-                Accept Analytics
+                Accept
               </button>
             </div>
           </div>
