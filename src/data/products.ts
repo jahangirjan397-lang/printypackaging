@@ -272,7 +272,7 @@ function makeProduct(
 }
 
 export const products: Product[] = [
-    makeProduct(
+     makeProduct(
     "rigid-boxes",
     "Rigid Boxes",
     "Luxury Packaging",
@@ -292,7 +292,34 @@ export const products: Product[] = [
       "premium product packaging",
       "high end rigid boxes",
     ],
-    ["Perfume", "Cosmetics", "Jewelry", "Gifts", "Luxury Retail"]
+    ["Perfume", "Cosmetics", "Jewelry", "Gifts", "Luxury Retail"],
+    [
+      {
+        src: "/images/products/rigid-boxes/rigid-boxes-hero.webp",
+        alt: "Luxury custom rigid box with premium branded presentation",
+        title: "Rigid Box Hero View",
+      },
+      {
+        src: "/images/products/rigid-boxes/rigid-boxes-front.webp",
+        alt: "Front view of a custom luxury rigid packaging box",
+        title: "Rigid Box Front View",
+      },
+      {
+        src: "/images/products/rigid-boxes/rigid-boxes-open.webp",
+        alt: "Open custom rigid box showing premium insert and interior",
+        title: "Rigid Box Open View",
+      },
+      {
+        src: "/images/products/rigid-boxes/rigid-boxes-finish.webp",
+        alt: "Close-up of rigid box wrapping, foil and premium finish",
+        title: "Material and Finish Detail",
+      },
+      {
+        src: "/images/products/rigid-boxes/rigid-boxes-lifestyle.webp",
+        alt: "Luxury rigid packaging displayed in a premium retail setting",
+        title: "Rigid Box Lifestyle View",
+      },
+    ]
   ),
 
   makeProduct(
