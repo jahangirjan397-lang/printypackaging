@@ -3,8 +3,8 @@
 import type { FormEvent, ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { sendGAEvent } from "@next/third-parties/google";
 import { products } from "../data/products";
-
 const quoteBenefits = [
   "Custom box style suggestion",
   "Material and GSM guidance",
@@ -506,6 +506,22 @@ export default function QuoteSection() {
 
     if (!response.ok || !result.success) {
       throw new Error(result.message || "Quote request failed.");
+    }
+
+        const hostname = window.location.hostname;
+    const analyticsConsent = window.localStorage.getItem(
+      "printy-analytics-consent",
+    );
+
+    const isLiveWebsite =
+      hostname === "printypackaging.com" ||
+      hostname === "www.printypackaging.com";
+
+    if (isLiveWebsite && analyticsConsent === "granted") {
+      sendGAEvent("event", "generate_lead", {
+        form_name: "custom_packaging_quote",
+        quote_id: result.quoteId || "not_available",
+      });
     }
 
     router.push("/thank-you");

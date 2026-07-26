@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import AnalyticsConsent from "@/components/AnalyticsConsent";
 import HeaderGate from "@/components/HeaderGate";
 import SiteFooterGate from "@/components/SiteFooterGate";
 import LiveChatWidget from "@/components/LiveChatWidget";
 import FloatingActions from "@/components/FloatingActions";
 import "./globals.css";
+import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -229,6 +231,8 @@ export default function RootLayout({
         <SiteFooterGate />
         <LiveChatWidget />
         <FloatingActions />
+        <AnalyticsClickTracker />
+        <AnalyticsConsent />
       </body>
     </html>
   );
