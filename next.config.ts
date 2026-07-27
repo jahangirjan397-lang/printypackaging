@@ -59,6 +59,16 @@ const nextConfig: NextConfig = {
         destination: "/contact",
         permanent: true,
       },
+      {
+        source: "/packaging/:slug",
+        destination: "/products/:slug",
+        permanent: true,
+      },
+      {
+        source: "/custom-packaging/:market",
+        destination: "/markets/:market",
+        permanent: true,
+      },
     ];
   },
 
