@@ -684,8 +684,35 @@ export const products: Product[] = [
       "beauty packaging boxes",
       "cosmetic product packaging",
     ],
-    ["Cosmetics", "Skincare", "Beauty", "Retail", "E-commerce"]
-  ),
+    ["Cosmetics", "Skincare", "Beauty", "Retail", "E-commerce"],
+      [
+        {
+          src: "/images/products/cosmetic-boxes/cosmetic-boxes-hero.webp",
+          alt: "Premium custom cosmetic packaging boxes in Printy Packaging brand design",
+          title: "Cosmetic Boxes Hero View",
+        },
+        {
+          src: "/images/products/cosmetic-boxes/cosmetic-boxes-front.webp",
+          alt: "Front view of custom printed cosmetic cartons",
+          title: "Cosmetic Boxes Front View",
+        },
+        {
+          src: "/images/products/cosmetic-boxes/cosmetic-boxes-open.webp",
+          alt: "Open cosmetic carton showing printed interior and folding structure",
+          title: "Cosmetic Boxes Open View",
+        },
+        {
+          src: "/images/products/cosmetic-boxes/cosmetic-boxes-finish.webp",
+          alt: "Close-up of cosmetic box material, logo and premium finishing",
+          title: "Material and Finish Detail",
+        },
+        {
+          src: "/images/products/cosmetic-boxes/cosmetic-boxes-lifestyle.webp",
+          alt: "Custom cosmetic packaging displayed in a premium lifestyle setting",
+          title: "Cosmetic Boxes Lifestyle View",
+        },
+      ]
+    ),
 
   makeProduct(
     "perfume-boxes",
@@ -705,7 +732,34 @@ export const products: Product[] = [
       "perfume rigid boxes",
       "premium perfume packaging",
     ],
-    ["Perfume", "Fragrance", "Luxury Retail", "Gifts", "Cosmetics"]
+    ["Perfume", "Fragrance", "Luxury Retail", "Gifts", "Cosmetics"],
+    [
+      {
+        src: "/images/products/perfume-boxes/perfume-boxes-hero.webp",
+        alt: "Premium custom perfume boxes with rigid presentation packaging",
+        title: "Perfume Boxes Hero View",
+      },
+      {
+        src: "/images/products/perfume-boxes/perfume-boxes-front.webp",
+        alt: "Front view of custom printed perfume cartons",
+        title: "Perfume Boxes Front View",
+      },
+      {
+        src: "/images/products/perfume-boxes/perfume-boxes-open.webp",
+        alt: "Open perfume presentation box with fitted protective insert",
+        title: "Perfume Boxes Open View",
+      },
+      {
+        src: "/images/products/perfume-boxes/perfume-boxes-finish.webp",
+        alt: "Close-up of perfume box wrapping, logo and premium finishing",
+        title: "Material and Finish Detail",
+      },
+      {
+        src: "/images/products/perfume-boxes/perfume-boxes-lifestyle.webp",
+        alt: "Custom perfume packaging displayed in a premium lifestyle setting",
+        title: "Perfume Boxes Lifestyle View",
+      },
+    ]
   ),
 
   makeProduct(
@@ -726,7 +780,34 @@ export const products: Product[] = [
       "custom candle packaging",
       "luxury candle packaging",
     ],
-    ["Candles", "Gifts", "Retail", "Home Decor", "Luxury Brands"]
+    ["Candles", "Gifts", "Retail", "Home Decor", "Luxury Brands"],
+    [
+      {
+        src: "/images/products/candle-boxes/candle-boxes-hero.webp",
+        alt: "Premium custom candle boxes with coordinated printed packaging",
+        title: "Candle Boxes Hero View",
+      },
+      {
+        src: "/images/products/candle-boxes/candle-boxes-front.webp",
+        alt: "Front view of custom printed candle cartons",
+        title: "Candle Boxes Front View",
+      },
+      {
+        src: "/images/products/candle-boxes/candle-boxes-open.webp",
+        alt: "Open candle carton showing protective product fit",
+        title: "Candle Boxes Open View",
+      },
+      {
+        src: "/images/products/candle-boxes/candle-boxes-finish.webp",
+        alt: "Close-up of candle box paper, logo and premium finishing",
+        title: "Material and Finish Detail",
+      },
+      {
+        src: "/images/products/candle-boxes/candle-boxes-lifestyle.webp",
+        alt: "Custom candle packaging displayed in a warm lifestyle setting",
+        title: "Candle Boxes Lifestyle View",
+      },
+    ]
   ),
 
   makeProduct(
@@ -747,7 +828,34 @@ export const products: Product[] = [
       "natural soap boxes",
       "retail soap packaging",
     ],
-    ["Soap", "Beauty", "Skincare", "Retail", "Organic Brands"]
+    ["Soap", "Beauty", "Skincare", "Retail", "Organic Brands"],
+    [
+      {
+        src: "/images/products/soap-boxes/soap-boxes-hero.webp",
+        alt: "Premium custom soap boxes and printed sleeves",
+        title: "Soap Boxes Hero View",
+      },
+      {
+        src: "/images/products/soap-boxes/soap-boxes-front.webp",
+        alt: "Front view of custom printed soap cartons",
+        title: "Soap Boxes Front View",
+      },
+      {
+        src: "/images/products/soap-boxes/soap-boxes-open.webp",
+        alt: "Open soap carton showing product fit and folding structure",
+        title: "Soap Boxes Open View",
+      },
+      {
+        src: "/images/products/soap-boxes/soap-boxes-finish.webp",
+        alt: "Close-up of soap box paper, die-cut edge and premium finishing",
+        title: "Material and Finish Detail",
+      },
+      {
+        src: "/images/products/soap-boxes/soap-boxes-lifestyle.webp",
+        alt: "Custom soap packaging displayed in a clean lifestyle setting",
+        title: "Soap Boxes Lifestyle View",
+      },
+    ]
   ),
 
   makeProduct(
@@ -768,7 +876,34 @@ export const products: Product[] = [
       "bracelet boxes",
       "premium jewelry packaging",
     ],
-    ["Jewelry", "Luxury Retail", "Gifts", "Fashion", "Premium Brands"]
+    ["Jewelry", "Luxury Retail", "Gifts", "Fashion", "Premium Brands"],
+    [
+      {
+        src: "/images/products/jewelry-boxes/jewelry-boxes-hero.webp",
+        alt: "Premium custom jewelry boxes with fitted presentation inserts",
+        title: "Jewelry Boxes Hero View",
+      },
+      {
+        src: "/images/products/jewelry-boxes/jewelry-boxes-front.webp",
+        alt: "Front view of custom rigid jewelry presentation boxes",
+        title: "Jewelry Boxes Front View",
+      },
+      {
+        src: "/images/products/jewelry-boxes/jewelry-boxes-open.webp",
+        alt: "Open jewelry boxes showing premium fitted inserts",
+        title: "Jewelry Boxes Open View",
+      },
+      {
+        src: "/images/products/jewelry-boxes/jewelry-boxes-finish.webp",
+        alt: "Close-up of jewelry box wrapping, logo and premium finishing",
+        title: "Material and Finish Detail",
+      },
+      {
+        src: "/images/products/jewelry-boxes/jewelry-boxes-lifestyle.webp",
+        alt: "Custom jewelry packaging displayed in a luxury lifestyle setting",
+        title: "Jewelry Boxes Lifestyle View",
+      },
+    ]
   ),
 
       makeProduct(
