@@ -1,145 +1,151 @@
 const strengths = [
   {
-    title: "Factory-Direct Guidance",
-    text: "Get packaging advice from people who understand printing, paper stock, die cutting, finishing and production planning.",
+    number: "01",
+    title: "Factory-aware guidance",
+    text: "Paper stock, construction, printing and finishing advice from a production-focused team.",
   },
   {
-    title: "Fast Quote Support",
-    text: "Share your size, quantity, material and finishing details. Our sales team helps prepare the right quote quickly.",
+    number: "02",
+    title: "Faster quote support",
+    text: "Clear requirements help us prepare a practical quote without unnecessary back-and-forth.",
   },
   {
-    title: "Premium Print Finishes",
-    text: "Choose CMYK printing, Pantone colors, lamination, spot UV, foil stamping, embossing and custom die-cut styles.",
+    number: "03",
+    title: "Premium print planning",
+    text: "CMYK, Pantone, foil, embossing, spot UV and lamination planned for your product.",
   },
   {
-    title: "Export-Ready Packaging",
-    text: "We help brands with packaging solutions for USA, UK, Canada, Europe, Australia and worldwide markets.",
+    number: "04",
+    title: "Worldwide buyer support",
+    text: "Packaging guidance for brands across the USA, UK, Canada, Europe, Australia and beyond.",
   },
 ];
 
 const comparisonRows = [
   {
-    feature: "Custom box style guidance",
+    feature: "Box style guidance",
     printy: "Included",
     normal: "Limited",
   },
   {
-    feature: "Material and GSM advice",
+    feature: "Material & GSM advice",
     printy: "Included",
     normal: "Basic",
   },
   {
-    feature: "Finishing options support",
-    printy: "Foil, UV, embossing, lamination",
+    feature: "Premium finish planning",
+    printy: "Foil, UV, embossing & lamination",
     normal: "Limited options",
   },
   {
-    feature: "Fast quote channels",
-    printy: "Form, WhatsApp and live chat",
+    feature: "Quote support channels",
+    printy: "Form, WhatsApp & live chat",
     normal: "Form only",
   },
   {
     feature: "Production knowledge",
-    printy: "Printing and packaging focused",
+    printy: "Printing & packaging focused",
     normal: "Mostly sales focused",
   },
 ];
 
 export default function WhyChoosePrintySection() {
   return (
-    <section className="bg-slate-50 px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <div>
-            <span className="inline-flex rounded-full bg-[#00C2E8]/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#007C91]">
-              Why Printy Packaging
-            </span>
+    <section className="relative overflow-hidden bg-[#07111F] px-4 py-14 text-white sm:px-6 lg:px-8 lg:py-16">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(0,194,232,0.16),transparent_30%),radial-gradient(circle_at_88%_78%,rgba(255,106,0,0.13),transparent_27%)]" />
 
-                        <h2 className="mt-5 text-3xl font-black tracking-tight text-[#07111F] sm:text-4xl lg:text-5xl">
-              Practical packaging support for growing product brands.
-            </h2>
+      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+        <div>
+          <span className="inline-flex rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-cyan-200">
+            Why Printy Packaging
+          </span>
 
-            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
-              We help serious buyers plan custom boxes, retail packaging, food
-              packaging and premium finishes with clear communication, artwork
-              guidance and production-focused support.
-            </p>
+          <h2 className="mt-5 max-w-xl text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
+            Packaging support built around real production.
+          </h2>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {strengths.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_55px_rgba(7,17,31,0.06)]"
-                >
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FF6A00] text-lg font-black text-white">
-                    ✓
-                  </div>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
+            Plan custom boxes with clearer material choices, practical artwork
+            guidance and finishing support before your order reaches production.
+          </p>
 
-                  <h3 className="text-lg font-black text-[#07111F]">
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {strengths.map((item) => (
+              <article
+                key={item.number}
+                className="rounded-2xl border border-white/10 bg-white/[0.055] p-5 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-white/[0.08]"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] text-xs font-black text-white">
+                    {item.number}
+                  </span>
+                  <h3 className="text-base font-black text-white">
                     {item.title}
                   </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    {item.text}
-                  </p>
                 </div>
-              ))}
+
+                <p className="mt-3 text-sm leading-6 text-slate-300">
+                  {item.text}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white text-[#07111F] shadow-[0_30px_100px_rgba(0,0,0,0.28)]">
+          <div className="bg-gradient-to-r from-[#0B2031] to-[#103A4B] px-6 py-6 sm:px-7">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="text-xs font-black uppercase tracking-[0.22em] text-[#60E7FF]">
+                  Buyer comparison
+                </span>
+                <h3 className="mt-2 text-2xl font-black text-white">
+                  More guidance at every decision
+                </h3>
+              </div>
+              <span className="w-fit rounded-full bg-[#FF6A00] px-4 py-2 text-xs font-black text-white">
+                Printy advantage
+              </span>
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_28px_90px_rgba(7,17,31,0.12)]">
-            <div className="bg-[#07111F] p-7">
-              <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                Buyer Comparison
-              </span>
-
-              <h3 className="mt-4 text-2xl font-black text-white">
-                What buyers get with Printy Packaging
-              </h3>
-
-              <p className="mt-3 text-sm leading-7 text-slate-300">
-                A clear support system for quote, artwork, stock, printing,
-                finishing and production planning.
-              </p>
-            </div>
-
-            <div className="divide-y divide-slate-200">
-              <div className="grid grid-cols-[1.1fr_1fr_1fr] bg-slate-50 px-5 py-4 text-xs font-black uppercase tracking-[0.16em] text-slate-500">
-                <span>Feature</span>
-                <span className="text-[#007C91]">Printy</span>
-                <span>Normal Seller</span>
+          <div className="overflow-x-auto">
+            <div className="min-w-[590px]">
+              <div className="grid grid-cols-[1.1fr_1fr_0.8fr] bg-slate-50 px-6 py-3 text-[11px] font-black uppercase tracking-[0.15em] text-slate-500">
+                <span>Buyer need</span>
+                <span className="text-[#007C91]">With Printy</span>
+                <span>Typical seller</span>
               </div>
 
-              {comparisonRows.map((row) => (
-                <div
-                  key={row.feature}
-                  className="grid grid-cols-[1.1fr_1fr_1fr] gap-3 px-5 py-5 text-sm"
-                >
-                  <span className="font-black text-[#07111F]">
-                    {row.feature}
-                  </span>
-
-                  <span className="font-bold leading-6 text-[#007C91]">
-                    {row.printy}
-                  </span>
-
-                  <span className="leading-6 text-slate-500">
-                    {row.normal}
-                  </span>
-                </div>
-              ))}
+              <div className="divide-y divide-slate-200">
+                {comparisonRows.map((row) => (
+                  <div
+                    key={row.feature}
+                    className="grid grid-cols-[1.1fr_1fr_0.8fr] gap-4 px-6 py-4 text-sm"
+                  >
+                    <span className="font-black text-[#07111F]">
+                      {row.feature}
+                    </span>
+                    <span className="font-bold leading-6 text-[#007C91]">
+                      <span className="mr-2 text-[#FF6A00]">✓</span>
+                      {row.printy}
+                    </span>
+                    <span className="leading-6 text-slate-500">
+                      {row.normal}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
+          </div>
 
-            <div className="border-t border-slate-200 bg-[#FF6A00]/8 p-6">
-              <p className="text-sm font-bold leading-7 text-[#07111F]">
-                Best for brands that need custom boxes, accurate packaging
-                guidance, premium finishing and fast sales support.
-              </p>
-            </div>
+          <div className="border-t border-orange-100 bg-[#FFF3E9] px-6 py-4">
+            <p className="text-sm font-bold leading-6 text-[#07111F]">
+              Clearer planning means fewer surprises before printing begins.
+            </p>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

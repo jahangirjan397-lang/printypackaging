@@ -8,11 +8,8 @@ import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
 import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
-import SalesSupportSection from "../components/SalesSupportSection";
 import QuoteSection from "../components/QuoteSection";
 import ContactTrustSection from "../components/ContactTrustSection";
-import SeoGrowthLinksSection from "../components/SeoGrowthLinksSection";
-import PaymentMethodsSection from "../components/PaymentMethodsSection";
 
 export const metadata: Metadata = {
   title: "Custom Boxes, Rigid Boxes & Food Packaging",
@@ -29,10 +26,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://printypackaging.com/images/hero/hero-packaging.webp",
-        width: 1600,
-        height: 900,
-        alt: "Premium custom packaging boxes by Printy Packaging",
+        url: "https://printypackaging.com/images/home/home-hero-mailer.webp",
+        width: 1448,
+        height: 1086,
+        alt: "Printy Packaging branded mailer boxes for ecommerce and retail brands",
       },
     ],
   },
@@ -41,7 +38,7 @@ export const metadata: Metadata = {
     title: "Printy Packaging | Premium Custom Boxes & Packaging",
     description:
       "Custom boxes, rigid boxes, food packaging, butter paper, paper bags, labels and stickers for USA, UK, Europe and worldwide buyers.",
-    images: ["https://printypackaging.com/images/hero/hero-packaging.webp"],
+    images: ["https://printypackaging.com/images/home/home-hero-mailer.webp"],
   },
 };
 
@@ -53,16 +50,10 @@ export default function Home() {
       <TrustedBy />
       <StatsBar />
       <FeaturedProducts />
-      <SeoGrowthLinksSection />
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
       <OrderProcessSection />
-      <IndustryBuyerSection />
-      <SalesSupportSection />
-      <ContactTrustSection />
-      <PaymentMethodsSection />
-      <QuoteSection />
-  
+      <IndustryBuyerSection />      <ContactTrustSection />      <QuoteSection />
     </>
   );
 }

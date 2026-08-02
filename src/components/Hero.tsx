@@ -13,44 +13,44 @@ const trustPoints = [
 
 const heroSlides = [
   {
-    eyebrow: "Premium Packaging",
-    title: "Luxury printed packaging for premium brands.",
+    eyebrow: "Luxury Packaging",
+    title: "Premium presentation for high-value products.",
     description:
-      "Rigid boxes, folding cartons, mailer boxes and food packaging with custom print support.",
-    image: "/images/hero/hero-packaging.webp",
-    href: "",
+      "Refined rigid and presentation boxes with custom inserts, print and luxury finishing.",
+    image: "/images/home/home-hero-luxury.webp",
+    href: "/products/luxury-packaging",
   },
   {
     eyebrow: "Mailer Boxes",
-    title: "Custom mailer boxes for ecommerce brands.",
+    title: "A cleaner unboxing experience for ecommerce brands.",
     description:
-      "Strong, printable and premium mailer boxes for shipping, subscription and retail brands.",
-    image: "/images/hero/hero-mailer-boxes.webp",
+      "Protective branded mailers designed for shipping, subscriptions and retail delivery.",
+    image: "/images/home/home-hero-mailer.webp",
     href: "/products/mailer-boxes",
   },
   {
-    eyebrow: "Rigid Boxes",
-    title: "Luxury rigid boxes for premium products.",
+    eyebrow: "Food Packaging",
+    title: "Fresh, practical packaging for food businesses.",
     description:
-      "High-end rigid packaging for gifts, cosmetics, perfumes, jewelry and retail products.",
-    image: "/images/hero/hero-rigid-boxes.webp",
-    href: "/products/rigid-boxes",
-  },
-  {
-    eyebrow: "Folding Cartons",
-    title: "Retail folding cartons with custom print.",
-    description:
-      "Professional folding cartons for cosmetics, food, healthcare and retail packaging.",
-    image: "/images/hero/hero-folding-cartons.webp",
-    href: "/products/folding-cartons",
+      "Bakery boxes, bags and takeaway packaging with food-safe material guidance.",
+    image: "/images/home/home-hero-food.webp",
+    href: "/products/food-packaging",
   },
   {
     eyebrow: "Butter Paper",
-    title: "Custom butter paper for food brands.",
+    title: "Branded food wrapping that customers remember.",
     description:
-      "Food-safe printed butter paper, wrapping paper and greaseproof packaging support.",
-    image: "/images/hero/hero-butter-paper.webp",
+      "Custom printed butter paper for bakeries, cafes, restaurants and takeaway brands.",
+    image: "/images/home/home-hero-butter-paper.webp",
     href: "/products/butter-paper",
+  },
+  {
+    eyebrow: "Retail Branding",
+    title: "Bags, labels and cartons built around your identity.",
+    description:
+      "A coordinated packaging family for retail presentation and everyday brand recognition.",
+    image: "/images/home/home-hero-retail.webp",
+    href: "/products/paper-bags",
   },
 ];
 
@@ -67,7 +67,7 @@ export default function Hero() {
   }, []);
 
   const imageArea = (
-    <div className="relative aspect-[16/9] overflow-hidden rounded-[1.5rem] bg-[#BDF7F5] md:rounded-[2rem]">
+    <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#FFFDF9] md:rounded-[2rem]">
       <Image
         key={activeSlide.image}
         src={activeSlide.image}
@@ -81,7 +81,7 @@ export default function Hero() {
   );
 
   return (
-    <section className="relative overflow-hidden bg-[#07111F] text-white">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,#062A3D_0%,#07111F_58%,#191416_100%)] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.2),transparent_30%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.14),transparent_28%)]" />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-20 lg:grid-cols-2 lg:py-24 2xl:max-w-[1520px] 2xl:gap-16 2xl:px-10">
