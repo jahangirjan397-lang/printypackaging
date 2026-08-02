@@ -40,14 +40,14 @@ export default function PremiumPackagingShowcase() {
             Packaging Gallery
           </span>
 
-          <h2 className="mt-5 text-3xl font-black tracking-tight text-[#07111F] sm:text-4xl lg:text-5xl">
-            Premium custom packaging visuals for every product line.
+                    <h2 className="mt-5 text-3xl font-black tracking-tight text-[#07111F] sm:text-4xl lg:text-5xl">
+            Explore packaging styles for every product line.
           </h2>
 
           <p className="mt-5 text-base leading-8 text-slate-600">
-            Real product photos will be added in the final image phase. Until
-            then, the website shows clean premium packaging previews without
-            loading missing image files.
+            Explore premium packaging concepts for luxury, ecommerce, retail
+            and food brands. Compare styles, materials, printing and finishing
+            options before requesting a custom quote.
           </p>
         </div>
 

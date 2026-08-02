@@ -283,19 +283,19 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-700">
-              Website Goal
+                        <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-700">
+              Our Commitment
             </p>
 
             <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-              Faster, cleaner and more helpful than old-style packaging websites.
+              Clear guidance from first inquiry to production planning.
             </h2>
 
             <p className="mt-5 leading-8 text-slate-600">
-              Printy Packaging is a modern, fast and SEO-friendly
-              custom packaging website. The goal is to give buyers a better
-              experience with clear product pages, category pages, market pages,
-              quote support and helpful packaging education.
+              We help buyers explore products, materials, printing, finishes,
+              artwork requirements and quote details through clear information
+              and responsive support. Every step is designed to make custom
+              packaging decisions easier and more confident.
             </p>
           </div>
         </div>

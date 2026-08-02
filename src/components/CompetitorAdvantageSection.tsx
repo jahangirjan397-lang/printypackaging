@@ -27,18 +27,18 @@ export default function CompetitorAdvantageSection() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-              Built To Compete
+                        <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+              Buyer-First Experience
             </span>
 
             <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-              A better buyer experience than ordinary packaging websites.
+              Clear guidance for confident packaging decisions.
             </h2>
 
             <p className="mt-5 text-base leading-8 text-slate-300">
-              Our service is designed to compete with leading packaging
-              brands by combining premium design, fast response, SEO-focused
-              content and practical factory-level packaging knowledge.
+              Compare packaging styles, materials, printing and finishing
+              options with practical support from first inquiry through quote
+              and production planning.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">

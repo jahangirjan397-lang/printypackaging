@@ -55,14 +55,14 @@ export default function WhyChoosePrintySection() {
               Why Printy Packaging
             </span>
 
-            <h2 className="mt-5 text-3xl font-black tracking-tight text-[#07111F] sm:text-4xl lg:text-5xl">
-              Built to compete with modern custom packaging brands.
+                        <h2 className="mt-5 text-3xl font-black tracking-tight text-[#07111F] sm:text-4xl lg:text-5xl">
+              Practical packaging support for growing product brands.
             </h2>
 
             <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
-              Printy Packaging is designed for serious buyers who need custom
-              boxes, retail packaging, food packaging and premium finishing
-              support with fast communication and practical production guidance.
+              We help serious buyers plan custom boxes, retail packaging, food
+              packaging and premium finishes with clear communication, artwork
+              guidance and production-focused support.
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
