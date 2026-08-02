@@ -22,7 +22,7 @@ export default function ProductImageGallery({
   if (!activeImage) {
     return (
       <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
-        <div className="relative aspect-square overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
           <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
 
           <div className="absolute left-6 top-6 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
@@ -49,7 +49,7 @@ export default function ProductImageGallery({
 
   return (
     <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
-      <div className="relative aspect-square overflow-hidden rounded-[1.5rem] bg-white">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-white">
         <Image
           src={activeImage.src}
           alt={activeImage.alt}
