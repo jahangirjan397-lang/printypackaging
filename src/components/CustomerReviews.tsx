@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const reviews = [
   {
     rating: "★★★★★",
@@ -162,12 +164,12 @@ export default function CustomerReviews() {
               comments without changing the design.
             </p>
 
-            <a
+            <Link
               href="/#quote"
               className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
             >
               Request Quote
-            </a>
+            </Link>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -188,4 +190,3 @@ export default function CustomerReviews() {
     </section>
   );
 }
-

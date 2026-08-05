@@ -54,7 +54,7 @@ export default function BrandLogo({
       href="/"
       prefetch={false}
       className={`inline-flex items-center ${gapSize} leading-none`}
-      aria-label="PrintyPackaging home"
+      aria-label="Printy Packaging home"
     >
       {!logoError ? (
         <span
@@ -62,7 +62,7 @@ export default function BrandLogo({
         >
           <img
             src="/logo-icon.svg"
-            alt="PrintyPackaging logo icon"
+            alt="Printy Packaging logo icon"
             onError={() => setLogoError(true)}
             className={`${imageSize} block object-contain`}
           />
@@ -79,9 +79,8 @@ export default function BrandLogo({
         className={`flex ${textMove} items-center whitespace-nowrap ${textSize} font-black tracking-tight ${textColor}`}
       >
         <span>Printy</span>
-        <span className="text-[#FF6A00]">Packaging</span>
+        <span className="ml-[0.18em] text-[#FF6A00]">Packaging</span>
       </span>
     </Link>
   );
 }
-

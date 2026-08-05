@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const quoteBenefits = [
   "Fast quote review",
   "Material and GSM guidance",
@@ -38,12 +40,12 @@ export default function HighIntentQuoteStrip() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <a
+              <Link
                 href="/#quote"
                 className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
               >
                 Get Quote Now
-              </a>
+              </Link>
 
               <a
                 href="/packaging-guide"
@@ -58,4 +60,3 @@ export default function HighIntentQuoteStrip() {
     </section>
   );
 }
-

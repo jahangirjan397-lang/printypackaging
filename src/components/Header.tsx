@@ -27,7 +27,7 @@ const categoryLinks = [
   {
     name: "Food Packaging",
     href: "/categories/food-packaging",
-    label: "Food-safe options",
+    label: "Food packaging options",
     iconSlug: "food-packaging",
   },
   {

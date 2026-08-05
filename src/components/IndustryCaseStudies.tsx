@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const caseStudies = [
   {
     industry: "Cosmetics & Beauty",
@@ -197,16 +199,15 @@ export default function IndustryCaseStudies() {
               </p>
             </div>
 
-            <a
+            <Link
               href="/#quote"
               className="inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
             >
               Request Quote
-            </a>
+            </Link>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

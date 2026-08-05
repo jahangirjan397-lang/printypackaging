@@ -15,20 +15,24 @@ export default function AnalyticsConsent() {
   const [consent, setConsent] = useState<ConsentStatus>(null);
 
   useEffect(() => {
-    const hostname = window.location.hostname;
+    const frame = window.requestAnimationFrame(() => {
+      const hostname = window.location.hostname;
 
-    setIsLiveWebsite(
-      hostname === "printypackaging.com" ||
-        hostname === "www.printypackaging.com",
-    );
+      setIsLiveWebsite(
+        hostname === "printypackaging.com" ||
+          hostname === "www.printypackaging.com",
+      );
 
-    const savedConsent = window.localStorage.getItem(consentKey);
+      const savedConsent = window.localStorage.getItem(consentKey);
 
-    if (savedConsent === "granted" || savedConsent === "denied") {
-      setConsent(savedConsent);
-    }
+      if (savedConsent === "granted" || savedConsent === "denied") {
+        setConsent(savedConsent);
+      }
 
-    setIsReady(true);
+      setIsReady(true);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   function saveConsent(value: Exclude<ConsentStatus, null>) {

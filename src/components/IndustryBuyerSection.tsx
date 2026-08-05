@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type IndustryIconProps = {
   type: "cosmetic" | "food" | "ecommerce" | "retail" | "gift" | "apparel";
 };
@@ -13,7 +15,7 @@ const industries = [
   {
     type: "food" as const,
     title: "Food Packaging",
-    text: "Food-safe boxes, butter paper, bags and branded wraps for restaurants, bakeries and cafes.",
+    text: "Bakery boxes, butter paper, bags and branded wraps for restaurants, bakeries and cafes.",
     choices: ["Bakery boxes", "Butter paper", "Paper bags"],
     tone: "bg-[#FFF0E4] text-[#C94F00]",
   },
@@ -157,12 +159,12 @@ export default function IndustryBuyerSection() {
                 ))}
               </div>
 
-              <a
+              <Link
                 href="/#quote"
                 className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#C94F00] transition group-hover:gap-3 group-hover:text-[#007C91]"
               >
                 Request industry quote <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             </article>
           ))}
         </div>

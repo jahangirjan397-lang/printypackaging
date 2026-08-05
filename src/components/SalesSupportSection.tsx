@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const supportItems = [
   {
     title: "Live Chat Support",
@@ -38,15 +40,15 @@ export default function SalesSupportSection() {
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a
+                <Link
                   href="/#quote"
                   className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
                 >
                   Request Quote
-                </a>
+                </Link>
 
                 <a
-                  href="https://wa.me/923338889954?text=Hello%20PrintyPackaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                  href="https://wa.me/923338889954?text=Hello%20Printy Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/15"
@@ -94,4 +96,3 @@ export default function SalesSupportSection() {
     </section>
   );
 }
-

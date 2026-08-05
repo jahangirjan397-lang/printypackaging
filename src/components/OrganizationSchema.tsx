@@ -3,7 +3,7 @@ export default function OrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Printy Packaging",
-    alternateName: "PrintyPackaging",
+    alternateName: "Printy Packaging",
     url: "https://printypackaging.com",
     logo: "https://printypackaging.com/logo-icon.svg",
     email: "sales@printypackaging.com",
@@ -83,7 +83,7 @@ export default function OrganizationSchema() {
           "@type": "Service",
           name: "Food Packaging",
           description:
-            "Custom food packaging, butter paper, paper bags and food-safe printed packaging support.",
+            "Custom food packaging, butter paper, paper bags and material guidance for printed food packaging.",
         },
       },
     ],

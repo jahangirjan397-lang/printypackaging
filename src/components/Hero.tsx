@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const trustPoints = [
-  "Premium Quality",
-  "Fast Delivery",
-  "Custom Sizes",
-  "Global Support",
+  "Custom Structures",
+  "Material Guidance",
+  "Artwork Support",
+  "Worldwide Quotes",
 ];
 
 const heroSlides = [
@@ -32,7 +32,7 @@ const heroSlides = [
     eyebrow: "Food Packaging",
     title: "Fresh, practical packaging for food businesses.",
     description:
-      "Bakery boxes, bags and takeaway packaging with food-safe material guidance.",
+      "Bakery boxes, bags and takeaway packaging with practical material guidance.",
     image: "/images/home/home-hero-food.webp",
     href: "/products/food-packaging",
   },
@@ -68,15 +68,24 @@ export default function Hero() {
 
   const imageArea = (
     <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#FFFDF9] md:rounded-[2rem]">
-      <Image
-        key={activeSlide.image}
-        src={activeSlide.image}
-        alt={`${activeSlide.eyebrow} custom packaging by Printy Packaging`}
-        fill
-        priority={activeIndex === 0}
-        sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover object-center transition duration-700"
-      />
+      {heroSlides.map((slide, index) => (
+        <Image
+          key={slide.image}
+          src={slide.image}
+          alt={
+            index === activeIndex
+              ? `${slide.eyebrow} custom packaging by Printy Packaging`
+              : ""
+          }
+          aria-hidden={index !== activeIndex}
+          fill
+          priority={index === 0}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className={`object-cover object-center transition-opacity duration-700 ${
+            index === activeIndex ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+        />
+      ))}
     </div>
   );
 
@@ -111,7 +120,7 @@ export default function Hero() {
               href="#quote"
               className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] md:px-7 md:py-4"
             >
-              Get Instant Quote
+              Request a Custom Quote
             </a>
 
             <a

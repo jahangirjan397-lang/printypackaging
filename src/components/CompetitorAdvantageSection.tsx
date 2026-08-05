@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const advantages = [
   {
     title: "Production Knowledge",
@@ -42,12 +44,12 @@ export default function CompetitorAdvantageSection() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
+              <Link
                 href="/#quote"
                 className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
               >
                 Request Quote
-              </a>
+              </Link>
 
               <a
                 href="/why-printy-packaging"
@@ -85,4 +87,3 @@ export default function CompetitorAdvantageSection() {
     </section>
   );
 }
-

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const comparisonRows = [
   {
     point: "Quote Process",
@@ -133,16 +135,15 @@ export default function SupplierComparison() {
               </p>
             </div>
 
-            <a
+            <Link
               href="/#quote"
               className="inline-flex rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
             >
               Get Quote
-            </a>
+            </Link>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

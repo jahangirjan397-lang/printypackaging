@@ -105,7 +105,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: brandName,
-    alternateName: "PrintyPackaging",
+    alternateName: "Printy Packaging",
     url: siteUrl,
     logo: `${siteUrl}/logo-icon.svg`,
     email: brandEmail,
@@ -185,7 +185,7 @@ export default function RootLayout({
           "@type": "Service",
           name: "Food Packaging",
           description:
-            "Custom food packaging, butter paper, paper bags and food-safe printed packaging support.",
+            "Custom food packaging, butter paper, paper bags and material guidance for printed food packaging.",
         },
       },
     ],
@@ -195,7 +195,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: brandName,
-    alternateName: "PrintyPackaging",
+    alternateName: "Printy Packaging",
     url: siteUrl,
     publisher: {
       "@type": "Organization",

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type ProductMerchantCtaPanelProps = {
   productTitle?: string;
 };
@@ -5,7 +7,7 @@ type ProductMerchantCtaPanelProps = {
 export default function ProductMerchantCtaPanel({
   productTitle = "Custom Packaging",
 }: ProductMerchantCtaPanelProps) {
-  const whatsappMessage = `Hello PrintyPackaging, I need a quote for ${productTitle}. Please guide me about size, material, printing, finishing and pricing.`;
+  const whatsappMessage = `Hello Printy Packaging, I need a quote for ${productTitle}. Please guide me about size, material, printing, finishing and pricing.`;
 
   return (
     <section className="bg-white px-4 py-12 sm:px-6 lg:px-8">
@@ -31,12 +33,12 @@ export default function ProductMerchantCtaPanel({
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a
+                <Link
                   href="/#quote"
                   className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
                 >
                   Request Quote
-                </a>
+                </Link>
 
                 <a
                   href={`https://wa.me/923338889954?text=${encodeURIComponent(
@@ -87,4 +89,3 @@ export default function ProductMerchantCtaPanel({
     </section>
   );
 }
-

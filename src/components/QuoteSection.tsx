@@ -449,9 +449,13 @@ export default function QuoteSection() {
       );
     });
 
-    if (matchedProduct) {
+    if (!matchedProduct) return;
+
+    const frame = window.requestAnimationFrame(() => {
       setSelectedProduct(matchedProduct.name);
-    }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -783,4 +787,3 @@ function FormField({
     </label>
   );
 }
-

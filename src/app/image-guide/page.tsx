@@ -1,7 +1,7 @@
 const imageSteps = [
   "Download clean blank packaging mockups or take real product photos.",
   "Avoid competitor logos, famous brands and trademarked packaging.",
-  "Place PrintyPackaging logo or sample artwork on the box mockup.",
+  "Place Printy Packaging logo or sample artwork on the box mockup.",
   "Export final image as WebP for fast website loading.",
   "Use correct file name and folder so the website can pick it easily.",
 ];
@@ -98,4 +98,3 @@ export default function ImageGuidePage() {
     </main>
   );
 }
-

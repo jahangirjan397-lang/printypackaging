@@ -60,7 +60,7 @@ export default function Industries() {
           </h2>
 
           <p className="mt-5 text-base leading-7 text-slate-300 md:text-lg md:leading-8">
-            From luxury cosmetics to food-safe packaging, PrintyPackaging helps
+            From luxury cosmetics to food-safe packaging, Printy Packaging helps
             brands create premium packaging experiences for every market.
           </p>
         </div>
@@ -87,4 +87,3 @@ export default function Industries() {
     </section>
   );
 }
-

@@ -29,7 +29,7 @@ export default function ContactTrustSection() {
           <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.25em] text-[#007C91]">
-                Trusted Quote Support
+                Quote Support
               </p>
 
               <h2 className="mt-4 text-3xl font-black tracking-tight text-[#07111F] md:text-4xl">

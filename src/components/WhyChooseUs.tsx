@@ -33,7 +33,7 @@ export default function WhyChooseUs() {
           </h2>
 
           <p className="mt-6 max-w-xl text-base leading-7 text-slate-600 md:text-lg md:leading-8">
-            PrintyPackaging helps businesses create premium printed packaging
+            Printy Packaging helps businesses create premium printed packaging
             that protects products, improves presentation and builds customer
             trust.
           </p>
@@ -82,4 +82,3 @@ export default function WhyChooseUs() {
     </section>
   );
 }
-

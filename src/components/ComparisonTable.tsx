@@ -39,7 +39,7 @@ export default function ComparisonTable() {
       <div className="relative mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-black uppercase tracking-[0.28em] text-[#00C2E8] md:text-sm">
-            Why PrintyPackaging
+            Why Printy Packaging
           </p>
 
           <h2 className="mt-4 text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
@@ -58,7 +58,7 @@ export default function ComparisonTable() {
               Feature
             </p>
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#00C2E8]">
-              PrintyPackaging
+              Printy Packaging
             </p>
             <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-400">
               Basic Supplier
@@ -81,7 +81,7 @@ export default function ComparisonTable() {
 
               <div className="rounded-2xl bg-[#00C2E8]/10 p-4 md:rounded-none md:bg-transparent md:p-0">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00C2E8] md:hidden">
-                  PrintyPackaging
+                  Printy Packaging
                 </p>
                 <p className="mt-1 font-bold leading-6 text-[#9FEFFF] md:mt-0">
                   <span className="mr-2 text-[#00C2E8]">&#10003;</span>
@@ -111,4 +111,3 @@ export default function ComparisonTable() {
     </section>
   );
 }
-

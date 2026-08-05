@@ -53,7 +53,7 @@ export default function Home() {
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
       <OrderProcessSection />
-      <IndustryBuyerSection />      <ContactTrustSection />      <QuoteSection />
+      <IndustryBuyerSection />      <ContactTrustSection />      <QuoteSection />
     </>
   );
 }

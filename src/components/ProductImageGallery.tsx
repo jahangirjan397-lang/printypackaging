@@ -49,14 +49,16 @@ export default function ProductImageGallery({
 
   return (
     <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-white">
+      <div
+        className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EEE9E3]"
+      >
         <Image
           src={activeImage.src}
           alt={activeImage.alt}
           fill
           priority={safeIndex === 0}
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-contain"
+          className="object-cover object-center brightness-[1.025] contrast-[1.015]"
         />
 
         <div className="absolute bottom-4 left-4 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white backdrop-blur">
@@ -77,7 +79,7 @@ export default function ProductImageGallery({
               onClick={() => setActiveIndex(index)}
               aria-label={`View ${image.title}`}
               aria-pressed={index === safeIndex}
-              className={`relative aspect-square overflow-hidden rounded-xl border-2 bg-white transition ${
+              className={`relative aspect-[4/3] overflow-hidden rounded-xl border-2 bg-[#EEE9E3] transition ${
                 index === safeIndex
                   ? "border-[#FF6A00]"
                   : "border-transparent hover:border-[#00C2E8]"
@@ -88,7 +90,7 @@ export default function ProductImageGallery({
                 alt=""
                 fill
                 sizes="100px"
-                className="object-contain"
+                className="object-cover object-center brightness-[1.025]"
               />
             </button>
           ))}

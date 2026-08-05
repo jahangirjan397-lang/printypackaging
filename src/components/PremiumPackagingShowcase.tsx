@@ -23,14 +23,14 @@ const confidenceVisuals = [
     linkText: "Explore Materials",
   },
   {
-    eyebrow: "Buyer Confidence",
-    title: "Sample kit planning",
+    eyebrow: "Production Planning",
+    title: "Material and finish review",
     description:
-      "Review material feel, print quality and finishing options before moving into full production.",
+      "Compare material, print and finishing considerations before moving into production.",
     image: "/images/home/home-sample-kit.webp",
-    alt: "Printy Packaging sample kit with material and print samples",
+    alt: "Packaging material and print samples arranged for production review",
     href: "/sample-kit",
-    linkText: "View Sample Guide",
+    linkText: "Read Review Guide",
   },
 ];
 

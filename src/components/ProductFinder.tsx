@@ -41,7 +41,7 @@ export default function ProductFinder() {
           <p className="mt-5 text-base leading-7 text-slate-600 md:text-lg md:leading-8">
             Guide customers toward the best box style, material and finishing
             option based on their product type. Later, this section can become
-            the PrintyPackaging AI Packaging Advisor.
+            the Printy Packaging AI Packaging Advisor.
           </p>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -106,4 +106,3 @@ export default function ProductFinder() {
     </section>
   );
 }
-

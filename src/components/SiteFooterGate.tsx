@@ -24,7 +24,7 @@ const guideLinks = [
   { label: "Packaging Materials", href: "/packaging-materials" },
   { label: "Finishing Options", href: "/finishing-options" },
   { label: "Artwork & Dieline Guide", href: "/artwork-guide" },
-  { label: "Sample Kit Guide", href: "/sample-kit" },
+  { label: "Sample & Material Guide", href: "/sample-kit" },
 ];
 
 const marketLinks = [
@@ -140,4 +140,3 @@ function FooterColumn({
     </div>
   );
 }
-
