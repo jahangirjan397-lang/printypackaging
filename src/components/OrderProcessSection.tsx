@@ -25,7 +25,7 @@ const steps = [
 
 export default function OrderProcessSection() {
   return (
-    <section className="bg-white px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <section className="bg-white px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-3xl">

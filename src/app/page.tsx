@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import TrustedBy from "../components/TrustedBy";
 import StatsBar from "../components/StatsBar";
 import FeaturedProducts from "../components/FeaturedProducts";
 import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
@@ -9,7 +8,6 @@ import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
 import QuoteSection from "../components/QuoteSection";
-import ContactTrustSection from "../components/ContactTrustSection";
 
 export const metadata: Metadata = {
   title: "Custom Boxes, Rigid Boxes & Food Packaging",
@@ -47,13 +45,13 @@ export default function Home() {
     <>
       <Header />
       <Hero />
-      <TrustedBy />
       <StatsBar />
       <FeaturedProducts />
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
       <OrderProcessSection />
-      <IndustryBuyerSection />      <ContactTrustSection />      <QuoteSection />
+      <IndustryBuyerSection />
+      <QuoteSection />
     </>
   );
 }

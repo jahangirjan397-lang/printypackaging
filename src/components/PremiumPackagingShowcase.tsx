@@ -14,7 +14,7 @@ const confidenceVisuals = [
   },
   {
     eyebrow: "Material Guidance",
-    title: "Materials and finishing",
+    title: "Material and finish options",
     description:
       "Compare board, kraft, corrugated stock, foil, embossing and specialty finish directions clearly.",
     image: "/images/home/home-materials-finishes.webp",
@@ -36,7 +36,7 @@ const confidenceVisuals = [
 
 export default function PremiumPackagingShowcase() {
   return (
-    <section className="bg-white px-4 py-16 sm:px-6 md:py-20 lg:px-8">
+    <section className="bg-white px-4 py-14 sm:px-6 md:py-16 lg:px-8">
       <div className="mx-auto max-w-7xl 2xl:max-w-[1520px]">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
@@ -54,7 +54,7 @@ export default function PremiumPackagingShowcase() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-5 lg:grid-cols-3">
           {confidenceVisuals.map((item) => (
             <article
               key={item.title}

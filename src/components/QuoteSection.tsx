@@ -541,7 +541,7 @@ export default function QuoteSection() {
 }
 
   return (
-    <section className="bg-[#F7FAFC] px-5 py-24 md:px-8">
+    <section className="bg-[#F7FAFC] px-5 py-16 md:px-8 md:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>

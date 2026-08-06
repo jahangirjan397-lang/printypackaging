@@ -112,7 +112,7 @@ function IndustryIcon({ type }: IndustryIconProps) {
 
 export default function IndustryBuyerSection() {
   return (
-    <section className="bg-gradient-to-b from-slate-50 to-[#EEF7FA] px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+    <section className="bg-gradient-to-b from-slate-50 to-[#EEF7FA] px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div>
@@ -129,7 +129,7 @@ export default function IndustryBuyerSection() {
           </p>
         </div>
 
-        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry) => (
             <article
               key={industry.title}

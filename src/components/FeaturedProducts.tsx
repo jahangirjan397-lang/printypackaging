@@ -8,7 +8,7 @@ export default function FeaturedProducts() {
   return (
     <section
       id="products"
-      className="bg-[linear-gradient(180deg,#F7FAFC_0%,#FFFFFF_100%)] px-4 py-16 sm:px-5 md:px-8 md:py-20"
+      className="bg-[linear-gradient(180deg,#F7FAFC_0%,#FFFFFF_100%)] px-4 py-14 sm:px-5 md:px-8 md:py-16"
     >
       <div className="mx-auto max-w-7xl 2xl:max-w-[1520px]">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -27,7 +27,7 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {featuredProducts.map((item, index) => {
             const productImage = item.images?.[0];
 
