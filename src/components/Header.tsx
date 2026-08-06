@@ -77,14 +77,19 @@ export default function Header() {
 
   useEffect(() => {
     function updateHeader() {
-      const shouldHideTopBar = window.scrollY > 80;
+      const currentScrollY = window.scrollY;
 
       setHideTopBar((current) => {
-        if (current === shouldHideTopBar) {
-          return current;
+        // Separate thresholds prevent the top bar from oscillating.
+        if (!current && currentScrollY > 140) {
+          return true;
         }
 
-        return shouldHideTopBar;
+        if (current && currentScrollY < 24) {
+          return false;
+        }
+
+        return current;
       });
 
       ticking.current = false;
