@@ -2,11 +2,8 @@ import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
 import BuyerTrustSection from "./BuyerTrustSection";
-import ProductBuyerJourneySection from "./ProductBuyerJourneySection";
 import ProductGuideLinksSection from "./ProductGuideLinksSection";
 import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
-import ProductSeoBlocks from "./ProductSeoBlocks";
-import ProductMerchantCtaPanel from "./ProductMerchantCtaPanel";
 import ProductImageGallery from "./ProductImageGallery";
 
 function getProductSpecs(product: Product) {
@@ -237,8 +234,8 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 </Link>
               </div>
 
-              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-3">
-                {["Low MOQ Support", "Custom Size", "Print Ready Help"].map(
+              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-2">
+                {["Custom Size", "Print Ready Help"].map(
                   (item) => (
                     <div
                       key={item}
@@ -313,62 +310,18 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
         </div>
       </section>
 
-      <ProductSeoBlocks />
 
       <ProductGuideLinksSection product={product} />
 
-      <ProductBuyerJourneySection
-        product={product}
-        quoteLink={productQuoteLink}
-      />
+
 
             <ProductQuoteChecklistSection
         product={product}
         quoteLink={productQuoteLink}
       />
 
-      <ProductMerchantCtaPanel productTitle={product.name} />
 
-      <section className="bg-[#F7FAFC] px-5 py-20 md:px-8">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <div>
-              <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-                Buyer Guidance
-              </p>
 
-              <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-                Make your packaging decision faster
-              </h2>
-
-              <p className="mt-5 text-lg leading-8 text-slate-600">
-                Share your product size, quantity, material choice, GSM,
-                printing colors and finishing needs. Our sales team will review
-                your details and suggest the most practical packaging solution.
-              </p>
-            </div>
-
-            <div className="grid gap-4">
-              {[
-                "Send product size and quantity",
-                "Select material and GSM",
-                "Choose printing and finishing",
-                "Receive quote guidance from sales team",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] font-black text-white">
-                    ✓
-                  </div>
-                  <p className="font-black text-[#07111F]">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
