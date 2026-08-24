@@ -798,11 +798,6 @@ export const products: Product[] = [
         title: "Candle Boxes Open View",
       },
       {
-        src: "/images/products/candle-boxes/candle-boxes-finish.webp",
-        alt: "Close-up of candle box paper, logo and premium finishing",
-        title: "Material and Finish Detail",
-      },
-      {
         src: "/images/products/candle-boxes/candle-boxes-lifestyle.webp",
         alt: "Custom candle packaging displayed in a warm lifestyle setting",
         title: "Candle Boxes Lifestyle View",

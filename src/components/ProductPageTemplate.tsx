@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
@@ -69,14 +70,20 @@ function getProductVisualLabel(product: Product) {
 }
 
 function getRelatedProducts(product: Product) {
+  const hasImage = (item: Product) => Boolean(item.images?.[0]?.src);
+
   const sameCategoryProducts = products.filter(
-    (item) => item.slug !== product.slug && item.category === product.category
+    (item) =>
+      item.slug !== product.slug &&
+      item.category === product.category &&
+      hasImage(item)
   );
 
   const fallbackProducts = products.filter(
     (item) =>
       item.slug !== product.slug &&
-      !sameCategoryProducts.some((related) => related.slug === item.slug)
+      item.category !== product.category &&
+      hasImage(item)
   );
 
   return [...sameCategoryProducts, ...fallbackProducts].slice(0, 4);
@@ -371,13 +378,22 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 key={item.slug}
                 href={`/products/${item.slug}`}
                 prefetch={false}
-                className="pp-card rounded-[1.5rem] bg-white p-6 shadow-md"
+                className="group pp-card rounded-[1.5rem] bg-white p-6 shadow-md"
               >
-                <div className="relative mb-5 h-32 overflow-hidden rounded-2xl bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                  <div className="absolute bottom-4 left-5 h-16 w-20 rotate-[-8deg] rounded-xl bg-white shadow-xl" />
-                  <div className="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-white">
-                    {getProductVisualLabel(item)}
-                  </div>
+                <div className="relative mb-5 aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100">
+                  {item.images?.[0]?.src ? (
+                    <Image
+                      src={item.images[0].src}
+                      alt={item.images[0].alt || item.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8] px-5 text-center text-sm font-black text-white">
+                      {getProductVisualLabel(item)}
+                    </div>
+                  )}
                 </div>
 
                 <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[#00C2E8]">
