@@ -28,20 +28,20 @@ const guideLinks = [
 
 const authorityItems = [
   {
-    title: "Clear product grouping",
-    text: "Related packaging products are grouped together so buyers can compare options quickly.",
+    title: "Compare related products",
+    text: "See related packaging styles together so you can compare structure, use and presentation before choosing.",
   },
   {
-    title: "Better internal linking",
-    text: "Category pages connect products, quote form and related packaging solutions for stronger navigation.",
+    title: "Explore connected options",
+    text: "Move from a category to relevant product details, materials, finishes and quote options.",
   },
   {
-    title: "Stronger SEO structure",
-    text: "Each category page supports product keywords, buyer intent and packaging search structure.",
+    title: "Practical buying guidance",
+    text: "Review practical product choices and the information needed to prepare a packaging requirement clearly.",
   },
   {
-    title: "Easy buyer navigation",
-    text: "Buyers can move from category to product page or quote form without confusion.",
+    title: "Faster product selection",
+    text: "Compare relevant products first, then open the best fit or move directly to a quote request.",
   },
 ];
 

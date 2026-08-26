@@ -139,9 +139,9 @@ export default function MarketsPage() {
               </div>
 
               <p className="max-w-xl text-sm leading-6 text-slate-600 md:text-right">
-                Market pages help international clients find relevant packaging
-                solutions and make it easier for the sales team to understand
-                buyer location and requirement.
+                Choose your market to review relevant packaging options, then share
+                product size, quantity, material, finish and delivery details
+                for a clearer international quote request.
               </p>
             </div>
 
@@ -153,27 +153,6 @@ export default function MarketsPage() {
                   prefetch={false}
                   className="pp-card group rounded-[2rem] bg-white p-7 shadow-md"
                 >
-                  <div className="relative mb-6 h-44 overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                    <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
-
-                    <div className="absolute bottom-5 left-5 h-20 w-24 rotate-[-8deg] rounded-2xl bg-white shadow-2xl" />
-
-                    <div className="absolute bottom-7 right-7 h-28 w-20 rounded-2xl bg-[#07111F] shadow-2xl">
-                      <div className="mx-auto mt-5 h-8 w-8 rounded-full border border-[#FF6A00]" />
-                      <p className="mt-4 text-center text-[10px] font-black tracking-widest text-white">
-                        USA
-                      </p>
-                    </div>
-
-                    <span className="absolute left-5 top-5 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                      {market.region}
-                    </span>
-
-                    <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
-                      {index + 1}
-                    </span>
-                  </div>
-
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
                     {market.region}
                   </p>
@@ -199,26 +178,26 @@ export default function MarketsPage() {
           <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-                Global Client Support
+                International Buyer Support
               </p>
 
               <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-                A cleaner path for international buyers
+                Clear packaging guidance across markets
               </h2>
 
               <p className="mt-5 text-lg leading-8 text-slate-600">
-                Global buyers need clear communication, fast quote response and
-                easy product guidance. These market pages help clients reach the
-                correct product and submit complete quote details.
+                International buyers can compare product styles, understand material and
+                finishing choices, and prepare the details needed for a clearer
+                packaging quote.
               </p>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
               {[
-                "USA buyer focus",
-                "Clear quote process",
-                "Global product guidance",
-                "Sales team friendly",
+                "Clear product options",
+                "Quote-ready requirements",
+                "Material & finish guidance",
+                "International buyer support",
               ].map((item) => (
                 <div
                   key={item}

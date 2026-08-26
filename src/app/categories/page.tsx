@@ -139,8 +139,8 @@ export default function CategoriesPage() {
               </div>
 
               <p className="max-w-xl text-sm leading-6 text-slate-600 md:text-right">
-                Category pages help clients compare related packaging products
-                and reach the right product page faster.
+                Compare related packaging styles, materials and finishes in one place,
+                then open the product that best matches your requirement.
               </p>
             </div>
 
@@ -194,26 +194,26 @@ export default function CategoriesPage() {
           <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-                Buyer Friendly Navigation
+                Choose With Confidence
               </p>
 
               <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-                Help clients reach the right packaging faster
+                Compare packaging without the guesswork
               </h2>
 
               <p className="mt-5 text-lg leading-8 text-slate-600">
-                Clear categories reduce confusion for buyers. Clients can browse
-                by food, luxury, retail or business need, then request a quote
-                with complete details.
+                Browse by product use and packaging style, compare the options that
+                matter, then send the size, quantity and finish details needed
+                for a clearer quote request.
               </p>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
               {[
-                "Easy product discovery",
-                "Strong internal linking",
-                "Better SEO structure",
-                "Faster quote decisions",
+                "Clear product choices",
+                "Related styles together",
+                "Faster product comparison",
+                "Quote-ready details",
               ].map((item) => (
                 <div
                   key={item}

@@ -38,19 +38,19 @@ const marketTrustSteps = [
 const marketSupportItems = [
   {
     title: "International Buyer Support",
-    text: "Market pages help international buyers understand product options, packaging styles and quote requirements.",
+    text: "Compare packaging styles, product options and the key details needed for an international quote request.",
   },
   {
     title: "Product-Specific Navigation",
-    text: "Buyers can open product pages directly from each market page and compare recommended packaging products.",
+    text: "Open recommended product pages directly and compare structures, materials, finishes and common uses.",
   },
   {
     title: "Quote-Ready Direction",
-    text: "Each page guides buyers to share size, quantity, material, GSM, printing, finishing and delivery details.",
+    text: "Prepare size, quantity, material, GSM, printing, finishing and delivery details before requesting a quote.",
   },
   {
-    title: "SEO Market Structure",
-    text: "Market pages support country-specific search intent and connect products, guides and quote flow together.",
+    title: "Market-specific guidance",
+    text: "Review relevant products and packaging guidance for your market before moving to the quote stage.",
   },
 ];
 
