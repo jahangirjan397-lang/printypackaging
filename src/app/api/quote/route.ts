@@ -4,7 +4,15 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const MAX_BODY_LENGTH = 30_000;
+const MAX_JSON_BODY_LENGTH = 30_000;
+const MAX_UPLOAD_BODY_LENGTH = 12 * 1024 * 1024;
+const MAX_FILES = 5;
+const MAX_SINGLE_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_TOTAL_FILE_SIZE = 10 * 1024 * 1024;
+const ALLOWED_FILE_EXTENSIONS = new Set([
+  ".pdf", ".ai", ".eps", ".psd", ".svg", ".png", ".jpg",
+  ".jpeg", ".webp", ".tif", ".tiff", ".cdr",
+]);
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 5;
 
@@ -17,7 +25,10 @@ type QuoteRequest = {
   quantity?: string;
   size?: string;
   material?: string;
+  gsm?: string;
+  printing?: string;
   finishing?: string;
+  artworkStatus?: string;
   message?: string;
   website?: string;
 };
@@ -32,7 +43,10 @@ type LeadData = {
   quantity: string;
   size: string;
   material: string;
+  gsm: string;
+  printing: string;
   finishing: string;
+  artworkStatus: string;
   message: string;
 };
 
@@ -42,6 +56,13 @@ type ServiceResult = {
   message: string;
   messageId?: string;
   raw?: unknown;
+};
+
+type UploadedFile = {
+  filename: string;
+  contentType: string;
+  size: number;
+  content: Buffer;
 };
 
 type RateLimitRecord = {
@@ -65,6 +86,25 @@ function clean(value: unknown) {
   }
 
   return value.replaceAll("\0", "").trim();
+}
+
+function formValue(formData: FormData, key: string) {
+  const value = formData.get(key);
+  return typeof value === "string" ? value : "";
+}
+
+function safeUploadName(value: string) {
+  return value
+    .replaceAll("\\", "_")
+    .replaceAll("/", "_")
+    .replace(/[\r\n\t]/g, " " )
+    .replace(/[^a-zA-Z0-9._ ()-]/g, "_")
+    .slice(0, 140);
+}
+
+function fileExtension(filename: string) {
+  const dotIndex = filename.lastIndexOf(".");
+  return dotIndex >= 0 ? filename.slice(dotIndex).toLowerCase() : "";
 }
 
 function escapeHtml(value: string) {
@@ -111,7 +151,10 @@ function buildLead(body: QuoteRequest): LeadData {
     quantity: clean(body.quantity),
     size: clean(body.size),
     material: clean(body.material),
+    gsm: clean(body.gsm),
+    printing: clean(body.printing),
     finishing: clean(body.finishing),
+    artworkStatus: clean(body.artworkStatus),
     message: clean(body.message),
   };
 }
@@ -140,7 +183,10 @@ function validateLead(lead: LeadData) {
     { label: "Quantity", value: lead.quantity, maxLength: 50 },
     { label: "Size", value: lead.size, maxLength: 100 },
     { label: "Material", value: lead.material, maxLength: 180 },
+    { label: "GSM / Thickness", value: lead.gsm, maxLength: 100 },
+    { label: "Printing", value: lead.printing, maxLength: 120 },
     { label: "Finishing", value: lead.finishing, maxLength: 220 },
+    { label: "Artwork Status", value: lead.artworkStatus, maxLength: 120 },
     { label: "Message", value: lead.message, maxLength: 2500 },
   ];
 
@@ -237,7 +283,8 @@ function isAllowedOrigin(origin: string | null) {
 }
 
 async function saveLeadToGoogleSheet(
-  lead: LeadData
+  lead: LeadData,
+  uploadedFiles: UploadedFile[]
 ): Promise<ServiceResult> {
   const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
   const secret = process.env.GOOGLE_SHEETS_SECRET;
@@ -268,7 +315,13 @@ async function saveLeadToGoogleSheet(
         quantity: safeSpreadsheetCell(lead.quantity),
         size: safeSpreadsheetCell(lead.size),
         material: safeSpreadsheetCell(lead.material),
+        gsm: safeSpreadsheetCell(lead.gsm),
+        printing: safeSpreadsheetCell(lead.printing),
         finishing: safeSpreadsheetCell(lead.finishing),
+        artworkStatus: safeSpreadsheetCell(lead.artworkStatus),
+        artworkFiles: safeSpreadsheetCell(
+          uploadedFiles.map((file) => file.filename).join(", " )
+        ),
         message: safeSpreadsheetCell(lead.message),
       }),
     });
@@ -370,7 +423,10 @@ function getEmailHtml(lead: LeadData) {
   const safeQuantity = escapeHtml(lead.quantity || "-");
   const safeSize = escapeHtml(lead.size || "-");
   const safeMaterial = escapeHtml(lead.material || "-");
+  const safeGsm = escapeHtml(lead.gsm || "-");
+  const safePrinting = escapeHtml(lead.printing || "-");
   const safeFinishing = escapeHtml(lead.finishing || "-");
+  const safeArtworkStatus = escapeHtml(lead.artworkStatus || "-");
   const safeMessage = escapeHtml(lead.message || "-").replaceAll(
     "\n",
     "<br />"
@@ -395,7 +451,10 @@ function getEmailHtml(lead: LeadData) {
         <p><strong>Quantity:</strong> ${safeQuantity}</p>
         <p><strong>Size:</strong> ${safeSize}</p>
         <p><strong>Material:</strong> ${safeMaterial}</p>
+        <p><strong>GSM / Board Thickness:</strong> ${safeGsm}</p>
+        <p><strong>Printing Colors:</strong> ${safePrinting}</p>
         <p><strong>Finishing:</strong> ${safeFinishing}</p>
+        <p><strong>Artwork Status:</strong> ${safeArtworkStatus}</p>
 
         <h3>Project Details</h3>
         <p>${safeMessage}</p>
@@ -441,7 +500,8 @@ function getEmailHtml(lead: LeadData) {
 }
 
 async function sendAdminEmail(
-  lead: LeadData
+  lead: LeadData,
+  uploadedFiles: UploadedFile[]
 ): Promise<ServiceResult> {
   const emailService = createTransporter();
 
@@ -479,11 +539,19 @@ Product Type: ${lead.product}
 Quantity: ${lead.quantity}
 Size: ${lead.size}
 Material: ${lead.material}
+GSM / Board Thickness: ${lead.gsm}
+Printing Colors: ${lead.printing}
 Finishing: ${lead.finishing}
+Artwork Status: ${lead.artworkStatus}
 
 Project Details:
 ${lead.message}
 `,
+      attachments: uploadedFiles.map((file) => ({
+        filename: file.filename,
+        content: file.content,
+        contentType: file.contentType,
+      })),
     });
 
     return {
@@ -573,84 +641,78 @@ export async function POST(request: Request) {
     }
 
     const contentType = request.headers.get("content-type") || "";
+    const normalizedContentType = contentType.toLowerCase();
+    const isJsonRequest = normalizedContentType.includes("application/json");
+    const isMultipartRequest = normalizedContentType.includes("multipart/form-data");
 
-    if (!contentType.toLowerCase().includes("application/json")) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid request format.",
-        },
-        { status: 415 }
-      );
+    if (!isJsonRequest && !isMultipartRequest) {
+      return NextResponse.json({ success: false, message: "Invalid request format." }, { status: 415 });
     }
 
-    const contentLength = Number(
-      request.headers.get("content-length") || 0
-    );
-
-    if (contentLength > MAX_BODY_LENGTH) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Quote request is too large.",
-        },
-        { status: 413 }
-      );
+    const contentLength = Number(request.headers.get("content-length") || 0);
+    const maxRequestSize = isMultipartRequest ? MAX_UPLOAD_BODY_LENGTH : MAX_JSON_BODY_LENGTH;
+    if (contentLength > maxRequestSize) {
+      return NextResponse.json({ success: false, message: "Quote request is too large." }, { status: 413 });
     }
 
     const clientIp = getClientIp(request);
     const rateLimit = checkRateLimit(clientIp);
-
     if (!rateLimit.allowed) {
       return NextResponse.json(
-        {
-          success: false,
-          message:
-            "Too many quote requests. Please wait a few minutes and try again.",
-        },
-        {
-          status: 429,
-          headers: {
-            "Retry-After": String(rateLimit.retryAfterSeconds),
-          },
-        }
-      );
-    }
-
-    const rawBody = await request.text();
-
-    if (!rawBody || rawBody.length > MAX_BODY_LENGTH) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid quote request.",
-        },
-        { status: rawBody.length > MAX_BODY_LENGTH ? 413 : 400 }
+        { success: false, message: "Too many quote requests. Please wait a few minutes and try again." },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } }
       );
     }
 
     let body: QuoteRequest;
+    const uploadedFiles: UploadedFile[] = [];
 
-    try {
-      const parsedBody = JSON.parse(rawBody) as unknown;
+    if (isMultipartRequest) {
+      const formData = await request.formData();
+      body = {
+        name: formValue(formData, "name"), email: formValue(formData, "email"),
+        whatsapp: formValue(formData, "whatsapp"), country: formValue(formData, "country"),
+        product: formValue(formData, "product"), quantity: formValue(formData, "quantity"),
+        size: formValue(formData, "size"), material: formValue(formData, "material"),
+        gsm: formValue(formData, "gsm"), printing: formValue(formData, "printing"),
+        finishing: formValue(formData, "finishing"), artworkStatus: formValue(formData, "artworkStatus"),
+        message: formValue(formData, "message"), website: formValue(formData, "website"),
+      };
 
-      if (
-        !parsedBody ||
-        typeof parsedBody !== "object" ||
-        Array.isArray(parsedBody)
-      ) {
-        throw new Error("Invalid request body.");
-      }
-
-      body = parsedBody as QuoteRequest;
-    } catch {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid quote request.",
-        },
-        { status: 400 }
+      const realFiles = formData.getAll("artworkFiles").filter(
+        (entry): entry is File => typeof entry !== "string" && entry.size > 0
       );
+      if (realFiles.length > MAX_FILES) {
+        return NextResponse.json({ success: false, message: "Please upload a maximum of 5 artwork files." }, { status: 400 });
+      }
+      let totalFileSize = 0;
+      for (const file of realFiles) {
+        const filename = safeUploadName(file.name);
+        const extension = fileExtension(filename);
+        if (!filename || !ALLOWED_FILE_EXTENSIONS.has(extension)) {
+          return NextResponse.json({ success: false, message: "One of the uploaded files is not a supported artwork format." }, { status: 400 });
+        }
+        if (file.size > MAX_SINGLE_FILE_SIZE) {
+          return NextResponse.json({ success: false, message: `"${filename}" is larger than 5 MB.` }, { status: 400 });
+        }
+        totalFileSize += file.size;
+        if (totalFileSize > MAX_TOTAL_FILE_SIZE) {
+          return NextResponse.json({ success: false, message: "Artwork files must be 10 MB or less in total." }, { status: 400 });
+        }
+        uploadedFiles.push({ filename, contentType: file.type || "application/octet-stream", size: file.size, content: Buffer.from(await file.arrayBuffer()) });
+      }
+    } else {
+      const rawBody = await request.text();
+      if (!rawBody || rawBody.length > MAX_JSON_BODY_LENGTH) {
+        return NextResponse.json({ success: false, message: "Invalid quote request." }, { status: rawBody.length > MAX_JSON_BODY_LENGTH ? 413 : 400 });
+      }
+      try {
+        const parsedBody = JSON.parse(rawBody) as unknown;
+        if (!parsedBody || typeof parsedBody !== "object" || Array.isArray(parsedBody)) throw new Error("Invalid request body.");
+        body = parsedBody as QuoteRequest;
+      } catch {
+        return NextResponse.json({ success: false, message: "Invalid quote request." }, { status: 400 });
+      }
     }
 
     if (clean(body.website)) {
@@ -674,8 +736,8 @@ export async function POST(request: Request) {
     }
 
     const [crmResult, adminEmailResult] = await Promise.all([
-      saveLeadToGoogleSheet(lead),
-      sendAdminEmail(lead),
+      saveLeadToGoogleSheet(lead, uploadedFiles),
+      sendAdminEmail(lead, uploadedFiles),
     ]);
 
     console.log("Quote lead:", lead.quoteId);
@@ -683,7 +745,9 @@ export async function POST(request: Request) {
     console.log("Admin Email Result:", adminEmailResult);
 
     const primarySuccess =
-      crmResult.success || adminEmailResult.success;
+      uploadedFiles.length > 0
+        ? adminEmailResult.success
+        : crmResult.success || adminEmailResult.success;
 
     if (!primarySuccess) {
       return NextResponse.json(

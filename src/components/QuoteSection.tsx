@@ -461,35 +461,50 @@ export default function QuoteSection() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
 
-  setIsSending(true);
   setErrorMessage("");
 
   const formData = new FormData(event.currentTarget);
-  const payload = Object.fromEntries(formData.entries()) as Record<
-    string,
-    string
-  >;
+  const artworkFiles = formData
+    .getAll("artworkFiles")
+    .filter(
+      (entry): entry is File =>
+        typeof entry !== "string" && entry.size > 0,
+    );
 
-  const originalMessage = payload.message || "";
+  if (artworkFiles.length > 5) {
+    setErrorMessage("Please upload a maximum of 5 artwork or reference files.");
+    return;
+  }
 
-  payload.message = [
-    originalMessage,
-    "",
-    "Extra Quote Details:",
-    `Material GSM / Thickness: ${payload.gsm || "Not selected"}`,
-    `Printing Colors: ${payload.printing || "Not selected"}`,
-    `Artwork Status: ${payload.artworkStatus || "Not selected"}`,
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const oversizedFile = artworkFiles.find(
+    (file) => file.size > 5 * 1024 * 1024,
+  );
+
+  if (oversizedFile) {
+    setErrorMessage(
+      `"${oversizedFile.name}" is larger than 5 MB. Please choose a smaller file.`,
+    );
+    return;
+  }
+
+  const totalUploadSize = artworkFiles.reduce(
+    (total, file) => total + file.size,
+    0,
+  );
+
+  if (totalUploadSize > 10 * 1024 * 1024) {
+    setErrorMessage(
+      "Your artwork files are larger than 10 MB in total. Please reduce the file size or upload fewer files.",
+    );
+    return;
+  }
+
+  setIsSending(true);
 
   try {
     const response = await fetch("/api/quote", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
+      body: formData,
     });
 
     const responseText = await response.text();
@@ -504,7 +519,7 @@ export default function QuoteSection() {
       result = JSON.parse(responseText);
     } catch {
       throw new Error(
-        "Quote API returned an invalid response. Please open /api/quote and check terminal error logs.",
+        "We could not process your quote request right now. Please try again or contact us through WhatsApp.",
       );
     }
 
@@ -738,12 +753,23 @@ export default function QuoteSection() {
             </div>
 
             <div className="mt-5 rounded-2xl border border-dashed border-[#00C2E8] bg-[#00C2E8]/10 p-5">
-                            <p className="font-black text-[#07111F]">
-                Artwork & Design Files
+              <p className="font-black text-[#07111F]">
+                Artwork & Reference Files
               </p>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                After submitting your request, our packaging team will contact
-                you to collect artwork and reference files securely when required.
+                Optional: upload your artwork, dieline, logo or packaging
+                reference files with the quote request.
+              </p>
+              <input
+                name="artworkFiles"
+                type="file"
+                multiple
+                accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr"
+                className="mt-4 block w-full rounded-xl border border-[#00C2E8]/30 bg-white px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-[#07111F] file:px-4 file:py-2 file:font-black file:text-white"
+              />
+              <p className="mt-3 text-xs leading-5 text-slate-500">
+                Up to 5 files. Maximum 5 MB per file and 10 MB total. Accepted:
+                PDF, AI, EPS, PSD, SVG, PNG, JPG, WEBP, TIFF and CDR.
               </p>
             </div>
 
