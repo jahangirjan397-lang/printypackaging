@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/finishing-options",
+  },
   title: "Packaging Finishing Options | Foil, Embossing, Spot UV & Lamination",
   description:
     "Explore premium packaging finishing options including matte lamination, gloss lamination, soft touch, spot UV, foil stamping, embossing and window patching.",

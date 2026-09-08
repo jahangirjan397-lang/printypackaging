@@ -3,6 +3,9 @@ import Link from "next/link";
 import { blogPosts } from "@/data/blogs";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/blog",
+  },
   title: "Packaging Blog | Custom Boxes, Materials, Finishes & Quote Guides",
   description:
     "Read Printy Packaging blog guides about custom boxes, packaging materials, finishing options, artwork, dielines, ecommerce packaging and food packaging.",

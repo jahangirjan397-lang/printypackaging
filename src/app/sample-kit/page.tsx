@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/sample-kit",
+  },
   title: "Packaging Sample Kit Guide | Custom Box Samples & Material Review",
   description:
     "Learn how packaging samples help review materials, print quality, finishing, rigid boxes, folding cartons, mailer boxes and custom packaging decisions.",

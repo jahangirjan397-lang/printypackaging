@@ -4,6 +4,9 @@ import BuyerTrustSection from "@/components/BuyerTrustSection";
 import ProductSeoBlocks from "@/components/ProductSeoBlocks";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/why-printy-packaging",
+  },
   title: "Why Choose Us | Custom Packaging Partner",
   description:
     "Learn why Printy Packaging is built for custom boxes, premium packaging, materials, finishes, artwork guidance and international quote support.",

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/terms",
+  },
   title: "Terms and Quote Policy",
   description:
     "Read Printy Packaging terms, quote policy, artwork approval, pricing guidance, production timing and customer responsibility for custom packaging orders.",

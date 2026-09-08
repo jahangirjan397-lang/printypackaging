@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/artwork-guide",
+  },
   title: "Artwork & Dieline Guide | Custom Packaging Print File Checklist",
   description:
     "Learn what artwork details are needed for custom packaging including dieline, bleed, safe area, CMYK, Pantone, barcode, logo, text and final approval.",

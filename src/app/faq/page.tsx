@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/faq",
+  },
   title: "Packaging FAQ | Custom Boxes Questions",
   description:
     "Find answers about custom packaging quotes, box styles, materials, printing, finishing, artwork, samples and international packaging orders for USA, UK, Canada and worldwide buyers.",

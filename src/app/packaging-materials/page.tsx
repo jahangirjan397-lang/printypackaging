@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/packaging-materials",
+  },
   title: "Packaging Materials Guide | Paperboard, Kraft, Corrugated & Rigid Board",
   description:
     "Learn about custom packaging materials including paperboard, kraft board, corrugated stock, rigid board, food packaging materials and premium box materials.",

@@ -42,9 +42,6 @@ export const metadata: Metadata = {
   applicationName: brandName,
   creator: brandName,
   publisher: brandName,
-  alternates: {
-    canonical: siteUrl,
-  },
   openGraph: {
     title: "Printy Packaging | Premium Custom Printing & Packaging",
     description:
@@ -201,11 +198,6 @@ export default function RootLayout({
       "@type": "Organization",
       name: brandName,
       logo: `${siteUrl}/logo-icon.svg`,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/products?search={search_term_string}`,
-      "query-input": "required name=search_term_string",
     },
   };
 

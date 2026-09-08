@@ -2,6 +2,9 @@ import Link from "next/link";
 import { seoKeywordGroups } from "@/data/seoKeywords";
 
 export const metadata = {
+  alternates: {
+    canonical: "https://printypackaging.com/custom-packaging",
+  },
   title: "Custom Packaging Boxes",
   description:
     "Custom packaging boxes, rigid boxes, mailer boxes, folding cartons, food packaging, paper bags, labels and luxury printed packaging for global brands.",
