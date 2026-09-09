@@ -51,7 +51,7 @@ export default function LiveChatWidget() {
     script.async = true;
     script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
     script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
+    script.crossOrigin = "anonymous";
 
     document.body.appendChild(script);
   }, []);

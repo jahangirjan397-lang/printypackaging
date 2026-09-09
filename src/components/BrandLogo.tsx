@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -60,9 +61,11 @@ export default function BrandLogo({
         <span
           className={`${wrapperSize} relative flex shrink-0 items-center justify-center overflow-visible`}
         >
-          <img
+          <Image
             src="/logo-icon.svg"
             alt="Printy Packaging logo icon"
+            width={64}
+            height={64}
             onError={() => setLogoError(true)}
             className={`${imageSize} block object-contain`}
           />

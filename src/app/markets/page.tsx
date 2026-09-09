@@ -146,7 +146,7 @@ export default function MarketsPage() {
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {markets.map((market, index) => (
+              {markets.map((market) => (
                 <Link
                   key={market.slug}
                   href={`/markets/${market.slug}`}

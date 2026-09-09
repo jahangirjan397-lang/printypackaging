@@ -55,7 +55,6 @@ type ServiceResult = {
   skipped?: boolean;
   message: string;
   messageId?: string;
-  raw?: unknown;
 };
 
 type UploadedFile = {
@@ -337,7 +336,6 @@ async function saveLeadToGoogleSheet(
       return {
         success: Boolean(parsed.success ?? response.ok),
         message: parsed.message || "Google Sheet response received.",
-        raw: parsed,
       };
     } catch {
       return {
@@ -740,9 +738,9 @@ export async function POST(request: Request) {
       sendAdminEmail(lead, uploadedFiles),
     ]);
 
-    console.log("Quote lead:", lead.quoteId);
-    console.log("Google Sheet CRM Result:", crmResult);
-    console.log("Admin Email Result:", adminEmailResult);
+    console.info("Quote lead:",{quoteId:lead.quoteId});
+    console.info("Google Sheet CRM:",{quoteId:lead.quoteId,success:crmResult.success,skipped:Boolean(crmResult.skipped)});
+    console.info("Admin Email:",{quoteId:lead.quoteId,success:adminEmailResult.success,skipped:Boolean(adminEmailResult.skipped)});
 
     const primarySuccess =
       uploadedFiles.length > 0
@@ -762,7 +760,7 @@ export async function POST(request: Request) {
 
     const clientEmailResult = await sendClientAutoReply(lead);
 
-    console.log("Client Email Result:", clientEmailResult);
+    console.info("Client Email:",{quoteId:lead.quoteId,success:clientEmailResult.success,skipped:Boolean(clientEmailResult.skipped)});
 
     return NextResponse.json({
       success: true,
@@ -770,7 +768,7 @@ export async function POST(request: Request) {
       quoteId: lead.quoteId,
     });
   } catch (error) {
-    console.error("Quote API Error:", error);
+    console.error("Quote API Error:",{name:error instanceof Error?error.name:"UnknownError"});
 
     return NextResponse.json(
       {
