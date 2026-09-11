@@ -119,25 +119,26 @@ export default function Header() {
       >
         <div className="min-h-0">
           <div className="border-b border-[#0B1B2A]">
-            <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 text-xs font-black sm:px-5 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8 2xl:max-w-[1520px] 2xl:px-10">
-              <p className="text-white">
+            <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-[11px] font-black sm:px-5 sm:text-xs md:gap-6 md:px-8 2xl:max-w-[1520px] 2xl:px-10">
+              <p className="hidden text-white md:block">
                 Premium Custom Boxes | Butter Paper | Food Packaging | Labels & Stickers
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 md:gap-5">
+              <div className="flex min-w-0 flex-1 items-center justify-between gap-3 md:flex-none md:justify-end md:gap-5">
                 <a
                   href="mailto:sales@printypackaging.com"
-                  className="text-cyan-300 transition hover:text-[#FF6A00]"
+                  className="min-w-0 truncate text-cyan-300 transition hover:text-[#FF6A00]"
                 >
                   sales@printypackaging.com
                 </a>
 
                 <span className="hidden h-4 w-px bg-white/30 md:block" />
-                <span className="text-cyan-300">
+                <span className="hidden text-cyan-300 md:inline">
                   USA | UK | Europe Quote Support
                 </span>
                 <span className="hidden h-4 w-px bg-white/30 md:block" />
-                <span>USA | UK | Europe | UAE | Worldwide</span>
+                <span className="hidden md:inline">USA | UK | Europe | UAE | Worldwide</span>
+                <span className="shrink-0 text-cyan-300 md:hidden">Worldwide Quotes</span>
               </div>
             </div>
           </div>
@@ -145,9 +146,10 @@ export default function Header() {
       </div>
 
             <div className="border-b border-slate-200 bg-white/95">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-4 py-4 sm:px-5 md:px-8 md:py-5 2xl:max-w-[1520px] 2xl:px-10">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-5 sm:py-4 md:px-8 md:py-5 2xl:max-w-[1520px] 2xl:px-10">
           <div className="shrink-0">
-            <BrandLogo variant="dark" size="default" />
+            <span className="sm:hidden"><BrandLogo variant="dark" size="small" /></span>
+            <span className="hidden sm:inline-flex"><BrandLogo variant="dark" size="default" /></span>
           </div>
 
           <nav className="hidden items-center gap-5 text-sm font-black text-[#07111F] xl:flex">
@@ -203,7 +205,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileOpen((current) => !current)}
-              className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-black text-[#07111F] transition hover:border-[#FF6A00] hover:text-[#FF6A00] xl:hidden"
+              className="rounded-xl border border-slate-300 px-3 py-2 text-sm font-black text-[#07111F] transition hover:border-[#FF6A00] hover:text-[#FF6A00] xl:hidden"
               aria-expanded={mobileOpen}
               aria-label="Toggle mobile navigation"
             >
@@ -213,7 +215,7 @@ export default function Header() {
         </div>
 
         {mobileOpen && (
-          <div className="border-t border-slate-200 bg-white px-4 py-5 shadow-xl xl:hidden">
+          <div className="border-t border-slate-200 bg-white px-4 py-4 shadow-xl xl:hidden">
             <div className="grid gap-3 text-sm font-black text-[#07111F]">
               {mobileLinks.map((link) => (
                 <Link

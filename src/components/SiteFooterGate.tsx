@@ -41,18 +41,19 @@ export default function SiteFooter() {
 
   return (
     <footer className="border-t border-cyan-400/10 bg-[#07111F] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.8fr_0.8fr_0.8fr_0.8fr]">
-          <div>
-            <BrandLogo variant="light" size="large" />
+      <div className="mx-auto max-w-7xl px-5 py-12 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.25fr_0.8fr_0.8fr_0.8fr_0.8fr]">
+          <div className="col-span-2 lg:col-span-1">
+            <span className="sm:hidden"><BrandLogo variant="light" size="small" /></span>
+            <span className="hidden sm:inline-flex"><BrandLogo variant="light" size="large" /></span>
 
-            <p className="mt-5 max-w-md leading-8 text-slate-300">
+            <p className="mt-4 max-w-md text-sm leading-6 text-slate-300 sm:mt-5 sm:text-base sm:leading-8">
               Printy Packaging helps brands with custom boxes, rigid boxes,
               food packaging, materials, finishes, artwork guidance and quote
               support for USA, UK, Canada, Europe, UAE and worldwide buyers.
             </p>
 
-            <div className="mt-6 space-y-3 text-sm font-bold text-slate-300">
+            <div className="mt-5 space-y-2.5 text-sm font-bold text-slate-300">
               <a
                 href="mailto:sales@printypackaging.com"
                 className="block transition hover:text-[#FF6A00]"
@@ -75,7 +76,7 @@ export default function SiteFooter() {
               </p>
             </div>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/?product=mailer-boxes#quote"
                 className="rounded-full bg-[#FF6A00] px-6 py-3 text-center text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91]"
@@ -98,8 +99,8 @@ export default function SiteFooter() {
           <FooterColumn title="Company" links={companyLinks} />
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-6">
-          <div className="flex flex-col gap-4 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 border-t border-white/10 pt-6">
+          <div className="flex flex-col gap-3 text-xs text-slate-400 sm:text-sm md:flex-row md:items-center md:justify-between">
                                     <p>Copyright {year} Printy Packaging. All rights reserved.</p>
 
             <p>
@@ -126,7 +127,7 @@ function FooterColumn({
         {title}
       </h2>
 
-      <div className="mt-5 space-y-3">
+      <div className="mt-4 space-y-2.5">
         {links.map((link) => (
           <Link
             key={link.href}
