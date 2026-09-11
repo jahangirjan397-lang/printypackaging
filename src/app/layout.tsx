@@ -77,11 +77,6 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  icons: {
-    icon: "/logo-icon.svg",
-    shortcut: "/logo-icon.svg",
-    apple: "/logo-icon.svg",
-  },
   formatDetection: {
     telephone: true,
     email: true,
