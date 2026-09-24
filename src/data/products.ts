@@ -1,3 +1,5 @@
+import stagedProductImages from "./stagedProductImages.json";
+
 export type ProductImage = {
   src: string;
   alt: string;
@@ -266,7 +268,7 @@ function makeProduct(
     materials: getProductMaterials(name, category),
     finishes: getProductFinishes(name, category),
     industries,
-    images,
+    images: images ?? (stagedProductImages as Record<string, ProductImage[]>)[slug],
     faqs: buildFaqs(name, category),
   };
 }
