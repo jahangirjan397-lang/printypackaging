@@ -477,12 +477,12 @@ export default function QuoteSection() {
   }
 
   const oversizedFile = artworkFiles.find(
-    (file) => file.size > 5 * 1024 * 1024,
+    (file) => file.size > 4_000_000,
   );
 
   if (oversizedFile) {
     setErrorMessage(
-      `"${oversizedFile.name}" is larger than 5 MB. Please choose a smaller file.`,
+      `"${oversizedFile.name}" is larger than 4 MB. Please choose a smaller file.`,
     );
     return;
   }
@@ -492,9 +492,9 @@ export default function QuoteSection() {
     0,
   );
 
-  if (totalUploadSize > 10 * 1024 * 1024) {
+  if (totalUploadSize > 4_000_000) {
     setErrorMessage(
-      "Your artwork files are larger than 10 MB in total. Please reduce the file size or upload fewer files.",
+      "Your artwork files are larger than 4 MB in total. Please reduce the file size or upload fewer files.",
     );
     return;
   }
@@ -768,7 +768,7 @@ export default function QuoteSection() {
                 className="mt-4 block w-full rounded-xl border border-[#00C2E8]/30 bg-white px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-[#07111F] file:px-4 file:py-2 file:font-black file:text-white"
               />
               <p className="mt-3 text-xs leading-5 text-slate-500">
-                Up to 5 files. Maximum 5 MB per file and 10 MB total. Accepted:
+                Up to 5 files. Maximum 4 MB per file and 4 MB total. Accepted:
                 PDF, AI, EPS, PSD, SVG, PNG, JPG, WEBP, TIFF and CDR.
               </p>
             </div>
