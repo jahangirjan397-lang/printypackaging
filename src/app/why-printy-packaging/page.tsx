@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 };
 
 const reasons = [
-  "Modern custom packaging website structure",
-  "Clear product, category and market pages",
-  "Helpful materials and finishing guides",
-  "Quote form connected with internal inquiry tracking",
-  "Buyer-focused packaging education",
-  "USA, UK, Canada, Europe, UAE and worldwide support",
+  "Custom sizes, structures and product-specific packaging guidance",
+  "Clear material, GSM, printing and finishing options",
+  "Artwork, dieline and sample guidance before production",
+  "Quote requests that capture the details needed for review",
+  "Connected product, category, market and resource guidance",
+  "Support for USA, UK, Canada, Europe, UAE and worldwide inquiries",
 ];
 
 export default function WhyPrintyPackagingPage() {
@@ -42,10 +42,9 @@ export default function WhyPrintyPackagingPage() {
             </h1>
 
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Printy Packaging provides a fast, professional and
-              SEO-friendly custom packaging website for global buyers who need
-              clear quote guidance, product education and premium packaging
-              options.
+              Printy Packaging helps global buyers compare packaging structures,
+              materials, printing, finishing and artwork requirements before moving
+              into quote and production planning.
             </p>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -67,11 +66,11 @@ export default function WhyPrintyPackagingPage() {
 
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-6">
             <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
-              Project Strength
+              Buyer Support
             </p>
 
             <h2 className="mt-4 text-3xl font-black tracking-tight">
-              Designed for trust, speed and quote conversion.
+              Designed to make custom packaging decisions clearer.
             </h2>
 
             <div className="mt-6 grid gap-3">
