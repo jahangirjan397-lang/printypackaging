@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -81,18 +82,18 @@ export default function ContactPage() {
       <section className="relative overflow-hidden bg-[#07111F] px-4 py-20 text-white sm:px-5 md:px-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.22),transparent_30%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.14),transparent_28%)]" />
 
-        <div className="relative mx-auto max-w-7xl">
-          <div className="max-w-3xl">
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
             <p className="inline-flex rounded-full border border-[#00C2E8]/40 bg-[#00C2E8]/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#9FEFFF]">
               Contact Printy Packaging
             </p>
 
             <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight md:text-6xl">
-  Custom packaging quote support for{" "}
-  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
-    serious brands.
-  </span>
-</h1>
+              Custom packaging quote support for{" "}
+              <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+                serious brands.
+              </span>
+            </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
               Need custom boxes, rigid boxes, mailer boxes, folding cartons,
@@ -114,6 +115,28 @@ export default function ContactPage() {
               >
                 Email Sales Team
               </a>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+              <Image
+                src="/images/home/home-hero-mailer.webp"
+                alt="Custom packaging prepared for quote and buyer support"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/85 via-transparent to-[#07111F]/10" />
+              <div className="absolute inset-x-6 bottom-6">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                  Faster quote preparation
+                </p>
+                <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                  Size, quantity, material, print, finish and artwork status in one inquiry.
+                </p>
+              </div>
             </div>
           </div>
         </div>
