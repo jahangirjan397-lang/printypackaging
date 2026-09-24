@@ -3,9 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "../../components/Header";
 import { markets } from "../../data/markets";
+import { products } from "../../data/products";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
+
+function getMarketPreview(productSlugs: string[]) {
+  return (
+    products.find(
+      (product) => productSlugs.includes(product.slug) && product.images?.[0]
+    )?.images?.[0] || {
+      src: "/images/home/home-hero-mailer.webp",
+      alt: "Custom printed packaging boxes for international buyers",
+    }
+  );
+}
 
 export const metadata: Metadata = {
   title: "International Packaging Markets",
@@ -177,6 +189,16 @@ export default function MarketsPage() {
                   prefetch={false}
                   className="pp-card group rounded-[2rem] bg-white p-7 shadow-md"
                 >
+                  <div className="relative -mx-7 -mt-7 mb-6 h-48 overflow-hidden rounded-t-[2rem] bg-[#EDE5DC]">
+                    <Image
+                      src={getMarketPreview(market.productSlugs).src}
+                      alt={getMarketPreview(market.productSlugs).alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
                     {market.region}
                   </p>
