@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, mkdirSync, copyFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync, copyFileSync, statSync } from "node:fs";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 
 const libraryRoot = process.argv[2] && resolve(process.argv[2]);
@@ -81,7 +81,28 @@ for (const item of entries) {
     problems.push(`${item.filename}: exceeds 2 MB; optimize export first`);
     continue;
   }
-  pending.push({ source, target });
+  pending.push({ source, target, item });
+}
+const registryPath = resolve(siteRoot, "src/data/stagedProductImages.json");
+const registry = JSON.parse(readFileSync(registryPath, "utf8"));
+const requiredViews = ["hero", "front", "open", "finish", "lifestyle"];
+let galleriesAdded = 0;
+for (const slug of new Set(entries
+  .filter((entry) => entry.notes === "No dedicated photo currently")
+  .map((entry) => entry.filename.replace(/-(hero|front|open|finish|lifestyle)\.webp$/, "")))) {
+  const found = requiredViews.map((view) =>
+    pending.find(({item}) => item.filename === `${slug}-${view}.webp`));
+  if (!registry[slug] && found.some(Boolean) && !found.every(Boolean)) {
+    problems.push(`${slug}: add all five views before staging a new product gallery`);
+  }
+  if (found.every(Boolean)) {
+    registry[slug] = found.map(({item}, index) => ({
+      src: `/${item.website_destination.replace(/^public\//, "")}`,
+      alt: `${item.brief.split(";")[0]} - ${requiredViews[index]} view`,
+      title: `${slug.replaceAll("-", " ")} ${requiredViews[index]} view`,
+    }));
+    galleriesAdded++;
+  }
 }
 if (problems.length) {
   console.error(problems.join("\n"));
@@ -95,5 +116,8 @@ for (const {source,target} of pending) {
   mkdirSync(dirname(target), {recursive:true});
   copyFileSync(source,target);
 }
-console.log(`Staged ${pending.length} validated images. ${skipped.length} planned editorial/portfolio slots need page mapping.`);
+if (galleriesAdded) {
+  writeFileSync(registryPath, JSON.stringify(registry, null, 2) + "\n");
+}
+console.log(`Staged ${pending.length} validated images and mapped ${galleriesAdded} new product galleries. ${skipped.length} planned editorial/portfolio slots need page mapping.`);
 console.log("Review the changed files, then run lint, build and preview QA before deploying.");
