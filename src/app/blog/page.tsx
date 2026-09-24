@@ -2,42 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "@/data/blogs";
-
-const blogVisuals: Record<string, { src: string; alt: string }> = {
-  "custom-packaging-quote-guide": {
-    src: "/images/products/mailer-boxes/mailer-boxes-hero.webp",
-    alt: "Custom printed mailer boxes used to illustrate packaging quote planning",
-  },
-  "packaging-materials-guide": {
-    src: "/images/home/home-materials-finishes.webp",
-    alt: "Packaging materials and finishing samples",
-  },
-  "finishing-options-for-custom-boxes": {
-    src: "/images/products/luxury-packaging/luxury-packaging-finish.webp",
-    alt: "Premium custom packaging finish options",
-  },
-  "artwork-dieline-checklist": {
-    src: "/images/products/folding-cartons/folding-cartons-open.webp",
-    alt: "Folding carton structure for artwork and dieline planning",
-  },
-  "mailer-boxes-for-ecommerce-brands": {
-    src: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
-    alt: "Mailer boxes for ecommerce packaging",
-  },
-  "food-packaging-for-restaurants-cafes-and-bakeries": {
-    src: "/images/products/food-packaging/food-packaging-hero.webp",
-    alt: "Custom food packaging for restaurants cafes and bakeries",
-  },
-};
-
-function getBlogVisual(slug: string) {
-  return (
-    blogVisuals[slug] || {
-      src: "/images/hero/hero-packaging.webp",
-      alt: "Custom printed packaging by Printy Packaging",
-    }
-  );
-}
+import { getBlogVisual } from "@/data/blogVisuals";
 
 export const metadata: Metadata = {
   alternates: {
@@ -111,17 +76,8 @@ export default function BlogPage() {
                 sizes="(max-width: 1024px) 100vw, 48vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/75 via-transparent to-[#07111F]/10" />
               <div className="absolute left-8 top-8 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
                 Featured Guide
-              </div>
-              <div className="absolute inset-x-8 bottom-8">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                  Packaging knowledge
-                </p>
-                <p className="mt-2 max-w-sm text-xl font-black text-white">
-                  Practical guidance connected to real packaging products.
-                </p>
               </div>
             </div>
 
@@ -165,7 +121,6 @@ export default function BlogPage() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/55 via-transparent to-transparent" />
                 </div>
 
                 <div className="p-7">
