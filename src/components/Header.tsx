@@ -68,6 +68,7 @@ const resourceLinks = [
   { name: "Packaging Guide", href: "/packaging-guide", label: "Buyer education" },
   { name: "Custom Packaging", href: "/custom-packaging", label: "How custom orders work" },
   { name: "Packaging Blog", href: "/blog", label: "Articles & guides" },
+  { name: "Packaging Gallery", href: "/portfolio", label: "Visual concepts" },
 ];
 
 const mobileLinks = [
@@ -77,6 +78,7 @@ const mobileLinks = [
   { name: "Markets", href: "/markets" },
   { name: "Resources", href: "/resources" },
   { name: "Blog", href: "/blog" },
+  { name: "Gallery", href: "/portfolio" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
   { name: "Get Quote", href: "/#quote" },
@@ -209,6 +211,7 @@ export default function Header() {
               wide
             />
 
+            <NavLink href="/portfolio">Gallery</NavLink>
             <NavLink href="/about">About</NavLink>
             <NavLink href="/contact">Contact</NavLink>
             <NavLink href="/#quote">Quote</NavLink>
