@@ -751,10 +751,30 @@ export async function POST(request: Request) {
       );
     }
 
-    const [crmResult, adminEmailResult] = await Promise.all([
-      saveLeadToGoogleSheet(lead, uploadedFiles),
-      sendAdminEmail(lead, uploadedFiles),
-    ]);
+    let crmResult: ServiceResult;
+    let adminEmailResult: ServiceResult;
+
+    if (uploadedFiles.length > 0) {
+      // The email attachment is the delivery channel for artwork. Do not
+      // record the lead first and then ask the buyer to retry a failed upload.
+      adminEmailResult = await sendAdminEmail(lead, uploadedFiles);
+      if (!adminEmailResult.success) {
+        return NextResponse.json(
+          {
+            success: false,
+            message:
+              "We could not deliver your artwork right now. Please try again or contact us through WhatsApp.",
+          },
+          { status: 503 }
+        );
+      }
+      crmResult = await saveLeadToGoogleSheet(lead, uploadedFiles);
+    } else {
+      [crmResult, adminEmailResult] = await Promise.all([
+        saveLeadToGoogleSheet(lead, uploadedFiles),
+        sendAdminEmail(lead, uploadedFiles),
+      ]);
+    }
 
     console.info("Quote lead:",{quoteId:lead.quoteId});
     console.info("Google Sheet CRM:",{quoteId:lead.quoteId,success:crmResult.success,skipped:Boolean(crmResult.skipped)});
