@@ -256,13 +256,18 @@ function checkRateLimit(ip: string) {
   };
 }
 
-function isAllowedOrigin(origin: string | null) {
+function isAllowedOrigin(origin: string | null, requestUrl: string) {
   if (!origin) {
     return true;
   }
 
   try {
     const url = new URL(origin);
+    const site = new URL(requestUrl);
+
+    if (url.origin === site.origin) {
+      return true;
+    }
 
     if (
       url.protocol === "http:" &&
@@ -628,7 +633,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    if (!isAllowedOrigin(request.headers.get("origin"))) {
+    if (!isAllowedOrigin(request.headers.get("origin"), request.url)) {
       return NextResponse.json(
         {
           success: false,
