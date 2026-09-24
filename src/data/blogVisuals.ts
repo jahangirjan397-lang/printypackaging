@@ -19,7 +19,7 @@ export const blogVisuals: Record<string, { src: string; alt: string }> = {
     src: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
     alt: "Printed mailer boxes for ecommerce orders",
   },
-  "food-packaging-for-restaurants-cafes-and-bakeries": {
+  "food-packaging-for-restaurants": {
     src: "/images/products/food-packaging/food-packaging-hero.webp",
     alt: "Bakery and takeaway food boxes with printed branding",
   },
