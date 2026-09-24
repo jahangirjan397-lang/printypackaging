@@ -16,11 +16,11 @@ const blogVisuals: Record<string, { src: string; alt: string }> = {
     src: "/images/products/luxury-packaging/luxury-packaging-finish.webp",
     alt: "Premium custom packaging finish options",
   },
-  "artwork-and-dieline-checklist-for-packaging": {
+  "artwork-dieline-checklist": {
     src: "/images/products/folding-cartons/folding-cartons-open.webp",
     alt: "Folding carton structure for artwork and dieline planning",
   },
-  "why-mailer-boxes-work-for-ecommerce-brands": {
+  "mailer-boxes-for-ecommerce-brands": {
     src: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
     alt: "Mailer boxes for ecommerce packaging",
   },
