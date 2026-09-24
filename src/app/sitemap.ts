@@ -30,6 +30,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${siteUrl}/portfolio`,
+      changeFrequency: "monthly",
+      priority: 0.76,
+    },
+    {
       url: `${siteUrl}/blog`,
       changeFrequency: "weekly",
       priority: 0.82,
