@@ -42,10 +42,10 @@ export default function PaymentMethodsSection() {
   return (
     <section className="bg-white px-5 py-16 text-slate-950 md:px-8 md:py-20">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#00A7C7]">
-              Secure Payment Options
+              Payment Options
             </p>
 
             <h2 className="mt-4 text-4xl font-black tracking-tight text-[#07111F] md:text-5xl">
@@ -64,6 +64,13 @@ export default function PaymentMethodsSection() {
                 This section does not collect card or banking details.
               </p>
             </div>
+
+            <a
+              href="/#quote"
+              className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-3.5 text-sm font-black text-white transition hover:bg-[#007C91]"
+            >
+              Request a Quote
+            </a>
           </div>
 
           <div>
@@ -88,31 +95,27 @@ export default function PaymentMethodsSection() {
               ))}
             </div>
 
-            <div className="mt-6 rounded-[2rem] bg-[#07111F] p-6 text-white">
-              <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-                <div className="max-w-sm">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                    Payment flow
-                  </p>
-                  <h3 className="mt-3 text-2xl font-black">
-                    Quote → invoice → approved payment → production
-                  </h3>
-                </div>
+          </div>
+        </div>
 
-                <div className="grid flex-1 gap-3 sm:grid-cols-2">
-                  {paymentSteps.map((step, index) => (
-                    <div key={step} className="flex gap-3 rounded-2xl bg-white/[0.06] p-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black">
-                        {index + 1}
-                      </div>
-                      <p className="text-sm font-bold leading-6 text-slate-200">
-                        {step}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+        <div className="mt-10 rounded-[2rem] bg-[#07111F] p-6 text-white md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+            Payment flow
+          </p>
+          <h3 className="mt-3 text-2xl font-black md:text-3xl">
+            From approved quote to production
+          </h3>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {paymentSteps.map((step, index) => (
+              <div key={step} className="flex gap-4 rounded-2xl bg-white/[0.06] p-5">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF6A00] text-sm font-black">
+                  {index + 1}
+                </span>
+                <p className="text-sm font-bold leading-6 text-slate-200">
+                  {step}
+                </p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
