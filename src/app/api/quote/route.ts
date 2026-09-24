@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const MAX_JSON_BODY_LENGTH = 30_000;
-const MAX_UPLOAD_BODY_LENGTH = 12 * 1024 * 1024;
+const MAX_UPLOAD_BODY_LENGTH = 4_250_000;
 const MAX_FILES = 5;
-const MAX_SINGLE_FILE_SIZE = 5 * 1024 * 1024;
-const MAX_TOTAL_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_SINGLE_FILE_SIZE = 4_000_000;
+const MAX_TOTAL_FILE_SIZE = 4_000_000;
 const ALLOWED_FILE_EXTENSIONS = new Set([
   ".pdf", ".ai", ".eps", ".psd", ".svg", ".png", ".jpg",
   ".jpeg", ".webp", ".tif", ".tiff", ".cdr",
@@ -696,11 +696,11 @@ export async function POST(request: Request) {
           return NextResponse.json({ success: false, message: "One of the uploaded files is not a supported artwork format." }, { status: 400 });
         }
         if (file.size > MAX_SINGLE_FILE_SIZE) {
-          return NextResponse.json({ success: false, message: `"${filename}" is larger than 5 MB.` }, { status: 400 });
+          return NextResponse.json({ success: false, message: `"${filename}" is larger than 4 MB.` }, { status: 400 });
         }
         totalFileSize += file.size;
         if (totalFileSize > MAX_TOTAL_FILE_SIZE) {
-          return NextResponse.json({ success: false, message: "Artwork files must be 10 MB or less in total." }, { status: 400 });
+          return NextResponse.json({ success: false, message: "Artwork files must be 4 MB or less in total." }, { status: 400 });
         }
         uploadedFiles.push({ filename, contentType: file.type || "application/octet-stream", size: file.size, content: Buffer.from(await file.arrayBuffer()) });
       }
