@@ -738,6 +738,19 @@ export async function POST(request: Request) {
       );
     }
 
+    // Artwork is delivered through the admin email attachment. Reject before
+    // saving a CRM row if that channel cannot carry the files.
+    if (uploadedFiles.length > 0 && !getEmailConfig().configured) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Artwork upload is temporarily unavailable. Please send your quote without files or contact us through WhatsApp.",
+        },
+        { status: 503 }
+      );
+    }
+
     const [crmResult, adminEmailResult] = await Promise.all([
       saveLeadToGoogleSheet(lead, uploadedFiles),
       sendAdminEmail(lead, uploadedFiles),
