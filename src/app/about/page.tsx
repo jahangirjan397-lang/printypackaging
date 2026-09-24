@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -133,32 +134,35 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-5 shadow-2xl shadow-cyan-950/40">
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#07111F] p-6">
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
-                What We Help With
-              </p>
+          <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-4 shadow-2xl shadow-cyan-950/40">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+              <Image
+                src="/images/home/home-trust-production.webp"
+                alt="Custom packaging production presentation and quality review"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 46vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/90 via-[#07111F]/15 to-transparent" />
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight">
-                Boxes, materials, finishing and quote-ready planning.
-              </h2>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {productTypes.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-slate-200"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 rounded-3xl border border-orange-400/20 bg-orange-500/10 p-5">
-                <p className="text-sm leading-7 text-slate-300">
-                  Our goal is to make packaging easier for buyers by giving
-                  clear direction before final quote and production planning.
+              <div className="absolute inset-x-6 bottom-6">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                  Packaging support from brief to production
                 </p>
+                <h2 className="mt-2 text-2xl font-black tracking-tight text-white">
+                  Boxes, materials, finishing, artwork and quote-ready planning.
+                </h2>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {productTypes.slice(0, 4).map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-white/15 bg-[#07111F]/80 px-3 py-2 text-xs font-bold text-white backdrop-blur"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
