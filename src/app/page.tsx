@@ -7,6 +7,7 @@ import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
 import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
+import PaymentMethodsSection from "../components/PaymentMethodsSection";
 import QuoteSection from "../components/QuoteSection";
 
 export const metadata: Metadata = {
@@ -51,6 +52,7 @@ export default function Home() {
       <WhyChoosePrintySection />
       <OrderProcessSection />
       <IndustryBuyerSection />
+      <PaymentMethodsSection />
       <QuoteSection />
     </>
   );
