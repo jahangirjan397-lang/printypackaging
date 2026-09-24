@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
@@ -6,6 +7,42 @@ import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
 const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
 const websiteId = `${siteUrl}#website`;
+
+const blogVisuals: Record<string, { src: string; alt: string }> = {
+  "custom-packaging-quote-guide": {
+    src: "/images/products/mailer-boxes/mailer-boxes-hero.webp",
+    alt: "Custom mailer boxes for packaging quote planning",
+  },
+  "packaging-materials-guide": {
+    src: "/images/home/home-materials-finishes.webp",
+    alt: "Packaging materials and finishing samples",
+  },
+  "finishing-options-for-custom-boxes": {
+    src: "/images/products/luxury-packaging/luxury-packaging-finish.webp",
+    alt: "Premium finishing options on custom packaging",
+  },
+  "artwork-dieline-checklist": {
+    src: "/images/products/folding-cartons/folding-cartons-open.webp",
+    alt: "Folding carton structure for dieline and artwork planning",
+  },
+  "mailer-boxes-for-ecommerce-brands": {
+    src: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
+    alt: "Mailer boxes for ecommerce brands",
+  },
+  "food-packaging-for-restaurants-cafes-and-bakeries": {
+    src: "/images/products/food-packaging/food-packaging-hero.webp",
+    alt: "Custom food packaging for restaurants cafes and bakeries",
+  },
+};
+
+function getBlogVisual(slug: string) {
+  return (
+    blogVisuals[slug] || {
+      src: "/images/hero/hero-packaging.webp",
+      alt: "Custom printed packaging by Printy Packaging",
+    }
+  );
+}
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -59,6 +96,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = blogPosts
     .filter((item) => item.slug !== post.slug)
     .slice(0, 3);
+
+  const articleVisual = getBlogVisual(post.slug);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -155,25 +194,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span className="text-[#FF6A00]">{post.category}</span>
           </div>
 
-          <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
-            {post.category}
-          </div>
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
+                {post.category}
+              </div>
 
-          <h1 className="mt-8 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            {post.title}
-          </h1>
+              <h1 className="mt-8 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                {post.title}
+              </h1>
 
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            {post.excerpt}
-          </p>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+                {post.excerpt}
+              </p>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-400">
-            <span>{post.readTime}</span>
-            <span>•</span>
-            <span>{post.publishedAt}</span>
-          </div>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-400">
+                <span>{post.readTime}</span>
+                <span>•</span>
+                <span>{post.publishedAt}</span>
+              </div>
 
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
               href="/?product=mailer-boxes#quote"
               className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
@@ -187,6 +228,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             >
               Resources
             </Link>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+                <Image
+                  src={articleVisual.src}
+                  alt={articleVisual.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 48vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/80 via-transparent to-[#07111F]/10" />
+                <div className="absolute inset-x-6 bottom-6">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                    Buyer Guide
+                  </p>
+                  <p className="mt-2 text-xl font-black text-white">
+                    Practical packaging guidance connected to real product options.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
