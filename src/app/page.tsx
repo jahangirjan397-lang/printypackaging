@@ -52,8 +52,8 @@ export default function Home() {
       <WhyChoosePrintySection />
       <OrderProcessSection />
       <IndustryBuyerSection />
-      <PaymentMethodsSection />
       <QuoteSection />
+      <PaymentMethodsSection />
     </>
   );
 }
