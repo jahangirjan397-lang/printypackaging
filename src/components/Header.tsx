@@ -59,11 +59,23 @@ const marketLinks = [
   { name: "Australia Packaging", href: "/markets/australia", label: "Australia" },
 ];
 
+const resourceLinks = [
+  { name: "Resources Hub", href: "/resources", label: "Start here" },
+  { name: "Packaging Materials", href: "/packaging-materials", label: "Board & paper guide" },
+  { name: "Finishing Options", href: "/finishing-options", label: "Foil, UV & lamination" },
+  { name: "Artwork & Dielines", href: "/artwork-guide", label: "Print-ready artwork" },
+  { name: "Sample Kit", href: "/sample-kit", label: "Review before order" },
+  { name: "Packaging Guide", href: "/packaging-guide", label: "Buyer education" },
+  { name: "Custom Packaging", href: "/custom-packaging", label: "How custom orders work" },
+  { name: "Packaging Blog", href: "/blog", label: "Articles & guides" },
+];
+
 const mobileLinks = [
   { name: "Home", href: "/" },
   { name: "Products", href: "/products" },
   { name: "Categories", href: "/categories" },
   { name: "Markets", href: "/markets" },
+  { name: "Resources", href: "/resources" },
   { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
@@ -186,7 +198,17 @@ export default function Header() {
               ctaHref="/markets"
             />
 
-            <NavLink href="/blog">Blog</NavLink>
+            <MegaMenu
+              title="Resources"
+              href="/resources"
+              heading="Packaging Resources"
+              description="Materials, finishes, artwork, samples and practical buying guides."
+              links={resourceLinks}
+              ctaText="Resources Hub"
+              ctaHref="/resources"
+              wide
+            />
+
             <NavLink href="/about">About</NavLink>
             <NavLink href="/contact">Contact</NavLink>
             <NavLink href="/#quote">Quote</NavLink>
