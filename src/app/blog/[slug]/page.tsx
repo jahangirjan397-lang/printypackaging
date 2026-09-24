@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
 
 const siteUrl = "https://printypackaging.com";
+const organizationId = `${siteUrl}#organization`;
+const websiteId = `${siteUrl}#website`;
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -66,15 +68,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     author: {
-      "@type": "Organization",
-      name: "Printy Packaging",
+      "@id": organizationId,
     },
     publisher: {
-      "@type": "Organization",
-      name: "Printy Packaging",
-      url: siteUrl,
+      "@id": organizationId,
     },
-    mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
+    isPartOf: {
+      "@id": websiteId,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/blog/${post.slug}`,
+    },
     keywords: post.keywords.join(", "),
   };
 

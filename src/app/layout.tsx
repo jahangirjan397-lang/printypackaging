@@ -11,6 +11,8 @@ import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
 const brandEmail = "sales@printypackaging.com";
+const organizationId = `${siteUrl}#organization`;
+const websiteId = `${siteUrl}#website`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -96,6 +98,7 @@ export default function RootLayout({
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId,
     name: brandName,
     alternateName: "Printy Packaging",
     url: siteUrl,
@@ -186,13 +189,12 @@ export default function RootLayout({
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": websiteId,
     name: brandName,
     alternateName: "Printy Packaging",
     url: siteUrl,
     publisher: {
-      "@type": "Organization",
-      name: brandName,
-      logo: `${siteUrl}/logo-icon.svg`,
+      "@id": organizationId,
     },
   };
 
