@@ -11,6 +11,7 @@ const productLinks = [
 ];
 
 const companyLinks = [
+  { label: "Packaging Gallery", href: "/portfolio" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
   { label: "Why Printy Packaging", href: "/why-printy-packaging" },
