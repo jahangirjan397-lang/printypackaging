@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -50,8 +51,8 @@ export default function ResourcesPage() {
         <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
         <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
-          <div className="max-w-4xl">
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-20 sm:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
+          <div>
             <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
               Packaging Resources
             </div>
@@ -82,6 +83,28 @@ export default function ResourcesPage() {
               >
                 View Products
               </Link>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+              <Image
+                src="/images/home/home-sample-kit.webp"
+                alt="Packaging sample kit materials finishes and buyer resources"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/80 via-transparent to-[#07111F]/10" />
+              <div className="absolute inset-x-6 bottom-6">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                  Learn before production
+                </p>
+                <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                  Materials, finishes, artwork and samples connected to your quote journey.
+                </p>
+              </div>
             </div>
           </div>
         </div>
