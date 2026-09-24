@@ -112,8 +112,9 @@ export default function PortfolioPage() {
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {items.map(({ product, ...item }) => {
-              const cover = product.images![0];
-              const detail = product.images![3] ?? product.images![1];
+              const cover = product.images?.[0];
+              const detail = product.images?.[3] ?? product.images?.[1];
+              if (!cover) return null;
 
               return (
                 <article
