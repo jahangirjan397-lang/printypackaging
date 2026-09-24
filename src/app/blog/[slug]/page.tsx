@@ -216,7 +216,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/?product=mailer-boxes#quote"
+              href="/#quote"
               className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
             >
               Get Quote
@@ -317,7 +317,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
 
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
               >
                 Request Quote
