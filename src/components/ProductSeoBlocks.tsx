@@ -49,10 +49,9 @@ export default function ProductSeoBlocks() {
             </h2>
 
             <p className="mt-5 leading-8 text-slate-600">
-              Strong product pages need helpful information about size,
-              material, printing, finishing, artwork and quote requirements.
-              These blocks help buyers understand what matters before sending an
-              inquiry.
+              Before ordering, compare the details that affect structure, print quality,
+              finishing, product protection and final quote accuracy. These guides help
+              buyers prepare a clearer packaging brief before sending an inquiry.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
