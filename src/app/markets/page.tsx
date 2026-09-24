@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Header from "../../components/Header";
 import { markets } from "../../data/markets";
@@ -87,40 +88,63 @@ export default function MarketsPage() {
         <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
 
-          <div className="relative mx-auto max-w-7xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
-              International Markets
-            </p>
+          <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="text-center lg:text-left">
+              <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
+                International Markets
+              </p>
 
-            <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
-  Packaging for{" "}
-  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
-    Global Buyers
-  </span>
-</h1>
+              <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
+                Packaging for{" "}
+                <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+                  Global Buyers
+                </span>
+              </h1>
 
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Explore custom packaging pages for USA, UK, Canada, Europe, UAE
-              and Australia clients. We help buyers choose box style, material,
-              printing and finishing.
-            </p>
+              <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300 lg:mx-0">
+                Review packaging options by buyer market, then connect product style,
+                material, finishing, artwork and delivery details in one quote-ready flow.
+              </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link
-                href="/#quote"
-                prefetch={false}
-                className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
-              >
-                Get Global Quote
-              </Link>
+              <div className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+                <Link
+                  href="/#quote"
+                  prefetch={false}
+                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                >
+                  Get Global Quote
+                </Link>
 
-              <Link
-                href="/products"
-                prefetch={false}
-                className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
-              >
-                View Products
-              </Link>
+                <Link
+                  href="/products"
+                  prefetch={false}
+                  className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
+                >
+                  View Products
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+                <Image
+                  src="/images/home/home-hero-mailer.webp"
+                  alt="Custom packaging prepared for international buyers and ecommerce brands"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 48vw"
+                  className="object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/85 via-transparent to-[#07111F]/10" />
+                <div className="absolute inset-x-6 bottom-6">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                    International quote support
+                  </p>
+                  <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                    Product, material, finish and delivery requirements kept in one buyer journey.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -164,6 +188,11 @@ export default function MarketsPage() {
                   <p className="mt-3 min-h-20 leading-7 text-slate-600">
                     {market.tagline}
                   </p>
+
+                  <div className="mt-5 grid grid-cols-2 gap-2 text-xs font-bold text-slate-600">
+                    <span className="rounded-xl bg-[#F7FAFC] px-3 py-2">Product guidance</span>
+                    <span className="rounded-xl bg-[#F7FAFC] px-3 py-2">Quote support</span>
+                  </div>
 
                   <span className="mt-5 inline-flex font-black text-[#FF6A00] group-hover:text-[#007C91]">
                     View Market &rarr;
