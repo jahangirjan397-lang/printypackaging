@@ -3,46 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
+import { getBlogVisual } from "@/data/blogVisuals";
 
 const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
 const websiteId = `${siteUrl}#website`;
-
-const blogVisuals: Record<string, { src: string; alt: string }> = {
-  "custom-packaging-quote-guide": {
-    src: "/images/products/mailer-boxes/mailer-boxes-hero.webp",
-    alt: "Custom mailer boxes for packaging quote planning",
-  },
-  "packaging-materials-guide": {
-    src: "/images/home/home-materials-finishes.webp",
-    alt: "Packaging materials and finishing samples",
-  },
-  "finishing-options-for-custom-boxes": {
-    src: "/images/products/luxury-packaging/luxury-packaging-finish.webp",
-    alt: "Premium finishing options on custom packaging",
-  },
-  "artwork-dieline-checklist": {
-    src: "/images/products/folding-cartons/folding-cartons-open.webp",
-    alt: "Folding carton structure for dieline and artwork planning",
-  },
-  "mailer-boxes-for-ecommerce-brands": {
-    src: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
-    alt: "Mailer boxes for ecommerce brands",
-  },
-  "food-packaging-for-restaurants-cafes-and-bakeries": {
-    src: "/images/products/food-packaging/food-packaging-hero.webp",
-    alt: "Custom food packaging for restaurants cafes and bakeries",
-  },
-};
-
-function getBlogVisual(slug: string) {
-  return (
-    blogVisuals[slug] || {
-      src: "/images/hero/hero-packaging.webp",
-      alt: "Custom printed packaging by Printy Packaging",
-    }
-  );
-}
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -241,15 +206,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   sizes="(max-width: 1024px) 100vw, 48vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/80 via-transparent to-[#07111F]/10" />
-                <div className="absolute inset-x-6 bottom-6">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                    Buyer Guide
-                  </p>
-                  <p className="mt-2 text-xl font-black text-white">
-                    Practical packaging guidance connected to real product options.
-                  </p>
-                </div>
               </div>
             </div>
           </div>
