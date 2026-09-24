@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Category } from "../data/categories";
 import { products } from "../data/products";
@@ -93,6 +94,9 @@ export default function CategoryPageTemplate({
   const categoryProducts = products.filter((product) =>
     category.productSlugs.includes(product.slug)
   );
+
+  const heroProduct = categoryProducts[0];
+  const heroImage = heroProduct?.images?.[0];
 
   const otherProducts = products
     .filter((product) => !category.productSlugs.includes(product.slug))
@@ -248,25 +252,34 @@ export default function CategoryPageTemplate({
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl">
-              <div className="relative h-[380px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl sm:p-5">
+              <div className="relative h-[320px] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC] sm:h-[380px]">
+                {heroImage ? (
+                  <Image
+                    src={heroImage.src}
+                    alt={heroImage.alt}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 48vw"
+                    className="object-cover object-center"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+                )}
 
-                <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
-                  Category Hub
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/85 via-[#07111F]/10 to-transparent" />
+
+                <div className="absolute left-6 top-6 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur sm:left-8 sm:top-8">
+                  {category.name}
                 </div>
 
-                <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
-
-                <div className="absolute bottom-16 right-10 h-56 w-40 rounded-2xl bg-[#07111F] shadow-2xl">
-                  <div className="mx-auto mt-12 h-16 w-16 rounded-full border border-[#FF6A00]" />
-                  <p className="mt-8 px-4 text-center text-lg font-black tracking-widest text-white">
-                    {category.name.split(" ")[0]}
+                <div className="absolute inset-x-6 bottom-6 sm:inset-x-8 sm:bottom-8">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                    Curated Packaging Range
                   </p>
-                </div>
-
-                <div className="absolute bottom-8 right-8 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black uppercase tracking-[0.2em] text-white">
-                  Fast Quote
+                  <p className="mt-2 max-w-md text-xl font-black leading-7 text-white sm:text-2xl">
+                    {categoryProducts.length} connected product styles with materials, finishes and quote guidance.
+                  </p>
                 </div>
               </div>
             </div>
@@ -303,22 +316,32 @@ export default function CategoryPageTemplate({
                 className="group overflow-hidden rounded-[1.7rem] bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <Link href={`/products/${product.slug}`} prefetch={false}>
-                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                    <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
+                  <div className="relative h-52 overflow-hidden bg-[#EDE5DC]">
+                    {product.images?.[0] ? (
+                      <Image
+                        src={product.images[0].src}
+                        alt={product.images[0].alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+                    )}
 
-                    <span className="absolute left-5 top-5 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/55 via-transparent to-[#07111F]/10" />
+
+                    <span className="absolute left-5 top-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
                       {getProductVisualLabel(product.name)}
                     </span>
 
-                    <span className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
-                      {index + 1}
+                    <span className="absolute right-5 top-5 flex h-8 min-w-8 items-center justify-center rounded-full bg-[#FF6A00] px-2 text-xs font-black text-white">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
 
-                    <div className="absolute bottom-7 left-7 h-24 w-32 rotate-[-8deg] rounded-2xl bg-white shadow-2xl" />
-
-                    <div className="absolute bottom-11 right-8 h-32 w-24 rounded-2xl bg-[#07111F] shadow-2xl">
-                      <div className="mx-auto mt-7 h-9 w-9 rounded-full border border-[#FF6A00]" />
-                    </div>
+                    <span className="absolute bottom-5 left-5 rounded-full bg-white/92 px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#07111F] shadow-lg">
+                      Product Preview
+                    </span>
                   </div>
                 </Link>
 
@@ -469,17 +492,16 @@ export default function CategoryPageTemplate({
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-              Category Authority
+              Buyer Guidance
             </p>
 
             <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-              Why this category matters for buyers
+              Compare the details that affect your packaging
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Category pages help customers compare related packaging products
-              and help search engines understand your website structure. This
-              creates a stronger internal linking system for SEO.
+              Review related structures, materials, finishes and common uses in one place,
+              then open the product page that best fits your product before requesting a quote.
             </p>
           </div>
 
