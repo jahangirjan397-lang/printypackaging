@@ -2,9 +2,9 @@ name: Website validation
 
 on:
   pull_request:
-    branches: [printy-final-work]
+    branches: [printy-final-work, main]
   push:
-    branches: [printy-master-system]
+    branches: [printy-final-work, main]
 
 jobs:
   quality:
