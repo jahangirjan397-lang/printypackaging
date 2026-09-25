@@ -18,6 +18,8 @@ Production `main`: unchanged.
 
 ## Remaining launch gates
 
+0. **Blocker:** replace or clear every temporary image listed in `IMAGE-FIX-LIST.md` (rights unconfirmed, third-party branding on several). Do not deploy to production before this is done.
+
 1. Receive the user's nine missing product galleries (45 WebP images), then remaining approved replacements. Review real product structure, composition, permission and filenames; stage images on this branch.
 2. Map any new category/blog/portfolio images and build the curated portfolio. Mark concept visuals honestly and avoid invented customers or reviews.
 3. Confirm SMTP and Google Sheet webhook credentials in the target deployment; submit an end-to-end test quote with and without artwork, verify receiver email, client reply and CRM row. Do not expose secrets in Git.
