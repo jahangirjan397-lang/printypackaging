@@ -4,7 +4,7 @@ export const blogVisuals: Record<string, { src: string; alt: string }> = {
     alt: "Custom mailer box example for packaging quote planning",
   },
   "packaging-materials-guide": {
-    src: "/images/home/home-materials-finishes.webp",
+    src: "/images/blog/materials-guide.webp",
     alt: "Paperboard, corrugated board and printed packaging samples",
   },
   "finishing-options-for-custom-boxes": {

@@ -2,7 +2,7 @@
   "magnetic-boxes": [
     {
       "src": "/images/products/magnetic-boxes/magnetic-boxes-hero.webp",
-      "alt": "Open white magnetic-closure rigid box with dark interior (concept image)",
+      "alt": "Red magnetic-closure rigid gift box with ribbon pull (concept image)",
       "title": "magnetic boxes hero view"
     },
     {
@@ -29,49 +29,49 @@
   "drawer-boxes": [
     {
       "src": "/images/products/drawer-boxes/drawer-boxes-hero.webp",
-      "alt": "Printed drawer box with the tray slid out of the outer sleeve (concept image)",
+      "alt": "Four slide-out drawer boxes in orange, kraft, black and navy with pull tabs (concept image)",
       "title": "drawer boxes hero view"
     },
     {
       "src": "/images/products/drawer-boxes/drawer-boxes-front.webp",
-      "alt": "Navy drawer box with pull tab and flat dieline layout (concept image)",
+      "alt": "White drawer box with sliding lid and Printy Packaging logo on the lid (concept image)",
       "title": "drawer boxes front view"
     },
     {
       "src": "/images/products/drawer-boxes/drawer-boxes-open.webp",
-      "alt": "Pink drawer box opened to show a fitted insert for small bottles (concept image)",
+      "alt": "Brown drawer box pulled open to show a divided chocolate insert (concept image)",
       "title": "drawer boxes open view"
     },
     {
       "src": "/images/products/drawer-boxes/drawer-boxes-finish.webp",
-      "alt": "Dark drawer box with pull tab and fitted insert (concept image)",
+      "alt": "Navy matte drawer box with black pull ribbon and white inner tray (concept image)",
       "title": "drawer boxes finish view"
     },
     {
       "src": "/images/products/drawer-boxes/drawer-boxes-lifestyle.webp",
-      "alt": "Black drawer box with open tray on a table (concept image)",
+      "alt": "Stack of coloured drawer boxes with finger pulls (concept image)",
       "title": "drawer boxes lifestyle view"
     }
   ],
   "sleeve-boxes": [
     {
       "src": "/images/products/sleeve-boxes/sleeve-boxes-hero.webp",
-      "alt": "Sliding sleeve box with inner tray pulled out (concept image)",
+      "alt": "Sleeve box with a printed floral sleeve sliding off a plain inner tray (concept image)",
       "title": "sleeve boxes hero view"
     },
     {
       "src": "/images/products/sleeve-boxes/sleeve-boxes-front.webp",
-      "alt": "Wide and narrow slide sleeve boxes seen from above (concept image)",
+      "alt": "Kraft sleeve and tray box set on a warm background (concept image)",
       "title": "sleeve boxes front view"
     },
     {
       "src": "/images/products/sleeve-boxes/sleeve-boxes-open.webp",
-      "alt": "Kraft sleeve box with black inner tray and ribbon pull (concept image)",
+      "alt": "Kraft slide-out sleeve boxes, open to show the inner tray (concept image)",
       "title": "sleeve boxes open view"
     },
     {
       "src": "/images/products/sleeve-boxes/sleeve-boxes-finish.webp",
-      "alt": "Kraft sleeve box with black tray, side angle (concept image)",
+      "alt": "White sleeve box with a coloured band and pull-out tray (concept image)",
       "title": "sleeve boxes finish view"
     }
   ],
@@ -90,27 +90,41 @@
   "window-boxes": [
     {
       "src": "/images/products/window-boxes/window-boxes-hero.webp",
-      "alt": "Die-cut window box with hang tab showing the product inside (concept image)",
+      "alt": "White folding cartons with rectangular and oval window cut-outs (concept image)",
       "title": "window boxes hero view"
     }
   ],
   "display-boxes": [
     {
       "src": "/images/products/display-boxes/display-boxes-hero.webp",
-      "alt": "Countertop display boxes holding retail units (concept image)",
+      "alt": "Countertop display box with a printed header card and product tray (concept image)",
       "title": "display boxes hero view"
     },
     {
       "src": "/images/products/display-boxes/display-boxes-lifestyle.webp",
-      "alt": "Retail product boxes arranged together on a shelf (concept image)",
+      "alt": "Counter display boxes in different sizes with header cards (concept image)",
       "title": "display boxes lifestyle view"
     }
   ],
   "pizza-boxes": [
     {
       "src": "/images/products/pizza-boxes/pizza-boxes-hero.webp",
-      "alt": "Open pizza carton holding a pizza (concept image)",
+      "alt": "Corrugated pizza box opened with the lid lifted to show a pizza (concept image)",
       "title": "pizza boxes hero view"
+    }
+  ],
+  "pharmaceutical-boxes": [
+    {
+      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-hero.webp",
+      "alt": "Supplement bottle with a matching folding carton (concept image)",
+      "title": "pharmaceutical boxes hero view"
+    }
+  ],
+  "hang-tags": [
+    {
+      "src": "/images/products/hang-tags/hang-tags-hero.webp",
+      "alt": "Pair of printed hang tags with string on a fabric background (concept image)",
+      "title": "hang tags hero view"
     }
   ]
 }
