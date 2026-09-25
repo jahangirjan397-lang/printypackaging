@@ -48,3 +48,9 @@ Mailchimp-branded mailer photo; branded pizza boxes (Chill Pizza, Pizza Haven Sl
 
 ## Still missing
 Category banners and portfolio images are not wired (category and portfolio pages reuse product images). Display boxes, pharmaceutical, hang tags, pizza, window need clean 5-view sets.
+
+## Batch 3: materials & finishes images (from NEW folder, packaging-materials-guide*)
+Used on /packaging-materials (6 material cards, overview panel, 4 "board basics" cards) and /finishing-options (8 finish cards, overview panel) and the printing-finishing category banner.
+Sources: packaging-materials-guide013/09/ (paperboard, kraft), guide 5 (corrugated), 018 (rigid), 021 (food-safe), 08 (gloss stock), 025, 015, 06, guide 1 (board basics), hero.png (overview), 04 (matte/gloss/soft touch, cropped), 12 (spot UV / foil / embossing / debossing, cropped), 03 (holographic), 22 (anti-scratch, file saved but not used yet).
+Confirm rights of all of these; several look AI-generated or supplier-sourced. Matte/gloss/soft-touch and the four finish crops come from single small images (~870 px and ~1024 px wide), so they are slightly soft on large screens: **replace with your own finish samples when available**.
+Not used because another company's brand or product is visible: guide 05 (Mefu/LUXE), 07 (metal paper swatch book), 10 (Reage), 11 (Dermos swatch card), 13 (Coca-Cola), 026 (M-logo emboss/spot UV sample), 014, 022/anti-scratch only saved.

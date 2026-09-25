@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -13,27 +14,66 @@ export const metadata: Metadata = {
 const materials = [
   {
     title: "Paperboard",
+    image: "/images/materials/paperboard.webp",
+    imageAlt: "Stack of white paperboard sheets on a dark surface",
     text: "Paperboard is commonly used for folding cartons, retail boxes, cosmetic boxes and lightweight product packaging. It is suitable for clean printing and premium finishing.",
   },
   {
     title: "Kraft Board",
+    image: "/images/materials/kraft-board.webp",
+    imageAlt: "Stack of natural kraft board sheets",
     text: "Kraft board gives a natural, eco-friendly and organic packaging look. It is popular for food brands, handmade products, ecommerce packaging and sustainable packaging styles.",
   },
   {
     title: "Corrugated Stock",
+    image: "/images/materials/corrugated-board.webp",
+    imageAlt: "Layers of corrugated board showing the fluted inner structure",
     text: "Corrugated material is used for mailer boxes, shipping boxes and ecommerce packaging where strength and protection are important.",
   },
   {
     title: "Rigid Board",
+    image: "/images/materials/rigid-board.webp",
+    imageAlt: "Rigid gift boxes wrapped in linen-textured paper",
     text: "Rigid board is used for luxury packaging, gift boxes, premium product boxes, magnetic closure boxes and high-end presentation packaging.",
   },
   {
     title: "Food-Safe Materials",
+    image: "/images/materials/food-safe-paper.webp",
+    imageAlt: "Butter paper, parchment and kraft sheets used for food packaging",
     text: "Food packaging may need food-safe paper, coating, grease resistance, butter paper or suitable board depending on the product and use.",
   },
   {
     title: "Sticker & Label Stock",
+    image: "/images/materials/gloss-paper.webp",
+    imageAlt: "Fanned stack of glossy coated paper stock",
     text: "Labels and stickers can use paper stock, vinyl, transparent material, matte finish, gloss finish or special adhesive depending on the branding need.",
+  },
+];
+
+const basics = [
+  {
+    title: "Wall type",
+    text: "Single, double and triple wall corrugated give different strength for shipping.",
+    image: "/images/materials/corrugated-walls.webp",
+    alt: "Single, double and triple wall corrugated board layers",
+  },
+  {
+    title: "Board thickness",
+    text: "Thicker board holds shape and weight better; thinner board suits light cartons.",
+    image: "/images/materials/board-thickness.webp",
+    alt: "Stack of corrugated board with a thickness callout",
+  },
+  {
+    title: "Inserts",
+    text: "Foam or board inserts hold products in place inside rigid and shipping boxes.",
+    image: "/images/materials/foam-insert.webp",
+    alt: "Black foam insert with cut-outs for a product set",
+  },
+  {
+    title: "Cartons and shippers",
+    text: "Folding cartons, mailers and shipping cartons are often ordered together.",
+    image: "/images/materials/mixed-cartons.webp",
+    alt: "Folding cartons, kraft mailers and corrugated shippers on a white surface",
   },
 ];
 
@@ -91,6 +131,16 @@ export default function PackagingMaterialsPage() {
           </div>
 
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-6 shadow-2xl shadow-cyan-950/40">
+            <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-2xl">
+              <Image
+                src="/images/materials/materials-overview.webp"
+                alt="Paperboard, corrugated, kraft and tissue samples beside folding cartons"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+            </div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
               Material Depends On
             </p>
@@ -136,7 +186,15 @@ export default function PackagingMaterialsPage() {
                 key={material.title}
                 className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20" />
+                <div className="relative -mx-7 -mt-7 mb-6 aspect-[4/3] overflow-hidden rounded-t-3xl bg-slate-100">
+                  <Image
+                    src={material.image}
+                    alt={material.imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="text-2xl font-black tracking-tight">
                   {material.title}
                 </h3>
@@ -144,6 +202,47 @@ export default function PackagingMaterialsPage() {
                   {material.text}
                 </p>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      <section className="bg-white text-slate-950">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Board Basics
+            </p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+              What to look at before you choose a stock.
+            </h2>
+            <p className="mt-5 leading-8 text-slate-600">
+              Wall type, board thickness, protective inserts and the mix of
+              cartons and shippers in one order all change strength and cost.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {basics.map((item) => (
+              <figure
+                key={item.title}
+                className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-lg shadow-slate-200/60"
+              >
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="p-5">
+                  <h3 className="text-lg font-black">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>

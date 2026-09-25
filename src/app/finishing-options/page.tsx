@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -13,34 +14,50 @@ export const metadata: Metadata = {
 const finishes = [
   {
     title: "Matte Lamination",
+    image: "/images/finishes/matte.webp",
+    imageAlt: "Blue box with a matte laminated surface",
     text: "Matte lamination gives packaging a smooth, premium and non-glossy look. It is popular for luxury boxes, cosmetic packaging and retail boxes.",
   },
   {
     title: "Gloss Lamination",
+    image: "/images/finishes/gloss.webp",
+    imageAlt: "Blue box with a high-gloss laminated surface and reflections",
     text: "Gloss lamination creates a shiny surface and helps colors look bright. It is suitable for retail packaging, display boxes and high-impact printed boxes.",
   },
   {
     title: "Soft Touch Finish",
+    image: "/images/finishes/soft-touch.webp",
+    imageAlt: "Blue box with a soft touch velvet-feel surface",
     text: "Soft touch creates a smooth velvet-like premium feel. It is often used for luxury packaging, rigid boxes and high-end brand packaging.",
   },
   {
     title: "Foil Stamping",
+    image: "/images/finishes/foil-stamping.webp",
+    imageAlt: "Navy box with gold foil stamped lettering",
     text: "Foil stamping adds metallic shine in gold, silver, copper or custom colors. It is useful for logos, patterns and luxury details.",
   },
   {
     title: "Embossing / Debossing",
+    image: "/images/finishes/embossing.webp",
+    imageAlt: "Terracotta box with raised embossed lettering",
     text: "Embossing raises a design above the surface, while debossing presses it into the surface. Both add depth and premium touch.",
   },
   {
     title: "Spot UV",
+    image: "/images/finishes/spot-uv.webp",
+    imageAlt: "Black box with glossy spot UV lettering on a matte surface",
     text: "Spot UV highlights selected parts of the design with glossy effect. It is used on logos, patterns, product names and luxury packaging areas.",
   },
   {
     title: "Window Patching",
+    image: "/images/products/window-boxes/window-boxes-hero-v2.webp",
+    imageAlt: "White folding cartons with clear window cut-outs",
     text: "Window patching adds a transparent film window so customers can see the product inside the box.",
   },
   {
     title: "Special Coatings",
+    image: "/images/finishes/holographic-foil.webp",
+    imageAlt: "Box with a holographic rainbow foil surface",
     text: "Special coatings may include varnish, aqueous coating, drip-off effects or protective surface treatments depending on the project.",
   },
 ];
@@ -99,6 +116,16 @@ export default function FinishingOptionsPage() {
           </div>
 
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-6">
+            <div className="relative mb-6 aspect-[3/2] overflow-hidden rounded-2xl">
+              <Image
+                src="/images/finishes/finish-overview.webp"
+                alt="Four boxes showing spot UV, foil stamping, embossing and debossing finishes"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+            </div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
               Finish Selection
             </p>
@@ -144,7 +171,15 @@ export default function FinishingOptionsPage() {
                 key={finish.title}
                 className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20" />
+                <div className="relative -mx-7 -mt-7 mb-6 aspect-[4/3] overflow-hidden rounded-t-3xl bg-slate-100">
+                  <Image
+                    src={finish.image}
+                    alt={finish.imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="text-xl font-black tracking-tight">
                   {finish.title}
                 </h3>

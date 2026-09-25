@@ -96,7 +96,13 @@ export default function CategoryPageTemplate({
   );
 
   const heroProduct = categoryProducts[0];
-  const heroImage = heroProduct?.images?.[0];
+  const heroImage =
+    category.slug === "printing-finishing"
+      ? {
+          src: "/images/finishes/finish-overview.webp",
+          alt: "Four boxes showing spot UV, foil stamping, embossing and debossing finishes",
+        }
+      : heroProduct?.images?.[0];
 
   const otherProducts = products
     .filter((product) => !category.productSlugs.includes(product.slug))
