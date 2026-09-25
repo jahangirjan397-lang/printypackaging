@@ -10,9 +10,9 @@
     "images:stage": "node scripts/stage-images.mjs"
   },
   "dependencies": {
-    "@next/third-parties": "^16.2.12",
-    "next": "16.2.9",
-    "nodemailer": "^9.0.3",
+    "@next/third-parties": "^16.3.6",
+    "next": "^16.3.6",
+    "nodemailer": "^9.1.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -23,7 +23,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.9",
+    "eslint-config-next": "^16.3.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

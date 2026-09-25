@@ -1,10 +1,14 @@
 "use client";
 
 import type { FormEvent, ReactNode } from "react";
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { products } from "../data/products";
+import {
+  isLiveHostname,
+  readAnalyticsConsent,
+} from "@/lib/analyticsConsent";
 const quoteBenefits = [
   "Custom box style suggestion",
   "Material and GSM guidance",
@@ -429,35 +433,6 @@ export default function QuoteSection() {
     ]);
   }, [selectedProduct]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const productParam = params.get("product");
-
-    if (!productParam) return;
-
-    const cleanParam = productParam.toLowerCase().trim();
-
-    const matchedProduct = products.find((product) => {
-      const productSlug = product.slug.toLowerCase();
-      const productName = product.name.toLowerCase();
-      const productNameAsSlug = product.name.toLowerCase().replaceAll(" ", "-");
-
-      return (
-        productSlug === cleanParam ||
-        productName === cleanParam ||
-        productNameAsSlug === cleanParam
-      );
-    });
-
-    if (!matchedProduct) return;
-
-    const frame = window.requestAnimationFrame(() => {
-      setSelectedProduct(matchedProduct.name);
-    });
-
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
 
@@ -527,16 +502,10 @@ export default function QuoteSection() {
       throw new Error(result.message || "Quote request failed.");
     }
 
-        const hostname = window.location.hostname;
-    const analyticsConsent = window.localStorage.getItem(
-      "printy-analytics-consent",
-    );
-
-    const isLiveWebsite =
-      hostname === "printypackaging.com" ||
-      hostname === "www.printypackaging.com";
-
-    if (isLiveWebsite && analyticsConsent === "granted") {
+    if (
+      isLiveHostname(window.location.hostname) &&
+      readAnalyticsConsent() === "granted"
+    ) {
       sendGAEvent("event", "generate_lead", {
         form_name: "custom_packaging_quote",
         quote_id: result.quoteId || "not_available",
@@ -557,6 +526,10 @@ export default function QuoteSection() {
 
   return (
     <section className="bg-[#F7FAFC] px-5 py-16 md:px-8 md:py-20">
+      <Suspense fallback={null}>
+        <ProductFromUrl onProductMatch={setSelectedProduct} />
+      </Suspense>
+
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
@@ -795,6 +768,46 @@ export default function QuoteSection() {
       </div>
     </section>
   );
+}
+
+function findProductFromParam(productParam: string | null) {
+  if (!productParam) return undefined;
+
+  const cleanParam = productParam.toLowerCase().trim();
+
+  return products.find((product) => {
+    const productSlug = product.slug.toLowerCase();
+    const productName = product.name.toLowerCase();
+    const productNameAsSlug = productName.replaceAll(" ", "-");
+
+    return (
+      productSlug === cleanParam ||
+      productName === cleanParam ||
+      productNameAsSlug === cleanParam
+    );
+  });
+}
+
+// Reads ?product= on every navigation, including links to "/?product=...#quote"
+// clicked while already on the homepage. Kept in its own Suspense boundary so
+// the quote form itself is still prerendered.
+function ProductFromUrl({
+  onProductMatch,
+}: {
+  onProductMatch: (productName: string) => void;
+}) {
+  const searchParams = useSearchParams();
+  const productParam = searchParams.get("product");
+
+  useEffect(() => {
+    const matchedProduct = findProductFromParam(productParam);
+
+    if (matchedProduct) {
+      onProductMatch(matchedProduct.name);
+    }
+  }, [productParam, onProductMatch]);
+
+  return null;
 }
 
 function FormField({

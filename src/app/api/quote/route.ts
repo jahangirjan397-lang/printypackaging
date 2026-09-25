@@ -15,6 +15,9 @@ const ALLOWED_FILE_EXTENSIONS = new Set([
 ]);
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 5;
+// The auto-reply goes to a buyer-supplied address, so cap it per recipient to
+// stop the form being used to send repeated emails to someone else's inbox.
+const MAX_AUTO_REPLIES_PER_EMAIL = 2;
 
 type QuoteRequest = {
   name?: string;
@@ -212,7 +215,7 @@ function getClientIp(request: Request) {
   );
 }
 
-function checkRateLimit(ip: string) {
+function checkRateLimit(key: string, maxRequests = MAX_REQUESTS_PER_WINDOW) {
   const now = Date.now();
 
   if (rateLimitStore.size > 1000) {
@@ -223,10 +226,10 @@ function checkRateLimit(ip: string) {
     }
   }
 
-  const currentRecord = rateLimitStore.get(ip);
+  const currentRecord = rateLimitStore.get(key);
 
   if (!currentRecord || currentRecord.resetAt <= now) {
-    rateLimitStore.set(ip, {
+    rateLimitStore.set(key, {
       count: 1,
       resetAt: now + RATE_LIMIT_WINDOW_MS,
     });
@@ -237,7 +240,7 @@ function checkRateLimit(ip: string) {
     };
   }
 
-  if (currentRecord.count >= MAX_REQUESTS_PER_WINDOW) {
+  if (currentRecord.count >= maxRequests) {
     return {
       allowed: false,
       retryAfterSeconds: Math.max(
@@ -248,7 +251,7 @@ function checkRateLimit(ip: string) {
   }
 
   currentRecord.count += 1;
-  rateLimitStore.set(ip, currentRecord);
+  rateLimitStore.set(key, currentRecord);
 
   return {
     allowed: true,
@@ -796,7 +799,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const clientEmailResult = await sendClientAutoReply(lead);
+    const autoReplyLimit = checkRateLimit(
+      `auto-reply:${lead.email}`,
+      MAX_AUTO_REPLIES_PER_EMAIL
+    );
+    const clientEmailResult: ServiceResult = autoReplyLimit.allowed
+      ? await sendClientAutoReply(lead)
+      : {
+          success: false,
+          skipped: true,
+          message: "Auto reply limit reached for this address.",
+        };
 
     console.info("Client Email:",{quoteId:lead.quoteId,success:clientEmailResult.success,skipped:Boolean(clientEmailResult.skipped)});
 

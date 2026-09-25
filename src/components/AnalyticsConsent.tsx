@@ -3,9 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import {
+  isLiveHostname,
+  readAnalyticsConsent,
+  saveAnalyticsConsent,
+} from "@/lib/analyticsConsent";
 
 const measurementId = "G-MLLCT7GVJM";
-const consentKey = "printy-analytics-consent";
 
 type ConsentStatus = "granted" | "denied" | null;
 
@@ -16,16 +20,11 @@ export default function AnalyticsConsent() {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const hostname = window.location.hostname;
+      setIsLiveWebsite(isLiveHostname(window.location.hostname));
 
-      setIsLiveWebsite(
-        hostname === "printypackaging.com" ||
-          hostname === "www.printypackaging.com",
-      );
+      const savedConsent = readAnalyticsConsent();
 
-      const savedConsent = window.localStorage.getItem(consentKey);
-
-      if (savedConsent === "granted" || savedConsent === "denied") {
+      if (savedConsent) {
         setConsent(savedConsent);
       }
 
@@ -36,7 +35,7 @@ export default function AnalyticsConsent() {
   }, []);
 
   function saveConsent(value: Exclude<ConsentStatus, null>) {
-    window.localStorage.setItem(consentKey, value);
+    saveAnalyticsConsent(value);
     setConsent(value);
   }
 

@@ -9,6 +9,13 @@ const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
 const websiteId = `${siteUrl}#website`;
 
+function headingId(heading: string) {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 type BlogPostPageProps = {
   params: Promise<{
     slug: string;
@@ -228,9 +235,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.sections.map((section) => (
                   <a
                     key={section.heading}
-                    href={`#${section.heading
-                      .toLowerCase()
-                      .replaceAll(" ", "-")}`}
+                    href={`#${headingId(section.heading)}`}
                     className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
                   >
                     {section.heading}
@@ -245,7 +250,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.sections.map((section) => (
                 <section
                   key={section.heading}
-                  id={section.heading.toLowerCase().replaceAll(" ", "-")}
+                  id={headingId(section.heading)}
                 >
                   <h2 className="text-3xl font-black tracking-tight text-[#07111F]">
                     {section.heading}
