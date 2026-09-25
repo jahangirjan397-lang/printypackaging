@@ -2,7 +2,7 @@
 
 Status: **PREVIEW ONLY. Do not deploy to production until every item below is replaced or cleared.**
 
-Images are from `E:\printypackaging\Products Images` (older folders + `NEW`). Rights/licence of each source is **not confirmed**. Gallery alt text says "(concept image)". Nothing here is a real Printy client order. The Printy logo is only placed on plain white/light faces (drawer-boxes front). Logo is never placed over another company's branding or mockup text.
+Images are from `E:\printypackaging\Products Images` (older folders + `NEW`). Rights/licence of each source is **not confirmed**. Gallery alt text says "(concept image)". Nothing here is a real Printy client order. The Printy logo (white version on dark faces, colour version on light faces) is placed on: drawer-boxes front, open, finish; magnetic-boxes hero; sleeve-boxes finish. Logo is never placed over another company's branding or mockup text.
 
 ## Batch 2 (images from NEW folder)
 
