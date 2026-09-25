@@ -1,27 +1,27 @@
 export const blogVisuals: Record<string, { src: string; alt: string }> = {
   "custom-packaging-quote-guide": {
-    src: "/images/products/mailer-boxes/mailer-boxes-hero.webp",
-    alt: "Custom mailer box example for packaging quote planning",
+    src: "/images/blog/quote-guide.webp",
+    alt: "Assorted rigid and drawer gift boxes with inserts laid out for a packaging quote (concept image)",
   },
   "packaging-materials-guide": {
     src: "/images/blog/materials-guide.webp",
-    alt: "Paperboard, corrugated board and printed packaging samples",
+    alt: "Paperboard, corrugated board and tissue samples beside folding cartons (concept image)",
   },
   "finishing-options-for-custom-boxes": {
-    src: "/images/products/luxury-packaging/luxury-packaging-finish.webp",
-    alt: "Close view of a premium printed box finish",
+    src: "/images/blog/finishing-options.webp",
+    alt: "Print operator checking colour on a press with colour charts",
   },
   "artwork-dieline-checklist": {
-    src: "/images/products/folding-cartons/folding-cartons-open.webp",
-    alt: "Open folding carton showing the box structure for artwork planning",
+    src: "/images/blog/artwork-dieline.webp",
+    alt: "Box dieline with fold lines and dimensions for artwork planning",
   },
   "mailer-boxes-for-ecommerce-brands": {
-    src: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
-    alt: "Printed mailer boxes for ecommerce orders",
+    src: "/images/blog/mailer-ecommerce.webp",
+    alt: "Open kraft mailer box with a folded garment and paper bag for ecommerce orders (concept image)",
   },
   "food-packaging-for-restaurants": {
-    src: "/images/products/food-packaging/food-packaging-hero.webp",
-    alt: "Bakery and takeaway food boxes with printed branding",
+    src: "/images/blog/food-restaurants.webp",
+    alt: "Takeaway food packaging set: bags, cups, boxes and trays (concept image)",
   },
 };
 

@@ -1,36 +1,50 @@
-# Temporary images: fix before production
+# Image placement map and fix list (preview only)
 
-Status: **PREVIEW ONLY. Do not deploy to production until every item below is replaced or cleared.**
+**Do not deploy to production until every "Fix" item is replaced or cleared.** Sources are from `E:\printypackaging\Products Images` (older folders + `NEW`). Licence of each source is **not confirmed**. Alt text says "(concept image)". Nothing here is a real Printy client order. Image files carry a `-v2` suffix so browsers and the Next image cache load the new versions.
 
-Images are from `E:\printypackaging\Products Images` (older folders + `NEW`). Rights/licence of each source is **not confirmed**. Gallery alt text says "(concept image)". Nothing here is a real Printy client order. The Printy logo (white version on dark faces, colour version on light faces) is placed on: drawer-boxes front, open, finish; magnetic-boxes hero; sleeve-boxes finish. Logo is never placed over another company's branding or mockup text.
+Printy logo is placed only on plain faces (white logo on dark boxes, colour logo on light boxes), never over another company's branding or mockup text.
 
-## Batch 2 (images from NEW folder)
-
-| Style | View | Source file (NEW) | Status | Action |
+## Product galleries (page: /products/<slug>)
+| Slug | View | Source (NEW folder unless noted) | Logo | Status |
 |---|---|---|---|---|
-| drawer-boxes | hero | file_01689729546231.jpg | Clean, no text | Confirm licence; optional logo on tab |
-| drawer-boxes | front | sleeve-boxes 1.png | Clean, **Printy logo on lid** | Confirm licence |
-| drawer-boxes | open | Chocolate-Shop-Packaging-Sets-...avif | Clean, plain brown | Confirm licence; logo needs light version |
-| drawer-boxes | finish | Custom-Logo-Rigid-120g-...Drawer-Box.webp | Clean (pink frame cropped out) | Confirm licence; logo needs white version |
-| drawer-boxes | lifestyle | 8322119890.jpg | Clean | Confirm licence |
-| sleeve-boxes | hero | Custom_Packaging_Sleeves.png | Small floral artwork, no brand | Confirm licence |
-| sleeve-boxes | front | sleeve-boxes6.jpeg | Clean kraft | Confirm licence |
-| sleeve-boxes | open | il_1588xN.1895072647_dngn.jpg | Clean kraft (red bar cropped) | Confirm licence |
-| sleeve-boxes | finish | 7961dfc7ed18cfe1d18a01d0c18cd092.jpg | Clean | Confirm licence |
-| magnetic-boxes | hero | Magnetic-Gift-Box-Mockup-Free-PSD.webp | Clean red box | Confirm licence; replaces old hero with slogan text |
-| window-boxes | hero | 902eb535f09d0e68c64a589cb6ffbcc4.jpg | Clean white boxes (1 of 5 views) | Add 4 more views |
-| pizza-boxes | hero | Opened-Pizza-Box-Mockup-3.jpg | Clean, no brand (replaces "Food Point" brand image) | Add 4 more views |
-| display-boxes | hero | 4069653-1024x853.webp | **Placeholder text "MOCKUP / PLACE YOUR DESIGN"** | Replace |
-| display-boxes | lifestyle | 4a4d3eb6ef036c7a166325503a3a9a62.jpg | **Placeholder text "EXHIBITOR MOCKUP"** | Replace |
-| pharmaceutical-boxes | hero | 2a33610aec73a24e2be0441bbb7a9b03.jpg | Generic "SUPPLEMENT" label text | Replace / re-render |
-| hang-tags | hero | dbfe66136302259.61f78c04cfce2.jpg | Placeholder "FASHION Hang Tag Mockup" text | Replace |
-| blog: packaging-materials-guide | image | packaging-materials-guide-hero.png | Clean, no text; looks like a rendered/AI image | Confirm rights, or use own photo |
+| drawer-boxes | hero | file_01689729546231.jpg | no | OK, confirm licence |
+| drawer-boxes | front | sleeve-boxes 1.png | yes (lid + side) | OK, confirm licence |
+| drawer-boxes | open | Chocolate-Shop-Packaging-Sets-...avif | yes (white) | OK |
+| drawer-boxes | finish | Custom-Logo-Rigid-120g-...Drawer-Box.webp | yes (white) | OK |
+| drawer-boxes | lifestyle | 8322119890.jpg | no | OK |
+| sleeve-boxes | hero | Custom_Packaging_Sleeves.png | no | OK (small floral art, no brand) |
+| sleeve-boxes | front | sleeve-boxes6.jpeg | no | OK; faint deboss text on lid, check |
+| sleeve-boxes | open | il_1588xN.1895072647_dngn.jpg | no | OK |
+| sleeve-boxes | finish | 7961dfc7ed18cfe1d18a01d0c18cd092.jpg | yes (end face) | OK |
+| magnetic-boxes | hero | Magnetic-Gift-Box-Mockup-Free-PSD.webp | yes (white) | OK |
+| magnetic-boxes | front/open/finish/lifestyle | old supplier photos (Magnetic Book Style folder) | front only | **Fix**: licence unconfirmed; lifestyle is not a lifestyle shot |
+| window-boxes | hero | 902eb535f09d0e68c64a589cb6ffbcc4.jpg | no | OK (window blocks logo) |
+| window-boxes | front | c19c10257950964c9e082fb31c127d02.jpg | no | OK |
+| window-boxes | open | bakery-display.jpg | no | OK |
+| pizza-boxes | hero | Opened-Pizza-Box-Mockup-3.jpg | no | OK |
+| pizza-boxes | front | eco-friendly-packaging-closed-pizza-...webp | no | **Fix**: placeholder "PIZZA box mockup" text |
+| pizza-boxes | open | pizza-boxes.jpg 5.jpg | no | **Fix**: "Pizza Box MOCK UP" printed pattern |
+| pharmaceutical-boxes | hero | 2a33610aec73a24e2be0441bbb7a9b03.jpg | no | **Fix**: generic "SUPPLEMENT" label text |
+| pharmaceutical-boxes | front | pharmaceutical-boxes 1.png | no | **Fix**: "Package Box" placeholder text |
+| pharmaceutical-boxes | open | pills-box-mock-up-o.avif | no | **Fix**: "SHEET OF PILLS" placeholder text |
+| hang-tags | hero | dbfe66136302259.61f78c04cfce2.jpg | no | **Fix**: "FASHION Hang Tag Mockup" text |
+| hang-tags | front | Free-Fashion-Hanging-Tag-Mockup-PSD.webp | no | **Fix**: "Hanging tag" placeholder text |
+| display-boxes | hero | 4069653-1024x853.webp | no | **Fix**: "MOCKUP / PLACE YOUR DESIGN" text |
+| display-boxes | lifestyle | 4a4d3eb6ef036c7a166325503a3a9a62.jpg | no | **Fix**: "EXHIBITOR MOCKUP" text |
+| apparel-boxes | hero/open | older supplier photos | no | **Fix**: open view has "Box Mockup" text |
 
-Rejected on review (third-party brand or watermark visible): Mailchimp mailer photo, Domino-style/branded pizza boxes, Corrshop/VectorStock watermarked displays, Velora/Luxxurr/Noma luxury sets, BoxBuddy white box, most food/bakery mockups with printed brand names.
+## Blog article images (page: /blog and /blog/<slug>)
+| Article | Source | Status |
+|---|---|---|
+| packaging-materials-guide | packaging-materials-guide-hero.png | Clean; looks rendered/AI, confirm rights |
+| finishing-options-for-custom-boxes | printing-finishing 2.webp | Clean stock photo, confirm licence |
+| artwork-dieline-checklist | artwork-dieline-checklist 1.jpg (cropped to the dieline) | Software screenshot; **Fix**: replace with own Printy dieline drawing |
+| custom-packaging-quote-guide | custom-product-packaging.webp | Small third-party marks on some boxes; **Fix** |
+| mailer-boxes-for-ecommerce-brands | mailer-boxes-for-ecommerce-brands.jpg | Generic "DENIM" placeholder text; **Fix** |
+| food-packaging-for-restaurants | food-packaging-for-restaurants.jpeg | "YOUR LOGO" placeholders; **Fix** |
 
-## Still temporary from batch 1
-magnetic-boxes front/open/finish/lifestyle, drawer-boxes n/a (replaced), apparel-boxes hero/open (see previous list: supplier photos, licence unconfirmed; apparel open has "Box Mockup" text), sleeve-boxes n/a (replaced), display/pizza/window incomplete (<5 views).
+## Not used (reason)
+Mailchimp-branded mailer photo; branded pizza boxes (Chill Pizza, Pizza Haven Slice); Corrshop / VectorStock watermarked images; images showing website URLs (pacdora.com, mockups-design.com, unicodesign); luxury sets with other brands (Velora, Luxxurr, Noma); BoxBuddy-marked white box; "printing-finishing.jpg" (has "Printing services in Denver" caption); bakery-display cake/cookie mockups with brand names; biocapp box.
 
-## Still missing entirely
-Display boxes (no clean image), category banners, portfolio images, home hero replacements, artwork/dieline blog image (only Illustrator screenshots available), mailer/ecommerce blog image (only branded photos available).
-Portfolio must label concept images as concepts.
+## Still missing
+Category banners and portfolio images are not wired (category and portfolio pages reuse product images). Display boxes, pharmaceutical, hang tags, pizza, window need clean 5-view sets.
