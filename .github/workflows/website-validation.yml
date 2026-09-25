@@ -29,3 +29,4 @@ jobs:
             sleep 2
           done
           node scripts/check-links.mjs http://127.0.0.1:3000
+          node scripts/check-quote-api.mjs http://127.0.0.1:3000
