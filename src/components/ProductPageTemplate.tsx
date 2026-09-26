@@ -2,10 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
+import { businessPromises } from "../data/businessInfo";
 import BuyerTrustSection from "./BuyerTrustSection";
 import ProductGuideLinksSection from "./ProductGuideLinksSection";
 import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
 import ProductImageGallery from "./ProductImageGallery";
+import StyleGuideSections from "./StyleGuideSections";
+import { getStyleGuide, styleGuides } from "../data/styleGuides";
 
 function getProductSpecs(product: Product) {
   return [
@@ -90,6 +93,8 @@ function getRelatedProducts(product: Product) {
 }
 
 export default function ProductPageTemplate({ product }: { product: Product }) {
+  const styleGuide = getStyleGuide(product.slug);
+  const childStyles = styleGuides.filter((guide) => guide.parent === product.slug);
   const relatedProducts = getRelatedProducts(product);
   const productQuoteLink = `/?product=${product.slug}#quote`;
   const productSpecs = getProductSpecs(product);
@@ -241,18 +246,29 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 </Link>
               </div>
 
-              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-2">
-                {["Custom Size", "Print Ready Help"].map(
-                  (item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/10 bg-white/[0.06] p-4"
-                    >
-                      {item}
-                    </div>
-                  )
-                )}
-              </div>
+              <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+                {[
+                  { label: "Minimum order", value: businessPromises.minimumOrder },
+                  { label: "Production", value: businessPromises.productionTime },
+                  { label: "Quote reply", value: businessPromises.quoteResponse },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-white/10 bg-white/[0.06] p-4"
+                  >
+                    <dt className="text-[11px] font-black uppercase tracking-[0.18em] text-[#00C2E8]">
+                      {item.label}
+                    </dt>
+                    <dd className="mt-1 text-sm font-black text-white">
+                      {item.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-4 text-sm font-bold text-slate-300">
+                ✓ {businessPromises.designSupport} · ✓ {businessPromises.sampleOffer}
+              </p>
             </div>
 
                         <ProductImageGallery
@@ -262,6 +278,30 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
           </div>
         </div>
       </section>
+
+      {styleGuide && <StyleGuideSections guide={styleGuide} />}
+
+      {childStyles.length > 0 && (
+        <section className="border-b border-slate-200 bg-white px-5 py-8 md:px-8">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center">
+            <p className="shrink-0 text-sm font-black uppercase tracking-[0.2em] text-[#FF6A00]">
+              {product.name} styles
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {childStyles.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`/products/${guide.slug}`}
+                  prefetch={false}
+                  className="rounded-full border border-slate-200 bg-[#F7FAFC] px-4 py-2 text-sm font-black text-[#07111F] transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
+                >
+                  {guide.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
           <section id="product-details" className="bg-[#F7FAFC] px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -332,11 +372,11 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
-          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black text-[#07111F]">
+          <h2 className="text-center mt-4 text-4xl font-black text-[#07111F]">
             Questions about {product.name}
           </h2>
 

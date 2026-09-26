@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -50,8 +51,8 @@ export default function ResourcesPage() {
         <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
         <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
-          <div className="max-w-4xl">
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-20 sm:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
+          <div>
             <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
               Packaging Resources
             </div>
@@ -70,7 +71,7 @@ export default function ResourcesPage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Quote
@@ -82,6 +83,27 @@ export default function ResourcesPage() {
               >
                 View Products
               </Link>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+              <Image
+                src="/images/home/home-sample-kit-v3.webp"
+                alt="Packaging sample kit materials finishes and buyer resources"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="px-2 pb-1 pt-5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                Learn before production
+              </p>
+              <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                Materials, finishes, artwork and samples connected to your quote journey.
+              </p>
             </div>
           </div>
         </div>
@@ -96,7 +118,12 @@ export default function ResourcesPage() {
                 href={resource.href}
                 className="group rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60 transition hover:-translate-y-1 hover:border-[#FF6A00]"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91]" />
+                <div
+                  aria-hidden="true"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
+                </div>
 
                 <h2 className="text-2xl font-black tracking-tight">
                   {resource.title}
@@ -142,7 +169,7 @@ export default function ResourcesPage() {
               </Link>
 
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Request Quote
@@ -154,4 +181,3 @@ export default function ResourcesPage() {
     </main>
   );
 }
-

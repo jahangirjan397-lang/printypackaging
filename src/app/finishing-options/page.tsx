@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
     "Explore premium packaging finishing options including matte lamination, gloss lamination, soft touch, spot UV, foil stamping, embossing and window patching.",
 };
 
-const finishes = [
+// Matte, gloss and soft touch come from one comparison photo, so they are
+// shown together under a single full image instead of three cropped cards.
+const laminationFinishes = [
   {
     title: "Matte Lamination",
     text: "Matte lamination gives packaging a smooth, premium and non-glossy look. It is popular for luxury boxes, cosmetic packaging and retail boxes.",
@@ -23,24 +26,49 @@ const finishes = [
     title: "Soft Touch Finish",
     text: "Soft touch creates a smooth velvet-like premium feel. It is often used for luxury packaging, rigid boxes and high-end brand packaging.",
   },
+];
+
+const finishes = [
   {
     title: "Foil Stamping",
+    image: "/images/finishes/foil-stamping-v3.webp",
+    imageAlt: "Navy box with gold foil stamped lettering",
     text: "Foil stamping adds metallic shine in gold, silver, copper or custom colors. It is useful for logos, patterns and luxury details.",
   },
   {
-    title: "Embossing / Debossing",
-    text: "Embossing raises a design above the surface, while debossing presses it into the surface. Both add depth and premium touch.",
+    title: "Embossing",
+    image: "/images/finishes/embossing-v3.webp",
+    imageAlt: "Terracotta box with raised embossed lettering",
+    text: "Embossing raises a design above the surface for depth and a premium tactile feel. It works well on logos, patterns and brand marks.",
+  },
+  {
+    title: "Debossing",
+    image: "/images/finishes/debossing-v3.webp",
+    imageAlt: "Grey box with debossed lettering pressed into the surface",
+    text: "Debossing presses a design into the surface for a subtle, refined look. It suits logos and minimal luxury packaging.",
+  },
+  {
+    title: "Anti-Scratch Laminate",
+    image: "/images/finishes/anti-scratch-laminate-v3.webp",
+    imageAlt: "Black box with an anti-scratch laminated surface",
+    text: "Anti-scratch laminate protects dark and soft-touch surfaces from scuffs during handling and shipping.",
   },
   {
     title: "Spot UV",
+    image: "/images/finishes/spot-uv-v3.webp",
+    imageAlt: "Black box with glossy spot UV lettering on a matte surface",
     text: "Spot UV highlights selected parts of the design with glossy effect. It is used on logos, patterns, product names and luxury packaging areas.",
   },
   {
     title: "Window Patching",
+    image: "/images/products/window-boxes/window-boxes-hero-v3.webp",
+    imageAlt: "Kraft paper boxes with clear window cut-outs",
     text: "Window patching adds a transparent film window so customers can see the product inside the box.",
   },
   {
     title: "Special Coatings",
+    image: "/images/finishes/holographic-foil-v3.webp",
+    imageAlt: "Box with a holographic rainbow foil surface",
     text: "Special coatings may include varnish, aqueous coating, drip-off effects or protective surface treatments depending on the project.",
   },
 ];
@@ -99,6 +127,16 @@ export default function FinishingOptionsPage() {
           </div>
 
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-6">
+            <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl">
+              <Image
+                src="/images/finishes/finish-overview-v3.webp"
+                alt="Four boxes showing spot UV, foil stamping, embossing and debossing finishes"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+            </div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
               Finish Selection
             </p>
@@ -138,13 +176,43 @@ export default function FinishingOptionsPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <article className="mt-12 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60">
+            <div className="relative aspect-[2/1] bg-slate-100">
+              <Image
+                src="/images/finishes/lamination-comparison-v3.webp"
+                alt="Three blue boxes side by side comparing matte, gloss and soft touch lamination"
+                fill
+                sizes="(max-width: 1280px) 100vw, 1216px"
+                className="object-cover"
+              />
+            </div>
+            <div className="grid gap-8 p-7 md:grid-cols-3 sm:p-9">
+              {laminationFinishes.map((finish) => (
+                <div key={finish.title}>
+                  <h3 className="text-xl font-black tracking-tight">
+                    {finish.title}
+                  </h3>
+                  <p className="mt-4 leading-7 text-slate-600">{finish.text}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {finishes.map((finish) => (
               <article
                 key={finish.title}
                 className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20" />
+                <div className="relative -mx-7 -mt-7 mb-6 aspect-[4/3] overflow-hidden rounded-t-3xl bg-slate-100">
+                  <Image
+                    src={finish.image}
+                    alt={finish.imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
                 <h3 className="text-xl font-black tracking-tight">
                   {finish.title}
                 </h3>

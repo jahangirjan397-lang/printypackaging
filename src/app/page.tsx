@@ -7,7 +7,10 @@ import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
 import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
+import PaymentMethodsSection from "../components/PaymentMethodsSection";
 import QuoteSection from "../components/QuoteSection";
+import BoxFinder from "../components/BoxFinder";
+import CustomerReviewsSection from "../components/CustomerReviewsSection";
 
 export const metadata: Metadata = {
   title: "Custom Boxes, Rigid Boxes & Food Packaging",
@@ -24,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://printypackaging.com/images/home/home-hero-mailer.webp",
+        url: "https://printypackaging.com/images/products/mailer-boxes/mailer-boxes-hero.webp",
         width: 1448,
         height: 1086,
         alt: "Printy Packaging branded mailer boxes for ecommerce and retail brands",
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
     title: "Printy Packaging | Premium Custom Boxes & Packaging",
     description:
       "Custom boxes, rigid boxes, food packaging, butter paper, paper bags, labels and stickers for USA, UK, Europe and worldwide buyers.",
-    images: ["https://printypackaging.com/images/home/home-hero-mailer.webp"],
+    images: ["https://printypackaging.com/images/products/mailer-boxes/mailer-boxes-hero.webp"],
   },
 };
 
@@ -47,11 +50,14 @@ export default function Home() {
       <Hero />
       <StatsBar />
       <FeaturedProducts />
+      <BoxFinder />
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
       <OrderProcessSection />
       <IndustryBuyerSection />
+      <CustomerReviewsSection />
       <QuoteSection />
+      <PaymentMethodsSection />
     </>
   );
 }

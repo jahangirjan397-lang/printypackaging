@@ -7,6 +7,8 @@ import LiveChatWidget from "@/components/LiveChatWidget";
 import FloatingActions from "@/components/FloatingActions";
 import "./globals.css";
 import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
+import { activeSocialLinks } from "@/data/socialLinks";
+import LeadSourceTracker from "@/components/LeadSourceTracker";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -54,10 +56,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${siteUrl}/images/hero/hero-packaging.webp`,
-        width: 1600,
-        height: 900,
-        alt: "Premium custom printed packaging boxes by Printy Packaging",
+        url: `${siteUrl}/images/products/mailer-boxes/mailer-boxes-hero.webp`,
+        width: 1448,
+        height: 1086,
+        alt: "Branded mailer boxes for ecommerce and retail packaging",
       },
     ],
   },
@@ -66,7 +68,7 @@ export const metadata: Metadata = {
     title: "Printy Packaging | Premium Custom Printing & Packaging",
     description:
       "Premium custom boxes, rigid boxes, food packaging, paper bags, labels, stickers and luxury packaging for global brands.",
-    images: [`${siteUrl}/images/hero/hero-packaging.webp`],
+    images: [`${siteUrl}/images/products/mailer-boxes/mailer-boxes-hero.webp`],
   },
   robots: {
     index: true,
@@ -104,6 +106,9 @@ export default function RootLayout({
     url: siteUrl,
     logo: `${siteUrl}/logo-icon.svg`,
     email: brandEmail,
+    ...(activeSocialLinks.length > 0
+      ? { sameAs: activeSocialLinks.map((link) => link.url) }
+      : {}),
     description:
       "Printy Packaging provides custom printed packaging boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels, stickers and luxury packaging for USA, UK, Europe, UAE and worldwide brands.",
     areaServed: [
@@ -221,6 +226,7 @@ export default function RootLayout({
         <LiveChatWidget />
         <FloatingActions />
         <AnalyticsClickTracker />
+        <LeadSourceTracker />
         <AnalyticsConsent />
       </body>
     </html>

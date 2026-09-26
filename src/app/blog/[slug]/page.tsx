@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
+import { getBlogVisual } from "@/data/blogVisuals";
+import ShareButtons from "@/components/ShareButtons";
 
 const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
 const websiteId = `${siteUrl}#website`;
+
+function headingId(heading: string) {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -59,6 +69,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = blogPosts
     .filter((item) => item.slug !== post.slug)
     .slice(0, 3);
+
+  const articleVisual = getBlogVisual(post.slug);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -142,7 +154,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
         <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-5xl px-6 py-20 sm:py-24 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
           <div className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
             <Link href="/" className="hover:text-cyan-300">
               Home
@@ -155,27 +167,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span className="text-[#FF6A00]">{post.category}</span>
           </div>
 
-          <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
-            {post.category}
-          </div>
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
+                {post.category}
+              </div>
 
-          <h1 className="mt-8 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            {post.title}
-          </h1>
+              <h1 className="mt-8 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                {post.title}
+              </h1>
 
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            {post.excerpt}
-          </p>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+                {post.excerpt}
+              </p>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-400">
-            <span>{post.readTime}</span>
-            <span>•</span>
-            <span>{post.publishedAt}</span>
-          </div>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-400">
+                <span>{post.readTime}</span>
+                <span>•</span>
+                <span>{post.publishedAt}</span>
+              </div>
 
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/?product=mailer-boxes#quote"
+              href="/#quote"
               className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
             >
               Get Quote
@@ -187,6 +201,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             >
               Resources
             </Link>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+                <Image
+                  src={articleVisual.src}
+                  alt={articleVisual.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 48vw"
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -207,9 +236,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.sections.map((section) => (
                   <a
                     key={section.heading}
-                    href={`#${section.heading
-                      .toLowerCase()
-                      .replaceAll(" ", "-")}`}
+                    href={`#${headingId(section.heading)}`}
                     className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
                   >
                     {section.heading}
@@ -220,11 +247,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </aside>
 
           <article className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7 sm:p-10">
+            <div className="mb-10 border-b border-slate-200 pb-6">
+              <ShareButtons
+                url={`${siteUrl}/blog/${post.slug}`}
+                title={post.title}
+                image={`${siteUrl}${articleVisual.src}`}
+              />
+            </div>
+
             <div className="space-y-10">
               {post.sections.map((section) => (
                 <section
                   key={section.heading}
-                  id={section.heading.toLowerCase().replaceAll(" ", "-")}
+                  id={headingId(section.heading)}
                 >
                   <h2 className="text-3xl font-black tracking-tight text-[#07111F]">
                     {section.heading}
@@ -252,7 +287,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
 
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
               >
                 Request Quote
@@ -264,11 +299,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <section className="bg-slate-50 text-slate-950">
         <div className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
-          <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black tracking-tight">
+          <h2 className="text-center mt-4 text-4xl font-black tracking-tight">
             Common questions
           </h2>
 

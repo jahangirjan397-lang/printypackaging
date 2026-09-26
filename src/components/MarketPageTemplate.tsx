@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Market } from "../data/markets";
 import { products } from "../data/products";
@@ -93,6 +94,9 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
   const marketProducts = products.filter((product) =>
     market.productSlugs.includes(product.slug)
   );
+
+  const heroProduct = marketProducts[0];
+  const heroImage = heroProduct?.images?.[0];
 
   const otherProducts = products
     .filter((product) => !market.productSlugs.includes(product.slug))
@@ -250,25 +254,31 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
 
             <div className="mx-auto w-full max-w-xl lg:mr-0">
               <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl sm:p-5">
-                <div className="relative h-[300px] overflow-hidden rounded-[1.5rem] bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8] sm:h-[360px]">
-                  <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+                  {heroImage ? (
+                    <Image
+                      src={heroImage.src}
+                      alt={heroImage.alt}
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 48vw"
+                      className="object-cover object-center"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+                  )}
 
-                  <div className="absolute left-6 top-6 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur sm:left-8 sm:top-8">
+                  <div className="absolute right-6 top-6 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur sm:right-8 sm:top-8">
                     {market.region}
                   </div>
-
-                  <div className="absolute bottom-8 left-7 h-28 w-36 rotate-[-7deg] rounded-2xl bg-white shadow-2xl sm:left-8 sm:h-36 sm:w-44" />
-
-                  <div className="absolute bottom-14 right-8 h-48 w-36 rounded-2xl bg-[#07111F] shadow-2xl sm:bottom-16 sm:right-10 sm:h-56 sm:w-40">
-                    <div className="mx-auto mt-10 h-14 w-14 rounded-full border border-[#FF6A00] sm:mt-12 sm:h-16 sm:w-16" />
-                    <p className="mt-7 px-4 text-center text-lg font-black tracking-widest text-white sm:mt-8 sm:text-xl">
-                      {market.name}
-                    </p>
-                  </div>
-
-                  <div className="absolute bottom-7 right-7 rounded-full bg-[#FF6A00] px-4 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-white sm:bottom-8 sm:right-8 sm:px-5 sm:text-xs">
-                    Market Ready
-                  </div>
+                </div>
+                <div className="px-2 pb-1 pt-5">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                    Recommended packaging range
+                  </p>
+                  <p className="mt-2 max-w-md text-xl font-black leading-7 text-white sm:text-2xl">
+                    Product, material and finishing choices prepared for a clearer {market.name} quote.
+                  </p>
                 </div>
               </div>
             </div>
@@ -305,22 +315,27 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 className="group overflow-hidden rounded-[1.7rem] bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <Link href={`/products/${product.slug}`} prefetch={false}>
-                  <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-                    <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:22px_22px]" />
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5DC]">
+                    {product.images?.[0] ? (
+                      <Image
+                        src={product.images[0].src}
+                        alt={product.images[0].alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+                    )}
 
-                    <span className="absolute left-5 top-5 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+
+                    <span className="absolute bottom-5 left-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
                       {getProductLabel(product.name)}
                     </span>
 
-                    <span className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
-                      {index + 1}
+                    <span className="absolute right-5 top-5 flex h-8 min-w-8 items-center justify-center rounded-full bg-[#FF6A00] px-2 text-xs font-black text-white">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
-
-                    <div className="absolute bottom-7 left-7 h-20 w-28 rotate-[-8deg] rounded-2xl bg-white shadow-2xl" />
-
-                    <div className="absolute bottom-10 right-8 h-28 w-20 rounded-2xl bg-[#07111F] shadow-2xl">
-                      <div className="mx-auto mt-6 h-8 w-8 rounded-full border border-[#FF6A00]" />
-                    </div>
                   </div>
                 </Link>
 
@@ -383,18 +398,17 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-              Market Benefits
+              Buyer Benefits
             </p>
 
             <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-              Why {market.name} buyers choose custom packaging
+              What {market.name} buyers can compare before ordering
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Market pages help buyers find packaging options by region and help
-              search engines understand international service relevance. This
-              creates better internal linking for product, guide and market
-              pages.
+              Compare packaging structures, material choices, printing, finishing and the
+              quote details needed before production. The goal is a clearer specification
+              and fewer surprises when your project moves forward.
             </p>
 
             <Link
@@ -413,7 +427,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
-                                    OK
+                    ✓
                 </div>
                 <h3 className="font-black leading-7 text-[#07111F]">
                   {benefit}
@@ -451,7 +465,12 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 prefetch={false}
                 className="group rounded-[1.7rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91]" />
+                <div
+                  aria-hidden="true"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
+                </div>
 
                 <h3 className="text-xl font-black tracking-tight text-[#07111F]">
                   {guide.title}
@@ -460,7 +479,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 <p className="mt-4 leading-7 text-slate-600">{guide.text}</p>
 
                 <span className="mt-6 inline-flex text-sm font-black text-[#FF6A00]">
-                                    Read guide - View
+                  Read guide →
                 </span>
               </Link>
             ))}
@@ -472,17 +491,16 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-              Market Page Authority
+              International Buyer Guidance
             </p>
 
             <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-              Built for international packaging search.
+              Keep product decisions and quote details connected
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              A strong market page connects buyer intent, product solutions,
-              guide pages and quote actions. This helps both customers and
-              search engines understand the website structure clearly.
+              Move from market guidance to relevant products, materials, finishes,
+              artwork resources and the quote form without restarting your research.
             </p>
           </div>
 
@@ -493,7 +511,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 className="rounded-[1.5rem] border border-slate-200 bg-[#F7FAFC] p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
-                                    OK
+                    ✓
                 </div>
 
                 <h3 className="font-black text-[#07111F]">{item.title}</h3>
@@ -545,11 +563,11 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
 
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
-          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black text-[#07111F]">
+          <h2 className="text-center mt-4 text-4xl font-black text-[#07111F]">
             Questions about packaging for {market.name}
           </h2>
 

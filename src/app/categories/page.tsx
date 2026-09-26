@@ -1,11 +1,37 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Header from "../../components/Header";
 import { categories } from "../../data/categories";
-import CategoryIcon from "../../components/CategoryIcon";
+import { products } from "../../data/products";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
+
+// Give each category card its own photo: walk the category's product list in
+// order and take the first image no earlier card has used.
+const categoryPreviews = (() => {
+  const used = new Set<string>();
+  const previews = new Map<string, { src: string; alt: string }>();
+
+  for (const category of categories) {
+    const image = category.productSlugs
+      .map((slug) => products.find((product) => product.slug === slug))
+      .map((product) => product?.images?.[0])
+      .find((candidate) => candidate && !used.has(candidate.src));
+
+    if (image) {
+      used.add(image.src);
+      previews.set(category.slug, image);
+    }
+  }
+
+  return previews;
+})();
+
+function getCategoryPreview(slug: string) {
+  return categoryPreviews.get(slug) ?? null;
+}
 
 export const metadata: Metadata = {
   title: "Packaging Categories",
@@ -88,39 +114,62 @@ export default function CategoriesPage() {
         <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
 
-          <div className="relative mx-auto max-w-7xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
-              Packaging Categories
-            </p>
+          <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="text-center lg:text-left">
+              <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
+                Packaging Categories
+              </p>
 
-            <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
-  Find Packaging by{" "}
-  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
-    Category
-  </span>
-</h1>
+              <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
+                Find Packaging by{" "}
+                <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+                  Category
+                </span>
+              </h1>
 
-            <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              Browse custom packaging solutions by product type, business need,
-              market and buyer requirement.
-            </p>
+              <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300 lg:mx-0">
+                Compare packaging by product use, structure and buying need, then move directly
+                to the right product page, materials, finishes and quote form.
+              </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link
-                href="/products"
-                prefetch={false}
-                className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
-              >
-                View Products
-              </Link>
+              <div className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+                <Link
+                  href="/products"
+                  prefetch={false}
+                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                >
+                  View Products
+                </Link>
 
-              <Link
-                href="/#quote"
-                prefetch={false}
-                className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
-              >
-                Get Quote
-              </Link>
+                <Link
+                  href="/#quote"
+                  prefetch={false}
+                  className="rounded-full border border-white/20 px-8 py-4 font-black text-white transition hover:bg-white hover:text-[#07111F]"
+                >
+                  Get Quote
+                </Link>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+                <Image
+                  src="/images/home/home-hero-luxury-v3.webp"
+                  alt="Custom packaging categories including luxury, retail, food and ecommerce packaging"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 48vw"
+                  className="object-cover object-center"
+                />
+              </div>
+              <div className="px-2 pb-1 pt-5">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                  One connected packaging system
+                </p>
+                <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                  Category to product to quote — without losing the buyer journey.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -152,25 +201,25 @@ export default function CategoriesPage() {
                   prefetch={false}
                   className="pp-card group rounded-[2rem] bg-white p-7 shadow-md"
                 >
-                                      <div className="relative mb-6 flex h-44 items-center justify-center overflow-hidden rounded-[1.5rem] border border-[#007C91]/15 bg-[#F0F8F9]">
-                                        <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle,#07111F_1px,transparent_1px)] [background-size:22px_22px]" />
+                  <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-[#007C91]/15 bg-[#EDE5DC]">
+                    {getCategoryPreview(category.slug) ? (
+                      <Image
+                        src={getCategoryPreview(category.slug)!.src}
+                        alt={getCategoryPreview(category.slug)!.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
+                    )}
 
-                                      <span className="absolute left-5 top-5 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                      Category
-                    </span>
-
-                    <CategoryIcon
-                      slug={category.slug}
-                      size="lg"
-                      className="relative scale-125 transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.35]"
-                    />
-
-                    <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-[#07111F]">
+                    <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
                       {index + 1}
                     </span>
                   </div>
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-                    Packaging Category
+                    {category.productSlugs.length} product styles
                   </p>
 
                   <h2 className="mt-3 text-3xl font-black text-[#07111F]">
@@ -253,4 +302,3 @@ export default function CategoriesPage() {
     </>
   );
 }
-

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import PackagingSearch from "@/components/PackagingSearch";
 import CategoryIcon from "@/components/CategoryIcon";
+import { salesPhone } from "@/data/businessInfo";
 
 const productLinks = [
   { name: "Rigid Boxes", href: "/products/rigid-boxes", label: "Luxury boxes" },
@@ -59,12 +60,26 @@ const marketLinks = [
   { name: "Australia Packaging", href: "/markets/australia", label: "Australia" },
 ];
 
+const resourceLinks = [
+  { name: "Resources Hub", href: "/resources", label: "Start here" },
+  { name: "Packaging Materials", href: "/packaging-materials", label: "Board & paper guide" },
+  { name: "Finishing Options", href: "/finishing-options", label: "Foil, UV & lamination" },
+  { name: "Artwork & Dielines", href: "/artwork-guide", label: "Print-ready artwork" },
+  { name: "Sample Kit", href: "/sample-kit", label: "Review before order" },
+  { name: "Packaging Guide", href: "/packaging-guide", label: "Buyer education" },
+  { name: "Custom Packaging", href: "/custom-packaging", label: "How custom orders work" },
+  { name: "Packaging Blog", href: "/blog", label: "Articles & guides" },
+  { name: "Packaging Gallery", href: "/portfolio", label: "Visual concepts" },
+];
+
 const mobileLinks = [
   { name: "Home", href: "/" },
   { name: "Products", href: "/products" },
   { name: "Categories", href: "/categories" },
   { name: "Markets", href: "/markets" },
+  { name: "Resources", href: "/resources" },
   { name: "Blog", href: "/blog" },
+  { name: "Gallery", href: "/portfolio" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
   { name: "Get Quote", href: "/#quote" },
@@ -133,12 +148,30 @@ export default function Header() {
                 </a>
 
                 <span className="hidden h-4 w-px bg-white/30 md:block" />
-                <span className="hidden text-cyan-300 md:inline">
-                  USA | UK | Europe Quote Support
-                </span>
+                {salesPhone.display && salesPhone.tel ? (
+                  <a
+                    href={`tel:${salesPhone.tel}`}
+                    className="hidden text-cyan-300 transition hover:text-[#FF6A00] md:inline"
+                  >
+                    Call {salesPhone.display}
+                  </a>
+                ) : (
+                  <span className="hidden text-cyan-300 md:inline">
+                    USA | UK | Europe Quote Support
+                  </span>
+                )}
                 <span className="hidden h-4 w-px bg-white/30 md:block" />
                 <span className="hidden md:inline">USA | UK | Europe | UAE | Worldwide</span>
-                <span className="shrink-0 text-cyan-300 md:hidden">Worldwide Quotes</span>
+                {salesPhone.display && salesPhone.tel ? (
+                  <a
+                    href={`tel:${salesPhone.tel}`}
+                    className="shrink-0 text-cyan-300 md:hidden"
+                  >
+                    {salesPhone.display}
+                  </a>
+                ) : (
+                  <span className="shrink-0 text-cyan-300 md:hidden">Worldwide Quotes</span>
+                )}
               </div>
             </div>
           </div>
@@ -186,7 +219,18 @@ export default function Header() {
               ctaHref="/markets"
             />
 
-            <NavLink href="/blog">Blog</NavLink>
+            <MegaMenu
+              title="Resources"
+              href="/resources"
+              heading="Packaging Resources"
+              description="Materials, finishes, artwork, samples and practical buying guides."
+              links={resourceLinks}
+              ctaText="Resources Hub"
+              ctaHref="/resources"
+              wide
+            />
+
+            <NavLink href="/portfolio">Gallery</NavLink>
             <NavLink href="/about">About</NavLink>
             <NavLink href="/contact">Contact</NavLink>
             <NavLink href="/#quote">Quote</NavLink>
@@ -194,6 +238,14 @@ export default function Header() {
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <PackagingSearch />
+            {salesPhone.display && salesPhone.tel && (
+              <a
+                href={`tel:${salesPhone.tel}`}
+                className="hidden whitespace-nowrap text-sm font-black text-[#07111F] transition hover:text-[#FF6A00] 2xl:inline"
+              >
+                {salesPhone.display}
+              </a>
+            )}
             <Link
               href="/#quote"
               prefetch={false}

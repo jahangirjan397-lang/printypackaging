@@ -13,7 +13,7 @@ export default function ProductImageGallery({
   productName,
   images = [],
 }: ProductImageGalleryProps) {
-  const galleryImages = images.slice(0, 5);
+  const galleryImages = images.slice(0, 8);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const safeIndex = Math.min(activeIndex, galleryImages.length - 1);
@@ -61,17 +61,22 @@ export default function ProductImageGallery({
           className="object-cover object-center brightness-[1.025] contrast-[1.015]"
         />
 
-        <div className="absolute bottom-4 left-4 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white backdrop-blur">
-          {activeImage.title}
-        </div>
-
         <div className="absolute right-4 top-4 rounded-full bg-[#FF6A00] px-3 py-2 text-xs font-black text-white">
           {safeIndex + 1} / {galleryImages.length}
         </div>
       </div>
 
+      <p className="mt-3 px-1 text-xs font-black uppercase tracking-[0.16em] text-slate-300">
+        {activeImage.title}
+      </p>
+
       {galleryImages.length > 1 && (
-        <div className="mt-4 grid grid-cols-5 gap-2">
+        <div
+          className="mt-4 grid gap-2"
+          style={{
+            gridTemplateColumns: `repeat(${galleryImages.length}, minmax(0, 1fr))`,
+          }}
+        >
           {galleryImages.map((image, index) => (
             <button
               key={`${image.src}-${index}`}

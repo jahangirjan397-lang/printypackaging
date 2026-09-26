@@ -5,16 +5,19 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const MAX_JSON_BODY_LENGTH = 30_000;
-const MAX_UPLOAD_BODY_LENGTH = 12 * 1024 * 1024;
+const MAX_UPLOAD_BODY_LENGTH = 4_250_000;
 const MAX_FILES = 5;
-const MAX_SINGLE_FILE_SIZE = 5 * 1024 * 1024;
-const MAX_TOTAL_FILE_SIZE = 10 * 1024 * 1024;
+const MAX_SINGLE_FILE_SIZE = 4_000_000;
+const MAX_TOTAL_FILE_SIZE = 4_000_000;
 const ALLOWED_FILE_EXTENSIONS = new Set([
   ".pdf", ".ai", ".eps", ".psd", ".svg", ".png", ".jpg",
   ".jpeg", ".webp", ".tif", ".tiff", ".cdr",
 ]);
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 5;
+// The auto-reply goes to a buyer-supplied address, so cap it per recipient to
+// stop the form being used to send repeated emails to someone else's inbox.
+const MAX_AUTO_REPLIES_PER_EMAIL = 2;
 
 type QuoteRequest = {
   name?: string;
@@ -30,6 +33,7 @@ type QuoteRequest = {
   finishing?: string;
   artworkStatus?: string;
   message?: string;
+  leadSource?: string;
   website?: string;
 };
 
@@ -48,6 +52,7 @@ type LeadData = {
   finishing: string;
   artworkStatus: string;
   message: string;
+  leadSource: string;
 };
 
 type ServiceResult = {
@@ -155,6 +160,8 @@ function buildLead(body: QuoteRequest): LeadData {
     finishing: clean(body.finishing),
     artworkStatus: clean(body.artworkStatus),
     message: clean(body.message),
+    // Optional: where the buyer came from (utm_source / referrer)
+    leadSource: clean(body.leadSource).slice(0, 200),
   };
 }
 
@@ -212,7 +219,7 @@ function getClientIp(request: Request) {
   );
 }
 
-function checkRateLimit(ip: string) {
+function checkRateLimit(key: string, maxRequests = MAX_REQUESTS_PER_WINDOW) {
   const now = Date.now();
 
   if (rateLimitStore.size > 1000) {
@@ -223,10 +230,10 @@ function checkRateLimit(ip: string) {
     }
   }
 
-  const currentRecord = rateLimitStore.get(ip);
+  const currentRecord = rateLimitStore.get(key);
 
   if (!currentRecord || currentRecord.resetAt <= now) {
-    rateLimitStore.set(ip, {
+    rateLimitStore.set(key, {
       count: 1,
       resetAt: now + RATE_LIMIT_WINDOW_MS,
     });
@@ -237,7 +244,7 @@ function checkRateLimit(ip: string) {
     };
   }
 
-  if (currentRecord.count >= MAX_REQUESTS_PER_WINDOW) {
+  if (currentRecord.count >= maxRequests) {
     return {
       allowed: false,
       retryAfterSeconds: Math.max(
@@ -248,7 +255,7 @@ function checkRateLimit(ip: string) {
   }
 
   currentRecord.count += 1;
-  rateLimitStore.set(ip, currentRecord);
+  rateLimitStore.set(key, currentRecord);
 
   return {
     allowed: true,
@@ -256,13 +263,18 @@ function checkRateLimit(ip: string) {
   };
 }
 
-function isAllowedOrigin(origin: string | null) {
+function isAllowedOrigin(origin: string | null, requestUrl: string) {
   if (!origin) {
     return true;
   }
 
   try {
     const url = new URL(origin);
+    const site = new URL(requestUrl);
+
+    if (url.origin === site.origin) {
+      return true;
+    }
 
     if (
       url.protocol === "http:" &&
@@ -322,6 +334,7 @@ async function saveLeadToGoogleSheet(
           uploadedFiles.map((file) => file.filename).join(", " )
         ),
         message: safeSpreadsheetCell(lead.message),
+        leadSource: safeSpreadsheetCell(lead.leadSource),
       }),
     });
 
@@ -425,6 +438,7 @@ function getEmailHtml(lead: LeadData) {
   const safePrinting = escapeHtml(lead.printing || "-");
   const safeFinishing = escapeHtml(lead.finishing || "-");
   const safeArtworkStatus = escapeHtml(lead.artworkStatus || "-");
+  const safeLeadSource = escapeHtml(lead.leadSource || "-");
   const safeMessage = escapeHtml(lead.message || "-").replaceAll(
     "\n",
     "<br />"
@@ -443,6 +457,7 @@ function getEmailHtml(lead: LeadData) {
         <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>WhatsApp / Phone:</strong> ${safeWhatsapp}</p>
         <p><strong>Country:</strong> ${safeCountry}</p>
+        <p><strong>Lead Source:</strong> ${safeLeadSource}</p>
 
         <h3>Packaging Details</h3>
         <p><strong>Product Type:</strong> ${safeProduct}</p>
@@ -532,6 +547,7 @@ Name: ${lead.name}
 Email: ${lead.email}
 WhatsApp / Phone: ${lead.whatsapp}
 Country: ${lead.country}
+Lead Source: ${lead.leadSource}
 
 Product Type: ${lead.product}
 Quantity: ${lead.quantity}
@@ -628,7 +644,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    if (!isAllowedOrigin(request.headers.get("origin"))) {
+    if (!isAllowedOrigin(request.headers.get("origin"), request.url)) {
       return NextResponse.json(
         {
           success: false,
@@ -675,6 +691,7 @@ export async function POST(request: Request) {
         gsm: formValue(formData, "gsm"), printing: formValue(formData, "printing"),
         finishing: formValue(formData, "finishing"), artworkStatus: formValue(formData, "artworkStatus"),
         message: formValue(formData, "message"), website: formValue(formData, "website"),
+        leadSource: formValue(formData, "leadSource"),
       };
 
       const realFiles = formData.getAll("artworkFiles").filter(
@@ -691,11 +708,11 @@ export async function POST(request: Request) {
           return NextResponse.json({ success: false, message: "One of the uploaded files is not a supported artwork format." }, { status: 400 });
         }
         if (file.size > MAX_SINGLE_FILE_SIZE) {
-          return NextResponse.json({ success: false, message: `"${filename}" is larger than 5 MB.` }, { status: 400 });
+          return NextResponse.json({ success: false, message: `"${filename}" is larger than 4 MB.` }, { status: 400 });
         }
         totalFileSize += file.size;
         if (totalFileSize > MAX_TOTAL_FILE_SIZE) {
-          return NextResponse.json({ success: false, message: "Artwork files must be 10 MB or less in total." }, { status: 400 });
+          return NextResponse.json({ success: false, message: "Artwork files must be 4 MB or less in total." }, { status: 400 });
         }
         uploadedFiles.push({ filename, contentType: file.type || "application/octet-stream", size: file.size, content: Buffer.from(await file.arrayBuffer()) });
       }
@@ -733,10 +750,43 @@ export async function POST(request: Request) {
       );
     }
 
-    const [crmResult, adminEmailResult] = await Promise.all([
-      saveLeadToGoogleSheet(lead, uploadedFiles),
-      sendAdminEmail(lead, uploadedFiles),
-    ]);
+    // Artwork is delivered through the admin email attachment. Reject before
+    // saving a CRM row if that channel cannot carry the files.
+    if (uploadedFiles.length > 0 && !getEmailConfig().configured) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Artwork upload is temporarily unavailable. Please send your quote without files or contact us through WhatsApp.",
+        },
+        { status: 503 }
+      );
+    }
+
+    let crmResult: ServiceResult;
+    let adminEmailResult: ServiceResult;
+
+    if (uploadedFiles.length > 0) {
+      // The email attachment is the delivery channel for artwork. Do not
+      // record the lead first and then ask the buyer to retry a failed upload.
+      adminEmailResult = await sendAdminEmail(lead, uploadedFiles);
+      if (!adminEmailResult.success) {
+        return NextResponse.json(
+          {
+            success: false,
+            message:
+              "We could not deliver your artwork right now. Please try again or contact us through WhatsApp.",
+          },
+          { status: 503 }
+        );
+      }
+      crmResult = await saveLeadToGoogleSheet(lead, uploadedFiles);
+    } else {
+      [crmResult, adminEmailResult] = await Promise.all([
+        saveLeadToGoogleSheet(lead, uploadedFiles),
+        sendAdminEmail(lead, uploadedFiles),
+      ]);
+    }
 
     console.info("Quote lead:",{quoteId:lead.quoteId});
     console.info("Google Sheet CRM:",{quoteId:lead.quoteId,success:crmResult.success,skipped:Boolean(crmResult.skipped)});
@@ -758,7 +808,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const clientEmailResult = await sendClientAutoReply(lead);
+    const autoReplyLimit = checkRateLimit(
+      `auto-reply:${lead.email}`,
+      MAX_AUTO_REPLIES_PER_EMAIL
+    );
+    const clientEmailResult: ServiceResult = autoReplyLimit.allowed
+      ? await sendClientAutoReply(lead)
+      : {
+          success: false,
+          skipped: true,
+          message: "Auto reply limit reached for this address.",
+        };
 
     console.info("Client Email:",{quoteId:lead.quoteId,success:clientEmailResult.success,skipped:Boolean(clientEmailResult.skipped)});
 

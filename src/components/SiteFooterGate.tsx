@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BrandLogo from "@/components/BrandLogo";
+import SocialIcons from "@/components/SocialIcons";
 
 const productLinks = [
   { label: "Rigid Boxes", href: "/products/rigid-boxes" },
@@ -11,6 +12,7 @@ const productLinks = [
 ];
 
 const companyLinks = [
+  { label: "Packaging Gallery", href: "/portfolio" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
   { label: "Why Printy Packaging", href: "/why-printy-packaging" },
@@ -91,6 +93,8 @@ export default function SiteFooter() {
                 Packaging Guides
               </Link>
             </div>
+
+            <SocialIcons className="mt-6" />
           </div>
 
           <FooterColumn title="Products" links={productLinks} />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { businessPromises } from "@/data/businessInfo";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -73,6 +74,10 @@ export default function SampleKitPage() {
               structure and presentation before large production planning.
             </p>
 
+            <p className="mt-5 inline-flex rounded-2xl border border-[#FF6A00]/40 bg-[#FF6A00]/10 px-5 py-3 text-sm font-black text-orange-200">
+              {businessPromises.sampleOffer}
+            </p>
+
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/?product=rigid-boxes#quote"
@@ -136,7 +141,12 @@ export default function SampleKitPage() {
                 key={benefit.title}
                 className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20" />
+                <div
+                  aria-hidden="true"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 flex items-center justify-center text-white"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                </div>
                 <h3 className="text-2xl font-black tracking-tight">
                   {benefit.title}
                 </h3>

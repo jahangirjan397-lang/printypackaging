@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import { SocialIcon } from "@/components/SocialIcons";
+import { activeSocialLinks } from "@/data/socialLinks";
+import { salesPhone, salesTeam } from "@/data/businessInfo";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -81,18 +85,18 @@ export default function ContactPage() {
       <section className="relative overflow-hidden bg-[#07111F] px-4 py-20 text-white sm:px-5 md:px-8">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.22),transparent_30%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.14),transparent_28%)]" />
 
-        <div className="relative mx-auto max-w-7xl">
-          <div className="max-w-3xl">
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
             <p className="inline-flex rounded-full border border-[#00C2E8]/40 bg-[#00C2E8]/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#9FEFFF]">
               Contact Printy Packaging
             </p>
 
             <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight md:text-6xl">
-  Custom packaging quote support for{" "}
-  <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
-    serious brands.
-  </span>
-</h1>
+              Custom packaging quote support for{" "}
+              <span className="bg-gradient-to-r from-[#FF6A00] via-[#F4C27A] to-[#00C2E8] bg-clip-text text-transparent">
+                serious brands.
+              </span>
+            </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
               Need custom boxes, rigid boxes, mailer boxes, folding cartons,
@@ -114,6 +118,27 @@ export default function ContactPage() {
               >
                 Email Sales Team
               </a>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+              <Image
+                src="/images/products/mailer-boxes/mailer-boxes-open.webp"
+                alt="Custom packaging prepared for quote and buyer support"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="px-2 pb-1 pt-5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                Faster quote preparation
+              </p>
+              <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                Size, quantity, material, print, finish and artwork status in one inquiry.
+              </p>
             </div>
           </div>
         </div>
@@ -152,6 +177,97 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {salesTeam.length > 0 && (
+        <section className="px-4 pb-16 sm:px-5 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Talk to a packaging specialist
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111F]">
+              Your sales team
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {salesTeam.map((person) => (
+                <div
+                  key={person.email}
+                  className="flex items-center gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm"
+                >
+                  {person.photo ? (
+                    <Image
+                      src={person.photo}
+                      alt={person.name}
+                      width={64}
+                      height={64}
+                      className="h-16 w-16 shrink-0 rounded-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#07111F] text-xl font-black text-white">
+                      {person.name.charAt(0)}
+                    </span>
+                  )}
+                  <div className="min-w-0">
+                    <p className="font-black text-[#07111F]">{person.name}</p>
+                    <p className="text-sm text-slate-500">{person.role}</p>
+                    <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm font-black">
+                      <a
+                        href={`mailto:${person.email}`}
+                        className="text-[#007C91] hover:text-[#FF6A00]"
+                      >
+                        Email
+                      </a>
+                      {salesPhone.tel && (
+                        <a
+                          href={`tel:${salesPhone.tel}`}
+                          className="text-[#007C91] hover:text-[#FF6A00]"
+                        >
+                          Call
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {activeSocialLinks.length > 0 && (
+        <section className="px-4 pb-16 sm:px-5 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Follow &amp; message us
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111F]">
+              Printy Packaging on social media
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {activeSocialLinks.map((link) => (
+                <a
+                  key={link.platform}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00]"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#07111F] text-white transition group-hover:bg-[#FF6A00]">
+                    <SocialIcon platform={link.platform} />
+                  </span>
+                  <span>
+                    <span className="block font-black text-[#07111F]">
+                      {link.label}
+                    </span>
+                    <span className="mt-1 block text-sm leading-6 text-slate-600">
+                      {link.purpose}
+                    </span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="bg-[#F7FAFC] px-4 py-16 sm:px-5 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
