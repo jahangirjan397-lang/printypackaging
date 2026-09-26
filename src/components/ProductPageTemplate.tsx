@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
+import { businessPromises } from "../data/businessInfo";
 import BuyerTrustSection from "./BuyerTrustSection";
 import ProductGuideLinksSection from "./ProductGuideLinksSection";
 import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
@@ -241,18 +242,29 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 </Link>
               </div>
 
-              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-2">
-                {["Custom Size", "Print Ready Help"].map(
-                  (item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/10 bg-white/[0.06] p-4"
-                    >
-                      {item}
-                    </div>
-                  )
-                )}
-              </div>
+              <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+                {[
+                  { label: "Minimum order", value: businessPromises.minimumOrder },
+                  { label: "Production", value: businessPromises.productionTime },
+                  { label: "Quote reply", value: businessPromises.quoteResponse },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-white/10 bg-white/[0.06] p-4"
+                  >
+                    <dt className="text-[11px] font-black uppercase tracking-[0.18em] text-[#00C2E8]">
+                      {item.label}
+                    </dt>
+                    <dd className="mt-1 text-sm font-black text-white">
+                      {item.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-4 text-sm font-bold text-slate-300">
+                ✓ {businessPromises.designSupport} · ✓ {businessPromises.sampleOffer}
+              </p>
             </div>
 
                         <ProductImageGallery

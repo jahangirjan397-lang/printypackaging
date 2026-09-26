@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { SocialIcon } from "@/components/SocialIcons";
+import { activeSocialLinks } from "@/data/socialLinks";
+import { salesPhone, salesTeam } from "@/data/businessInfo";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -174,6 +177,97 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {salesTeam.length > 0 && (
+        <section className="px-4 pb-16 sm:px-5 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Talk to a packaging specialist
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111F]">
+              Your sales team
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {salesTeam.map((person) => (
+                <div
+                  key={person.email}
+                  className="flex items-center gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm"
+                >
+                  {person.photo ? (
+                    <Image
+                      src={person.photo}
+                      alt={person.name}
+                      width={64}
+                      height={64}
+                      className="h-16 w-16 shrink-0 rounded-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#07111F] text-xl font-black text-white">
+                      {person.name.charAt(0)}
+                    </span>
+                  )}
+                  <div className="min-w-0">
+                    <p className="font-black text-[#07111F]">{person.name}</p>
+                    <p className="text-sm text-slate-500">{person.role}</p>
+                    <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm font-black">
+                      <a
+                        href={`mailto:${person.email}`}
+                        className="text-[#007C91] hover:text-[#FF6A00]"
+                      >
+                        Email
+                      </a>
+                      {salesPhone.tel && (
+                        <a
+                          href={`tel:${salesPhone.tel}`}
+                          className="text-[#007C91] hover:text-[#FF6A00]"
+                        >
+                          Call
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {activeSocialLinks.length > 0 && (
+        <section className="px-4 pb-16 sm:px-5 md:px-8">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+              Follow &amp; message us
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111F]">
+              Printy Packaging on social media
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {activeSocialLinks.map((link) => (
+                <a
+                  key={link.platform}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00]"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#07111F] text-white transition group-hover:bg-[#FF6A00]">
+                    <SocialIcon platform={link.platform} />
+                  </span>
+                  <span>
+                    <span className="block font-black text-[#07111F]">
+                      {link.label}
+                    </span>
+                    <span className="mt-1 block text-sm leading-6 text-slate-600">
+                      {link.purpose}
+                    </span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="bg-[#F7FAFC] px-4 py-16 sm:px-5 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">

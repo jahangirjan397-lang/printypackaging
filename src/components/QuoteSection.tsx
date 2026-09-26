@@ -9,6 +9,8 @@ import {
   isLiveHostname,
   readAnalyticsConsent,
 } from "@/lib/analyticsConsent";
+import { readLeadSource } from "@/lib/leadSource";
+import { businessPromises } from "@/data/businessInfo";
 const quoteBenefits = [
   "Custom box style suggestion",
   "Material and GSM guidance",
@@ -439,6 +441,7 @@ export default function QuoteSection() {
   setErrorMessage("");
 
   const formData = new FormData(event.currentTarget);
+  formData.set("leadSource", readLeadSource());
   const artworkFiles = formData
     .getAll("artworkFiles")
     .filter(
@@ -802,9 +805,11 @@ export default function QuoteSection() {
               {isSending ? "Sending Quote Request..." : "Submit Quote Request"}
             </button>
 
-            <p className="mt-3 text-center text-sm text-slate-500">
-              Your request will be sent to our packaging team for review.
-            </p>
+            <ul className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-bold text-slate-500">
+              <li>✓ Price reply {businessPromises.quoteResponse}</li>
+              <li>✓ MOQ from {businessPromises.minimumOrder}</li>
+              <li>✓ {businessPromises.productionTime} production</li>
+            </ul>
           </form>
         </div>
       </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
 import { getBlogVisual } from "@/data/blogVisuals";
+import ShareButtons from "@/components/ShareButtons";
 
 const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
@@ -246,6 +247,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </aside>
 
           <article className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7 sm:p-10">
+            <div className="mb-10 border-b border-slate-200 pb-6">
+              <ShareButtons
+                url={`${siteUrl}/blog/${post.slug}`}
+                title={post.title}
+                image={`${siteUrl}${articleVisual.src}`}
+              />
+            </div>
+
             <div className="space-y-10">
               {post.sections.map((section) => (
                 <section

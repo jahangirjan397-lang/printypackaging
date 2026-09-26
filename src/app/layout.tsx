@@ -7,6 +7,8 @@ import LiveChatWidget from "@/components/LiveChatWidget";
 import FloatingActions from "@/components/FloatingActions";
 import "./globals.css";
 import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
+import { activeSocialLinks } from "@/data/socialLinks";
+import LeadSourceTracker from "@/components/LeadSourceTracker";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -104,6 +106,9 @@ export default function RootLayout({
     url: siteUrl,
     logo: `${siteUrl}/logo-icon.svg`,
     email: brandEmail,
+    ...(activeSocialLinks.length > 0
+      ? { sameAs: activeSocialLinks.map((link) => link.url) }
+      : {}),
     description:
       "Printy Packaging provides custom printed packaging boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels, stickers and luxury packaging for USA, UK, Europe, UAE and worldwide brands.",
     areaServed: [
@@ -221,6 +226,7 @@ export default function RootLayout({
         <LiveChatWidget />
         <FloatingActions />
         <AnalyticsClickTracker />
+        <LeadSourceTracker />
         <AnalyticsConsent />
       </body>
     </html>

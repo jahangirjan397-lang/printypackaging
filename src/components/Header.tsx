@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import PackagingSearch from "@/components/PackagingSearch";
 import CategoryIcon from "@/components/CategoryIcon";
+import { salesPhone } from "@/data/businessInfo";
 
 const productLinks = [
   { name: "Rigid Boxes", href: "/products/rigid-boxes", label: "Luxury boxes" },
@@ -147,12 +148,30 @@ export default function Header() {
                 </a>
 
                 <span className="hidden h-4 w-px bg-white/30 md:block" />
-                <span className="hidden text-cyan-300 md:inline">
-                  USA | UK | Europe Quote Support
-                </span>
+                {salesPhone.display && salesPhone.tel ? (
+                  <a
+                    href={`tel:${salesPhone.tel}`}
+                    className="hidden text-cyan-300 transition hover:text-[#FF6A00] md:inline"
+                  >
+                    Call {salesPhone.display}
+                  </a>
+                ) : (
+                  <span className="hidden text-cyan-300 md:inline">
+                    USA | UK | Europe Quote Support
+                  </span>
+                )}
                 <span className="hidden h-4 w-px bg-white/30 md:block" />
                 <span className="hidden md:inline">USA | UK | Europe | UAE | Worldwide</span>
-                <span className="shrink-0 text-cyan-300 md:hidden">Worldwide Quotes</span>
+                {salesPhone.display && salesPhone.tel ? (
+                  <a
+                    href={`tel:${salesPhone.tel}`}
+                    className="shrink-0 text-cyan-300 md:hidden"
+                  >
+                    {salesPhone.display}
+                  </a>
+                ) : (
+                  <span className="shrink-0 text-cyan-300 md:hidden">Worldwide Quotes</span>
+                )}
               </div>
             </div>
           </div>
@@ -219,6 +238,14 @@ export default function Header() {
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <PackagingSearch />
+            {salesPhone.display && salesPhone.tel && (
+              <a
+                href={`tel:${salesPhone.tel}`}
+                className="hidden whitespace-nowrap text-sm font-black text-[#07111F] transition hover:text-[#FF6A00] 2xl:inline"
+              >
+                {salesPhone.display}
+              </a>
+            )}
             <Link
               href="/#quote"
               prefetch={false}

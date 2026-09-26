@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { businessPromises } from "@/data/businessInfo";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -71,6 +72,10 @@ export default function SampleKitPage() {
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
               Packaging samples help buyers understand material, finish,
               structure and presentation before large production planning.
+            </p>
+
+            <p className="mt-5 inline-flex rounded-2xl border border-[#FF6A00]/40 bg-[#FF6A00]/10 px-5 py-3 text-sm font-black text-orange-200">
+              {businessPromises.sampleOffer}
             </p>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">

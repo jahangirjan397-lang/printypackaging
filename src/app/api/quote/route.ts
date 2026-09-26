@@ -33,6 +33,7 @@ type QuoteRequest = {
   finishing?: string;
   artworkStatus?: string;
   message?: string;
+  leadSource?: string;
   website?: string;
 };
 
@@ -51,6 +52,7 @@ type LeadData = {
   finishing: string;
   artworkStatus: string;
   message: string;
+  leadSource: string;
 };
 
 type ServiceResult = {
@@ -158,6 +160,8 @@ function buildLead(body: QuoteRequest): LeadData {
     finishing: clean(body.finishing),
     artworkStatus: clean(body.artworkStatus),
     message: clean(body.message),
+    // Optional: where the buyer came from (utm_source / referrer)
+    leadSource: clean(body.leadSource).slice(0, 200),
   };
 }
 
@@ -330,6 +334,7 @@ async function saveLeadToGoogleSheet(
           uploadedFiles.map((file) => file.filename).join(", " )
         ),
         message: safeSpreadsheetCell(lead.message),
+        leadSource: safeSpreadsheetCell(lead.leadSource),
       }),
     });
 
@@ -433,6 +438,7 @@ function getEmailHtml(lead: LeadData) {
   const safePrinting = escapeHtml(lead.printing || "-");
   const safeFinishing = escapeHtml(lead.finishing || "-");
   const safeArtworkStatus = escapeHtml(lead.artworkStatus || "-");
+  const safeLeadSource = escapeHtml(lead.leadSource || "-");
   const safeMessage = escapeHtml(lead.message || "-").replaceAll(
     "\n",
     "<br />"
@@ -451,6 +457,7 @@ function getEmailHtml(lead: LeadData) {
         <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>WhatsApp / Phone:</strong> ${safeWhatsapp}</p>
         <p><strong>Country:</strong> ${safeCountry}</p>
+        <p><strong>Lead Source:</strong> ${safeLeadSource}</p>
 
         <h3>Packaging Details</h3>
         <p><strong>Product Type:</strong> ${safeProduct}</p>
@@ -540,6 +547,7 @@ Name: ${lead.name}
 Email: ${lead.email}
 WhatsApp / Phone: ${lead.whatsapp}
 Country: ${lead.country}
+Lead Source: ${lead.leadSource}
 
 Product Type: ${lead.product}
 Quantity: ${lead.quantity}
@@ -683,6 +691,7 @@ export async function POST(request: Request) {
         gsm: formValue(formData, "gsm"), printing: formValue(formData, "printing"),
         finishing: formValue(formData, "finishing"), artworkStatus: formValue(formData, "artworkStatus"),
         message: formValue(formData, "message"), website: formValue(formData, "website"),
+        leadSource: formValue(formData, "leadSource"),
       };
 
       const realFiles = formData.getAll("artworkFiles").filter(

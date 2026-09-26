@@ -3,12 +3,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { businessPromises } from "@/data/businessInfo";
 
-const trustPoints = [
-  "Custom Structures",
-  "Material Guidance",
-  "Artwork Support",
-  "Worldwide Quotes",
+// Headline numbers under the hero text (values live in data/businessInfo.ts)
+const heroStats = [
+  {
+    value: businessPromises.minimumOrder.replace(/\s*boxes?$/i, ""),
+    label: "Minimum order",
+  },
+  {
+    value: businessPromises.productionTime.replace(/\s*business\s*/i, " "),
+    label: "Standard turnaround",
+  },
+  { value: "Free", label: "Dieline & digital proof" },
 ];
 
 const heroSlides = [
@@ -166,13 +173,13 @@ export default function Hero() {
     <section className="relative overflow-hidden bg-[linear-gradient(135deg,#062A3D_0%,#07111F_58%,#191416_100%)] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.2),transparent_30%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.14),transparent_28%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-5 sm:py-16 md:px-8 md:py-20 lg:grid-cols-2 lg:py-24 2xl:max-w-[1520px] 2xl:gap-16 2xl:px-10">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-12 sm:px-5 sm:py-14 md:px-8 md:py-16 lg:grid-cols-2 lg:py-14 2xl:max-w-[1520px] 2xl:gap-16 2xl:px-10">
         <div className="max-w-3xl text-center lg:text-left">
           <p className="inline-flex rounded-full border border-[#00C2E8]/40 bg-[#00C2E8]/10 px-4 py-2 text-xs font-black text-[#9FEFFF] shadow-lg shadow-cyan-500/10 md:text-sm">
             Premium Custom Printing & Packaging
           </p>
 
-          <h1 className="mt-6 text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl md:text-6xl xl:text-7xl 2xl:text-[5rem]">
+          <h1 className="mt-5 text-4xl font-black leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.4rem] xl:text-6xl 2xl:text-7xl">
             Packaging That
             <br />
             Makes Brands
@@ -182,13 +189,13 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base md:text-lg md:leading-8 lg:mx-0">
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base md:leading-7 lg:mx-0">
             Premium rigid boxes, folding cartons, food packaging, butter paper,
             labels, stickers and luxury printed packaging for USA, UK, Europe,
             UAE and worldwide brands.
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
+          <div className="mt-7 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
             <a
               href="#quote"
               className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] md:px-7 md:py-4"
@@ -204,22 +211,22 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="mx-auto mt-9 grid max-w-2xl grid-cols-2 gap-3 rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur md:grid-cols-4 lg:mx-0">
-            {trustPoints.map((item) => (
-              <div key={item} className="text-center lg:text-left">
-                <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00C2E8]/15 text-sm font-black text-[#00C2E8] lg:mx-0">
-                  ✓
-                </div>
-
-                <p className="text-[11px] font-black text-white sm:text-xs md:text-sm">
-                  {item}
-                </p>
+          <dl className="mx-auto mt-7 grid max-w-2xl grid-cols-3 gap-4 border-t border-white/10 pt-6 lg:mx-0">
+            {heroStats.map((item) => (
+              <div key={item.label} className="text-center lg:text-left">
+                <dt className="sr-only">{item.label}</dt>
+                <dd className="text-2xl font-black text-white md:text-3xl">
+                  {item.value}
+                </dd>
+                <dd className="mt-1 text-[11px] font-bold text-slate-400 sm:text-xs md:text-sm">
+                  {item.label}
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
 
-        <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
+        <div className="relative mx-auto w-full max-w-xl lg:max-w-[540px] 2xl:max-w-none">
           <div className="absolute -inset-5 rounded-[2.4rem] bg-[#00C2E8]/20 blur-3xl md:-inset-8" />
 
           <div className="relative overflow-hidden rounded-[2rem] border border-[#00C2E8]/25 bg-white/[0.06] p-3 shadow-2xl shadow-cyan-500/10 backdrop-blur md:rounded-[2.4rem] md:p-4">

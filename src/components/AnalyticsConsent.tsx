@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Script from "next/script";
 import { useEffect, useState } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import {
@@ -10,6 +11,9 @@ import {
 } from "@/lib/analyticsConsent";
 
 const measurementId = "G-MLLCT7GVJM";
+// Microsoft Clarity project ID (session recordings and heatmaps).
+// Set NEXT_PUBLIC_CLARITY_ID in the hosting environment to enable it.
+const clarityId = (process.env.NEXT_PUBLIC_CLARITY_ID ?? "").replace(/[^a-z0-9]/gi, "");
 
 type ConsentStatus = "granted" | "denied" | null;
 
@@ -47,6 +51,12 @@ export default function AnalyticsConsent() {
     <>
       {consent === "granted" && isLiveWebsite && (
         <GoogleAnalytics gaId={measurementId} />
+      )}
+
+      {consent === "granted" && isLiveWebsite && clarityId && (
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",${JSON.stringify(clarityId)});`}
+        </Script>
       )}
 
       {consent === null && (

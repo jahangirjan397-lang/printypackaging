@@ -9,6 +9,8 @@ import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
 import PaymentMethodsSection from "../components/PaymentMethodsSection";
 import QuoteSection from "../components/QuoteSection";
+import BoxFinder from "../components/BoxFinder";
+import CustomerReviewsSection from "../components/CustomerReviewsSection";
 
 export const metadata: Metadata = {
   title: "Custom Boxes, Rigid Boxes & Food Packaging",
@@ -48,10 +50,12 @@ export default function Home() {
       <Hero />
       <StatsBar />
       <FeaturedProducts />
+      <BoxFinder />
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
       <OrderProcessSection />
       <IndustryBuyerSection />
+      <CustomerReviewsSection />
       <QuoteSection />
       <PaymentMethodsSection />
     </>
