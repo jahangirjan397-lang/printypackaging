@@ -1,4 +1,5 @@
 import stagedProductImages from "./stagedProductImages.json";
+import { styleGuides, type StyleGuide } from "./styleGuides";
 
 export type ProductImage = {
   src: string;
@@ -273,7 +274,7 @@ function makeProduct(
   };
 }
 
-export const products: Product[] = [
+const coreProducts: Product[] = [
      makeProduct(
     "rigid-boxes",
     "Rigid Boxes",
@@ -819,6 +820,35 @@ export const products: Product[] = [
     ],
     ["Fashion", "Apparel", "Retail", "Handmade Brands", "Product Branding"]
   ),
+];
+
+// Style pages (e.g. Kraft Mailer Boxes) reuse their parent product's photos,
+// rotated so each style opens on a different image.
+function makeStyleProduct(guide: StyleGuide, index: number): Product {
+  const parent = coreProducts.find((product) => product.slug === guide.parent);
+  const parentImages = parent?.images ?? [];
+  const shift = parentImages.length ? (index + 1) % parentImages.length : 0;
+  const images = [...parentImages.slice(shift), ...parentImages.slice(0, shift)];
+  const base = makeProduct(
+    guide.slug,
+    guide.name,
+    guide.category,
+    guide.tagline,
+    guide.description,
+    guide.keywords,
+    guide.industries,
+    images,
+  );
+
+  return {
+    ...base,
+    faqs: [...guide.faqs, ...base.faqs.slice(-2)],
+  };
+}
+
+export const products: Product[] = [
+  ...coreProducts,
+  ...styleGuides.map((guide, index) => makeStyleProduct(guide, index)),
 ];
 
 export function getProductBySlug(slug: string) {

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
 import ProductPageTemplate from "../../../components/ProductPageTemplate";
 import { getProductBySlug, products } from "../../../data/products";
+import { getStyleGuide } from "../../../data/styleGuides";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -38,7 +39,10 @@ export async function generateMetadata({
   }
 
   const productUrl = `${siteUrl}/products/${product.slug}`;
-  const title = `${product.name} | Custom ${product.name} Packaging | ${brandName}`;
+  // Style pages get a buyer-intent title (e.g. "Custom Kraft Mailer Boxes with Logo")
+  const title = getStyleGuide(product.slug)
+    ? `Custom ${product.name} with Logo | ${brandName}`
+    : `${product.name} | Custom ${product.name} Packaging | ${brandName}`;
   const description = product.description;
   const primaryImage = product.images?.[0];
 

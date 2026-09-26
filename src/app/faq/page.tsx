@@ -24,6 +24,12 @@ const faqs = [
       "Yes. Tell us about your product, product weight, usage, market and brand style. We can guide you toward mailer boxes, folding cartons, rigid boxes, display boxes, food packaging or other suitable options.",
   },
   {
+    category: "Payment",
+    question: "How can I pay for my packaging order?",
+    answer:
+      "You can pay by card (Visa, Mastercard, American Express), bank wire transfer or Payoneer. Payment details are shared with your approved quote and invoice, so you only pay once the specifications and price are confirmed.",
+  },
+  {
     category: "Market",
     question: "Do you support USA, UK and Canada buyers?",
     answer:

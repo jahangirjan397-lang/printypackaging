@@ -33,6 +33,14 @@ export default function PaymentMethodsSection() {
               {brand.name === "Stripe" && <span className="text-xs font-bold text-[#635BFF]">Stripe</span>}
             </span>
           ))}
+          <span
+            role="img"
+            aria-label="Payoneer"
+            title="Payoneer"
+            className="flex h-10 items-center rounded-md bg-white px-3 text-sm font-black tracking-tight text-[#FF4800]"
+          >
+            Payoneer
+          </span>
           <span className="flex h-10 items-center rounded-md border border-white/20 px-3 text-xs font-bold text-white">
             Bank / wire
           </span>

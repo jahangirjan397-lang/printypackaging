@@ -1,29 +1,29 @@
 {
   "magnetic-boxes": [
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-hero-v3.webp",
-      "alt": "Magnetic Boxes - hero view (concept mockup)",
-      "title": "Magnetic Boxes hero view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-hero-v5.webp",
+      "alt": "Navy magnetic closure rigid box with the lid open",
+      "title": "Magnetic Box Hero View"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-front-v3.webp",
-      "alt": "Magnetic Boxes - front view (concept mockup)",
-      "title": "Magnetic Boxes front view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-front-v5.webp",
+      "alt": "Sage green magnetic rigid box holding a skincare jar and serum",
+      "title": "Magnetic Box with Insert"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-open-v3.webp",
-      "alt": "Magnetic Boxes - open view (concept mockup)",
-      "title": "Magnetic Boxes open view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-open-v5.webp",
+      "alt": "Purple book-style magnetic rigid boxes, one closed and one open",
+      "title": "Book Style Magnetic Box"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-finish-v3.webp",
-      "alt": "Magnetic Boxes - material and finish detail (concept mockup)",
-      "title": "Magnetic Boxes material and finish detail"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-finish-v5.webp",
+      "alt": "Blue collapsible magnetic box with a foil emblem on the lid",
+      "title": "Foil Detail"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-lifestyle-v3.webp",
-      "alt": "Magnetic Boxes - in use (concept mockup)",
-      "title": "Magnetic Boxes in use"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-lifestyle-v5.webp",
+      "alt": "White magnetic rigid box with a die-cut vial insert",
+      "title": "Custom Insert View"
     }
   ],
   "drawer-boxes": [
@@ -46,6 +46,11 @@
       "src": "/images/products/drawer-boxes/drawer-boxes-finish-v3.webp",
       "alt": "Drawer Boxes - material and finish detail (concept mockup)",
       "title": "Drawer Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/drawer-boxes/drawer-boxes-set-v5.webp",
+      "alt": "Pink, navy and blue drawer-style rigid boxes",
+      "title": "Drawer Box Colour Range"
     }
   ],
   "sleeve-boxes": [
@@ -229,19 +234,19 @@
       "title": "Rigid Boxes front view"
     },
     {
-      "src": "/images/products/rigid-boxes/rigid-boxes-open-v3.webp",
-      "alt": "Rigid Boxes - open view (concept mockup)",
-      "title": "Rigid Boxes open view"
+      "src": "/images/products/rigid-boxes/rigid-boxes-lid-base-v5.webp",
+      "alt": "Two-piece lid and base rigid box with a printed pattern",
+      "title": "Lid and Base Rigid Box"
     },
     {
-      "src": "/images/products/rigid-boxes/rigid-boxes-finish-v3.webp",
-      "alt": "Rigid Boxes - material and finish detail (concept mockup)",
-      "title": "Rigid Boxes material and finish detail"
+      "src": "/images/products/rigid-boxes/rigid-boxes-insert-v5.webp",
+      "alt": "Green rigid box with a fitted leather-look insert",
+      "title": "Rigid Box with Insert"
     },
     {
-      "src": "/images/products/rigid-boxes/rigid-boxes-lifestyle-v3.webp",
-      "alt": "Rigid Boxes - in use (concept mockup)",
-      "title": "Rigid Boxes in use"
+      "src": "/images/products/rigid-boxes/rigid-boxes-collapsible-v5.webp",
+      "alt": "Black collapsible rigid box shown flat and assembled",
+      "title": "Collapsible Rigid Box"
     }
   ],
   "folding-cartons": [
@@ -381,9 +386,9 @@
   ],
   "luxury-packaging": [
     {
-      "src": "/images/products/luxury-packaging/luxury-packaging-hero-v3.webp",
-      "alt": "Luxury Packaging - hero view (concept mockup)",
-      "title": "Luxury Packaging hero view"
+      "src": "/images/products/luxury-packaging/luxury-packaging-range-v5.webp",
+      "alt": "Range of collapsible luxury rigid boxes in white, grey, silver and gold",
+      "title": "Luxury Packaging Range"
     },
     {
       "src": "/images/products/luxury-packaging/luxury-packaging-front-v3.webp",
