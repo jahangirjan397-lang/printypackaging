@@ -24,6 +24,8 @@ export type StyleGuide = {
   checklist: string[];
   faqs: { question: string; answer: string }[];
   related: string[];
+  // Style-specific photos shown first in the gallery (parent photos fill the rest)
+  images?: { src: string; alt: string; title: string }[];
 };
 
 const mailerSizes = [
@@ -60,6 +62,30 @@ const mailerChecklist = [
   "Say if you need inserts, dividers or tissue with the box",
   "Tell us the delivery country and target date",
 ];
+
+const bakeryBoards = [
+  { name: "Food-grade SBS 300–350 GSM", spec: "about 0.40–0.50 mm", bestFor: "Cupcakes, cookies and pastries — bright white print" },
+  { name: "Food-grade kraft 300–350 GSM", spec: "about 0.45–0.55 mm", bestFor: "Natural, eco look for artisan bakeries" },
+  { name: "Food-grade SBS 400 GSM", spec: "about 0.60 mm", bestFor: "Larger cake boxes and window boxes that need stiffness" },
+  { name: "E-flute with food-safe liner", spec: "about 1.5 mm", bestFor: "Heavy tiered cakes and delivery" },
+];
+
+const bakeryCompare = [
+  { option: "Window cake / bakery box", chooseIf: "Customers should see the product before opening" },
+  { option: "Cupcake box with insert", chooseIf: "Each item must stay upright and separate" },
+  { option: "Cookie sleeve or tray box", chooseIf: "Flat items that are stacked or sold in rows" },
+  { option: "Gable box", chooseIf: "The customer carries it home and you want a built-in handle" },
+];
+
+const foodChecklist = [
+  "Tell us what goes inside and its size (cake diameter and height, cupcake liner size, cookie diameter)",
+  "Say whether you need a window, a handle or an insert",
+  "Confirm the food will touch the board directly (we then use food-grade stock)",
+  "Share logo files as AI, PDF or SVG and colours as Pantone or CMYK",
+  "Give the quantity per size and the delivery country",
+];
+
+const P = "/images/products";
 
 export const styleGuides: StyleGuide[] = [
   {
@@ -325,6 +351,324 @@ export const styleGuides: StyleGuide[] = [
       { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping. Plan reorders about a month ahead of each edition." },
     ],
     related: ["mailer-boxes", "white-mailer-boxes", "black-mailer-boxes", "kraft-mailer-boxes", "cosmetic-boxes"],
+  },
+  {
+    slug: "cake-boxes",
+    name: "Cake Boxes",
+    parent: "bakery-boxes",
+    category: "Food Packaging",
+    tagline: "Custom printed cake boxes with windows, handles and food-safe board",
+    description:
+      "Custom cake boxes in food-grade SBS or kraft board, with optional window, handle and cake board. Printed with your bakery branding, MOQ from 100 boxes, free dieline support and 12–15 business day production.",
+    keywords: ["custom cake boxes", "cake boxes with window", "printed cake boxes", "cake boxes with logo", "bakery cake boxes", "wholesale cake boxes"],
+    industries: ["Bakeries", "Cake Shops", "Cafes", "Home Bakers", "Hotels"],
+    intro: [
+      "A cake box has one job above all: get the cake home looking exactly as it left the counter. That means the right height so frosting never touches the lid, a base strong enough not to bow, and board that is safe to sit next to food.",
+      "Most bakeries choose a lock-corner or tuck-top cake box made from food-grade board, often with a PET window so the cake sells itself on display. Taller and heavier cakes move up to thicker SBS or a food-lined corrugated board, and many shops add a separate cake board so the cake can be lifted out cleanly.",
+      "Printing your logo, colours and social handle on the lid turns every takeaway into advertising. We make each box to your cake sizes so there is no sliding in transit.",
+    ],
+    sizeNote: "Inside sizes for common round and square cakes. Allow at least 1 inch (25 mm) of height above the frosting.",
+    sizes: [
+      { name: "6 inch cake", inches: "7 x 7 x 5 in", mm: "178 x 178 x 127 mm", bestFor: "Small celebration cakes, cheesecakes" },
+      { name: "8 inch cake", inches: "9 x 9 x 5 in", mm: "229 x 229 x 127 mm", bestFor: "Standard birthday cakes" },
+      { name: "10 inch cake", inches: "11 x 11 x 6 in", mm: "279 x 279 x 152 mm", bestFor: "Party cakes, two-layer cakes" },
+      { name: "12 inch cake", inches: "13 x 13 x 6 in", mm: "330 x 330 x 152 mm", bestFor: "Large sponges and tortes" },
+      { name: "Tall cake", inches: "10 x 10 x 10 in", mm: "254 x 254 x 254 mm", bestFor: "Tall and tiered cakes" },
+      { name: "Slice box", inches: "4.5 x 3.5 x 3.5 in", mm: "114 x 89 x 89 mm", bestFor: "Single slices and pastries" },
+    ],
+    boardsTitle: "Food-safe board options",
+    boards: bakeryBoards,
+    printing: [
+      { title: "Logo on the lid", text: "One or two colour lid print — the most economical bakery branding." },
+      { title: "Full-colour wrap", text: "Patterns and photography across every panel for premium cake shops." },
+      { title: "Window", text: "Food-safe PET window cut to your shape so the cake is on show." },
+      { title: "Handle", text: "Built-in carry handle for larger cakes and takeaway." },
+    ],
+    costFactors: [
+      { title: "Window", text: "Adding a PET window adds a patching step and film cost." },
+      { title: "Board grade", text: "Thicker SBS or corrugated board for heavy cakes costs more than standard SBS." },
+      { title: "Size range", text: "Each cake size needs its own die; fewer sizes means lower set-up cost." },
+      { title: "Print coverage", text: "A lid logo is cheaper than full-colour printing on every panel." },
+      { title: "Quantity", text: "Bakeries that order several months at once get a much lower unit price." },
+    ],
+    savingTips: [
+      "Standardise on two or three cake sizes",
+      "Print one colour on white or kraft for everyday cakes and keep full colour for celebration boxes",
+      "Order a bigger run and store boxes flat",
+    ],
+    compare: bakeryCompare,
+    checklist: foodChecklist,
+    faqs: [
+      { question: "Are your cake boxes food safe?", answer: "Yes. We use food-grade SBS or kraft board and food-safe inks for boxes that hold cakes directly." },
+      { question: "How much taller than the cake should the box be?", answer: "Allow at least 1 inch (25 mm) above the highest point of the frosting or decoration so the lid never touches it." },
+      { question: "Can I add a window?", answer: "Yes. We add a clear PET window in the lid or front panel, cut to any shape." },
+      { question: "Do you make boxes for tall or tiered cakes?", answer: "Yes. Tall cakes use a taller box in thicker board or food-lined corrugated for strength." },
+      { question: "What is the minimum order?", answer: "From 100 boxes per size, with lower prices at higher quantities." },
+      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+    ],
+    related: ["bakery-boxes", "cupcake-boxes", "cookie-boxes", "gable-boxes", "window-boxes"],
+    images: [
+      { src: `${P}/cake-boxes/cake-boxes-hero-v5.webp`, alt: "Orange printed cake box with the Printy Packaging logo, lid open", title: "Cake Box Hero View" },
+      { src: `${P}/cake-boxes/cake-boxes-window-handle-v5.webp`, alt: "Kraft cake box with carry handle and front window", title: "Window Handle Cake Box" },
+    ],
+  },
+  {
+    slug: "cupcake-boxes",
+    name: "Cupcake Boxes",
+    parent: "bakery-boxes",
+    category: "Food Packaging",
+    tagline: "Cupcake boxes with inserts that keep every cupcake upright",
+    description:
+      "Custom cupcake boxes for 1, 2, 4, 6, 12 and 24 cupcakes, with die-cut inserts, windows and food-grade board. Printed with your branding, MOQ from 100 boxes, 12–15 business day production.",
+    keywords: ["custom cupcake boxes", "cupcake boxes with inserts", "cupcake boxes with window", "printed cupcake boxes", "6 cupcake box", "12 cupcake box"],
+    industries: ["Bakeries", "Cupcake Shops", "Cafes", "Event Caterers", "Home Bakers"],
+    intro: [
+      "The difference between a good and a bad cupcake box is the insert. A die-cut card insert holds each cupcake by its liner so the frosting never smears against the walls or its neighbour, even on a bumpy car ride.",
+      "Cupcake boxes usually come in counts of 1, 2, 4, 6, 12 and 24. Box height matters as much as the footprint: tall swirls and toppers need a deeper box, while mini cupcakes need smaller insert holes rather than a smaller box.",
+      "A window lid lets customers see the decoration, and printed boxes make gifting boxes of cupcakes feel special. We size the insert holes to your liner size so every cupcake sits snugly.",
+    ],
+    sizeNote: "Typical sizes for standard cupcakes (about 2 inch / 50 mm liner base). Tell us your liner size and topping height.",
+    sizes: [
+      { name: "1 cupcake", inches: "4 x 4 x 4 in", mm: "102 x 102 x 102 mm", bestFor: "Single gifts and favours" },
+      { name: "2 cupcakes", inches: "7 x 3.75 x 4 in", mm: "178 x 95 x 102 mm", bestFor: "Pairs and add-ons" },
+      { name: "4 cupcakes", inches: "7 x 7 x 4 in", mm: "178 x 178 x 102 mm", bestFor: "Small gift boxes" },
+      { name: "6 cupcakes", inches: "10 x 7 x 4 in", mm: "254 x 178 x 102 mm", bestFor: "The most popular retail box" },
+      { name: "12 cupcakes", inches: "14 x 10 x 4 in", mm: "356 x 254 x 102 mm", bestFor: "Parties and offices" },
+      { name: "24 mini cupcakes", inches: "10 x 10 x 3 in", mm: "254 x 254 x 76 mm", bestFor: "Mini cupcakes and events" },
+    ],
+    boardsTitle: "Food-safe board options",
+    boards: bakeryBoards,
+    printing: [
+      { title: "Die-cut insert", text: "Card inserts with holes sized to your liner keep cupcakes upright." },
+      { title: "Window lid", text: "A clear PET window shows off the decoration." },
+      { title: "Printed insert", text: "Brand colour or pattern on the insert for a finished look when opened." },
+      { title: "Full-colour box", text: "Bright branded printing for gift and celebration boxes." },
+    ],
+    costFactors: [
+      { title: "Insert", text: "Inserts add board and die-cutting but are essential for transport." },
+      { title: "Window", text: "Window patching adds a step and film cost." },
+      { title: "Count sizes", text: "Each count (4, 6, 12) is a separate die; fewer sizes keeps set-up low." },
+      { title: "Quantity", text: "Larger runs lower the unit price sharply." },
+    ],
+    savingTips: [
+      "Offer two counts (for example 6 and 12) instead of five",
+      "Print the box and keep the insert plain",
+      "Use one box height that fits all your topping styles",
+    ],
+    compare: bakeryCompare,
+    checklist: foodChecklist,
+    faqs: [
+      { question: "Do cupcake boxes come with inserts?", answer: "Yes. We make die-cut inserts sized to your liner so each cupcake is held upright." },
+      { question: "Can the insert be reversible for mini and regular cupcakes?", answer: "Yes. Reversible inserts with mini holes on one side and regular holes on the other are available." },
+      { question: "How tall should a cupcake box be?", answer: "Measure from the liner base to the highest point of the frosting or topper and add about 0.5 inch (12 mm)." },
+      { question: "What is the minimum order?", answer: "From 100 boxes per size." },
+      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+    ],
+    related: ["cake-boxes", "cookie-boxes", "bakery-boxes", "window-boxes", "gable-boxes"],
+    images: [
+      { src: `${P}/cupcake-boxes/cupcake-boxes-hero-v5.webp`, alt: "Single cupcake box with a window and pastel print", title: "Cupcake Box Hero View" },
+      { src: `${P}/cupcake-boxes/cupcake-boxes-window-v5.webp`, alt: "Pink window pastry box with a Printy Packaging label and cupcake", title: "Window Cupcake Box" },
+      { src: `${P}/cupcake-boxes/cupcake-boxes-insert-v5.webp`, alt: "Kraft four-cupcake box with a die-cut insert", title: "Cupcake Insert" },
+      { src: `${P}/cupcake-boxes/cupcake-boxes-two-v5.webp`, alt: "White two-cupcake box, open", title: "Two Cupcake Box" },
+    ],
+  },
+  {
+    slug: "cookie-boxes",
+    name: "Cookie Boxes",
+    parent: "bakery-boxes",
+    category: "Food Packaging",
+    tagline: "Custom cookie boxes, sleeves and trays for bakeries and gifts",
+    description:
+      "Custom cookie boxes in food-grade board: tuck-top boxes, sleeves with trays, window boxes and gift boxes. Greaseproof options, your branding, MOQ from 100 boxes, 12–15 business day production.",
+    keywords: ["custom cookie boxes", "cookie packaging", "cookie gift boxes", "cookie boxes with window", "printed cookie boxes", "cookie sleeve boxes"],
+    industries: ["Bakeries", "Cookie Brands", "Corporate Gifting", "Cafes", "Online Bakeries"],
+    intro: [
+      "Cookies are flat, fragile and often buttery, so the box has to stop breakage and keep grease off the print. Most cookie brands use either a tuck-top box with a paper liner, or a sleeve-and-tray box that slides open like a drawer for a premium unboxing.",
+      "For stacks of cookies, a long narrow box keeps them in a row; for gift assortments, a tray with dividers keeps flavours apart. A window shows off the bake, and a greaseproof liner or coated board stops oil marks from showing through.",
+      "Branded cookie boxes are a favourite for corporate gifting and online bakeries because the box itself becomes the gift. We size each box to your cookie diameter and stack height.",
+    ],
+    sizeNote: "Sizes for standard 3-inch (75 mm) cookies. Send your cookie diameter, thickness and count.",
+    sizes: [
+      { name: "Stack of 6", inches: "8 x 3.25 x 2 in", mm: "203 x 83 x 51 mm", bestFor: "Cookies stacked in a row" },
+      { name: "Box of 4", inches: "7 x 7 x 1.5 in", mm: "178 x 178 x 38 mm", bestFor: "Gift quartets" },
+      { name: "Box of 6", inches: "9.5 x 6.5 x 1.5 in", mm: "241 x 165 x 38 mm", bestFor: "Assortments in a single layer" },
+      { name: "Box of 12", inches: "12 x 9 x 2 in", mm: "305 x 229 x 51 mm", bestFor: "Party and office boxes" },
+      { name: "Single cookie", inches: "4 x 4 x 1 in", mm: "102 x 102 x 25 mm", bestFor: "Favours and samples" },
+    ],
+    boardsTitle: "Food-safe board options",
+    boards: bakeryBoards,
+    printing: [
+      { title: "Sleeve and tray", text: "A printed sleeve over a plain or kraft tray — premium feel at a sensible cost." },
+      { title: "Window", text: "A clear window shows the cookies without opening the box." },
+      { title: "Greaseproof liner", text: "A liner or coated board keeps butter and oil off your print." },
+      { title: "Dividers", text: "Card dividers keep flavours apart in assortments." },
+    ],
+    costFactors: [
+      { title: "Two-piece construction", text: "Sleeve-and-tray boxes use two parts and cost more than a single tuck box." },
+      { title: "Liner or coating", text: "Grease resistance adds material or a coating step." },
+      { title: "Dividers and windows", text: "Each adds material and a production step." },
+      { title: "Quantity", text: "Higher quantities lower the price per box." },
+    ],
+    savingTips: [
+      "Use a single tuck-top box with a paper liner instead of a sleeve set for everyday orders",
+      "Keep the tray plain and print only the sleeve",
+      "Choose one footprint for both 6 and 12 packs by changing the stack height",
+    ],
+    compare: bakeryCompare,
+    checklist: foodChecklist,
+    faqs: [
+      { question: "How do I stop grease marks on cookie boxes?", answer: "Use a greaseproof liner or a coated food-grade board. Both keep butter and oil from showing through the print." },
+      { question: "Can cookie boxes have a window?", answer: "Yes. We add a clear PET window in the lid or sleeve." },
+      { question: "Do you make sleeve and tray cookie boxes?", answer: "Yes. The printed sleeve slides over a tray, which can include dividers." },
+      { question: "What is the minimum order?", answer: "From 100 boxes per size." },
+      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+    ],
+    related: ["cake-boxes", "cupcake-boxes", "bakery-boxes", "sleeve-boxes", "gable-boxes"],
+    images: [
+      { src: `${P}/cookie-boxes/cookie-boxes-hero-v5.webp`, alt: "Row of cookie boxes in white, kraft and black, filled with cookies", title: "Cookie Box Range" },
+      { src: `${P}/cookie-boxes/cookie-boxes-tray-v5.webp`, alt: "Pink cookie box open with cookies inside", title: "Cookie Tray Box" },
+      { src: `${P}/cookie-boxes/cookie-boxes-sleeve-v5.webp`, alt: "Light blue cookie box open with cookies", title: "Cookie Tuck Box" },
+      { src: `${P}/cookie-boxes/cookie-boxes-window-v5.webp`, alt: "Kraft cookie gift boxes with a window showing four cookies", title: "Cookie Window Box" },
+    ],
+  },
+  {
+    slug: "gable-boxes",
+    name: "Gable Boxes",
+    parent: "food-packaging",
+    category: "Food Packaging",
+    tagline: "Gable boxes with built-in handles for takeaway, gifts and events",
+    description:
+      "Custom gable boxes with a built-in carry handle, in food-grade SBS or kraft board. Ideal for bakery takeaway, meals, party favours and gifts. MOQ from 100 boxes, free dieline support, 12–15 business day production.",
+    keywords: ["custom gable boxes", "gable boxes with handle", "kraft gable boxes", "printed gable boxes", "gable gift boxes", "takeaway gable boxes"],
+    industries: ["Bakeries", "Restaurants", "Events", "Retail Gifts", "Kids Parties"],
+    intro: [
+      "A gable box is a folding carton whose top panels rise into a peaked roof with a cut-out handle. It carries like a small bag, stands on a counter like a box, and needs no separate carrier — which is why bakeries, restaurants and event planners love it.",
+      "Gable boxes are made from a single sheet of board, usually food-grade SBS for bright printing or kraft for a natural look. They ship flat, fold up quickly and lock closed at the top without glue or tape.",
+      "Because every side is visible when the box is carried, gable boxes give you a lot of branding space. Print your logo on both sides and a message on the ends, or add a window to show what is inside.",
+    ],
+    sizeNote: "Common gable sizes (base length x width x height to the shoulder). Handles add about 2–3 inches on top.",
+    sizes: [
+      { name: "Favour", inches: "4 x 2.5 x 2.5 in", mm: "102 x 64 x 64 mm", bestFor: "Party favours, sweets" },
+      { name: "Small", inches: "6 x 3.5 x 3.5 in", mm: "152 x 89 x 89 mm", bestFor: "Muffins, single pastries" },
+      { name: "Medium", inches: "8 x 4.75 x 5.25 in", mm: "203 x 121 x 133 mm", bestFor: "Pastry assortments, kids meals" },
+      { name: "Large", inches: "9 x 5 x 6.5 in", mm: "229 x 127 x 165 mm", bestFor: "Cake slices, meal boxes" },
+      { name: "Extra large", inches: "10 x 6 x 6 in", mm: "254 x 152 x 152 mm", bestFor: "Gift hampers, family meals" },
+    ],
+    boardsTitle: "Board options for gable boxes",
+    boards: [
+      { name: "Food-grade SBS 300–350 GSM", spec: "about 0.40–0.50 mm", bestFor: "Bright full-colour printing" },
+      { name: "Kraft 300–350 GSM", spec: "about 0.45–0.55 mm", bestFor: "Natural eco look" },
+      { name: "SBS 400 GSM", spec: "about 0.60 mm", bestFor: "Heavier contents and larger sizes" },
+      { name: "Coated / greaseproof board", spec: "SBS with coating", bestFor: "Oily food and takeaway meals" },
+    ],
+    printing: [
+      { title: "Both sides branded", text: "Logo on both large panels so it shows however the box is carried." },
+      { title: "Full-colour pattern", text: "Patterns and illustrations across every panel for events and gifts." },
+      { title: "Window", text: "A PET window on one side to show the contents." },
+      { title: "Kraft one-colour", text: "A single dark ink on kraft for a simple, low-cost look." },
+    ],
+    costFactors: [
+      { title: "Size", text: "The tall gable top uses more board than a plain box of the same base." },
+      { title: "Coating", text: "Grease-resistant coating for food adds a step." },
+      { title: "Print coverage", text: "Full-coverage print costs more than a one-colour logo." },
+      { title: "Quantity", text: "Larger runs reduce the unit price." },
+    ],
+    savingTips: [
+      "Print one colour on kraft for everyday takeaway",
+      "Use one size for several products",
+      "Skip the window unless the contents sell themselves",
+    ],
+    compare: bakeryCompare,
+    checklist: foodChecklist,
+    faqs: [
+      { question: "Are gable boxes strong enough for food?", answer: "Yes. In 350 GSM food-grade board they carry pastries, meals and gifts comfortably. Heavier contents use thicker board." },
+      { question: "Do gable boxes need glue or tape?", answer: "No. They ship flat and lock closed at the top with the built-in handle panels." },
+      { question: "Can gable boxes have a window?", answer: "Yes. A clear PET window can be added on a side panel." },
+      { question: "What is the minimum order?", answer: "From 100 boxes per size." },
+      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+    ],
+    related: ["food-packaging", "cake-boxes", "cookie-boxes", "pillow-boxes", "paper-bags"],
+    images: [
+      { src: `${P}/gable-boxes/gable-boxes-hero-v5.webp`, alt: "Yellow gable boxes with navy Printy Packaging logos", title: "Gable Box Hero View" },
+      { src: `${P}/gable-boxes/gable-boxes-colours-v5.webp`, alt: "Gable boxes in kraft, white, navy, green, black and red", title: "Gable Box Colours" },
+      { src: `${P}/gable-boxes/gable-boxes-kraft-v5.webp`, alt: "Plain kraft gable box with handle", title: "Kraft Gable Box" },
+      { src: `${P}/gable-boxes/gable-boxes-pastry-v5.webp`, alt: "Polka dot gable pastry carrier box", title: "Pastry Carrier Gable Box" },
+    ],
+  },
+  {
+    slug: "pillow-boxes",
+    name: "Pillow Boxes",
+    parent: "folding-cartons",
+    category: "Retail Packaging",
+    tagline: "Curved pillow boxes for favours, jewelry, gift cards and small products",
+    description:
+      "Custom pillow boxes in SBS or kraft board with curved, self-closing ends. Perfect for favours, jewelry, gift cards, soap and small retail items. Optional window, MOQ from 100 boxes, 12–15 business day production.",
+    keywords: ["custom pillow boxes", "printed pillow boxes", "kraft pillow boxes", "pillow boxes with window", "pillow gift boxes", "favour pillow boxes"],
+    industries: ["Weddings & Events", "Jewelry", "Cosmetics", "Gift Cards", "Handmade Products"],
+    intro: [
+      "Pillow boxes are made from one flat piece of board with curved scores at each end. When the ends are pushed in, they close themselves into a soft pillow shape — no glue, no tape and no inserts.",
+      "Because they are flat until used and quick to close, pillow boxes are a favourite for wedding favours, gift cards, jewelry, soaps, hair accessories and samples. They look premium for very little board.",
+      "We print pillow boxes in full colour, with patterns or simply a logo on kraft. A window can be added to show the product, and a ribbon or sleeve turns them into gift packaging.",
+    ],
+    sizeNote: "Popular pillow box sizes (length x width x depth when closed).",
+    sizes: [
+      { name: "Gift card", inches: "4.5 x 3 x 1 in", mm: "114 x 76 x 25 mm", bestFor: "Gift cards and vouchers" },
+      { name: "Small favour", inches: "3.5 x 2.5 x 1 in", mm: "89 x 64 x 25 mm", bestFor: "Sweets and favours" },
+      { name: "Jewelry", inches: "5 x 3.5 x 1.25 in", mm: "127 x 89 x 32 mm", bestFor: "Earrings, bracelets" },
+      { name: "Soap bar", inches: "6 x 4 x 1.5 in", mm: "152 x 102 x 38 mm", bestFor: "Soap and cosmetics" },
+      { name: "Large", inches: "8 x 5 x 2 in", mm: "203 x 127 x 51 mm", bestFor: "Accessories, small apparel" },
+    ],
+    boardsTitle: "Board options for pillow boxes",
+    boards: [
+      { name: "SBS 300 GSM", spec: "about 0.40 mm", bestFor: "Full-colour print, most pillow boxes" },
+      { name: "SBS 350 GSM", spec: "about 0.45 mm", bestFor: "Larger or heavier contents" },
+      { name: "Kraft 300 GSM", spec: "about 0.45 mm", bestFor: "Natural handmade look" },
+      { name: "Metallic / textured board", spec: "specialty stocks", bestFor: "Weddings and luxury favours" },
+    ],
+    printing: [
+      { title: "Full-colour pattern", text: "Patterns, florals and photography across the whole box." },
+      { title: "Logo on kraft", text: "A one-colour logo on kraft for a clean handmade look." },
+      { title: "Window", text: "A clear PET window to show jewelry or products inside." },
+      { title: "Foil stamping", text: "Gold or silver foil for weddings and luxury gifts." },
+    ],
+    costFactors: [
+      { title: "Size", text: "Pillow boxes use very little board, so they are one of the lowest-cost styles." },
+      { title: "Window and foil", text: "Each extra finish adds a production step." },
+      { title: "Print coverage", text: "Full-colour both sides costs more than a single logo." },
+      { title: "Quantity", text: "Higher quantities lower the unit price." },
+    ],
+    savingTips: [
+      "Use kraft with a one-colour logo for favours",
+      "Keep one size for several products",
+      "Add a ribbon or sticker instead of foil for a premium touch",
+    ],
+    compare: [
+      { option: "Pillow box", chooseIf: "The product is small and light and you want a gift feel" },
+      { option: "Tuck end box", chooseIf: "The product is heavier or needs square edges on a shelf" },
+      { option: "Sleeve box", chooseIf: "You want a slide-out drawer reveal" },
+      { option: "Gable box", chooseIf: "The item is carried by hand and needs a handle" },
+    ],
+    checklist: [
+      "Send the product size (length x width x thickness)",
+      "Say if you need a window, ribbon hole or hang tab",
+      "Share logo files as AI, PDF or SVG and colours as Pantone or CMYK",
+      "Give the quantity and the delivery country",
+    ],
+    faqs: [
+      { question: "Do pillow boxes need glue?", answer: "No. The curved ends fold in and close themselves." },
+      { question: "What can I pack in a pillow box?", answer: "Light items such as favours, gift cards, jewelry, soap, samples and accessories." },
+      { question: "Can pillow boxes have a window?", answer: "Yes. We add a clear PET window cut to your shape." },
+      { question: "What is the minimum order?", answer: "From 100 boxes." },
+      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+    ],
+    related: ["folding-cartons", "gable-boxes", "sleeve-boxes", "jewelry-boxes", "soap-boxes"],
+    images: [
+      { src: `${P}/pillow-boxes/pillow-boxes-hero-v5.webp`, alt: "Striped pillow boxes on a light blue background", title: "Pillow Box Hero View" },
+      { src: `${P}/pillow-boxes/pillow-boxes-window-v5.webp`, alt: "Kraft pillow boxes with clear windows", title: "Window Pillow Box" },
+      { src: `${P}/pillow-boxes/pillow-boxes-kraft-v5.webp`, alt: "Plain kraft pillow boxes", title: "Kraft Pillow Box" },
+      { src: `${P}/pillow-boxes/pillow-boxes-white-v5.webp`, alt: "White pillow boxes on linen", title: "White Pillow Box" },
+      { src: `${P}/pillow-boxes/pillow-boxes-printed-v5.webp`, alt: "Floral printed pillow boxes", title: "Printed Pillow Box" },
+    ],
   },
 ];
 

@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/data/products";
+import {
+  inspirationCategories,
+  inspirationGallery,
+} from "@/data/inspirationGallery";
+import InspirationGallery from "@/components/InspirationGallery";
 
 export const metadata: Metadata = {
   title: "Packaging Gallery | Box Styles, Food Packaging & Print Finishes",
@@ -221,6 +226,53 @@ export default function PortfolioPage() {
                 </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section id="inspiration" className="bg-white px-5 py-16 md:px-8 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+            Style inspiration
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+            Box styles to inspire your packaging
+          </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-600">
+            Reference designs from across the packaging industry to help you
+            choose a structure, finish and look. Brand names shown belong to
+            their respective owners — these are style references, not Printy
+            Packaging client orders. We can produce any of these styles with
+            your own branding.
+          </p>
+
+          <InspirationGallery
+            groups={inspirationCategories
+              .map((category) => ({
+                key: category.key,
+                title: category.title,
+                items: inspirationGallery
+                  .filter((item) => item.category === category.key)
+                  .map((item) => ({
+                    ...item,
+                    productName:
+                      products.find((product) => product.slug === item.product)
+                        ?.name ?? "this style",
+                  })),
+              }))
+              .filter((group) => group.items.length > 0)}
+          />
+
+          <div className="mt-10 flex flex-col items-start gap-3 rounded-2xl bg-[#07111F] p-6 text-white sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm font-bold">
+              Like a style? Send us the picture and your product size — we will quote it with your branding.
+            </p>
+            <Link
+              href="/#quote"
+              className="shrink-0 rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white hover:bg-[#007C91]"
+            >
+              Get a quote
+            </Link>
           </div>
         </div>
       </section>

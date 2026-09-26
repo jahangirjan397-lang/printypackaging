@@ -828,7 +828,8 @@ function makeStyleProduct(guide: StyleGuide, index: number): Product {
   const parent = coreProducts.find((product) => product.slug === guide.parent);
   const parentImages = parent?.images ?? [];
   const shift = parentImages.length ? (index + 1) % parentImages.length : 0;
-  const images = [...parentImages.slice(shift), ...parentImages.slice(0, shift)];
+  const rotated = [...parentImages.slice(shift), ...parentImages.slice(0, shift)];
+  const images = [...(guide.images ?? []), ...rotated].slice(0, 5);
   const base = makeProduct(
     guide.slug,
     guide.name,
