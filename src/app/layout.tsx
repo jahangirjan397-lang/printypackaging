@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${siteUrl}/images/home/home-hero-mailer-v3.webp`,
+        url: `${siteUrl}/images/products/mailer-boxes/mailer-boxes-hero.webp`,
         width: 1448,
         height: 1086,
         alt: "Branded mailer boxes for ecommerce and retail packaging",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     title: "Printy Packaging | Premium Custom Printing & Packaging",
     description:
       "Premium custom boxes, rigid boxes, food packaging, paper bags, labels, stickers and luxury packaging for global brands.",
-    images: [`${siteUrl}/images/home/home-hero-mailer-v3.webp`],
+    images: [`${siteUrl}/images/products/mailer-boxes/mailer-boxes-hero.webp`],
   },
   robots: {
     index: true,

@@ -273,9 +273,9 @@
   ],
   "mailer-boxes": [
     {
-      "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3.webp",
-      "alt": "Mailer Boxes - hero view (concept mockup)",
-      "title": "Mailer Boxes hero view"
+      "src": "/images/products/mailer-boxes/mailer-boxes-hero.webp",
+      "alt": "Printy Packaging branded mailer boxes, one open and one closed",
+      "title": "Mailer Boxes Hero View"
     },
     {
       "src": "/images/products/mailer-boxes/mailer-boxes-front-v3.webp",
@@ -293,9 +293,9 @@
       "title": "Mailer Boxes material and finish detail"
     },
     {
-      "src": "/images/products/mailer-boxes/mailer-boxes-lifestyle-v3.webp",
-      "alt": "Mailer Boxes - in use (concept mockup)",
-      "title": "Mailer Boxes in use"
+      "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3.webp",
+      "alt": "Mailer Boxes - hero view (concept mockup)",
+      "title": "Mailer Boxes subscription kit"
     }
   ],
   "butter-paper": [

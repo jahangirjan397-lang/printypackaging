@@ -8,9 +8,29 @@ import { products } from "../../data/products";
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
 
-function getCategoryPreview(productSlugs: string[]) {
-  const product = products.find((item) => productSlugs.includes(item.slug));
-  return product?.images?.[0] || null;
+// Give each category card its own photo: walk the category's product list in
+// order and take the first image no earlier card has used.
+const categoryPreviews = (() => {
+  const used = new Set<string>();
+  const previews = new Map<string, { src: string; alt: string }>();
+
+  for (const category of categories) {
+    const image = category.productSlugs
+      .map((slug) => products.find((product) => product.slug === slug))
+      .map((product) => product?.images?.[0])
+      .find((candidate) => candidate && !used.has(candidate.src));
+
+    if (image) {
+      used.add(image.src);
+      previews.set(category.slug, image);
+    }
+  }
+
+  return previews;
+})();
+
+function getCategoryPreview(slug: string) {
+  return categoryPreviews.get(slug) ?? null;
 }
 
 export const metadata: Metadata = {
@@ -182,10 +202,10 @@ export default function CategoriesPage() {
                   className="pp-card group rounded-[2rem] bg-white p-7 shadow-md"
                 >
                   <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-[#007C91]/15 bg-[#EDE5DC]">
-                    {getCategoryPreview(category.productSlugs) ? (
+                    {getCategoryPreview(category.slug) ? (
                       <Image
-                        src={getCategoryPreview(category.productSlugs)!.src}
-                        alt={getCategoryPreview(category.productSlugs)!.alt}
+                        src={getCategoryPreview(category.slug)!.src}
+                        alt={getCategoryPreview(category.slug)!.alt}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
@@ -194,17 +214,12 @@ export default function CategoriesPage() {
                       <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
                     )}
 
-
-                    <span className="absolute bottom-5 left-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                      Packaging Category
-                    </span>
-
                     <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
                       {index + 1}
                     </span>
                   </div>
                   <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-                    Packaging Category
+                    {category.productSlugs.length} product styles
                   </p>
 
                   <h2 className="mt-3 text-3xl font-black text-[#07111F]">

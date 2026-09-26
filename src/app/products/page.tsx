@@ -296,7 +296,7 @@ export default function ProductsPage() {
                     label="Food"
                   />
                   <HeroRangeThumb
-                    src="/images/products/mailer-boxes/mailer-boxes-hero-v3.webp"
+                    src="/images/products/mailer-boxes/mailer-boxes-hero.webp"
                     alt="Custom mailer boxes"
                     label="Ecommerce"
                   />

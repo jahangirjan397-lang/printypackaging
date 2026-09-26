@@ -25,7 +25,7 @@ const heroSlides = [
     title: "A cleaner unboxing experience for ecommerce brands.",
     description:
       "Protective branded mailers designed for shipping, subscriptions and retail delivery.",
-    image: "/images/home/home-hero-mailer-v3.webp",
+    image: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
     href: "/products/mailer-boxes",
   },
   {

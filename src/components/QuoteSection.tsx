@@ -531,51 +531,68 @@ export default function QuoteSection() {
       </Suspense>
 
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div>
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-12">
+          <div className="lg:sticky lg:top-28">
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
               Request Custom Quote
             </p>
 
-            <h2 className="mt-4 text-4xl font-black leading-tight text-[#07111F] md:text-6xl">
+            <h2 className="mt-4 text-3xl font-black leading-tight text-[#07111F] sm:text-4xl lg:text-5xl">
               Get clear packaging price guidance for your project
             </h2>
 
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              Share your box style, size, quantity, material, GSM and finishing
-              requirements. Our packaging team will review the details and guide
-              you with the best custom packaging solution.
+            <p className="mt-5 text-base leading-7 text-slate-600 md:text-lg md:leading-8">
+              Share your box style, size and quantity. Our packaging team will
+              review the details and guide you to the right material, print and
+              finish.
             </p>
 
-            <div className="mt-8 grid gap-4">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {quoteBenefits.map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm"
+                  className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00C2E8] font-black text-[#07111F]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#00C2E8] text-sm font-black text-[#07111F]">
                     ✓
                   </div>
-                  <p className="font-black text-[#07111F]">{item}</p>
+                  <p className="text-sm font-black leading-5 text-[#07111F]">
+                    {item}
+                  </p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-8 rounded-[1.7rem] bg-[#07111F] p-6 text-white">
-              <p className="text-xl font-black">Fast Quote Checklist</p>
-              <p className="mt-3 leading-7 text-slate-300">
-                For an accurate quote, please send product size, quantity, box
-                style, material preference, GSM or board thickness, printing
-                colors, finishing details and artwork status.
+            <div className="mt-6 rounded-[1.7rem] bg-[#07111F] p-6 text-white">
+              <p className="text-lg font-black">Prefer to talk first?</p>
+              <p className="mt-2 text-sm leading-6 text-slate-300">
+                Send your size, quantity and artwork status on WhatsApp or email
+                and we will guide you from there.
               </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <a
+                  href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-black text-[#07111F] transition hover:bg-[#1ebe5b]"
+                >
+                  WhatsApp
+                </a>
+                <a
+                  href="mailto:sales@printypackaging.com"
+                  className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
+                >
+                  sales@printypackaging.com
+                </a>
+              </div>
             </div>
           </div>
 
-            <form
-  id="quote"
-  onSubmit={handleSubmit}
-  className="relative scroll-mt-28 rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
->
+          <form
+            id="quote"
+            onSubmit={handleSubmit}
+            className="relative scroll-mt-28 rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
+          >
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
@@ -589,7 +606,8 @@ export default function QuoteSection() {
               />
             </div>
 
-            <div className="grid gap-5 md:grid-cols-2">
+            <FormStep number="1" title="Your details" />
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
               <FormField label="Full Name">
                 <input
                   name="name"
@@ -629,7 +647,12 @@ export default function QuoteSection() {
                   ))}
                 </select>
               </FormField>
+            </div>
 
+            <div className="mt-7 border-t border-slate-100 pt-6">
+              <FormStep number="2" title="Packaging details" />
+            </div>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
               <FormField label="Product Type">
                 <select
                   name="product"
@@ -661,48 +684,6 @@ export default function QuoteSection() {
                 />
               </FormField>
 
-              <FormField label="Material">
-                <select name="material" className="field-input">
-                  {materialOptions.map((material) => (
-                    <option key={material} value={material}>
-                      {material}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
-              <FormField label="GSM / Board Thickness">
-                <select name="gsm" className="field-input">
-                  {gsmOptions.map((gsm) => (
-                    <option key={gsm} value={gsm}>
-                      {gsm}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
-              <FormField label="Printing Colors">
-                <select name="printing" className="field-input">
-                  {printingOptions.map((printing) => (
-                    <option key={printing} value={printing}>
-                      {printing}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-            </div>
-
-            <div className="mt-5 grid gap-5 md:grid-cols-2">
-              <FormField label="Finishing Options">
-                <select name="finishing" className="field-input">
-                  {finishingOptions.map((finish) => (
-                    <option key={finish} value={finish}>
-                      {finish}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
               <FormField label="Artwork Status">
                 <select name="artworkStatus" className="field-input">
                   {artworkOptions.map((status) => (
@@ -714,37 +695,98 @@ export default function QuoteSection() {
               </FormField>
             </div>
 
-            <div className="mt-5">
+            <div className="mt-4">
               <FormField label="Project Details">
                 <textarea
                   name="message"
-                  rows={5}
-                  placeholder="Tell us about your product, packaging style, deadline, shipping country and any special requirement..."
+                  rows={4}
+                  placeholder="Tell us about your product, packaging style, deadline and shipping country..."
                   className="field-input resize-none"
                 />
               </FormField>
             </div>
 
-            <div className="mt-5 rounded-2xl border border-dashed border-[#00C2E8] bg-[#00C2E8]/10 p-5">
-              <p className="font-black text-[#07111F]">
-                Artwork & Reference Files
-              </p>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                Optional: upload your artwork, dieline, logo or packaging
-                reference files with the quote request.
-              </p>
-              <input
-                name="artworkFiles"
-                type="file"
-                multiple
-                accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr"
-                className="mt-4 block w-full rounded-xl border border-[#00C2E8]/30 bg-white px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-[#07111F] file:px-4 file:py-2 file:font-black file:text-white"
-              />
-              <p className="mt-3 text-xs leading-5 text-slate-500">
-                Up to 5 files. Maximum 4 MB per file and 4 MB total. Accepted:
-                PDF, AI, EPS, PSD, SVG, PNG, JPG, WEBP, TIFF and CDR.
-              </p>
-            </div>
+            {/* Optional specs stay in the form (and are submitted) even while collapsed */}
+            <details className="group mt-6 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+                <span>
+                  <span className="block text-sm font-black text-[#07111F]">
+                    Material, printing, finishing &amp; files
+                  </span>
+                  <span className="mt-0.5 block text-xs text-slate-500">
+                    Optional: add these now or we will suggest them for you.
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-lg font-black text-[#FF6A00] shadow-sm transition group-open:rotate-45"
+                >
+                  +
+                </span>
+              </summary>
+
+              <div className="border-t border-slate-200 px-5 pb-5 pt-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <FormField label="Material">
+                    <select name="material" className="field-input">
+                      {materialOptions.map((material) => (
+                        <option key={material} value={material}>
+                          {material}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
+                  <FormField label="GSM / Board Thickness">
+                    <select name="gsm" className="field-input">
+                      {gsmOptions.map((gsm) => (
+                        <option key={gsm} value={gsm}>
+                          {gsm}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
+                  <FormField label="Printing Colors">
+                    <select name="printing" className="field-input">
+                      {printingOptions.map((printing) => (
+                        <option key={printing} value={printing}>
+                          {printing}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
+                  <FormField label="Finishing Options">
+                    <select name="finishing" className="field-input">
+                      {finishingOptions.map((finish) => (
+                        <option key={finish} value={finish}>
+                          {finish}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+                </div>
+
+                <div className="mt-4">
+                  <span className="mb-2 block text-sm font-black text-[#07111F]">
+                    Artwork &amp; Reference Files
+                  </span>
+                  <input
+                    name="artworkFiles"
+                    type="file"
+                    multiple
+                    accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr"
+                    aria-label="Artwork and reference files"
+                    className="block w-full rounded-xl border border-dashed border-[#00C2E8]/60 bg-white px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-[#07111F] file:px-4 file:py-2 file:font-black file:text-white"
+                  />
+                  <p className="mt-2 text-xs leading-5 text-slate-500">
+                    Up to 5 files, 4 MB total. PDF, AI, EPS, PSD, SVG, PNG, JPG,
+                    WEBP, TIFF or CDR.
+                  </p>
+                </div>
+              </div>
+            </details>
 
             {errorMessage && (
               <div className="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700">
@@ -755,18 +797,29 @@ export default function QuoteSection() {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-6 w-full rounded-full bg-[#FF6A00] px-8 py-5 text-lg font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-6 w-full rounded-full bg-[#FF6A00] px-8 py-4 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60 md:text-lg"
             >
               {isSending ? "Sending Quote Request..." : "Submit Quote Request"}
             </button>
 
-            <p className="mt-4 text-center text-sm text-slate-500">
+            <p className="mt-3 text-center text-sm text-slate-500">
               Your request will be sent to our packaging team for review.
             </p>
           </form>
         </div>
       </div>
     </section>
+  );
+}
+
+function FormStep({ number, title }: { number: string; title: string }) {
+  return (
+    <p className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.18em] text-[#07111F]">
+      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FF6A00] text-xs text-white">
+        {number}
+      </span>
+      {title}
+    </p>
   );
 }
 

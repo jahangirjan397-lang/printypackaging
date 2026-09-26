@@ -332,11 +332,11 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
-          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black text-[#07111F]">
+          <h2 className="text-center mt-4 text-4xl font-black text-[#07111F]">
             Questions about {product.name}
           </h2>
 

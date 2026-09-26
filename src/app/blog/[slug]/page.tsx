@@ -153,7 +153,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
         <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-5xl px-6 py-20 sm:py-24 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
           <div className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
             <Link href="/" className="hover:text-cyan-300">
               Home
@@ -290,11 +290,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <section className="bg-slate-50 text-slate-950">
         <div className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
-          <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black tracking-tight">
+          <h2 className="text-center mt-4 text-4xl font-black tracking-tight">
             Common questions
           </h2>
 

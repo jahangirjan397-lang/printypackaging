@@ -166,7 +166,12 @@ export default function FAQPage() {
                     key={card.title}
                     className="rounded-3xl border border-white/10 bg-white/[0.04] p-5"
                   >
-                    <div className="mb-4 h-10 w-10 rounded-2xl bg-orange-500/90 shadow-lg shadow-orange-500/20" />
+                    <div
+                      aria-hidden="true"
+                      className="mb-4 h-10 w-10 rounded-2xl bg-orange-500/90 shadow-lg shadow-orange-500/20 flex items-center justify-center text-white"
+                    >
+                      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                    </div>
                     <h2 className="text-lg font-black">{card.title}</h2>
                     <p className="mt-3 text-sm leading-6 text-slate-300">
                       {card.text}

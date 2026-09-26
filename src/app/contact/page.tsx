@@ -121,7 +121,7 @@ export default function ContactPage() {
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
               <Image
-                src="/images/home/home-hero-mailer-v3.webp"
+                src="/images/products/mailer-boxes/mailer-boxes-open.webp"
                 alt="Custom packaging prepared for quote and buyer support"
                 fill
                 priority

@@ -8,15 +8,34 @@ import { products } from "../../data/products";
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
 
-function getMarketPreview(productSlugs: string[]) {
-  return (
-    products.find(
-      (product) => productSlugs.includes(product.slug) && product.images?.[0]
-    )?.images?.[0] || {
-      src: "/images/home/home-hero-mailer-v3.webp",
-      alt: "Custom printed packaging boxes for international buyers",
-    }
-  );
+const fallbackMarketPreview = {
+  src: "/images/home/home-hero-mailer-v3.webp",
+  alt: "Custom printed packaging boxes for international buyers",
+};
+
+// Give each market card its own photo: walk the market's product list in
+// order and take the first image no earlier card has used.
+const marketPreviews = (() => {
+  const used = new Set<string>();
+  const previews = new Map<string, { src: string; alt: string }>();
+
+  for (const market of markets) {
+    const image =
+      market.productSlugs
+        .map((slug) => products.find((product) => product.slug === slug))
+        .map((product) => product?.images?.[0])
+        .find((candidate) => candidate && !used.has(candidate.src)) ??
+      fallbackMarketPreview;
+
+    used.add(image.src);
+    previews.set(market.slug, image);
+  }
+
+  return previews;
+})();
+
+function getMarketPreview(slug: string) {
+  return marketPreviews.get(slug) ?? fallbackMarketPreview;
 }
 
 export const metadata: Metadata = {
@@ -190,8 +209,8 @@ export default function MarketsPage() {
                 >
                   <div className="relative -mx-7 -mt-7 mb-6 aspect-[4/3] overflow-hidden rounded-t-[2rem] bg-[#EDE5DC]">
                     <Image
-                      src={getMarketPreview(market.productSlugs).src}
-                      alt={getMarketPreview(market.productSlugs).alt}
+                      src={getMarketPreview(market.slug).src}
+                      alt={getMarketPreview(market.slug).alt}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"

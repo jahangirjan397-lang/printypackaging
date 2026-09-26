@@ -465,7 +465,12 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                 prefetch={false}
                 className="group rounded-[1.7rem] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91]" />
+                <div
+                  aria-hidden="true"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
+                </div>
 
                 <h3 className="text-xl font-black tracking-tight text-[#07111F]">
                   {guide.title}
@@ -558,11 +563,11 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
 
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
-          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black text-[#07111F]">
+          <h2 className="text-center mt-4 text-4xl font-black text-[#07111F]">
             Questions about packaging for {market.name}
           </h2>
 

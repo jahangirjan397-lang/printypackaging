@@ -126,7 +126,12 @@ export default function CustomPackagingPage() {
                 href={solution.href}
                 className="group rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-[#00C2E8] hover:shadow-lg"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] transition group-hover:bg-[#007C91]" />
+                <div
+                  aria-hidden="true"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
+                </div>
                 <h3 className="text-xl font-black text-[#07111F]">{solution.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600">{solution.text}</p>
                 <span className="mt-5 inline-flex text-sm font-black text-[#FF6A00]">
