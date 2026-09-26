@@ -829,7 +829,10 @@ function makeStyleProduct(guide: StyleGuide, index: number): Product {
   const parentImages = parent?.images ?? [];
   const shift = parentImages.length ? (index + 1) % parentImages.length : 0;
   const rotated = [...parentImages.slice(shift), ...parentImages.slice(0, shift)];
-  const images = [...(guide.images ?? []), ...rotated].slice(0, 5);
+  const images = [...(guide.images ?? []), ...rotated].slice(
+    0,
+    Math.min(8, Math.max(5, guide.images?.length ?? 0)),
+  );
   const base = makeProduct(
     guide.slug,
     guide.name,

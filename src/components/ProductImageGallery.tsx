@@ -13,7 +13,7 @@ export default function ProductImageGallery({
   productName,
   images = [],
 }: ProductImageGalleryProps) {
-  const galleryImages = images.slice(0, 5);
+  const galleryImages = images.slice(0, 8);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const safeIndex = Math.min(activeIndex, galleryImages.length - 1);
