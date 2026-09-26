@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://printypackaging.com/images/home/home-hero-mailer.webp",
+        url: "https://printypackaging.com/images/home/home-hero-mailer-v3.webp",
         width: 1448,
         height: 1086,
         alt: "Printy Packaging branded mailer boxes for ecommerce and retail brands",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "Printy Packaging | Premium Custom Boxes & Packaging",
     description:
       "Custom boxes, rigid boxes, food packaging, butter paper, paper bags, labels and stickers for USA, UK, Europe and worldwide buyers.",
-    images: ["https://printypackaging.com/images/home/home-hero-mailer.webp"],
+    images: ["https://printypackaging.com/images/home/home-hero-mailer-v3.webp"],
   },
 };
 

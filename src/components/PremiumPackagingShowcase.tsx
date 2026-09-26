@@ -7,7 +7,7 @@ const confidenceVisuals = [
     title: "Production-ready presentation",
     description:
       "See how coordinated boxes, bags and labels can work together as one professional packaging family.",
-    image: "/images/home/home-trust-production.webp",
+    image: "/images/home/home-trust-production-v3.webp",
     alt: "Printy Packaging boxes, bags and labels arranged for production review",
     href: "/why-printy-packaging",
     linkText: "Why Choose Printy",
@@ -17,7 +17,7 @@ const confidenceVisuals = [
     title: "Material and finish options",
     description:
       "Compare board, kraft, corrugated stock, foil, embossing and specialty finish directions clearly.",
-    image: "/images/home/home-materials-finishes.webp",
+    image: "/images/home/home-materials-finishes-v3.webp",
     alt: "Packaging materials and finishing samples by Printy Packaging",
     href: "/packaging-materials",
     linkText: "Explore Materials",
@@ -27,7 +27,7 @@ const confidenceVisuals = [
     title: "Material and finish review",
     description:
       "Compare material, print and finishing considerations before moving into production.",
-    image: "/images/home/home-sample-kit.webp",
+    image: "/images/home/home-sample-kit-v3.webp",
     alt: "Packaging material and print samples arranged for production review",
     href: "/sample-kit",
     linkText: "Read Review Guide",

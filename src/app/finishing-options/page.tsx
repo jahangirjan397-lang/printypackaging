@@ -14,49 +14,61 @@ export const metadata: Metadata = {
 const finishes = [
   {
     title: "Matte Lamination",
-    image: "/images/finishes/matte.webp",
+    image: "/images/finishes/matte-v3.webp",
     imageAlt: "Blue box with a matte laminated surface",
     text: "Matte lamination gives packaging a smooth, premium and non-glossy look. It is popular for luxury boxes, cosmetic packaging and retail boxes.",
   },
   {
     title: "Gloss Lamination",
-    image: "/images/finishes/gloss.webp",
+    image: "/images/finishes/gloss-v3.webp",
     imageAlt: "Blue box with a high-gloss laminated surface and reflections",
     text: "Gloss lamination creates a shiny surface and helps colors look bright. It is suitable for retail packaging, display boxes and high-impact printed boxes.",
   },
   {
     title: "Soft Touch Finish",
-    image: "/images/finishes/soft-touch.webp",
+    image: "/images/finishes/soft-touch-v3.webp",
     imageAlt: "Blue box with a soft touch velvet-feel surface",
     text: "Soft touch creates a smooth velvet-like premium feel. It is often used for luxury packaging, rigid boxes and high-end brand packaging.",
   },
   {
     title: "Foil Stamping",
-    image: "/images/finishes/foil-stamping.webp",
+    image: "/images/finishes/foil-stamping-v3.webp",
     imageAlt: "Navy box with gold foil stamped lettering",
     text: "Foil stamping adds metallic shine in gold, silver, copper or custom colors. It is useful for logos, patterns and luxury details.",
   },
   {
-    title: "Embossing / Debossing",
-    image: "/images/finishes/embossing.webp",
+    title: "Embossing",
+    image: "/images/finishes/embossing-v3.webp",
     imageAlt: "Terracotta box with raised embossed lettering",
-    text: "Embossing raises a design above the surface, while debossing presses it into the surface. Both add depth and premium touch.",
+    text: "Embossing raises a design above the surface for depth and a premium tactile feel. It works well on logos, patterns and brand marks.",
+  },
+  {
+    title: "Debossing",
+    image: "/images/finishes/debossing-v3.webp",
+    imageAlt: "Grey box with debossed lettering pressed into the surface",
+    text: "Debossing presses a design into the surface for a subtle, refined look. It suits logos and minimal luxury packaging.",
+  },
+  {
+    title: "Anti-Scratch Laminate",
+    image: "/images/finishes/anti-scratch-laminate-v3.webp",
+    imageAlt: "Black box with an anti-scratch laminated surface",
+    text: "Anti-scratch laminate protects dark and soft-touch surfaces from scuffs during handling and shipping.",
   },
   {
     title: "Spot UV",
-    image: "/images/finishes/spot-uv.webp",
+    image: "/images/finishes/spot-uv-v3.webp",
     imageAlt: "Black box with glossy spot UV lettering on a matte surface",
     text: "Spot UV highlights selected parts of the design with glossy effect. It is used on logos, patterns, product names and luxury packaging areas.",
   },
   {
     title: "Window Patching",
-    image: "/images/products/window-boxes/window-boxes-hero-v2.webp",
-    imageAlt: "White folding cartons with clear window cut-outs",
+    image: "/images/products/window-boxes/window-boxes-hero-v3.webp",
+    imageAlt: "Kraft paper boxes with clear window cut-outs",
     text: "Window patching adds a transparent film window so customers can see the product inside the box.",
   },
   {
     title: "Special Coatings",
-    image: "/images/finishes/holographic-foil.webp",
+    image: "/images/finishes/holographic-foil-v3.webp",
     imageAlt: "Box with a holographic rainbow foil surface",
     text: "Special coatings may include varnish, aqueous coating, drip-off effects or protective surface treatments depending on the project.",
   },
@@ -118,7 +130,7 @@ export default function FinishingOptionsPage() {
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-6">
             <div className="relative mb-6 aspect-[3/2] overflow-hidden rounded-2xl">
               <Image
-                src="/images/finishes/finish-overview.webp"
+                src="/images/finishes/finish-overview-v3.webp"
                 alt="Four boxes showing spot UV, foil stamping, embossing and debossing finishes"
                 fill
                 priority

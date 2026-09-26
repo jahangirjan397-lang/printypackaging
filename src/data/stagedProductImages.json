@@ -1,165 +1,623 @@
 {
   "magnetic-boxes": [
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-hero-v2.webp",
-      "alt": "Red magnetic-closure rigid gift box with ribbon pull (concept image)",
-      "title": "magnetic boxes hero view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-hero-v3.webp",
+      "alt": "Magnetic Boxes - hero view (concept mockup)",
+      "title": "Magnetic Boxes hero view"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-front-v2.webp",
-      "alt": "Closed white magnetic rigid box with Printy Packaging logo on the lid (concept image)",
-      "title": "magnetic boxes front view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-front-v3.webp",
+      "alt": "Magnetic Boxes - front view (concept mockup)",
+      "title": "Magnetic Boxes front view"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-open-v2.webp",
-      "alt": "Open blue magnetic rigid box with fitted compartment insert (concept image)",
-      "title": "magnetic boxes open view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-open-v3.webp",
+      "alt": "Magnetic Boxes - open view (concept mockup)",
+      "title": "Magnetic Boxes open view"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-finish-v2.webp",
-      "alt": "Black matte magnetic rigid boxes showing finish and structure (concept image)",
-      "title": "magnetic boxes finish view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-finish-v3.webp",
+      "alt": "Magnetic Boxes - material and finish detail (concept mockup)",
+      "title": "Magnetic Boxes material and finish detail"
     },
     {
-      "src": "/images/products/magnetic-boxes/magnetic-boxes-lifestyle-v2.webp",
-      "alt": "Opened black magnetic box with foil detail on the interior (concept image)",
-      "title": "magnetic boxes lifestyle view"
+      "src": "/images/products/magnetic-boxes/magnetic-boxes-lifestyle-v3.webp",
+      "alt": "Magnetic Boxes - in use (concept mockup)",
+      "title": "Magnetic Boxes in use"
     }
   ],
   "drawer-boxes": [
     {
-      "src": "/images/products/drawer-boxes/drawer-boxes-hero-v2.webp",
-      "alt": "Four slide-out drawer boxes in orange, kraft, black and navy with pull tabs (concept image)",
-      "title": "drawer boxes hero view"
+      "src": "/images/products/drawer-boxes/drawer-boxes-hero-v3.webp",
+      "alt": "Drawer Boxes - hero view (concept mockup)",
+      "title": "Drawer Boxes hero view"
     },
     {
-      "src": "/images/products/drawer-boxes/drawer-boxes-front-v2.webp",
-      "alt": "White drawer box with sliding lid and Printy Packaging logo on the lid (concept image)",
-      "title": "drawer boxes front view"
+      "src": "/images/products/drawer-boxes/drawer-boxes-front-v3.webp",
+      "alt": "Drawer Boxes - front view (concept mockup)",
+      "title": "Drawer Boxes front view"
     },
     {
-      "src": "/images/products/drawer-boxes/drawer-boxes-open-v2.webp",
-      "alt": "Brown drawer box pulled open to show a divided chocolate insert (concept image)",
-      "title": "drawer boxes open view"
+      "src": "/images/products/drawer-boxes/drawer-boxes-open-v3.webp",
+      "alt": "Drawer Boxes - open view (concept mockup)",
+      "title": "Drawer Boxes open view"
     },
     {
-      "src": "/images/products/drawer-boxes/drawer-boxes-finish-v2.webp",
-      "alt": "Navy matte drawer box with black pull ribbon and white inner tray (concept image)",
-      "title": "drawer boxes finish view"
+      "src": "/images/products/drawer-boxes/drawer-boxes-finish-v3.webp",
+      "alt": "Drawer Boxes - material and finish detail (concept mockup)",
+      "title": "Drawer Boxes material and finish detail"
     },
     {
-      "src": "/images/products/drawer-boxes/drawer-boxes-lifestyle-v2.webp",
-      "alt": "Stack of coloured drawer boxes with finger pulls (concept image)",
-      "title": "drawer boxes lifestyle view"
+      "src": "/images/products/drawer-boxes/drawer-boxes-lifestyle-v3.webp",
+      "alt": "Drawer Boxes - in use (concept mockup)",
+      "title": "Drawer Boxes in use"
     }
   ],
   "sleeve-boxes": [
     {
-      "src": "/images/products/sleeve-boxes/sleeve-boxes-hero-v2.webp",
-      "alt": "Sleeve box with a printed floral sleeve sliding off a plain inner tray (concept image)",
-      "title": "sleeve boxes hero view"
+      "src": "/images/products/sleeve-boxes/sleeve-boxes-hero-v3.webp",
+      "alt": "Sleeve Boxes - hero view (concept mockup)",
+      "title": "Sleeve Boxes hero view"
     },
     {
-      "src": "/images/products/sleeve-boxes/sleeve-boxes-front-v2.webp",
-      "alt": "Kraft sleeve and tray box set on a warm background (concept image)",
-      "title": "sleeve boxes front view"
+      "src": "/images/products/sleeve-boxes/sleeve-boxes-front-v3.webp",
+      "alt": "Sleeve Boxes - front view (concept mockup)",
+      "title": "Sleeve Boxes front view"
     },
     {
-      "src": "/images/products/sleeve-boxes/sleeve-boxes-open-v2.webp",
-      "alt": "Kraft slide-out sleeve boxes, open to show the inner tray (concept image)",
-      "title": "sleeve boxes open view"
+      "src": "/images/products/sleeve-boxes/sleeve-boxes-open-v3.webp",
+      "alt": "Sleeve Boxes - open view (concept mockup)",
+      "title": "Sleeve Boxes open view"
     },
     {
-      "src": "/images/products/sleeve-boxes/sleeve-boxes-finish-v2.webp",
-      "alt": "White sleeve box with a coloured band and pull-out tray (concept image)",
-      "title": "sleeve boxes finish view"
+      "src": "/images/products/sleeve-boxes/sleeve-boxes-finish-v3.webp",
+      "alt": "Sleeve Boxes - material and finish detail (concept mockup)",
+      "title": "Sleeve Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/sleeve-boxes/sleeve-boxes-lifestyle-v3.webp",
+      "alt": "Sleeve Boxes - in use (concept mockup)",
+      "title": "Sleeve Boxes in use"
     }
   ],
   "apparel-boxes": [
     {
-      "src": "/images/products/apparel-boxes/apparel-boxes-hero-v2.webp",
-      "alt": "Black two-piece apparel or shoe box with the lid lifted (concept image)",
-      "title": "apparel boxes hero view"
+      "src": "/images/products/apparel-boxes/apparel-boxes-hero-v3.webp",
+      "alt": "Apparel Boxes - hero view (concept mockup)",
+      "title": "Apparel Boxes hero view"
     },
     {
-      "src": "/images/products/apparel-boxes/apparel-boxes-open-v2.webp",
-      "alt": "Blue drawer box with a folded garment inside (concept image)",
-      "title": "apparel boxes open view"
+      "src": "/images/products/apparel-boxes/apparel-boxes-front-v3.webp",
+      "alt": "Apparel Boxes - front view (concept mockup)",
+      "title": "Apparel Boxes front view"
+    },
+    {
+      "src": "/images/products/apparel-boxes/apparel-boxes-open-v3.webp",
+      "alt": "Apparel Boxes - open view (concept mockup)",
+      "title": "Apparel Boxes open view"
+    },
+    {
+      "src": "/images/products/apparel-boxes/apparel-boxes-finish-v3.webp",
+      "alt": "Apparel Boxes - material and finish detail (concept mockup)",
+      "title": "Apparel Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/apparel-boxes/apparel-boxes-lifestyle-v3.webp",
+      "alt": "Apparel Boxes - in use (concept mockup)",
+      "title": "Apparel Boxes in use"
     }
   ],
   "window-boxes": [
     {
-      "src": "/images/products/window-boxes/window-boxes-hero-v2.webp",
-      "alt": "White folding cartons with rectangular and oval window cut-outs (concept image)",
-      "title": "window boxes hero view"
+      "src": "/images/products/window-boxes/window-boxes-hero-v3.webp",
+      "alt": "Window Boxes - hero view (concept mockup)",
+      "title": "Window Boxes hero view"
     },
     {
-      "src": "/images/products/window-boxes/window-boxes-front-v2.webp",
-      "alt": "Kraft food boxes with clear window panels, stacked and open (concept image)",
-      "title": "window boxes front view"
+      "src": "/images/products/window-boxes/window-boxes-front-v3.webp",
+      "alt": "Window Boxes - front view (concept mockup)",
+      "title": "Window Boxes front view"
     },
     {
-      "src": "/images/products/window-boxes/window-boxes-open-v2.webp",
-      "alt": "Kraft gable box with die-cut window holding a cupcake (concept image)",
-      "title": "window boxes open view"
+      "src": "/images/products/window-boxes/window-boxes-open-v3.webp",
+      "alt": "Window Boxes - open view (concept mockup)",
+      "title": "Window Boxes open view"
+    },
+    {
+      "src": "/images/products/window-boxes/window-boxes-finish-v3.webp",
+      "alt": "Window Boxes - material and finish detail (concept mockup)",
+      "title": "Window Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/window-boxes/window-boxes-lifestyle-v3.webp",
+      "alt": "Window Boxes - in use (concept mockup)",
+      "title": "Window Boxes in use"
     }
   ],
   "display-boxes": [
     {
-      "src": "/images/products/display-boxes/display-boxes-hero-v2.webp",
-      "alt": "Countertop display box with a printed header card and product tray (concept image)",
-      "title": "display boxes hero view"
+      "src": "/images/products/display-boxes/display-boxes-hero-v3.webp",
+      "alt": "Display Boxes - hero view (concept mockup)",
+      "title": "Display Boxes hero view"
     },
     {
-      "src": "/images/products/display-boxes/display-boxes-lifestyle-v2.webp",
-      "alt": "Counter display boxes in different sizes with header cards (concept image)",
-      "title": "display boxes lifestyle view"
+      "src": "/images/products/display-boxes/display-boxes-front-v3.webp",
+      "alt": "Display Boxes - front view (concept mockup)",
+      "title": "Display Boxes front view"
+    },
+    {
+      "src": "/images/products/display-boxes/display-boxes-open-v3.webp",
+      "alt": "Display Boxes - open view (concept mockup)",
+      "title": "Display Boxes open view"
+    },
+    {
+      "src": "/images/products/display-boxes/display-boxes-finish-v3.webp",
+      "alt": "Display Boxes - material and finish detail (concept mockup)",
+      "title": "Display Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/display-boxes/display-boxes-lifestyle-v3.webp",
+      "alt": "Display Boxes - in use (concept mockup)",
+      "title": "Display Boxes in use"
     }
   ],
   "pizza-boxes": [
     {
-      "src": "/images/products/pizza-boxes/pizza-boxes-hero-v2.webp",
-      "alt": "Corrugated pizza box opened with the lid lifted to show a pizza (concept image)",
-      "title": "pizza boxes hero view"
+      "src": "/images/products/pizza-boxes/pizza-boxes-hero-v3.webp",
+      "alt": "Pizza Boxes - hero view (concept mockup)",
+      "title": "Pizza Boxes hero view"
     },
     {
-      "src": "/images/products/pizza-boxes/pizza-boxes-front-v2.webp",
-      "alt": "Kraft corrugated pizza box closed, viewed from above (concept image)",
-      "title": "pizza boxes front view"
+      "src": "/images/products/pizza-boxes/pizza-boxes-front-v3.webp",
+      "alt": "Pizza Boxes - front view (concept mockup)",
+      "title": "Pizza Boxes front view"
     },
     {
-      "src": "/images/products/pizza-boxes/pizza-boxes-open-v2.webp",
-      "alt": "White pizza boxes with a printed interior pattern, shown from several angles (concept image)",
-      "title": "pizza boxes open view"
+      "src": "/images/products/pizza-boxes/pizza-boxes-open-v3.webp",
+      "alt": "Pizza Boxes - open view (concept mockup)",
+      "title": "Pizza Boxes open view"
+    },
+    {
+      "src": "/images/products/pizza-boxes/pizza-boxes-finish-v3.webp",
+      "alt": "Pizza Boxes - material and finish detail (concept mockup)",
+      "title": "Pizza Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/pizza-boxes/pizza-boxes-lifestyle-v3.webp",
+      "alt": "Pizza Boxes - in use (concept mockup)",
+      "title": "Pizza Boxes in use"
     }
   ],
   "pharmaceutical-boxes": [
     {
-      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-hero-v2.webp",
-      "alt": "Supplement bottle with a matching folding carton (concept image)",
-      "title": "pharmaceutical boxes hero view"
+      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-hero-v3.webp",
+      "alt": "Pharmaceutical Boxes - hero view (concept mockup)",
+      "title": "Pharmaceutical Boxes hero view"
     },
     {
-      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-front-v2.webp",
-      "alt": "Pharmacy carton with dropper bottle standing on a kraft box (concept image)",
-      "title": "pharmaceutical boxes front view"
+      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-front-v3.webp",
+      "alt": "Pharmaceutical Boxes - front view (concept mockup)",
+      "title": "Pharmaceutical Boxes front view"
     },
     {
-      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-open-v2.webp",
-      "alt": "Folding cartons with blister packs for tablets (concept image)",
-      "title": "pharmaceutical boxes open view"
+      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-open-v3.webp",
+      "alt": "Pharmaceutical Boxes - open view (concept mockup)",
+      "title": "Pharmaceutical Boxes open view"
+    },
+    {
+      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-finish-v3.webp",
+      "alt": "Pharmaceutical Boxes - material and finish detail (concept mockup)",
+      "title": "Pharmaceutical Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-lifestyle-v3.webp",
+      "alt": "Pharmaceutical Boxes - in use (concept mockup)",
+      "title": "Pharmaceutical Boxes in use"
     }
   ],
   "hang-tags": [
     {
-      "src": "/images/products/hang-tags/hang-tags-hero-v2.webp",
-      "alt": "Pair of printed hang tags with string on a fabric background (concept image)",
-      "title": "hang tags hero view"
+      "src": "/images/products/hang-tags/hang-tags-hero-v3.webp",
+      "alt": "Hang Tags - hero view (concept mockup)",
+      "title": "Hang Tags hero view"
     },
     {
-      "src": "/images/products/hang-tags/hang-tags-front-v2.webp",
-      "alt": "Single printed hang tag with cotton string (concept image)",
-      "title": "hang tags front view"
+      "src": "/images/products/hang-tags/hang-tags-front-v3.webp",
+      "alt": "Hang Tags - front view (concept mockup)",
+      "title": "Hang Tags front view"
+    },
+    {
+      "src": "/images/products/hang-tags/hang-tags-open-v3.webp",
+      "alt": "Hang Tags - open view (concept mockup)",
+      "title": "Hang Tags open view"
+    },
+    {
+      "src": "/images/products/hang-tags/hang-tags-finish-v3.webp",
+      "alt": "Hang Tags - material and finish detail (concept mockup)",
+      "title": "Hang Tags material and finish detail"
+    },
+    {
+      "src": "/images/products/hang-tags/hang-tags-lifestyle-v3.webp",
+      "alt": "Hang Tags - in use (concept mockup)",
+      "title": "Hang Tags in use"
+    }
+  ],
+  "rigid-boxes": [
+    {
+      "src": "/images/products/rigid-boxes/rigid-boxes-hero-v3.webp",
+      "alt": "Rigid Boxes - hero view (concept mockup)",
+      "title": "Rigid Boxes hero view"
+    },
+    {
+      "src": "/images/products/rigid-boxes/rigid-boxes-front-v3.webp",
+      "alt": "Rigid Boxes - front view (concept mockup)",
+      "title": "Rigid Boxes front view"
+    },
+    {
+      "src": "/images/products/rigid-boxes/rigid-boxes-open-v3.webp",
+      "alt": "Rigid Boxes - open view (concept mockup)",
+      "title": "Rigid Boxes open view"
+    },
+    {
+      "src": "/images/products/rigid-boxes/rigid-boxes-finish-v3.webp",
+      "alt": "Rigid Boxes - material and finish detail (concept mockup)",
+      "title": "Rigid Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/rigid-boxes/rigid-boxes-lifestyle-v3.webp",
+      "alt": "Rigid Boxes - in use (concept mockup)",
+      "title": "Rigid Boxes in use"
+    }
+  ],
+  "folding-cartons": [
+    {
+      "src": "/images/products/folding-cartons/folding-cartons-hero-v3.webp",
+      "alt": "Folding Cartons - hero view (concept mockup)",
+      "title": "Folding Cartons hero view"
+    },
+    {
+      "src": "/images/products/folding-cartons/folding-cartons-front-v3.webp",
+      "alt": "Folding Cartons - front view (concept mockup)",
+      "title": "Folding Cartons front view"
+    },
+    {
+      "src": "/images/products/folding-cartons/folding-cartons-open-v3.webp",
+      "alt": "Folding Cartons - open view (concept mockup)",
+      "title": "Folding Cartons open view"
+    },
+    {
+      "src": "/images/products/folding-cartons/folding-cartons-finish-v3.webp",
+      "alt": "Folding Cartons - material and finish detail (concept mockup)",
+      "title": "Folding Cartons material and finish detail"
+    },
+    {
+      "src": "/images/products/folding-cartons/folding-cartons-lifestyle-v3.webp",
+      "alt": "Folding Cartons - in use (concept mockup)",
+      "title": "Folding Cartons in use"
+    }
+  ],
+  "mailer-boxes": [
+    {
+      "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3.webp",
+      "alt": "Mailer Boxes - hero view (concept mockup)",
+      "title": "Mailer Boxes hero view"
+    },
+    {
+      "src": "/images/products/mailer-boxes/mailer-boxes-front-v3.webp",
+      "alt": "Mailer Boxes - front view (concept mockup)",
+      "title": "Mailer Boxes front view"
+    },
+    {
+      "src": "/images/products/mailer-boxes/mailer-boxes-open-v3.webp",
+      "alt": "Mailer Boxes - open view (concept mockup)",
+      "title": "Mailer Boxes open view"
+    },
+    {
+      "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3.webp",
+      "alt": "Mailer Boxes - material and finish detail (concept mockup)",
+      "title": "Mailer Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/mailer-boxes/mailer-boxes-lifestyle-v3.webp",
+      "alt": "Mailer Boxes - in use (concept mockup)",
+      "title": "Mailer Boxes in use"
+    }
+  ],
+  "butter-paper": [
+    {
+      "src": "/images/products/butter-paper/butter-paper-hero-v3.webp",
+      "alt": "Butter Paper - hero view (concept mockup)",
+      "title": "Butter Paper hero view"
+    },
+    {
+      "src": "/images/products/butter-paper/butter-paper-front-v3.webp",
+      "alt": "Butter Paper - front view (concept mockup)",
+      "title": "Butter Paper front view"
+    },
+    {
+      "src": "/images/products/butter-paper/butter-paper-open-v3.webp",
+      "alt": "Butter Paper - open view (concept mockup)",
+      "title": "Butter Paper open view"
+    },
+    {
+      "src": "/images/products/butter-paper/butter-paper-finish-v3.webp",
+      "alt": "Butter Paper - material and finish detail (concept mockup)",
+      "title": "Butter Paper material and finish detail"
+    },
+    {
+      "src": "/images/products/butter-paper/butter-paper-lifestyle-v3.webp",
+      "alt": "Butter Paper - in use (concept mockup)",
+      "title": "Butter Paper in use"
+    }
+  ],
+  "food-packaging": [
+    {
+      "src": "/images/products/food-packaging/food-packaging-hero-v3.webp",
+      "alt": "Food Packaging - hero view (concept mockup)",
+      "title": "Food Packaging hero view"
+    },
+    {
+      "src": "/images/products/food-packaging/food-packaging-front-v3.webp",
+      "alt": "Food Packaging - front view (concept mockup)",
+      "title": "Food Packaging front view"
+    },
+    {
+      "src": "/images/products/food-packaging/food-packaging-open-v3.webp",
+      "alt": "Food Packaging - open view (concept mockup)",
+      "title": "Food Packaging open view"
+    },
+    {
+      "src": "/images/products/food-packaging/food-packaging-finish-v3.webp",
+      "alt": "Food Packaging - material and finish detail (concept mockup)",
+      "title": "Food Packaging material and finish detail"
+    },
+    {
+      "src": "/images/products/food-packaging/food-packaging-lifestyle-v3.webp",
+      "alt": "Food Packaging - in use (concept mockup)",
+      "title": "Food Packaging in use"
+    }
+  ],
+  "paper-bags": [
+    {
+      "src": "/images/products/paper-bags/paper-bags-hero-v3.webp",
+      "alt": "Paper Bags - hero view (concept mockup)",
+      "title": "Paper Bags hero view"
+    },
+    {
+      "src": "/images/products/paper-bags/paper-bags-front-v3.webp",
+      "alt": "Paper Bags - front view (concept mockup)",
+      "title": "Paper Bags front view"
+    },
+    {
+      "src": "/images/products/paper-bags/paper-bags-open-v3.webp",
+      "alt": "Paper Bags - open view (concept mockup)",
+      "title": "Paper Bags open view"
+    },
+    {
+      "src": "/images/products/paper-bags/paper-bags-finish-v3.webp",
+      "alt": "Paper Bags - material and finish detail (concept mockup)",
+      "title": "Paper Bags material and finish detail"
+    },
+    {
+      "src": "/images/products/paper-bags/paper-bags-lifestyle-v3.webp",
+      "alt": "Paper Bags - in use (concept mockup)",
+      "title": "Paper Bags in use"
+    }
+  ],
+  "luxury-packaging": [
+    {
+      "src": "/images/products/luxury-packaging/luxury-packaging-hero-v3.webp",
+      "alt": "Luxury Packaging - hero view (concept mockup)",
+      "title": "Luxury Packaging hero view"
+    },
+    {
+      "src": "/images/products/luxury-packaging/luxury-packaging-front-v3.webp",
+      "alt": "Luxury Packaging - front view (concept mockup)",
+      "title": "Luxury Packaging front view"
+    },
+    {
+      "src": "/images/products/luxury-packaging/luxury-packaging-open-v3.webp",
+      "alt": "Luxury Packaging - open view (concept mockup)",
+      "title": "Luxury Packaging open view"
+    },
+    {
+      "src": "/images/products/luxury-packaging/luxury-packaging-finish-v3.webp",
+      "alt": "Luxury Packaging - material and finish detail (concept mockup)",
+      "title": "Luxury Packaging material and finish detail"
+    },
+    {
+      "src": "/images/products/luxury-packaging/luxury-packaging-lifestyle-v3.webp",
+      "alt": "Luxury Packaging - in use (concept mockup)",
+      "title": "Luxury Packaging in use"
+    }
+  ],
+  "cosmetic-boxes": [
+    {
+      "src": "/images/products/cosmetic-boxes/cosmetic-boxes-hero-v3.webp",
+      "alt": "Cosmetic Boxes - hero view (concept mockup)",
+      "title": "Cosmetic Boxes hero view"
+    },
+    {
+      "src": "/images/products/cosmetic-boxes/cosmetic-boxes-front-v3.webp",
+      "alt": "Cosmetic Boxes - front view (concept mockup)",
+      "title": "Cosmetic Boxes front view"
+    },
+    {
+      "src": "/images/products/cosmetic-boxes/cosmetic-boxes-open-v3.webp",
+      "alt": "Cosmetic Boxes - open view (concept mockup)",
+      "title": "Cosmetic Boxes open view"
+    },
+    {
+      "src": "/images/products/cosmetic-boxes/cosmetic-boxes-finish-v3.webp",
+      "alt": "Cosmetic Boxes - material and finish detail (concept mockup)",
+      "title": "Cosmetic Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/cosmetic-boxes/cosmetic-boxes-lifestyle-v3.webp",
+      "alt": "Cosmetic Boxes - in use (concept mockup)",
+      "title": "Cosmetic Boxes in use"
+    }
+  ],
+  "perfume-boxes": [
+    {
+      "src": "/images/products/perfume-boxes/perfume-boxes-hero-v3.webp",
+      "alt": "Perfume Boxes - hero view (concept mockup)",
+      "title": "Perfume Boxes hero view"
+    },
+    {
+      "src": "/images/products/perfume-boxes/perfume-boxes-front-v3.webp",
+      "alt": "Perfume Boxes - front view (concept mockup)",
+      "title": "Perfume Boxes front view"
+    },
+    {
+      "src": "/images/products/perfume-boxes/perfume-boxes-open-v3.webp",
+      "alt": "Perfume Boxes - open view (concept mockup)",
+      "title": "Perfume Boxes open view"
+    },
+    {
+      "src": "/images/products/perfume-boxes/perfume-boxes-finish-v3.webp",
+      "alt": "Perfume Boxes - material and finish detail (concept mockup)",
+      "title": "Perfume Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/perfume-boxes/perfume-boxes-lifestyle-v3.webp",
+      "alt": "Perfume Boxes - in use (concept mockup)",
+      "title": "Perfume Boxes in use"
+    }
+  ],
+  "candle-boxes": [
+    {
+      "src": "/images/products/candle-boxes/candle-boxes-hero-v3.webp",
+      "alt": "Candle Boxes - hero view (concept mockup)",
+      "title": "Candle Boxes hero view"
+    },
+    {
+      "src": "/images/products/candle-boxes/candle-boxes-front-v3.webp",
+      "alt": "Candle Boxes - front view (concept mockup)",
+      "title": "Candle Boxes front view"
+    },
+    {
+      "src": "/images/products/candle-boxes/candle-boxes-open-v3.webp",
+      "alt": "Candle Boxes - open view (concept mockup)",
+      "title": "Candle Boxes open view"
+    },
+    {
+      "src": "/images/products/candle-boxes/candle-boxes-finish-v3.webp",
+      "alt": "Candle Boxes - material and finish detail (concept mockup)",
+      "title": "Candle Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/candle-boxes/candle-boxes-lifestyle-v3.webp",
+      "alt": "Candle Boxes - in use (concept mockup)",
+      "title": "Candle Boxes in use"
+    }
+  ],
+  "soap-boxes": [
+    {
+      "src": "/images/products/soap-boxes/soap-boxes-hero-v3.webp",
+      "alt": "Soap Boxes - hero view (concept mockup)",
+      "title": "Soap Boxes hero view"
+    },
+    {
+      "src": "/images/products/soap-boxes/soap-boxes-front-v3.webp",
+      "alt": "Soap Boxes - front view (concept mockup)",
+      "title": "Soap Boxes front view"
+    },
+    {
+      "src": "/images/products/soap-boxes/soap-boxes-open-v3.webp",
+      "alt": "Soap Boxes - open view (concept mockup)",
+      "title": "Soap Boxes open view"
+    },
+    {
+      "src": "/images/products/soap-boxes/soap-boxes-finish-v3.webp",
+      "alt": "Soap Boxes - material and finish detail (concept mockup)",
+      "title": "Soap Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/soap-boxes/soap-boxes-lifestyle-v3.webp",
+      "alt": "Soap Boxes - in use (concept mockup)",
+      "title": "Soap Boxes in use"
+    }
+  ],
+  "jewelry-boxes": [
+    {
+      "src": "/images/products/jewelry-boxes/jewelry-boxes-hero-v3.webp",
+      "alt": "Jewelry Boxes - hero view (concept mockup)",
+      "title": "Jewelry Boxes hero view"
+    },
+    {
+      "src": "/images/products/jewelry-boxes/jewelry-boxes-front-v3.webp",
+      "alt": "Jewelry Boxes - front view (concept mockup)",
+      "title": "Jewelry Boxes front view"
+    },
+    {
+      "src": "/images/products/jewelry-boxes/jewelry-boxes-open-v3.webp",
+      "alt": "Jewelry Boxes - open view (concept mockup)",
+      "title": "Jewelry Boxes open view"
+    },
+    {
+      "src": "/images/products/jewelry-boxes/jewelry-boxes-finish-v3.webp",
+      "alt": "Jewelry Boxes - material and finish detail (concept mockup)",
+      "title": "Jewelry Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/jewelry-boxes/jewelry-boxes-lifestyle-v3.webp",
+      "alt": "Jewelry Boxes - in use (concept mockup)",
+      "title": "Jewelry Boxes in use"
+    }
+  ],
+  "bakery-boxes": [
+    {
+      "src": "/images/products/bakery-boxes/bakery-boxes-hero-v3.webp",
+      "alt": "Bakery Boxes - hero view (concept mockup)",
+      "title": "Bakery Boxes hero view"
+    },
+    {
+      "src": "/images/products/bakery-boxes/bakery-boxes-front-v3.webp",
+      "alt": "Bakery Boxes - front view (concept mockup)",
+      "title": "Bakery Boxes front view"
+    },
+    {
+      "src": "/images/products/bakery-boxes/bakery-boxes-open-v3.webp",
+      "alt": "Bakery Boxes - open view (concept mockup)",
+      "title": "Bakery Boxes open view"
+    },
+    {
+      "src": "/images/products/bakery-boxes/bakery-boxes-finish-v3.webp",
+      "alt": "Bakery Boxes - material and finish detail (concept mockup)",
+      "title": "Bakery Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/bakery-boxes/bakery-boxes-lifestyle-v3.webp",
+      "alt": "Bakery Boxes - in use (concept mockup)",
+      "title": "Bakery Boxes in use"
+    }
+  ],
+  "burger-boxes": [
+    {
+      "src": "/images/products/burger-boxes/burger-boxes-hero-v3.webp",
+      "alt": "Burger Boxes - hero view (concept mockup)",
+      "title": "Burger Boxes hero view"
+    },
+    {
+      "src": "/images/products/burger-boxes/burger-boxes-front-v3.webp",
+      "alt": "Burger Boxes - front view (concept mockup)",
+      "title": "Burger Boxes front view"
+    },
+    {
+      "src": "/images/products/burger-boxes/burger-boxes-open-v3.webp",
+      "alt": "Burger Boxes - open view (concept mockup)",
+      "title": "Burger Boxes open view"
+    },
+    {
+      "src": "/images/products/burger-boxes/burger-boxes-finish-v3.webp",
+      "alt": "Burger Boxes - material and finish detail (concept mockup)",
+      "title": "Burger Boxes material and finish detail"
+    },
+    {
+      "src": "/images/products/burger-boxes/burger-boxes-lifestyle-v3.webp",
+      "alt": "Burger Boxes - in use (concept mockup)",
+      "title": "Burger Boxes in use"
     }
   ]
 }

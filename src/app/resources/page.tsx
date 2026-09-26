@@ -89,7 +89,7 @@ export default function ResourcesPage() {
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
               <Image
-                src="/images/home/home-sample-kit.webp"
+                src="/images/home/home-sample-kit-v3.webp"
                 alt="Packaging sample kit materials finishes and buyer resources"
                 fill
                 priority

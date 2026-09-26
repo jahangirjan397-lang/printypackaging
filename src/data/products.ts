@@ -294,34 +294,7 @@ export const products: Product[] = [
       "premium product packaging",
       "high end rigid boxes",
     ],
-    ["Perfume", "Cosmetics", "Jewelry", "Gifts", "Luxury Retail"],
-    [
-      {
-        src: "/images/products/rigid-boxes/rigid-boxes-hero.webp",
-        alt: "Luxury custom rigid box with premium branded presentation",
-        title: "Rigid Box Hero View",
-      },
-      {
-        src: "/images/products/rigid-boxes/rigid-boxes-front.webp",
-        alt: "Front view of a custom luxury rigid packaging box",
-        title: "Rigid Box Front View",
-      },
-      {
-        src: "/images/products/rigid-boxes/rigid-boxes-open.webp",
-        alt: "Open custom rigid box showing premium insert and interior",
-        title: "Rigid Box Open View",
-      },
-      {
-        src: "/images/products/rigid-boxes/rigid-boxes-finish.webp",
-        alt: "Close-up of rigid box wrapping, foil and premium finish",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/rigid-boxes/rigid-boxes-lifestyle.webp",
-        alt: "Luxury rigid packaging displayed in a premium retail setting",
-        title: "Rigid Box Lifestyle View",
-      },
-    ]
+    ["Perfume", "Cosmetics", "Jewelry", "Gifts", "Luxury Retail"]
   ),
 
   makeProduct(
@@ -344,34 +317,7 @@ export const products: Product[] = [
       "food folding cartons",
       "printed product boxes",
     ],
-    ["Cosmetics", "Pharma", "Food", "Retail", "Electronics"],
-    [
-      {
-        src: "/images/products/folding-cartons/folding-cartons-hero.webp",
-        alt: "Custom printed folding cartons in multiple sizes with branded design",
-        title: "Folding Cartons Hero View",
-      },
-      {
-        src: "/images/products/folding-cartons/folding-cartons-front.webp",
-        alt: "Front view of a closed custom printed folding carton",
-        title: "Folding Carton Front View",
-      },
-      {
-        src: "/images/products/folding-cartons/folding-cartons-open.webp",
-        alt: "Open folding carton showing tuck flaps and paperboard interior",
-        title: "Folding Carton Open View",
-      },
-      {
-        src: "/images/products/folding-cartons/folding-cartons-finish.webp",
-        alt: "Close-up of folding carton paperboard, print and premium finish",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/folding-cartons/folding-cartons-lifestyle.webp",
-        alt: "Branded folding cartons displayed in a premium retail setting",
-        title: "Folding Cartons Lifestyle View",
-      },
-    ]
+    ["Cosmetics", "Pharma", "Food", "Retail", "Electronics"]
   ),
 
   makeProduct(
@@ -394,34 +340,7 @@ export const products: Product[] = [
       "unboxing packaging",
       "branded shipping boxes",
     ],
-    ["E-commerce", "Subscription Brands", "Retail", "Apparel"],
-    [
-      {
-        src: "/images/products/mailer-boxes/mailer-boxes-hero.webp",
-        alt: "Open and closed custom printed mailer boxes in Printy Packaging branding",
-        title: "Mailer Boxes Hero View",
-      },
-      {
-        src: "/images/products/mailer-boxes/mailer-boxes-front.webp",
-        alt: "Closed custom mailer box showing the branded front and structural panels",
-        title: "Mailer Boxes Front View",
-      },
-      {
-        src: "/images/products/mailer-boxes/mailer-boxes-open.webp",
-        alt: "Open corrugated mailer box showing the premium printed interior",
-        title: "Mailer Boxes Open View",
-      },
-      {
-        src: "/images/products/mailer-boxes/mailer-boxes-finish.webp",
-        alt: "Close-up of corrugated board, matte printing, folds and branded finish",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/mailer-boxes/mailer-boxes-lifestyle.webp",
-        alt: "Custom mailer boxes displayed in a modern ecommerce packing workspace",
-        title: "Mailer Boxes Lifestyle View",
-      },
-    ]
+    ["E-commerce", "Subscription Brands", "Retail", "Apparel"]
   ),
 
   makeProduct(
@@ -444,34 +363,7 @@ export const products: Product[] = [
       "restaurant wrapping paper",
       "greaseproof paper",
     ],
-    ["Restaurants", "Bakeries", "Burger Brands", "Cafes", "Food Trucks"],
-    [
-      {
-        src: "/images/products/butter-paper/butter-paper-hero.webp",
-        alt: "Custom printed butter paper sheets, roll and wrapped sandwich",
-        title: "Butter Paper Hero View",
-      },
-      {
-        src: "/images/products/butter-paper/butter-paper-front.webp",
-        alt: "Front view of custom printed butter paper roll and sheets",
-        title: "Butter Paper Front View",
-      },
-      {
-        src: "/images/products/butter-paper/butter-paper-open.webp",
-        alt: "Unfolded printed greaseproof paper with repeating brand pattern",
-        title: "Butter Paper Open Sheet View",
-      },
-      {
-        src: "/images/products/butter-paper/butter-paper-finish.webp",
-        alt: "Close-up of food-safe butter paper texture and printed pattern",
-        title: "Butter Paper Print Detail",
-      },
-      {
-        src: "/images/products/butter-paper/butter-paper-lifestyle.webp",
-        alt: "Sandwich wrapped in branded butter paper on a cafe counter",
-        title: "Butter Paper Lifestyle View",
-      },
-    ]
+    ["Restaurants", "Bakeries", "Burger Brands", "Cafes", "Food Trucks"]
   ),
 
   makeProduct(
@@ -494,34 +386,7 @@ export const products: Product[] = [
       "snack packaging",
       "branded food packaging",
     ],
-    ["Restaurants", "Bakeries", "Cafes", "Pizza Brands", "Frozen Food"],
-    [
-      {
-        src: "/images/products/food-packaging/food-packaging-hero.webp",
-        alt: "Printy Packaging food-safe bakery, takeaway and bowl packaging",
-        title: "Food Packaging Hero View",
-      },
-      {
-        src: "/images/products/food-packaging/food-packaging-front.webp",
-        alt: "Front view of custom printed food packaging range",
-        title: "Food Packaging Front View",
-      },
-      {
-        src: "/images/products/food-packaging/food-packaging-open.webp",
-        alt: "Open food-safe takeaway and bakery cartons",
-        title: "Food Packaging Open View",
-      },
-      {
-        src: "/images/products/food-packaging/food-packaging-finish.webp",
-        alt: "Close-up of food-grade board, window and printed finish",
-        title: "Food Packaging Material Detail",
-      },
-      {
-        src: "/images/products/food-packaging/food-packaging-lifestyle.webp",
-        alt: "Custom food packaging displayed on a bright bakery counter",
-        title: "Food Packaging Lifestyle View",
-      },
-    ]
+    ["Restaurants", "Bakeries", "Cafes", "Pizza Brands", "Frozen Food"]
   ),
 
   makeProduct(
@@ -544,34 +409,7 @@ export const products: Product[] = [
       "takeaway paper bags",
       "retail carry bags",
     ],
-    ["Retail", "Fashion", "Events", "Gifts", "Luxury Brands"],
-    [
-      {
-        src: "/images/products/paper-bags/paper-bags-hero.webp",
-        alt: "Custom kraft, white and navy paper shopping bags",
-        title: "Paper Bags Hero View",
-      },
-      {
-        src: "/images/products/paper-bags/paper-bags-front.webp",
-        alt: "Front view of coordinated custom printed paper bags",
-        title: "Paper Bags Front View",
-      },
-      {
-        src: "/images/products/paper-bags/paper-bags-open.webp",
-        alt: "Open paper shopping bag showing interior and tissue presentation",
-        title: "Paper Bags Open View",
-      },
-      {
-        src: "/images/products/paper-bags/paper-bags-finish.webp",
-        alt: "Close-up of twisted handles, reinforced fold and paper texture",
-        title: "Paper Bags Material Detail",
-      },
-      {
-        src: "/images/products/paper-bags/paper-bags-lifestyle.webp",
-        alt: "Branded paper bags arranged in a premium retail setting",
-        title: "Paper Bags Lifestyle View",
-      },
-    ]
+    ["Retail", "Fashion", "Events", "Gifts", "Luxury Brands"]
   ),
   makeProduct(
     "labels-stickers",
@@ -639,34 +477,7 @@ export const products: Product[] = [
       "foil stamped boxes",
       "soft touch packaging",
     ],
-    ["Perfume", "Jewelry", "Cosmetics", "Gifts", "Premium Retail"],
-    [
-      {
-        src: "/images/products/luxury-packaging/luxury-packaging-hero.webp",
-        alt: "Premium luxury packaging set with open rigid box",
-        title: "Luxury Packaging Hero View",
-      },
-      {
-        src: "/images/products/luxury-packaging/luxury-packaging-front.webp",
-        alt: "Front view of premium Printy Packaging luxury boxes",
-        title: "Luxury Packaging Front View",
-      },
-      {
-        src: "/images/products/luxury-packaging/luxury-packaging-open.webp",
-        alt: "Open luxury rigid box with clean custom insert",
-        title: "Luxury Packaging Open View",
-      },
-      {
-        src: "/images/products/luxury-packaging/luxury-packaging-finish.webp",
-        alt: "Close-up of luxury box paper texture and foil finish",
-        title: "Luxury Material and Finish Detail",
-      },
-      {
-        src: "/images/products/luxury-packaging/luxury-packaging-lifestyle.webp",
-        alt: "Premium luxury packaging displayed in a warm retail setting",
-        title: "Luxury Packaging Lifestyle View",
-      },
-    ]
+    ["Perfume", "Jewelry", "Cosmetics", "Gifts", "Premium Retail"]
   ),
     makeProduct(
     "cosmetic-boxes",
@@ -686,35 +497,8 @@ export const products: Product[] = [
       "beauty packaging boxes",
       "cosmetic product packaging",
     ],
-    ["Cosmetics", "Skincare", "Beauty", "Retail", "E-commerce"],
-      [
-        {
-          src: "/images/products/cosmetic-boxes/cosmetic-boxes-hero.webp",
-          alt: "Premium custom cosmetic packaging boxes in Printy Packaging brand design",
-          title: "Cosmetic Boxes Hero View",
-        },
-        {
-          src: "/images/products/cosmetic-boxes/cosmetic-boxes-front.webp",
-          alt: "Front view of custom printed cosmetic cartons",
-          title: "Cosmetic Boxes Front View",
-        },
-        {
-          src: "/images/products/cosmetic-boxes/cosmetic-boxes-open.webp",
-          alt: "Open cosmetic carton showing printed interior and folding structure",
-          title: "Cosmetic Boxes Open View",
-        },
-        {
-          src: "/images/products/cosmetic-boxes/cosmetic-boxes-finish.webp",
-          alt: "Close-up of cosmetic box material, logo and premium finishing",
-          title: "Material and Finish Detail",
-        },
-        {
-          src: "/images/products/cosmetic-boxes/cosmetic-boxes-lifestyle.webp",
-          alt: "Custom cosmetic packaging displayed in a premium lifestyle setting",
-          title: "Cosmetic Boxes Lifestyle View",
-        },
-      ]
-    ),
+    ["Cosmetics", "Skincare", "Beauty", "Retail", "E-commerce"]
+  ),
 
   makeProduct(
     "perfume-boxes",
@@ -734,34 +518,7 @@ export const products: Product[] = [
       "perfume rigid boxes",
       "premium perfume packaging",
     ],
-    ["Perfume", "Fragrance", "Luxury Retail", "Gifts", "Cosmetics"],
-    [
-      {
-        src: "/images/products/perfume-boxes/perfume-boxes-hero.webp",
-        alt: "Premium custom perfume boxes with rigid presentation packaging",
-        title: "Perfume Boxes Hero View",
-      },
-      {
-        src: "/images/products/perfume-boxes/perfume-boxes-front.webp",
-        alt: "Front view of custom printed perfume cartons",
-        title: "Perfume Boxes Front View",
-      },
-      {
-        src: "/images/products/perfume-boxes/perfume-boxes-open.webp",
-        alt: "Open perfume presentation box with fitted protective insert",
-        title: "Perfume Boxes Open View",
-      },
-      {
-        src: "/images/products/perfume-boxes/perfume-boxes-finish.webp",
-        alt: "Close-up of perfume box wrapping, logo and premium finishing",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/perfume-boxes/perfume-boxes-lifestyle.webp",
-        alt: "Custom perfume packaging displayed in a premium lifestyle setting",
-        title: "Perfume Boxes Lifestyle View",
-      },
-    ]
+    ["Perfume", "Fragrance", "Luxury Retail", "Gifts", "Cosmetics"]
   ),
 
   makeProduct(
@@ -782,29 +539,7 @@ export const products: Product[] = [
       "custom candle packaging",
       "luxury candle packaging",
     ],
-    ["Candles", "Gifts", "Retail", "Home Decor", "Luxury Brands"],
-    [
-      {
-        src: "/images/products/candle-boxes/candle-boxes-hero.webp",
-        alt: "Premium custom candle boxes with coordinated printed packaging",
-        title: "Candle Boxes Hero View",
-      },
-      {
-        src: "/images/products/candle-boxes/candle-boxes-front.webp",
-        alt: "Front view of custom printed candle cartons",
-        title: "Candle Boxes Front View",
-      },
-      {
-        src: "/images/products/candle-boxes/candle-boxes-open.webp",
-        alt: "Open candle carton showing protective product fit",
-        title: "Candle Boxes Open View",
-      },
-      {
-        src: "/images/products/candle-boxes/candle-boxes-lifestyle.webp",
-        alt: "Custom candle packaging displayed in a warm lifestyle setting",
-        title: "Candle Boxes Lifestyle View",
-      },
-    ]
+    ["Candles", "Gifts", "Retail", "Home Decor", "Luxury Brands"]
   ),
 
   makeProduct(
@@ -825,34 +560,7 @@ export const products: Product[] = [
       "natural soap boxes",
       "retail soap packaging",
     ],
-    ["Soap", "Beauty", "Skincare", "Retail", "Organic Brands"],
-    [
-      {
-        src: "/images/products/soap-boxes/soap-boxes-hero.webp",
-        alt: "Premium custom soap boxes and printed sleeves",
-        title: "Soap Boxes Hero View",
-      },
-      {
-        src: "/images/products/soap-boxes/soap-boxes-front.webp",
-        alt: "Front view of custom printed soap cartons",
-        title: "Soap Boxes Front View",
-      },
-      {
-        src: "/images/products/soap-boxes/soap-boxes-open.webp",
-        alt: "Open soap carton showing product fit and folding structure",
-        title: "Soap Boxes Open View",
-      },
-      {
-        src: "/images/products/soap-boxes/soap-boxes-finish.webp",
-        alt: "Close-up of soap box paper, die-cut edge and premium finishing",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/soap-boxes/soap-boxes-lifestyle.webp",
-        alt: "Custom soap packaging displayed in a clean lifestyle setting",
-        title: "Soap Boxes Lifestyle View",
-      },
-    ]
+    ["Soap", "Beauty", "Skincare", "Retail", "Organic Brands"]
   ),
 
   makeProduct(
@@ -873,34 +581,7 @@ export const products: Product[] = [
       "bracelet boxes",
       "premium jewelry packaging",
     ],
-    ["Jewelry", "Luxury Retail", "Gifts", "Fashion", "Premium Brands"],
-    [
-      {
-        src: "/images/products/jewelry-boxes/jewelry-boxes-hero.webp",
-        alt: "Premium custom jewelry boxes with fitted presentation inserts",
-        title: "Jewelry Boxes Hero View",
-      },
-      {
-        src: "/images/products/jewelry-boxes/jewelry-boxes-front.webp",
-        alt: "Front view of custom rigid jewelry presentation boxes",
-        title: "Jewelry Boxes Front View",
-      },
-      {
-        src: "/images/products/jewelry-boxes/jewelry-boxes-open.webp",
-        alt: "Open jewelry boxes showing premium fitted inserts",
-        title: "Jewelry Boxes Open View",
-      },
-      {
-        src: "/images/products/jewelry-boxes/jewelry-boxes-finish.webp",
-        alt: "Close-up of jewelry box wrapping, logo and premium finishing",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/jewelry-boxes/jewelry-boxes-lifestyle.webp",
-        alt: "Custom jewelry packaging displayed in a luxury lifestyle setting",
-        title: "Jewelry Boxes Lifestyle View",
-      },
-    ]
+    ["Jewelry", "Luxury Retail", "Gifts", "Fashion", "Premium Brands"]
   ),
 
       makeProduct(
@@ -925,34 +606,7 @@ export const products: Product[] = [
       "takeaway dessert boxes",
       "custom bakery packaging",
     ],
-    ["Bakeries", "Cake Shops", "Cafes", "Dessert Brands", "Food Delivery"],
-    [
-      {
-        src: "/images/products/bakery-boxes/bakery-boxes-hero.webp",
-        alt: "Custom printed bakery box with window and branded design",
-        title: "Bakery Box Hero View",
-      },
-      {
-        src: "/images/products/bakery-boxes/bakery-boxes-front.webp",
-        alt: "Front view of a custom printed bakery box with pastries",
-        title: "Bakery Box Front View",
-      },
-      {
-        src: "/images/products/bakery-boxes/bakery-boxes-open.webp",
-        alt: "Open custom bakery box showing pastries and food-grade interior",
-        title: "Bakery Box Open View",
-      },
-      {
-        src: "/images/products/bakery-boxes/bakery-boxes-finish.webp",
-        alt: "Close-up of bakery box printing, window and paperboard finish",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/bakery-boxes/bakery-boxes-lifestyle.webp",
-        alt: "Branded bakery box displayed inside a professional bakery",
-        title: "Bakery Box Lifestyle View",
-      },
-    ]
+    ["Bakeries", "Cake Shops", "Cafes", "Dessert Brands", "Food Delivery"]
   ),
 
     makeProduct(
@@ -984,33 +638,6 @@ export const products: Product[] = [
       "Food Trucks",
       "Cafes",
       "Food Delivery",
-    ],
-    [
-      {
-        src: "/images/products/burger-boxes/burger-boxes-hero.webp",
-        alt: "Custom printed burger box with branded food-grade design",
-        title: "Burger Box Hero View",
-      },
-      {
-        src: "/images/products/burger-boxes/burger-boxes-front.webp",
-        alt: "Closed custom burger box showing branded front panel",
-        title: "Burger Box Front View",
-      },
-      {
-        src: "/images/products/burger-boxes/burger-boxes-open.webp",
-        alt: "Open food-grade burger box containing a gourmet burger",
-        title: "Burger Box Open View",
-      },
-      {
-        src: "/images/products/burger-boxes/burger-boxes-finish.webp",
-        alt: "Close-up of burger box paperboard, fold and locking tab",
-        title: "Material and Finish Detail",
-      },
-      {
-        src: "/images/products/burger-boxes/burger-boxes-lifestyle.webp",
-        alt: "Branded burger box displayed on a restaurant counter",
-        title: "Burger Box Lifestyle View",
-      },
     ]
   ),
   makeProduct(

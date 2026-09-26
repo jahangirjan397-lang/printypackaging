@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description:
       "Explore packaging structures, materials and print presentation through curated concept examples.",
     url: "https://printypackaging.com/portfolio",
-    images: ["/images/products/rigid-boxes/rigid-boxes-hero.webp"],
+    images: ["/images/products/rigid-boxes/rigid-boxes-hero-v3.webp"],
   },
 };
 

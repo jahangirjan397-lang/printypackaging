@@ -134,7 +134,7 @@ export default function CategoriesPage() {
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
                 <Image
-                  src="/images/home/home-hero-luxury.webp"
+                  src="/images/home/home-hero-luxury-v3.webp"
                   alt="Custom packaging categories including luxury, retail, food and ecommerce packaging"
                   fill
                   priority

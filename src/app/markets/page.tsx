@@ -13,7 +13,7 @@ function getMarketPreview(productSlugs: string[]) {
     products.find(
       (product) => productSlugs.includes(product.slug) && product.images?.[0]
     )?.images?.[0] || {
-      src: "/images/home/home-hero-mailer.webp",
+      src: "/images/home/home-hero-mailer-v3.webp",
       alt: "Custom printed packaging boxes for international buyers",
     }
   );
@@ -140,7 +140,7 @@ export default function MarketsPage() {
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
                 <Image
-                  src="/images/home/home-hero-mailer.webp"
+                  src="/images/home/home-hero-mailer-v3.webp"
                   alt="Custom packaging prepared for international buyers and ecommerce brands"
                   fill
                   priority

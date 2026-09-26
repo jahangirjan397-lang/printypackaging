@@ -126,7 +126,7 @@ export default function PackagingGuidePage() {
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
               <Image
-                src="/images/home/home-materials-finishes.webp"
+                src="/images/home/home-materials-finishes-v3.webp"
                 alt="Packaging materials printing and finishing options"
                 fill
                 priority

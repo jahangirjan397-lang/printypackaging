@@ -99,7 +99,7 @@ export default function CategoryPageTemplate({
   const heroImage =
     category.slug === "printing-finishing"
       ? {
-          src: "/images/finishes/finish-overview.webp",
+          src: "/images/finishes/finish-overview-v3.webp",
           alt: "Four boxes showing spot UV, foil stamping, embossing and debossing finishes",
         }
       : heroProduct?.images?.[0];

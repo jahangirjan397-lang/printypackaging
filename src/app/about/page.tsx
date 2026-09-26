@@ -137,7 +137,7 @@ export default function AboutPage() {
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-4 shadow-2xl shadow-cyan-950/40">
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
               <Image
-                src="/images/home/home-trust-production.webp"
+                src="/images/home/home-trust-production-v3.webp"
                 alt="Custom packaging production presentation and quality review"
                 fill
                 priority

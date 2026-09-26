@@ -17,7 +17,7 @@ const heroSlides = [
     title: "Premium presentation for high-value products.",
     description:
       "Refined rigid and presentation boxes with custom inserts, print and luxury finishing.",
-    image: "/images/home/home-hero-luxury.webp",
+    image: "/images/home/home-hero-luxury-v3.webp",
     href: "/products/luxury-packaging",
   },
   {
@@ -25,7 +25,7 @@ const heroSlides = [
     title: "A cleaner unboxing experience for ecommerce brands.",
     description:
       "Protective branded mailers designed for shipping, subscriptions and retail delivery.",
-    image: "/images/home/home-hero-mailer.webp",
+    image: "/images/home/home-hero-mailer-v3.webp",
     href: "/products/mailer-boxes",
   },
   {
@@ -33,7 +33,7 @@ const heroSlides = [
     title: "Fresh, practical packaging for food businesses.",
     description:
       "Bakery boxes, bags and takeaway packaging with practical material guidance.",
-    image: "/images/home/home-hero-food.webp",
+    image: "/images/home/home-hero-food-v3.webp",
     href: "/products/food-packaging",
   },
   {
@@ -41,7 +41,7 @@ const heroSlides = [
     title: "Branded food wrapping that customers remember.",
     description:
       "Custom printed butter paper for bakeries, cafes, restaurants and takeaway brands.",
-    image: "/images/home/home-hero-butter-paper.webp",
+    image: "/images/home/home-hero-butter-paper-v3.webp",
     href: "/products/butter-paper",
   },
   {
@@ -49,7 +49,7 @@ const heroSlides = [
     title: "Bags, labels and cartons built around your identity.",
     description:
       "A coordinated packaging family for retail presentation and everyday brand recognition.",
-    image: "/images/home/home-hero-retail.webp",
+    image: "/images/home/home-hero-retail-v3.webp",
     href: "/products/paper-bags",
   },
 ];

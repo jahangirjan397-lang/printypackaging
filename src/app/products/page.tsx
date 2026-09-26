@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${siteUrl}/images/products/luxury-packaging/luxury-packaging-hero.webp`,
+        url: `${siteUrl}/images/products/luxury-packaging/luxury-packaging-hero-v3.webp`,
         width: 1200,
         height: 900,
         alt: "Printy Packaging custom boxes and premium packaging range",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description:
       "Explore professional custom packaging products for brands, food businesses and ecommerce stores.",
     images: [
-      `${siteUrl}/images/products/luxury-packaging/luxury-packaging-hero.webp`,
+      `${siteUrl}/images/products/luxury-packaging/luxury-packaging-hero-v3.webp`,
     ],
   },
   robots: {
@@ -267,7 +267,7 @@ export default function ProductsPage() {
               <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-cyan-950/40">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
                   <Image
-                    src="/images/products/luxury-packaging/luxury-packaging-hero.webp"
+                    src="/images/products/luxury-packaging/luxury-packaging-hero-v3.webp"
                     alt="Premium custom packaging presentation by Printy Packaging"
                     fill
                     priority
@@ -292,17 +292,17 @@ export default function ProductsPage() {
 
                 <div className="mt-4 grid grid-cols-3 gap-3">
                   <HeroRangeThumb
-                    src="/images/products/food-packaging/food-packaging-hero.webp"
+                    src="/images/products/food-packaging/food-packaging-hero-v3.webp"
                     alt="Custom food packaging"
                     label="Food"
                   />
                   <HeroRangeThumb
-                    src="/images/products/mailer-boxes/mailer-boxes-hero.webp"
+                    src="/images/products/mailer-boxes/mailer-boxes-hero-v3.webp"
                     alt="Custom mailer boxes"
                     label="Ecommerce"
                   />
                   <HeroRangeThumb
-                    src="/images/products/rigid-boxes/rigid-boxes-hero.webp"
+                    src="/images/products/rigid-boxes/rigid-boxes-hero-v3.webp"
                     alt="Custom rigid boxes"
                     label="Luxury"
                   />
