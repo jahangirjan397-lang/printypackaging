@@ -67,7 +67,7 @@ export default function BlogPage() {
             href={`/blog/${featuredPost.slug}`}
             className="group grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70 transition hover:-translate-y-1 hover:border-[#FF6A00] lg:grid-cols-[0.95fr_1.05fr]"
           >
-            <div className="relative min-h-80 bg-[#EDE5DC]">
+            <div className="relative aspect-[4/3] bg-[#EDE5DC]">
               <Image
                 src={getBlogVisual(featuredPost.slug).src}
                 alt={getBlogVisual(featuredPost.slug).alt}
@@ -76,7 +76,7 @@ export default function BlogPage() {
                 sizes="(max-width: 1024px) 100vw, 48vw"
                 className="object-cover object-center"
               />
-              <div className="absolute left-8 top-8 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
+              <div className="absolute bottom-8 left-8 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
                 Featured Guide
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function BlogPage() {
                 href={`/blog/${post.slug}`}
                 className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60 transition hover:-translate-y-1 hover:border-[#FF6A00]"
               >
-                <div className="relative h-48 overflow-hidden bg-[#EDE5DC]">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5DC]">
                   <Image
                     src={getBlogVisual(post.slug).src}
                     alt={getBlogVisual(post.slug).alt}

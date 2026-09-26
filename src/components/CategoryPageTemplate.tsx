@@ -102,7 +102,12 @@ export default function CategoryPageTemplate({
           src: "/images/finishes/finish-overview-v3.webp",
           alt: "Four boxes showing spot UV, foil stamping, embossing and debossing finishes",
         }
-      : heroProduct?.images?.[0];
+      : category.slug === "food-packaging"
+        ? {
+            src: "/images/products/butter-paper/butter-paper-front.webp",
+            alt: "Custom printed butter paper roll, sheets and wrapped sandwich for food brands",
+          }
+        : heroProduct?.images?.[0];
 
   const otherProducts = products
     .filter((product) => !category.productSlugs.includes(product.slug))
@@ -259,7 +264,7 @@ export default function CategoryPageTemplate({
             </div>
 
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl sm:p-5">
-              <div className="relative h-[320px] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC] sm:h-[380px]">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
                 {heroImage ? (
                   <Image
                     src={heroImage.src}
@@ -273,20 +278,17 @@ export default function CategoryPageTemplate({
                   <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
                 )}
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/85 via-[#07111F]/10 to-transparent" />
-
-                <div className="absolute left-6 top-6 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur sm:left-8 sm:top-8">
+                <div className="absolute right-6 top-6 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur sm:right-8 sm:top-8">
                   {category.name}
                 </div>
-
-                <div className="absolute inset-x-6 bottom-6 sm:inset-x-8 sm:bottom-8">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                    Curated Packaging Range
-                  </p>
-                  <p className="mt-2 max-w-md text-xl font-black leading-7 text-white sm:text-2xl">
-                    {categoryProducts.length} connected product styles with materials, finishes and quote guidance.
-                  </p>
-                </div>
+              </div>
+              <div className="px-2 pb-1 pt-5">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                  Curated Packaging Range
+                </p>
+                <p className="mt-2 max-w-md text-xl font-black leading-7 text-white sm:text-2xl">
+                  {categoryProducts.length} connected product styles with materials, finishes and quote guidance.
+                </p>
               </div>
             </div>
           </div>
@@ -322,7 +324,7 @@ export default function CategoryPageTemplate({
                 className="group overflow-hidden rounded-[1.7rem] bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <Link href={`/products/${product.slug}`} prefetch={false}>
-                  <div className="relative h-52 overflow-hidden bg-[#EDE5DC]">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5DC]">
                     {product.images?.[0] ? (
                       <Image
                         src={product.images[0].src}
@@ -335,9 +337,8 @@ export default function CategoryPageTemplate({
                       <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
                     )}
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/55 via-transparent to-[#07111F]/10" />
 
-                    <span className="absolute left-5 top-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                    <span className="absolute bottom-5 left-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
                       {getProductVisualLabel(product.name)}
                     </span>
 
@@ -345,9 +346,6 @@ export default function CategoryPageTemplate({
                       {String(index + 1).padStart(2, "0")}
                     </span>
 
-                    <span className="absolute bottom-5 left-5 rounded-full bg-white/92 px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#07111F] shadow-lg">
-                      Product Preview
-                    </span>
                   </div>
                 </Link>
 
@@ -658,4 +656,3 @@ export default function CategoryPageTemplate({
     </main>
   );
 }
-

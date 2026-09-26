@@ -73,7 +73,7 @@ export default function PremiumPackagingShowcase() {
                   sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover transition duration-500 group-hover:scale-[1.025]"
                 />
-                <span className="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-[#07111F] shadow-sm backdrop-blur">
+                <span className="absolute bottom-5 left-5 rounded-full bg-white/90 px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-[#07111F] shadow-sm backdrop-blur">
                   {item.eyebrow}
                 </span>
               </Link>

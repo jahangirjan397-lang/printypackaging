@@ -13,12 +13,12 @@ const trustPoints = [
 
 const heroSlides = [
   {
-    eyebrow: "Luxury Packaging",
+    eyebrow: "Rigid Boxes",
     title: "Premium presentation for high-value products.",
     description:
-      "Refined rigid and presentation boxes with custom inserts, print and luxury finishing.",
+      "Luxury rigid boxes with custom inserts, print and premium finishing.",
     image: "/images/home/home-hero-luxury-v3.webp",
-    href: "/products/luxury-packaging",
+    href: "/products/rigid-boxes",
   },
   {
     eyebrow: "Mailer Boxes",
@@ -30,10 +30,10 @@ const heroSlides = [
   },
   {
     eyebrow: "Food Packaging",
-    title: "Fresh, practical packaging for food businesses.",
+    title: "One brand look across every takeaway item.",
     description:
-      "Bakery boxes, bags and takeaway packaging with practical material guidance.",
-    image: "/images/home/home-hero-food-v3.webp",
+      "Bags, boxes, cups, trays and wraps printed as one coordinated food packaging set.",
+    image: "/images/home/home-hero-food-v5.webp",
     href: "/products/food-packaging",
   },
   {
@@ -41,22 +41,86 @@ const heroSlides = [
     title: "Branded food wrapping that customers remember.",
     description:
       "Custom printed butter paper for bakeries, cafes, restaurants and takeaway brands.",
-    image: "/images/home/home-hero-butter-paper-v3.webp",
+    image: "/images/products/butter-paper/butter-paper-hero.webp",
     href: "/products/butter-paper",
   },
   {
-    eyebrow: "Retail Branding",
-    title: "Bags, labels and cartons built around your identity.",
+    eyebrow: "Paper Bags",
+    title: "Shopping bags that carry your brand outside the store.",
     description:
-      "A coordinated packaging family for retail presentation and everyday brand recognition.",
-    image: "/images/home/home-hero-retail-v3.webp",
+      "Kraft, white and coloured paper bags with printed logos and rope or twisted handles.",
+    image: "/images/products/paper-bags/paper-bags-hero.webp",
     href: "/products/paper-bags",
+  },
+  {
+    eyebrow: "Folding Cartons",
+    title: "Printed cartons for retail shelves and product lines.",
+    description:
+      "Lightweight paperboard cartons with custom print, finishes and dieline support.",
+    image: "/images/products/folding-cartons/folding-cartons-hero-v4.webp",
+    href: "/products/folding-cartons",
+  },
+  {
+    eyebrow: "Cosmetic Boxes",
+    title: "Beauty packaging with clean shelf presence.",
+    description:
+      "Cartons and presentation boxes for skincare, makeup and beauty brands.",
+    image: "/images/products/cosmetic-boxes/cosmetic-boxes-hero-v3.webp",
+    href: "/products/cosmetic-boxes",
+  },
+  {
+    eyebrow: "Bakery Boxes",
+    title: "Window boxes that keep cakes and pastries on show.",
+    description:
+      "Food-grade bakery boxes for cakes, cupcakes, cookies and desserts.",
+    image: "/images/products/bakery-boxes/bakery-boxes-hero-v4.webp",
+    href: "/products/bakery-boxes",
+  },
+  {
+    eyebrow: "Burger Boxes",
+    title: "Takeaway boxes that hold up and look good.",
+    description:
+      "Printed burger boxes for restaurants, food trucks and delivery brands.",
+    image: "/images/products/burger-boxes/burger-boxes-hero.webp",
+    href: "/products/burger-boxes",
+  },
+  {
+    eyebrow: "Display Boxes",
+    title: "Countertop displays that sell at the point of purchase.",
+    description:
+      "Branded display boxes for retail counters, promotions and product launches.",
+    image: "/images/products/display-boxes/display-boxes-hero-v4.webp",
+    href: "/products/display-boxes",
   },
 ];
 
+// Only the current slide and the one after it are mounted at first, so the
+// homepage does not download all ten slide images up front.
+function markLoaded(loaded: boolean[], index: number) {
+  const next = [...loaded];
+  next[index] = true;
+  next[(index + 1) % heroSlides.length] = true;
+  return next;
+}
+
 export default function Hero() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [slider, setSlider] = useState(() => ({
+    active: 0,
+    loaded: markLoaded(
+      heroSlides.map(() => false),
+      0,
+    ),
+  }));
+  const activeIndex = slider.active;
   const activeSlide = heroSlides[activeIndex];
+
+  function showSlide(index: number) {
+    const target = (index + heroSlides.length) % heroSlides.length;
+    setSlider((current) => ({
+      active: target,
+      loaded: markLoaded(current.loaded, target),
+    }));
+  }
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -64,15 +128,19 @@ export default function Hero() {
     }
 
     const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % heroSlides.length);
+      setSlider((current) => {
+        const target = (current.active + 1) % heroSlides.length;
+        return { active: target, loaded: markLoaded(current.loaded, target) };
+      });
     }, 4500);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [slider.active]);
 
   const imageArea = (
     <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#FFFDF9] md:rounded-[2rem]">
-      {heroSlides.map((slide, index) => (
+      {heroSlides.map((slide, index) =>
+        slider.loaded[index] ? (
         <Image
           key={slide.image}
           src={slide.image}
@@ -89,7 +157,8 @@ export default function Hero() {
             index === activeIndex ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         />
-      ))}
+        ) : null,
+      )}
     </div>
   );
 
@@ -197,11 +266,19 @@ export default function Hero() {
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+            <button
+              type="button"
+              onClick={() => showSlide(activeIndex - 1)}
+              className="mr-1 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
+              aria-label="Previous slide"
+            >
+              ‹
+            </button>
             {heroSlides.map((slide, index) => (
               <button
                 key={slide.eyebrow}
                 type="button"
-                onClick={() => setActiveIndex(index)}
+                onClick={() => showSlide(index)}
                 className={`h-2.5 rounded-full transition ${
                   activeIndex === index
                     ? "w-10 bg-[#FF6A00]"
@@ -210,6 +287,14 @@ export default function Hero() {
                 aria-label={`Show ${slide.eyebrow}`}
               />
             ))}
+            <button
+              type="button"
+              onClick={() => showSlide(activeIndex + 1)}
+              className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
+              aria-label="Next slide"
+            >
+              ›
+            </button>
           </div>
         </div>
       </div>

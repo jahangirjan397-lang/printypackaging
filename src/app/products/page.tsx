@@ -275,24 +275,23 @@ export default function ProductsPage() {
                     className="object-cover"
                   />
 
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#07111F]/95 via-[#07111F]/75 to-transparent px-6 pb-6 pt-20">
-                    <p className="text-xs font-black uppercase tracking-[0.24em] text-[#00C2E8]">
-                      Premium Product Range
-                    </p>
-                    <p className="mt-2 max-w-md text-lg font-black text-white sm:text-xl">
-                      Branded packaging made around your product, market and
-                      finish requirements.
-                    </p>
-                  </div>
-
                   <div className="absolute right-5 top-5 rounded-full bg-[#FF6A00] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white shadow-lg">
                     Made To Order
                   </div>
                 </div>
+                <div className="px-2 pb-1 pt-5">
+                  <p className="text-xs font-black uppercase tracking-[0.24em] text-[#00C2E8]">
+                    Premium Product Range
+                  </p>
+                  <p className="mt-2 max-w-md text-lg font-black text-white sm:text-xl">
+                    Branded packaging made around your product, market and
+                    finish requirements.
+                  </p>
+                </div>
 
                 <div className="mt-4 grid grid-cols-3 gap-3">
                   <HeroRangeThumb
-                    src="/images/products/food-packaging/food-packaging-hero-v3.webp"
+                    src="/images/home/home-hero-food-v5.webp"
                     alt="Custom food packaging"
                     label="Food"
                   />
@@ -521,7 +520,7 @@ function ProductVisual({
   const image = product.images?.[0];
 
   return (
-    <div className="relative aspect-[5/4] overflow-hidden bg-[#EEE9E3]">
+    <div className="relative aspect-[4/3] overflow-hidden bg-[#EEE9E3]">
       {image ? (
         <Image
           src={image.src}
@@ -534,11 +533,7 @@ function ProductVisual({
         <ProductIllustration product={product} shape={shape} />
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/45 via-transparent to-[#07111F]/10" />
 
-      <span className="absolute left-4 top-4 rounded-full bg-[#07111F]/88 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur">
-        {label}
-      </span>
 
       <span className="absolute right-4 top-4 flex h-8 min-w-8 items-center justify-center rounded-full bg-[#FF6A00] px-2 text-xs font-black text-white shadow-lg">
         {String(index + 1).padStart(2, "0")}
@@ -546,7 +541,7 @@ function ProductVisual({
 
       <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
         <span className="rounded-full bg-white/92 px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#07111F] shadow-lg backdrop-blur">
-          {image ? "Product Preview" : "Made To Specification"}
+          {label}
         </span>
         <span className="rounded-full bg-[#07111F]/88 px-3 py-2 text-[10px] font-black text-white shadow-lg backdrop-blur">
           View Details →

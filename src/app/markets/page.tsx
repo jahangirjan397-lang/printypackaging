@@ -147,15 +147,14 @@ export default function MarketsPage() {
                   sizes="(max-width: 1024px) 100vw, 48vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/85 via-transparent to-[#07111F]/10" />
-                <div className="absolute inset-x-6 bottom-6">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                    International quote support
-                  </p>
-                  <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
-                    Product, material, finish and delivery requirements kept in one buyer journey.
-                  </p>
-                </div>
+              </div>
+              <div className="px-2 pb-1 pt-5">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                  International quote support
+                </p>
+                <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                  Product, material, finish and delivery requirements kept in one buyer journey.
+                </p>
               </div>
             </div>
           </div>
@@ -189,7 +188,7 @@ export default function MarketsPage() {
                   prefetch={false}
                   className="pp-card group rounded-[2rem] bg-white p-7 shadow-md"
                 >
-                  <div className="relative -mx-7 -mt-7 mb-6 h-48 overflow-hidden rounded-t-[2rem] bg-[#EDE5DC]">
+                  <div className="relative -mx-7 -mt-7 mb-6 aspect-[4/3] overflow-hidden rounded-t-[2rem] bg-[#EDE5DC]">
                     <Image
                       src={getMarketPreview(market.productSlugs).src}
                       alt={getMarketPreview(market.productSlugs).alt}
@@ -288,4 +287,3 @@ export default function MarketsPage() {
     </>
   );
 }
-

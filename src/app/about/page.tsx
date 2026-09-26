@@ -144,25 +144,23 @@ export default function AboutPage() {
                 sizes="(max-width: 1024px) 100vw, 46vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/90 via-[#07111F]/15 to-transparent" />
-
-              <div className="absolute inset-x-6 bottom-6">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                  Packaging support from brief to production
-                </p>
-                <h2 className="mt-2 text-2xl font-black tracking-tight text-white">
-                  Boxes, materials, finishing, artwork and quote-ready planning.
-                </h2>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {productTypes.slice(0, 4).map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-white/15 bg-[#07111F]/80 px-3 py-2 text-xs font-bold text-white backdrop-blur"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+            </div>
+            <div className="px-2 pb-1 pt-5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                Packaging support from brief to production
+              </p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-white">
+                Boxes, materials, finishing, artwork and quote-ready planning.
+              </h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {productTypes.slice(0, 4).map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/15 bg-[#07111F]/80 px-3 py-2 text-xs font-bold text-white backdrop-blur"
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -347,4 +345,3 @@ export default function AboutPage() {
     </main>
   );
 }
-

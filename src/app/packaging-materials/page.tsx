@@ -131,7 +131,7 @@ export default function PackagingMaterialsPage() {
           </div>
 
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-6 shadow-2xl shadow-cyan-950/40">
-            <div className="relative mb-6 aspect-[16/9] overflow-hidden rounded-2xl">
+            <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/images/materials/materials-overview-v3.webp"
                 alt="Paperboard, corrugated, kraft and tissue samples beside folding cartons"

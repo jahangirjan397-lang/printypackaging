@@ -11,25 +11,24 @@ export const metadata: Metadata = {
     "Explore premium packaging finishing options including matte lamination, gloss lamination, soft touch, spot UV, foil stamping, embossing and window patching.",
 };
 
-const finishes = [
+// Matte, gloss and soft touch come from one comparison photo, so they are
+// shown together under a single full image instead of three cropped cards.
+const laminationFinishes = [
   {
     title: "Matte Lamination",
-    image: "/images/finishes/matte-v3.webp",
-    imageAlt: "Blue box with a matte laminated surface",
     text: "Matte lamination gives packaging a smooth, premium and non-glossy look. It is popular for luxury boxes, cosmetic packaging and retail boxes.",
   },
   {
     title: "Gloss Lamination",
-    image: "/images/finishes/gloss-v3.webp",
-    imageAlt: "Blue box with a high-gloss laminated surface and reflections",
     text: "Gloss lamination creates a shiny surface and helps colors look bright. It is suitable for retail packaging, display boxes and high-impact printed boxes.",
   },
   {
     title: "Soft Touch Finish",
-    image: "/images/finishes/soft-touch-v3.webp",
-    imageAlt: "Blue box with a soft touch velvet-feel surface",
     text: "Soft touch creates a smooth velvet-like premium feel. It is often used for luxury packaging, rigid boxes and high-end brand packaging.",
   },
+];
+
+const finishes = [
   {
     title: "Foil Stamping",
     image: "/images/finishes/foil-stamping-v3.webp",
@@ -128,7 +127,7 @@ export default function FinishingOptionsPage() {
           </div>
 
           <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-6">
-            <div className="relative mb-6 aspect-[3/2] overflow-hidden rounded-2xl">
+            <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/images/finishes/finish-overview-v3.webp"
                 alt="Four boxes showing spot UV, foil stamping, embossing and debossing finishes"
@@ -177,7 +176,29 @@ export default function FinishingOptionsPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <article className="mt-12 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60">
+            <div className="relative aspect-[2/1] bg-slate-100">
+              <Image
+                src="/images/finishes/lamination-comparison-v3.webp"
+                alt="Three blue boxes side by side comparing matte, gloss and soft touch lamination"
+                fill
+                sizes="(max-width: 1280px) 100vw, 1216px"
+                className="object-cover"
+              />
+            </div>
+            <div className="grid gap-8 p-7 md:grid-cols-3 sm:p-9">
+              {laminationFinishes.map((finish) => (
+                <div key={finish.title}>
+                  <h3 className="text-xl font-black tracking-tight">
+                    {finish.title}
+                  </h3>
+                  <p className="mt-4 leading-7 text-slate-600">{finish.text}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {finishes.map((finish) => (
               <article
                 key={finish.title}

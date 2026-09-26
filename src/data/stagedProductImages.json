@@ -46,11 +46,6 @@
       "src": "/images/products/drawer-boxes/drawer-boxes-finish-v3.webp",
       "alt": "Drawer Boxes - material and finish detail (concept mockup)",
       "title": "Drawer Boxes material and finish detail"
-    },
-    {
-      "src": "/images/products/drawer-boxes/drawer-boxes-lifestyle-v3.webp",
-      "alt": "Drawer Boxes - in use (concept mockup)",
-      "title": "Drawer Boxes in use"
     }
   ],
   "sleeve-boxes": [
@@ -58,11 +53,6 @@
       "src": "/images/products/sleeve-boxes/sleeve-boxes-hero-v3.webp",
       "alt": "Sleeve Boxes - hero view (concept mockup)",
       "title": "Sleeve Boxes hero view"
-    },
-    {
-      "src": "/images/products/sleeve-boxes/sleeve-boxes-front-v3.webp",
-      "alt": "Sleeve Boxes - front view (concept mockup)",
-      "title": "Sleeve Boxes front view"
     },
     {
       "src": "/images/products/sleeve-boxes/sleeve-boxes-open-v3.webp",
@@ -92,19 +82,14 @@
       "title": "Apparel Boxes front view"
     },
     {
-      "src": "/images/products/apparel-boxes/apparel-boxes-open-v3.webp",
-      "alt": "Apparel Boxes - open view (concept mockup)",
+      "src": "/images/products/apparel-boxes/apparel-boxes-open-v4.webp",
+      "alt": "Green sleeve apparel box with gold foil emblem, partly open",
       "title": "Apparel Boxes open view"
     },
     {
       "src": "/images/products/apparel-boxes/apparel-boxes-finish-v3.webp",
       "alt": "Apparel Boxes - material and finish detail (concept mockup)",
       "title": "Apparel Boxes material and finish detail"
-    },
-    {
-      "src": "/images/products/apparel-boxes/apparel-boxes-lifestyle-v3.webp",
-      "alt": "Apparel Boxes - in use (concept mockup)",
-      "title": "Apparel Boxes in use"
     }
   ],
   "window-boxes": [
@@ -136,8 +121,8 @@
   ],
   "display-boxes": [
     {
-      "src": "/images/products/display-boxes/display-boxes-hero-v3.webp",
-      "alt": "Display Boxes - hero view (concept mockup)",
+      "src": "/images/products/display-boxes/display-boxes-hero-v4.webp",
+      "alt": "Printy Packaging branded countertop display box with a cup tray",
       "title": "Display Boxes hero view"
     },
     {
@@ -154,11 +139,6 @@
       "src": "/images/products/display-boxes/display-boxes-finish-v3.webp",
       "alt": "Display Boxes - material and finish detail (concept mockup)",
       "title": "Display Boxes material and finish detail"
-    },
-    {
-      "src": "/images/products/display-boxes/display-boxes-lifestyle-v3.webp",
-      "alt": "Display Boxes - in use (concept mockup)",
-      "title": "Display Boxes in use"
     }
   ],
   "pizza-boxes": [
@@ -195,14 +175,9 @@
       "title": "Pharmaceutical Boxes hero view"
     },
     {
-      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-front-v3.webp",
+      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-front-v4.webp",
       "alt": "Pharmaceutical Boxes - front view (concept mockup)",
       "title": "Pharmaceutical Boxes front view"
-    },
-    {
-      "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-open-v3.webp",
-      "alt": "Pharmaceutical Boxes - open view (concept mockup)",
-      "title": "Pharmaceutical Boxes open view"
     },
     {
       "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-finish-v3.webp",
@@ -217,7 +192,7 @@
   ],
   "hang-tags": [
     {
-      "src": "/images/products/hang-tags/hang-tags-hero-v3.webp",
+      "src": "/images/products/hang-tags/hang-tags-hero-v4.webp",
       "alt": "Hang Tags - hero view (concept mockup)",
       "title": "Hang Tags hero view"
     },
@@ -237,9 +212,9 @@
       "title": "Hang Tags material and finish detail"
     },
     {
-      "src": "/images/products/hang-tags/hang-tags-lifestyle-v3.webp",
-      "alt": "Hang Tags - in use (concept mockup)",
-      "title": "Hang Tags in use"
+      "src": "/images/products/hang-tags/hang-tags-lifestyle-v4.webp",
+      "alt": "Pair of green hang tags with gold foil logo and printed pattern",
+      "title": "Hang Tags foil detail"
     }
   ],
   "rigid-boxes": [
@@ -271,29 +246,29 @@
   ],
   "folding-cartons": [
     {
-      "src": "/images/products/folding-cartons/folding-cartons-hero-v3.webp",
-      "alt": "Folding Cartons - hero view (concept mockup)",
-      "title": "Folding Cartons hero view"
+      "src": "/images/products/folding-cartons/folding-cartons-hero-v4.webp",
+      "alt": "Printy Packaging branded folding carton with a printed geometric pattern",
+      "title": "Folding Carton Hero View"
     },
     {
-      "src": "/images/products/folding-cartons/folding-cartons-front-v3.webp",
-      "alt": "Folding Cartons - front view (concept mockup)",
-      "title": "Folding Cartons front view"
+      "src": "/images/products/folding-cartons/folding-cartons-front-v4.webp",
+      "alt": "Tall white folding carton standing on a display podium",
+      "title": "Folding Carton Front View"
     },
     {
-      "src": "/images/products/folding-cartons/folding-cartons-open-v3.webp",
-      "alt": "Folding Cartons - open view (concept mockup)",
-      "title": "Folding Cartons open view"
+      "src": "/images/products/folding-cartons/folding-cartons-open-v4.webp",
+      "alt": "White folding cartons with one tuck-end lid open",
+      "title": "Folding Carton Open View"
     },
     {
-      "src": "/images/products/folding-cartons/folding-cartons-finish-v3.webp",
-      "alt": "Folding Cartons - material and finish detail (concept mockup)",
-      "title": "Folding Cartons material and finish detail"
+      "src": "/images/products/folding-cartons/folding-cartons-finish-v4.webp",
+      "alt": "Stack of folding cartons with a printed maze pattern",
+      "title": "Print and Pattern Detail"
     },
     {
-      "src": "/images/products/folding-cartons/folding-cartons-lifestyle-v3.webp",
-      "alt": "Folding Cartons - in use (concept mockup)",
-      "title": "Folding Cartons in use"
+      "src": "/images/products/folding-cartons/folding-cartons-lifestyle-v4.webp",
+      "alt": "Set of brightly printed folding cartons for a product range",
+      "title": "Folding Carton Product Range"
     }
   ],
   "mailer-boxes": [
@@ -325,34 +300,34 @@
   ],
   "butter-paper": [
     {
-      "src": "/images/products/butter-paper/butter-paper-hero-v3.webp",
-      "alt": "Butter Paper - hero view (concept mockup)",
-      "title": "Butter Paper hero view"
+      "src": "/images/products/butter-paper/butter-paper-hero.webp",
+      "alt": "Custom printed butter paper sheets, roll and wrapped sandwich",
+      "title": "Butter Paper Hero View"
     },
     {
-      "src": "/images/products/butter-paper/butter-paper-front-v3.webp",
-      "alt": "Butter Paper - front view (concept mockup)",
-      "title": "Butter Paper front view"
+      "src": "/images/products/butter-paper/butter-paper-front.webp",
+      "alt": "Front view of custom printed butter paper roll and sheets",
+      "title": "Butter Paper Front View"
     },
     {
-      "src": "/images/products/butter-paper/butter-paper-open-v3.webp",
-      "alt": "Butter Paper - open view (concept mockup)",
-      "title": "Butter Paper open view"
+      "src": "/images/products/butter-paper/butter-paper-open.webp",
+      "alt": "Unfolded printed greaseproof paper with repeating brand pattern",
+      "title": "Butter Paper Open Sheet View"
     },
     {
-      "src": "/images/products/butter-paper/butter-paper-finish-v3.webp",
-      "alt": "Butter Paper - material and finish detail (concept mockup)",
-      "title": "Butter Paper material and finish detail"
+      "src": "/images/products/butter-paper/butter-paper-finish.webp",
+      "alt": "Close-up of food-safe butter paper texture and printed pattern",
+      "title": "Butter Paper Print Detail"
     },
     {
-      "src": "/images/products/butter-paper/butter-paper-lifestyle-v3.webp",
-      "alt": "Butter Paper - in use (concept mockup)",
-      "title": "Butter Paper in use"
+      "src": "/images/products/butter-paper/butter-paper-lifestyle.webp",
+      "alt": "Sandwich wrapped in branded butter paper on a cafe counter",
+      "title": "Butter Paper Lifestyle View"
     }
   ],
   "food-packaging": [
     {
-      "src": "/images/products/food-packaging/food-packaging-hero-v3.webp",
+      "src": "/images/home/home-hero-food-v5.webp",
       "alt": "Food Packaging - hero view (concept mockup)",
       "title": "Food Packaging hero view"
     },
@@ -379,29 +354,29 @@
   ],
   "paper-bags": [
     {
-      "src": "/images/products/paper-bags/paper-bags-hero-v3.webp",
-      "alt": "Paper Bags - hero view (concept mockup)",
-      "title": "Paper Bags hero view"
+      "src": "/images/products/paper-bags/paper-bags-hero.webp",
+      "alt": "Printy branded kraft, white and navy paper shopping bags",
+      "title": "Paper Bags Hero View"
     },
     {
-      "src": "/images/products/paper-bags/paper-bags-front-v3.webp",
-      "alt": "Paper Bags - front view (concept mockup)",
-      "title": "Paper Bags front view"
+      "src": "/images/products/paper-bags/paper-bags-front.webp",
+      "alt": "Front view of three custom printed paper bags with rope handles",
+      "title": "Paper Bags Front View"
     },
     {
-      "src": "/images/products/paper-bags/paper-bags-open-v3.webp",
-      "alt": "Paper Bags - open view (concept mockup)",
-      "title": "Paper Bags open view"
+      "src": "/images/products/paper-bags/paper-bags-open.webp",
+      "alt": "Open branded paper bags showing the inside and handles",
+      "title": "Paper Bags Open View"
     },
     {
-      "src": "/images/products/paper-bags/paper-bags-finish-v3.webp",
-      "alt": "Paper Bags - material and finish detail (concept mockup)",
-      "title": "Paper Bags material and finish detail"
+      "src": "/images/products/paper-bags/paper-bags-finish.webp",
+      "alt": "Close-up of printed logo and handle on a branded paper bag",
+      "title": "Print and Handle Detail"
     },
     {
-      "src": "/images/products/paper-bags/paper-bags-lifestyle-v3.webp",
-      "alt": "Paper Bags - in use (concept mockup)",
-      "title": "Paper Bags in use"
+      "src": "/images/products/paper-bags/paper-bags-lifestyle.webp",
+      "alt": "Branded paper bags on a boutique retail counter",
+      "title": "Paper Bags Lifestyle View"
     }
   ],
   "luxury-packaging": [
@@ -438,7 +413,7 @@
       "title": "Cosmetic Boxes hero view"
     },
     {
-      "src": "/images/products/cosmetic-boxes/cosmetic-boxes-front-v3.webp",
+      "src": "/images/products/cosmetic-boxes/cosmetic-boxes-front-v4.webp",
       "alt": "Cosmetic Boxes - front view (concept mockup)",
       "title": "Cosmetic Boxes front view"
     },
@@ -568,7 +543,7 @@
   ],
   "bakery-boxes": [
     {
-      "src": "/images/products/bakery-boxes/bakery-boxes-hero-v3.webp",
+      "src": "/images/products/bakery-boxes/bakery-boxes-hero-v4.webp",
       "alt": "Bakery Boxes - hero view (concept mockup)",
       "title": "Bakery Boxes hero view"
     },
@@ -600,9 +575,9 @@
       "title": "Burger Boxes hero view"
     },
     {
-      "src": "/images/products/burger-boxes/burger-boxes-front-v3.webp",
-      "alt": "Burger Boxes - front view (concept mockup)",
-      "title": "Burger Boxes front view"
+      "src": "/images/products/burger-boxes/burger-boxes-hero.webp",
+      "alt": "Printy branded burger box holding a stacked cheeseburger",
+      "title": "Burger Boxes branded view"
     },
     {
       "src": "/images/products/burger-boxes/burger-boxes-open-v3.webp",
@@ -610,9 +585,9 @@
       "title": "Burger Boxes open view"
     },
     {
-      "src": "/images/products/burger-boxes/burger-boxes-finish-v3.webp",
-      "alt": "Burger Boxes - material and finish detail (concept mockup)",
-      "title": "Burger Boxes material and finish detail"
+      "src": "/images/products/burger-boxes/burger-boxes-lifestyle.webp",
+      "alt": "Branded burger box on a restaurant counter",
+      "title": "Burger Boxes in a restaurant"
     },
     {
       "src": "/images/products/burger-boxes/burger-boxes-lifestyle-v3.webp",

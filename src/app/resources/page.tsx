@@ -96,15 +96,14 @@ export default function ResourcesPage() {
                 sizes="(max-width: 1024px) 100vw, 48vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/80 via-transparent to-[#07111F]/10" />
-              <div className="absolute inset-x-6 bottom-6">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                  Learn before production
-                </p>
-                <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
-                  Materials, finishes, artwork and samples connected to your quote journey.
-                </p>
-              </div>
+            </div>
+            <div className="px-2 pb-1 pt-5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                Learn before production
+              </p>
+              <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                Materials, finishes, artwork and samples connected to your quote journey.
+              </p>
             </div>
           </div>
         </div>
@@ -177,4 +176,3 @@ export default function ResourcesPage() {
     </main>
   );
 }
-

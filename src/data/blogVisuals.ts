@@ -20,8 +20,8 @@ export const blogVisuals: Record<string, { src: string; alt: string }> = {
     alt: "Open kraft mailer box with a folded garment and paper bag for ecommerce orders (concept image)",
   },
   "food-packaging-for-restaurants": {
-    src: "/images/blog/food-restaurants-v3.webp",
-    alt: "Takeaway food packaging set: bags, cups, boxes and trays (concept image)",
+    src: "/images/products/butter-paper/butter-paper-lifestyle.webp",
+    alt: "Sandwich wrapped in Printy branded butter paper for cafes and restaurants",
   },
 };
 

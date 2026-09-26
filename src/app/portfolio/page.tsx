@@ -17,7 +17,19 @@ export const metadata: Metadata = {
   },
 };
 
-const gallery = [
+type GalleryImage = { src: string; alt: string };
+
+type GalleryItem = {
+  slug: string;
+  title: string;
+  category: string;
+  description: string;
+  // Optional images when the card should not reuse the product page photos
+  cover?: GalleryImage;
+  detail?: GalleryImage;
+};
+
+const gallery: GalleryItem[] = [
   {
     slug: "rigid-boxes",
     title: "Luxury unboxing",
@@ -60,12 +72,51 @@ const gallery = [
     description:
       "Printed shopping bags that extend a consistent packaging identity beyond the box.",
   },
+  {
+    slug: "folding-cartons",
+    title: "Product line cartons",
+    category: "Folding cartons",
+    description:
+      "A coordinated carton family where each variant keeps its own colour and artwork.",
+    cover: {
+      src: "/images/products/folding-cartons/folding-cartons-colour-set-v4.webp",
+      alt: "Four printed folding cartons in brown, orange, blue and black for a product line",
+    },
+    detail: {
+      src: "/images/products/folding-cartons/folding-cartons-tall-v4.webp",
+      alt: "Tall white folding cartons with a printed maze pattern",
+    },
+  },
+  {
+    slug: "folding-cartons",
+    title: "Hang-tab retail carton",
+    category: "Retail packaging",
+    description:
+      "A folding carton with a hang tab so the product can sit on peg hooks in store.",
+    cover: {
+      src: "/images/products/folding-cartons/folding-cartons-hanging-v4.webp",
+      alt: "White folding carton with a hang tab and Printy Packaging branding",
+    },
+    detail: {
+      src: "/images/products/folding-cartons/folding-cartons-teal-v4.webp",
+      alt: "Slim folding carton with a printed pattern on a teal background",
+    },
+  },
+  {
+    slug: "butter-paper",
+    title: "Branded food wrap",
+    category: "Food packaging",
+    description:
+      "Printed butter paper that carries the brand onto every sandwich and bakery order.",
+  },
 ];
 
 export default function PortfolioPage() {
   const items = gallery.flatMap((item) => {
     const product = products.find((entry) => entry.slug === item.slug);
-    return product?.images?.[0] ? [{ ...item, product }] : [];
+    return product && (item.cover ?? product.images?.[0])
+      ? [{ ...item, product }]
+      : [];
   });
 
   return (
@@ -112,13 +163,14 @@ export default function PortfolioPage() {
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {items.map(({ product, ...item }) => {
-              const cover = product.images?.[0];
-              const detail = product.images?.[3] ?? product.images?.[1];
+              const cover = item.cover ?? product.images?.[0];
+              const detail =
+                item.detail ?? product.images?.[3] ?? product.images?.[1];
               if (!cover) return null;
 
               return (
                 <article
-                  key={item.slug}
+                  key={item.title}
                   className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_14px_38px_rgba(7,17,31,0.07)]"
                 >
                   <Link href={`/products/${item.slug}`} className="group block">
@@ -130,7 +182,7 @@ export default function PortfolioPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                         className="object-cover transition duration-500 group-hover:scale-[1.03]"
                       />
-                      <span className="absolute left-4 top-4 rounded-full bg-[#07111F]/90 px-3 py-1.5 text-xs font-bold text-white">
+                      <span className="absolute bottom-4 left-4 rounded-full bg-[#07111F]/90 px-3 py-1.5 text-xs font-bold text-white">
                         Concept example
                       </span>
                     </div>
@@ -145,7 +197,7 @@ export default function PortfolioPage() {
                     </p>
                     {detail && (
                       <div className="mt-5 flex items-center gap-3 border-t border-slate-100 pt-5">
-                        <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-[#EDE5DC]">
+                        <div className="relative aspect-[4/3] w-20 shrink-0 overflow-hidden rounded-lg bg-[#EDE5DC]">
                           <Image
                             src={detail.src}
                             alt={detail.alt}

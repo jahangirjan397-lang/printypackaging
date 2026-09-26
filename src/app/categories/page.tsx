@@ -141,15 +141,14 @@ export default function CategoriesPage() {
                   sizes="(max-width: 1024px) 100vw, 48vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/80 via-transparent to-[#07111F]/10" />
-                <div className="absolute inset-x-6 bottom-6">
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                    One connected packaging system
-                  </p>
-                  <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
-                    Category to product to quote — without losing the buyer journey.
-                  </p>
-                </div>
+              </div>
+              <div className="px-2 pb-1 pt-5">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                  One connected packaging system
+                </p>
+                <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                  Category to product to quote — without losing the buyer journey.
+                </p>
               </div>
             </div>
           </div>
@@ -182,7 +181,7 @@ export default function CategoriesPage() {
                   prefetch={false}
                   className="pp-card group rounded-[2rem] bg-white p-7 shadow-md"
                 >
-                  <div className="relative mb-6 h-52 overflow-hidden rounded-[1.5rem] border border-[#007C91]/15 bg-[#EDE5DC]">
+                  <div className="relative mb-6 aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-[#007C91]/15 bg-[#EDE5DC]">
                     {getCategoryPreview(category.productSlugs) ? (
                       <Image
                         src={getCategoryPreview(category.productSlugs)!.src}
@@ -195,9 +194,8 @@ export default function CategoriesPage() {
                       <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
                     )}
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#07111F]/65 via-transparent to-[#07111F]/10" />
 
-                    <span className="absolute left-5 top-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
+                    <span className="absolute bottom-5 left-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
                       Packaging Category
                     </span>
 
@@ -289,4 +287,3 @@ export default function CategoriesPage() {
     </>
   );
 }
-
