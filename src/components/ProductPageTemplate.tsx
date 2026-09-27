@@ -112,38 +112,37 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
     })),
   };
 
+  // Custom packaging is quoted per order (no fixed price or reviews yet), so it
+  // is marked up as a Service. Product markup without offers/reviews/rating is
+  // reported as an invalid product snippet by Google Search Console.
   const productSchema = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
+    "@type": "Service",
+    name: `Custom ${product.name}`,
+    serviceType: product.name,
     description: product.description,
     category: product.category,
-        image: product.images?.map(
+    image: product.images?.map(
       (image) => `https://printypackaging.com${image.src}`
     ),
-    brand: {
-      "@type": "Brand",
-      name: "Printy Packaging",
-    },
-    material: product.materials.join(", "),
     url: `https://printypackaging.com/products/${product.slug}`,
-    additionalProperty: [
-      {
-        "@type": "PropertyValue",
-        name: "Available materials",
-        value: product.materials.join(", "),
-      },
-      {
-        "@type": "PropertyValue",
-        name: "Available finishes",
-        value: product.finishes.join(", "),
-      },
-      {
-        "@type": "PropertyValue",
-        name: "Industries",
-        value: product.industries.join(", "),
-      },
+    provider: {
+      "@type": "Organization",
+      name: "Printy Packaging",
+      url: "https://printypackaging.com",
+    },
+    areaServed: [
+      "United States",
+      "United Kingdom",
+      "Canada",
+      "Europe",
+      "United Arab Emirates",
+      "Australia",
     ],
+    audience: {
+      "@type": "BusinessAudience",
+      audienceType: product.industries.join(", "),
+    },
   };
 
   const breadcrumbSchema = {
