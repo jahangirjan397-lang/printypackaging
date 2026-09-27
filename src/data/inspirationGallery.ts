@@ -1,6 +1,7 @@
 // Style reference photos from the wider packaging industry. Brand names on
 // these boxes belong to their owners — they are NOT Printy Packaging orders,
-// so the gallery is labelled as inspiration and never carries our logo.
+// so the gallery is labelled as inspiration. Entries under /images/products/
+// are Printy Packaging's own branded images, added to fill out each row.
 
 export type InspirationCategory = "rigid" | "bakery" | "retail";
 
@@ -44,6 +45,9 @@ export const inspirationGallery: InspirationImage[] = [
   { src: "/images/inspiration/rigid-34.webp", label: "Magnetic rigid box", category: "rigid", product: "magnetic-boxes" },
   { src: "/images/inspiration/rigid-35.webp", label: "Drawer box", category: "rigid", product: "drawer-boxes" },
   { src: "/images/inspiration/rigid-37.webp", label: "Magnetic rigid box", category: "rigid", product: "magnetic-boxes" },
+  { src: "/images/products/rigid-boxes/rigid-boxes-hero.webp", label: "Rigid box with foam insert", category: "rigid", product: "rigid-boxes" },
+  { src: "/images/products/rigid-boxes/rigid-boxes-front.webp", label: "Navy lid and base rigid box", category: "rigid", product: "rigid-boxes" },
+  { src: "/images/products/rigid-boxes/rigid-boxes-finish.webp", label: "Foil logo on rigid box lid", category: "rigid", product: "rigid-boxes" },
   { src: "/images/inspiration/bakery-1.webp", label: "Gable cake box", category: "bakery", product: "gable-boxes" },
   { src: "/images/inspiration/bakery-2.webp", label: "Cake carry box", category: "bakery", product: "cake-boxes" },
   { src: "/images/inspiration/bakery-3.webp", label: "Cupcake window box", category: "bakery", product: "cupcake-boxes" },
@@ -57,6 +61,9 @@ export const inspirationGallery: InspirationImage[] = [
   { src: "/images/inspiration/bakery-21.webp", label: "Cookie sleeve box", category: "bakery", product: "cookie-boxes" },
   { src: "/images/inspiration/bakery-22.webp", label: "Cookie gift pack", category: "bakery", product: "cookie-boxes" },
   { src: "/images/inspiration/bakery-24.webp", label: "Gable box", category: "bakery", product: "gable-boxes" },
+  { src: "/images/products/bakery-boxes/bakery-boxes-hero.webp", label: "Window pastry box", category: "bakery", product: "bakery-boxes" },
+  { src: "/images/products/bakery-boxes/bakery-boxes-lifestyle.webp", label: "Bakery box with pastries", category: "bakery", product: "bakery-boxes" },
+  { src: "/images/products/cake-boxes/cake-boxes-hero-v5.webp", label: "Kraft cake box", category: "bakery", product: "cake-boxes" },
   { src: "/images/inspiration/bakery-29.webp", label: "Pillow box", category: "retail", product: "pillow-boxes" },
   { src: "/images/inspiration/bakery-30.webp", label: "Pillow box", category: "retail", product: "pillow-boxes" },
   { src: "/images/inspiration/carton-5.webp", label: "Printed tuck end cartons", category: "retail", product: "tuck-end-boxes" },
@@ -72,4 +79,5 @@ export const inspirationGallery: InspirationImage[] = [
   { src: "/images/inspiration/carton-b4-14.webp", label: "Tuck top box", category: "retail", product: "tuck-end-boxes" },
   { src: "/images/inspiration/carton-b4-15.webp", label: "Crash lock bottom box", category: "retail", product: "tuck-end-boxes" },
   { src: "/images/inspiration/carton-b4-18.webp", label: "Tuck end packaging boxes", category: "retail", product: "tuck-end-boxes" },
+  { src: "/images/products/folding-cartons/folding-cartons-hero.webp", label: "Printed folding carton set", category: "retail", product: "folding-cartons" },
 ];
