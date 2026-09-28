@@ -24,8 +24,8 @@ export const blogVisuals: Record<string, { src: string; alt: string }> = {
     alt: "Sandwich wrapped in Printy branded butter paper for cafes and restaurants",
   },
   "butter-paper-vs-wax-paper-vs-greaseproof": {
-    src: "/images/products/butter-paper/butter-paper-hero.webp",
-    alt: "Printed butter paper sheets and roll with a wrapped sandwich",
+    src: "/images/products/butter-paper/butter-paper-finish-v3.webp",
+    alt: "White and kraft food wrapping papers, clear film and foil rolls side by side",
   },
 };
 

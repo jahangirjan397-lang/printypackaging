@@ -13,7 +13,10 @@ export default function ProductImageGallery({
   productName,
   images = [],
 }: ProductImageGalleryProps) {
-  const galleryImages = images.slice(0, 8);
+  const galleryImages = images.slice(0, 12);
+  // One row of thumbnails up to 8 images, then wrap into rows of 6
+  const thumbColumns =
+    galleryImages.length > 8 ? 6 : galleryImages.length;
   const [activeIndex, setActiveIndex] = useState(0);
 
   const safeIndex = Math.min(activeIndex, galleryImages.length - 1);
@@ -74,7 +77,7 @@ export default function ProductImageGallery({
         <div
           className="mt-4 grid gap-2"
           style={{
-            gridTemplateColumns: `repeat(${galleryImages.length}, minmax(0, 1fr))`,
+            gridTemplateColumns: `repeat(${thumbColumns}, minmax(0, 1fr))`,
           }}
         >
           {galleryImages.map((image, index) => (
