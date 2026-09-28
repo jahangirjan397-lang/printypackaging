@@ -533,34 +533,34 @@ export default function QuoteSection() {
 }
 
   return (
-    <section className="bg-[#F7FAFC] px-5 py-14 md:px-8 md:py-16">
+    <section className="bg-[#F7FAFC] px-5 py-10 md:px-8 md:py-12">
       <Suspense fallback={null}>
         <ProductFromUrl onProductMatch={setSelectedProduct} />
       </Suspense>
 
       <div className="mx-auto max-w-6xl">
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-12">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-10">
           <div className="lg:sticky lg:top-28">
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
               Request Custom Quote
             </p>
 
-            <h2 className="mt-3 text-3xl font-black leading-tight text-[#07111F] sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-black leading-tight text-[#07111F]">
               Get your custom packaging price, fast
             </h2>
 
-            <p className="mt-4 text-base leading-7 text-slate-600">
+            <p className="mt-3 text-sm leading-6 text-slate-600">
               Tell us what you need. We reply with pricing, the right material
               and a free dieline. No design skills needed.
             </p>
 
-            <ul className="mt-6 space-y-2.5">
+            <ul className="mt-4 grid gap-x-4 gap-y-2 sm:grid-cols-2">
               {quoteBenefits.map((item) => (
                 <li
                   key={item}
-                  className="flex items-center gap-3 text-sm font-bold text-[#07111F]"
+                  className="flex items-center gap-2 text-xs font-bold text-[#07111F]"
                 >
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#00C2E8] text-xs font-black text-[#07111F]">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#00C2E8] text-[0.65rem] font-black text-[#07111F]">
                     ✓
                   </span>
                   {item}
@@ -568,7 +568,7 @@ export default function QuoteSection() {
               ))}
             </ul>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3 rounded-2xl bg-[#07111F] p-4 text-white">
+            <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl bg-[#07111F] px-4 py-3 text-white">
               <p className="text-sm font-bold text-slate-300">Prefer to chat?</p>
               <a
                 href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
@@ -586,7 +586,7 @@ export default function QuoteSection() {
               </a>
             </div>
 
-            <div className="mt-8 hidden justify-end lg:flex">
+            <div className="mt-4 hidden justify-end lg:flex">
               <HandNote>{`Free quote ${businessPromises.quoteResponse.replace(" (business hours)", "")}`}</HandNote>
             </div>
           </div>
@@ -594,7 +594,7 @@ export default function QuoteSection() {
           <form
             id="quote"
             onSubmit={handleSubmit}
-            className="relative scroll-mt-28 rounded-[1.75rem] border-t-4 border-[#FF6A00] bg-white p-5 shadow-xl md:p-7"
+            className="relative scroll-mt-28 rounded-[1.5rem] border-t-4 border-[#FF6A00] bg-white p-4 shadow-xl md:p-5"
           >
             <div
               aria-hidden="true"
@@ -609,7 +609,7 @@ export default function QuoteSection() {
               />
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-3">
               <FormField label="Name *">
                 <input
                   name="name"
@@ -675,12 +675,13 @@ export default function QuoteSection() {
               </FormField>
             </div>
 
-            <fieldset className="mt-3">
-              <legend className="mb-1.5 text-sm font-black text-[#07111F]">
+            <div className="mt-2.5 grid gap-2.5 lg:grid-cols-3">
+            <fieldset className="lg:col-span-2">
+              <legend className="mb-1 text-xs font-black text-[#07111F]">
                 Size <span className="font-bold text-slate-400">(optional)</span>
               </legend>
               <input type="hidden" name="size" value={sizeValue} />
-              <div className="grid grid-cols-[1fr_1fr_1fr_5.5rem] gap-2">
+              <div className="grid grid-cols-[1fr_1fr_1fr_4.5rem] gap-2">
                 {(["length", "width", "height"] as const).map((side) => (
                   <input
                     key={side}
@@ -709,44 +710,50 @@ export default function QuoteSection() {
               </div>
             </fieldset>
 
-            <div className="mt-3">
+              <FormField label="Artwork">
+                <select name="artworkStatus" className="field-input field-compact">
+                  {artworkOptions.map((status) => (
+                    <option key={status} value={status}>
+                      {status}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
+            </div>
+
+            <div className="mt-2.5">
               <FormField label="Anything else?">
-                <textarea
+                <input
                   name="message"
-                  rows={2}
                   placeholder="Box style, deadline or anything we should know (optional)"
-                  className="field-input field-compact resize-none"
+                  className="field-input field-compact"
                 />
               </FormField>
             </div>
 
             {/* Optional specs stay in the form (and are submitted) even while collapsed */}
-            <details className="group mt-4 rounded-2xl border border-slate-200 bg-slate-50/70">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3">
-                <span className="text-sm font-black text-[#07111F]">
-                  Add artwork, material &amp; printing{" "}
+            <details className="group mt-3 rounded-xl border border-slate-200 bg-slate-50/70">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-2.5">
+                <span className="text-xs font-black text-[#07111F]">
+                  Material, printing &amp; files{" "}
                   <span className="font-bold text-slate-400">(optional)</span>
                 </span>
-                <span
+                <svg
                   aria-hidden="true"
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-lg font-black text-[#FF6A00] shadow-sm transition group-open:rotate-45"
+                  viewBox="0 0 20 20"
+                  className="h-4 w-4 shrink-0 text-[#FF6A00] transition group-open:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  +
-                </span>
+                  <path d="m5 8 5 5 5-5" />
+                </svg>
               </summary>
 
               <div className="border-t border-slate-200 px-4 pb-4 pt-3">
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <FormField label="Artwork">
-                    <select name="artworkStatus" className="field-input field-compact">
-                      {artworkOptions.map((status) => (
-                        <option key={status} value={status}>
-                          {status}
-                        </option>
-                      ))}
-                    </select>
-                  </FormField>
-
                   <FormField label="Material">
                     <select name="material" className="field-input field-compact">
                       {materialOptions.map((material) => (
@@ -816,12 +823,12 @@ export default function QuoteSection() {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-5 w-full rounded-full bg-[#FF6A00] px-8 py-3.5 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-3 w-full rounded-full bg-[#FF6A00] px-8 py-3 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSending ? "Sending..." : "Get My Free Quote"}
             </button>
 
-            <ul className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-bold text-slate-500">
+            <ul className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[0.7rem] font-bold text-slate-500">
               <li>✓ Reply {businessPromises.quoteResponse}</li>
               <li>✓ MOQ from {businessPromises.minimumOrder}</li>
               <li>✓ Free dieline</li>
@@ -882,7 +889,7 @@ function FormField({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-black text-[#07111F]">
+      <span className="mb-1 block text-xs font-black text-[#07111F]">
         {label}
       </span>
       {children}
