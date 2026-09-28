@@ -265,9 +265,48 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     {section.heading}
                   </h2>
 
-                  <p className="mt-4 text-lg leading-9 text-slate-600">
-                    {section.body}
-                  </p>
+                  {section.body.split(/\n\s*\n/).map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 40)}
+                      className="mt-4 text-lg leading-9 text-slate-600"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+
+                  {section.table && (
+                    <div className="mt-6 overflow-x-auto rounded-[1.5rem] border border-slate-200 bg-white">
+                      <table className="w-full min-w-[560px] text-left text-sm">
+                        <caption className="sr-only">{section.table.caption}</caption>
+                        <thead className="bg-[#07111F] text-xs uppercase tracking-[0.14em] text-white">
+                          <tr>
+                            {section.table.headers.map((header) => (
+                              <th key={header} scope="col" className="px-5 py-4 font-black">
+                                {header}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.table.rows.map((row) => (
+                            <tr key={row[0]} className="border-t border-slate-100">
+                              {row.map((cell, index) =>
+                                index === 0 ? (
+                                  <th key={cell} scope="row" className="px-5 py-4 font-black text-[#07111F]">
+                                    {cell}
+                                  </th>
+                                ) : (
+                                  <td key={`${row[0]}-${index}`} className="px-5 py-4 text-slate-600">
+                                    {cell}
+                                  </td>
+                                ),
+                              )}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </section>
               ))}
             </div>

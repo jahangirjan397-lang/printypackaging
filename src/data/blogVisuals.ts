@@ -23,6 +23,10 @@ export const blogVisuals: Record<string, { src: string; alt: string }> = {
     src: "/images/products/butter-paper/butter-paper-lifestyle.webp",
     alt: "Sandwich wrapped in Printy branded butter paper for cafes and restaurants",
   },
+  "butter-paper-vs-wax-paper-vs-greaseproof": {
+    src: "/images/products/butter-paper/butter-paper-hero.webp",
+    alt: "Printed butter paper sheets and roll with a wrapped sandwich",
+  },
 };
 
 export function getBlogVisual(slug: string) {
