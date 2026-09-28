@@ -1,8 +1,13 @@
-import { Caveat } from "next/font/google";
+import localFont from "next/font/local";
 
-const caveat = Caveat({
-  subsets: ["latin"],
-  weight: ["600", "700"],
+// Caveat (SIL Open Font License) is bundled in src/fonts so builds never
+// depend on downloading it from Google Fonts.
+const caveat = localFont({
+  src: [
+    { path: "../fonts/caveat-latin-600-normal.woff2", weight: "600", style: "normal" },
+    { path: "../fonts/caveat-latin-700-normal.woff2", weight: "700", style: "normal" },
+  ],
+  display: "swap",
 });
 
 type HandNoteProps = {
