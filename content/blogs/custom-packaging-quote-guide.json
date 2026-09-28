@@ -1,0 +1,44 @@
+{
+  "title": "How to Request a Custom Packaging Quote",
+  "slug": "custom-packaging-quote-guide",
+  "publishedAt": "2026-07-01",
+  "category": "Quote Guide",
+  "readTime": "5 min read",
+  "excerpt": "Learn what details buyers should send before requesting a custom packaging quote, including size, quantity, material, printing and finishing.",
+  "coverImage": "/images/blog/quote-guide-v3.webp",
+  "coverAlt": "Assorted rigid and drawer gift boxes with inserts laid out for a packaging quote (concept image)",
+  "keywords": [
+    "custom packaging quote",
+    "packaging quote guide",
+    "custom boxes quote",
+    "printed packaging quote"
+  ],
+  "sections": [
+    {
+      "heading": "Start with product size",
+      "body": "A good packaging quote starts with accurate product size. Buyers should share length, width and height with the correct unit such as inches, millimeters or centimeters."
+    },
+    {
+      "heading": "Share quantity options",
+      "body": "Quantity affects printing, stock, setup and finishing cost. If you need multiple quantity options such as 500, 1000, 1500 or 2000 pieces, mention them clearly in the quote request."
+    },
+    {
+      "heading": "Choose material and GSM",
+      "body": "Material selection affects strength, print quality, finishing result and final price. Common options include paperboard, kraft, corrugated board, rigid board and food-safe paper."
+    },
+    {
+      "heading": "Mention printing and finishing",
+      "body": "Buyers should mention CMYK printing, Pantone colors, inside printing, lamination, foil stamping, embossing, debossing, spot UV or window patching if required."
+    }
+  ],
+  "faqs": [
+    {
+      "question": "What details are needed for a packaging quote?",
+      "answer": "You should send box style, product size, quantity, material preference, GSM, printing colors, finishing options, artwork status and delivery country."
+    },
+    {
+      "question": "Can I request multiple quantity prices?",
+      "answer": "Yes. You can request different quantity options such as 500, 1000, 1500 or 2000 pieces for comparison."
+    }
+  ]
+}

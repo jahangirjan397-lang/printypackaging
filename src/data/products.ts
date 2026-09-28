@@ -1,4 +1,4 @@
-import stagedProductImages from "./stagedProductImages.json";
+import productImagesContent from "../../content/product-images.json";
 import { styleGuides, type StyleGuide } from "./styleGuides";
 
 export type ProductImage = {
@@ -6,6 +6,21 @@ export type ProductImage = {
   alt: string;
   title: string;
 };
+
+// Product galleries are edited from /admin (content/product-images.json).
+// A product listed there with at least one image uses exactly that gallery.
+const galleryBySlug = new Map<string, ProductImage[]>(
+  productImagesContent.products
+    .filter((entry) => entry.images?.length)
+    .map((entry) => [
+      entry.slug,
+      entry.images.map((image) => ({
+        src: image.src,
+        alt: image.alt ?? "",
+        title: image.title ?? "",
+      })),
+    ]),
+);
 
 export type Product = {
   slug: string;
@@ -269,7 +284,7 @@ function makeProduct(
     materials: getProductMaterials(name, category),
     finishes: getProductFinishes(name, category),
     industries,
-    images: images ?? (stagedProductImages as Record<string, ProductImage[]>)[slug],
+    images: galleryBySlug.get(slug) ?? images,
     faqs: buildFaqs(name, category),
   };
 }

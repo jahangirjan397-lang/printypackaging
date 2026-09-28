@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24,
   },
 
+  // /admin is the Decap CMS editor (public/admin/index.html)
+  async rewrites() {
+    return [{ source: "/admin", destination: "/admin/index.html" }];
+  },
+
   async redirects() {
     return [
       {

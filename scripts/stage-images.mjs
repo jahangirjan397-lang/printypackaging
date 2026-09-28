@@ -83,8 +83,12 @@ for (const item of entries) {
   }
   pending.push({ source, target, item });
 }
-const registryPath = resolve(siteRoot, "src/data/stagedProductImages.json");
-const registry = JSON.parse(readFileSync(registryPath, "utf8"));
+// Product galleries live in content/product-images.json (also edited from /admin)
+const registryPath = resolve(siteRoot, "content/product-images.json");
+const registryFile = JSON.parse(readFileSync(registryPath, "utf8"));
+const registry = Object.fromEntries(
+  registryFile.products.map((entry) => [entry.slug, entry.images]),
+);
 const requiredViews = ["hero", "front", "open", "finish", "lifestyle"];
 let galleriesAdded = 0;
 for (const slug of new Set(entries
@@ -117,7 +121,12 @@ for (const {source,target} of pending) {
   copyFileSync(source,target);
 }
 if (galleriesAdded) {
-  writeFileSync(registryPath, JSON.stringify(registry, null, 2) + "\n");
+  for (const [slug, images] of Object.entries(registry)) {
+    const entry = registryFile.products.find((item) => item.slug === slug);
+    if (entry) entry.images = images;
+    else registryFile.products.push({ slug, name: slug, images });
+  }
+  writeFileSync(registryPath, JSON.stringify(registryFile, null, 2) + "\n");
 }
 console.log(`Staged ${pending.length} validated images and mapped ${galleriesAdded} new product galleries. ${skipped.length} planned editorial/portfolio slots need page mapping.`);
 console.log("Review the changed files, then run lint, build and preview QA before deploying.");
