@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import StatsBar from "../components/StatsBar";
+import BrandTypesStrip from "../components/BrandTypesStrip";
 import FeaturedProducts from "../components/FeaturedProducts";
 import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
 import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
@@ -48,6 +49,7 @@ export default function Home() {
     <>
       <Header />
       <Hero />
+      <BrandTypesStrip />
       <StatsBar />
       <FeaturedProducts />
       <BoxFinder />

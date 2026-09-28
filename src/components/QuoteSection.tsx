@@ -11,6 +11,7 @@ import {
 } from "@/lib/analyticsConsent";
 import { readLeadSource } from "@/lib/leadSource";
 import { businessPromises } from "@/data/businessInfo";
+import HandNote from "@/components/HandNote";
 const quoteBenefits = [
   "Custom box style suggestion",
   "Material and GSM guidance",
@@ -422,6 +423,10 @@ export default function QuoteSection() {
 
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [size, setSize] = useState({ length: "", width: "", height: "", unit: "in" });
+  const sizeValue = [size.length, size.width, size.height].some(Boolean)
+    ? `${size.length || "?"} x ${size.width || "?"} x ${size.height || "?"} ${size.unit}`
+    : "";
   const [selectedProduct, setSelectedProduct] = useState(
     products[0]?.name || ""
   );
@@ -528,73 +533,68 @@ export default function QuoteSection() {
 }
 
   return (
-    <section className="bg-[#F7FAFC] px-5 py-16 md:px-8 md:py-20">
+    <section className="bg-[#F7FAFC] px-5 py-14 md:px-8 md:py-16">
       <Suspense fallback={null}>
         <ProductFromUrl onProductMatch={setSelectedProduct} />
       </Suspense>
 
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-12">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-12">
           <div className="lg:sticky lg:top-28">
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
               Request Custom Quote
             </p>
 
-            <h2 className="mt-4 text-3xl font-black leading-tight text-[#07111F] sm:text-4xl lg:text-5xl">
-              Get clear packaging price guidance for your project
+            <h2 className="mt-3 text-3xl font-black leading-tight text-[#07111F] sm:text-4xl">
+              Get your custom packaging price, fast
             </h2>
 
-            <p className="mt-5 text-base leading-7 text-slate-600 md:text-lg md:leading-8">
-              Share your box style, size and quantity. Our packaging team will
-              review the details and guide you to the right material, print and
-              finish.
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              Tell us what you need. We reply with pricing, the right material
+              and a free dieline. No design skills needed.
             </p>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <ul className="mt-6 space-y-2.5">
               {quoteBenefits.map((item) => (
-                <div
+                <li
                   key={item}
-                  className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm"
+                  className="flex items-center gap-3 text-sm font-bold text-[#07111F]"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#00C2E8] text-sm font-black text-[#07111F]">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#00C2E8] text-xs font-black text-[#07111F]">
                     ✓
-                  </div>
-                  <p className="text-sm font-black leading-5 text-[#07111F]">
-                    {item}
-                  </p>
-                </div>
+                  </span>
+                  {item}
+                </li>
               ))}
+            </ul>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3 rounded-2xl bg-[#07111F] p-4 text-white">
+              <p className="text-sm font-bold text-slate-300">Prefer to chat?</p>
+              <a
+                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full bg-[#25D366] px-4 py-2 text-sm font-black text-[#07111F] transition hover:bg-[#1ebe5b]"
+              >
+                WhatsApp
+              </a>
+              <a
+                href="mailto:sales@printypackaging.com"
+                className="text-sm font-black text-[#00C2E8] hover:underline"
+              >
+                sales@printypackaging.com
+              </a>
             </div>
 
-            <div className="mt-6 rounded-[1.7rem] bg-[#07111F] p-6 text-white">
-              <p className="text-lg font-black">Prefer to talk first?</p>
-              <p className="mt-2 text-sm leading-6 text-slate-300">
-                Send your size, quantity and artwork status on WhatsApp or email
-                and we will guide you from there.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <a
-                  href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-black text-[#07111F] transition hover:bg-[#1ebe5b]"
-                >
-                  WhatsApp
-                </a>
-                <a
-                  href="mailto:sales@printypackaging.com"
-                  className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
-                >
-                  sales@printypackaging.com
-                </a>
-              </div>
+            <div className="mt-8 hidden justify-end lg:flex">
+              <HandNote>{`Free quote ${businessPromises.quoteResponse.replace(" (business hours)", "")}`}</HandNote>
             </div>
           </div>
 
           <form
             id="quote"
             onSubmit={handleSubmit}
-            className="relative scroll-mt-28 rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
+            className="relative scroll-mt-28 rounded-[1.75rem] border-t-4 border-[#FF6A00] bg-white p-5 shadow-xl md:p-7"
           >
             <div
               aria-hidden="true"
@@ -609,26 +609,25 @@ export default function QuoteSection() {
               />
             </div>
 
-            <FormStep number="1" title="Your details" />
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
-              <FormField label="Full Name">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <FormField label="Name *">
                 <input
                   name="name"
                   required
                   autoComplete="name"
                   placeholder="Your name"
-                  className="field-input"
+                  className="field-input field-compact"
                 />
               </FormField>
 
-              <FormField label="Email">
+              <FormField label="Email *">
                 <input
                   name="email"
                   type="email"
                   required
                   autoComplete="email"
-                  placeholder="your@email.com"
-                  className="field-input"
+                  placeholder="you@brand.com"
+                  className="field-input field-compact"
                 />
               </FormField>
 
@@ -637,31 +636,16 @@ export default function QuoteSection() {
                   name="whatsapp"
                   autoComplete="tel"
                   placeholder="+1 000 000 0000"
-                  className="field-input"
+                  className="field-input field-compact"
                 />
               </FormField>
 
-              <FormField label="Country">
-                <select name="country" className="field-input">
-                  {countries.map((country) => (
-                    <option key={country} value={country}>
-                      {country}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-            </div>
-
-            <div className="mt-7 border-t border-slate-100 pt-6">
-              <FormStep number="2" title="Packaging details" />
-            </div>
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
-              <FormField label="Product Type">
+              <FormField label="Product">
                 <select
                   name="product"
                   value={selectedProduct}
                   onChange={(event) => setSelectedProduct(event.target.value)}
-                  className="field-input"
+                  className="field-input field-compact"
                 >
                   {products.map((product) => (
                     <option key={product.slug} value={product.name}>
@@ -674,64 +658,97 @@ export default function QuoteSection() {
               <FormField label="Quantity">
                 <input
                   name="quantity"
-                  placeholder="500 / 1000 / 5000"
-                  className="field-input"
+                  inputMode="numeric"
+                  placeholder="e.g. 1000"
+                  className="field-input field-compact"
                 />
               </FormField>
 
-              <FormField label="Size">
-                <input
-                  name="size"
-                  placeholder="L x W x H"
-                  className="field-input"
-                />
-              </FormField>
-
-              <FormField label="Artwork Status">
-                <select name="artworkStatus" className="field-input">
-                  {artworkOptions.map((status) => (
-                    <option key={status} value={status}>
-                      {status}
+              <FormField label="Country">
+                <select name="country" className="field-input field-compact">
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
                     </option>
                   ))}
                 </select>
               </FormField>
             </div>
 
-            <div className="mt-4">
-              <FormField label="Project Details">
+            <fieldset className="mt-3">
+              <legend className="mb-1.5 text-sm font-black text-[#07111F]">
+                Size <span className="font-bold text-slate-400">(optional)</span>
+              </legend>
+              <input type="hidden" name="size" value={sizeValue} />
+              <div className="grid grid-cols-[1fr_1fr_1fr_5.5rem] gap-2">
+                {(["length", "width", "height"] as const).map((side) => (
+                  <input
+                    key={side}
+                    inputMode="decimal"
+                    aria-label={`Box ${side}`}
+                    placeholder={side[0].toUpperCase() + side.slice(1)}
+                    value={size[side]}
+                    onChange={(event) =>
+                      setSize((current) => ({ ...current, [side]: event.target.value }))
+                    }
+                    className="field-input field-compact"
+                  />
+                ))}
+                <select
+                  aria-label="Size unit"
+                  value={size.unit}
+                  onChange={(event) =>
+                    setSize((current) => ({ ...current, unit: event.target.value }))
+                  }
+                  className="field-input field-compact"
+                >
+                  <option value="in">in</option>
+                  <option value="cm">cm</option>
+                  <option value="mm">mm</option>
+                </select>
+              </div>
+            </fieldset>
+
+            <div className="mt-3">
+              <FormField label="Anything else?">
                 <textarea
                   name="message"
-                  rows={4}
-                  placeholder="Tell us about your product, packaging style, deadline and shipping country..."
-                  className="field-input resize-none"
+                  rows={2}
+                  placeholder="Box style, deadline or anything we should know (optional)"
+                  className="field-input field-compact resize-none"
                 />
               </FormField>
             </div>
 
             {/* Optional specs stay in the form (and are submitted) even while collapsed */}
-            <details className="group mt-6 rounded-2xl border border-slate-200 bg-slate-50/70">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
-                <span>
-                  <span className="block text-sm font-black text-[#07111F]">
-                    Material, printing, finishing &amp; files
-                  </span>
-                  <span className="mt-0.5 block text-xs text-slate-500">
-                    Optional: add these now or we will suggest them for you.
-                  </span>
+            <details className="group mt-4 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3">
+                <span className="text-sm font-black text-[#07111F]">
+                  Add artwork, material &amp; printing{" "}
+                  <span className="font-bold text-slate-400">(optional)</span>
                 </span>
                 <span
                   aria-hidden="true"
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-lg font-black text-[#FF6A00] shadow-sm transition group-open:rotate-45"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-lg font-black text-[#FF6A00] shadow-sm transition group-open:rotate-45"
                 >
                   +
                 </span>
               </summary>
 
-              <div className="border-t border-slate-200 px-5 pb-5 pt-4">
-                <div className="grid gap-4 md:grid-cols-2">
+              <div className="border-t border-slate-200 px-4 pb-4 pt-3">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <FormField label="Artwork">
+                    <select name="artworkStatus" className="field-input field-compact">
+                      {artworkOptions.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
                   <FormField label="Material">
-                    <select name="material" className="field-input">
+                    <select name="material" className="field-input field-compact">
                       {materialOptions.map((material) => (
                         <option key={material} value={material}>
                           {material}
@@ -740,8 +757,8 @@ export default function QuoteSection() {
                     </select>
                   </FormField>
 
-                  <FormField label="GSM / Board Thickness">
-                    <select name="gsm" className="field-input">
+                  <FormField label="GSM / Thickness">
+                    <select name="gsm" className="field-input field-compact">
                       {gsmOptions.map((gsm) => (
                         <option key={gsm} value={gsm}>
                           {gsm}
@@ -750,8 +767,8 @@ export default function QuoteSection() {
                     </select>
                   </FormField>
 
-                  <FormField label="Printing Colors">
-                    <select name="printing" className="field-input">
+                  <FormField label="Printing">
+                    <select name="printing" className="field-input field-compact">
                       {printingOptions.map((printing) => (
                         <option key={printing} value={printing}>
                           {printing}
@@ -760,8 +777,8 @@ export default function QuoteSection() {
                     </select>
                   </FormField>
 
-                  <FormField label="Finishing Options">
-                    <select name="finishing" className="field-input">
+                  <FormField label="Finishing">
+                    <select name="finishing" className="field-input field-compact">
                       {finishingOptions.map((finish) => (
                         <option key={finish} value={finish}>
                           {finish}
@@ -769,30 +786,29 @@ export default function QuoteSection() {
                       ))}
                     </select>
                   </FormField>
-                </div>
 
-                <div className="mt-4">
-                  <span className="mb-2 block text-sm font-black text-[#07111F]">
-                    Artwork &amp; Reference Files
-                  </span>
-                  <input
-                    name="artworkFiles"
-                    type="file"
-                    multiple
-                    accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr"
-                    aria-label="Artwork and reference files"
-                    className="block w-full rounded-xl border border-dashed border-[#00C2E8]/60 bg-white px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-[#07111F] file:px-4 file:py-2 file:font-black file:text-white"
-                  />
-                  <p className="mt-2 text-xs leading-5 text-slate-500">
-                    Up to 5 files, 4 MB total. PDF, AI, EPS, PSD, SVG, PNG, JPG,
-                    WEBP, TIFF or CDR.
-                  </p>
+                  <label className="block">
+                    <span className="mb-1.5 block text-sm font-black text-[#07111F]">
+                      Files
+                    </span>
+                    <input
+                      name="artworkFiles"
+                      type="file"
+                      multiple
+                      accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr"
+                      className="block w-full rounded-xl border border-dashed border-[#00C2E8]/60 bg-white px-3 py-2 text-xs text-slate-700 file:mr-3 file:rounded-full file:border-0 file:bg-[#07111F] file:px-3 file:py-1.5 file:font-black file:text-white"
+                    />
+                  </label>
                 </div>
+                <p className="mt-2 text-xs leading-5 text-slate-500">
+                  Up to 5 files, 4 MB total. PDF, AI, EPS, PSD, SVG, PNG, JPG,
+                  WEBP, TIFF or CDR.
+                </p>
               </div>
             </details>
 
             {errorMessage && (
-              <div className="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700">
+              <div className="mt-4 rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700">
                 {errorMessage}
               </div>
             )}
@@ -800,31 +816,20 @@ export default function QuoteSection() {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-6 w-full rounded-full bg-[#FF6A00] px-8 py-4 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60 md:text-lg"
+              className="mt-5 w-full rounded-full bg-[#FF6A00] px-8 py-3.5 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSending ? "Sending Quote Request..." : "Submit Quote Request"}
+              {isSending ? "Sending..." : "Get My Free Quote"}
             </button>
 
-            <ul className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-bold text-slate-500">
-              <li>✓ Price reply {businessPromises.quoteResponse}</li>
+            <ul className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-bold text-slate-500">
+              <li>✓ Reply {businessPromises.quoteResponse}</li>
               <li>✓ MOQ from {businessPromises.minimumOrder}</li>
-              <li>✓ {businessPromises.productionTime} production</li>
+              <li>✓ Free dieline</li>
             </ul>
           </form>
         </div>
       </div>
     </section>
-  );
-}
-
-function FormStep({ number, title }: { number: string; title: string }) {
-  return (
-    <p className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.18em] text-[#07111F]">
-      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FF6A00] text-xs text-white">
-        {number}
-      </span>
-      {title}
-    </p>
   );
 }
 
@@ -877,7 +882,7 @@ function FormField({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-black text-[#07111F]">
+      <span className="mb-1.5 block text-sm font-black text-[#07111F]">
         {label}
       </span>
       {children}
