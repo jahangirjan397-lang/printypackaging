@@ -4,6 +4,12 @@
   "publishedAt": "2026-07-01",
   "category": "Ecommerce",
   "readTime": "4 min read",
+  "relatedProducts": [
+    "mailer-boxes",
+    "kraft-mailer-boxes",
+    "shipping-boxes",
+    "subscription-boxes"
+  ],
   "excerpt": "Mailer boxes are useful for ecommerce, subscription boxes and branded delivery. Learn why they improve protection and unboxing.",
   "coverImage": "/images/blog/mailer-ecommerce-v3.webp",
   "coverAlt": "Open kraft mailer box with a folded garment and paper bag for ecommerce orders (concept image)",

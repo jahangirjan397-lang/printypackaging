@@ -92,6 +92,43 @@ collections:
         name: keywords
         widget: list
         hint: "Wo alfaaz jo log Google par search karte hain. Har keyword alag line mein ya comma se."
+      - label: Google title (optional)
+        name: seoTitle
+        widget: string
+        required: false
+        pattern: ["^.{0,60}$", "60 characters se kam rakhein, warna Google kaat dega."]
+        hint: "Google search mein dikhne wala title, 60 characters tak. Khaali chhorein to blog ka Title use hoga."
+      - label: Google description (optional)
+        name: metaDescription
+        widget: text
+        required: false
+        pattern: ["^[\\s\\S]{0,160}$", "160 characters se kam rakhein."]
+        hint: "Google mein title ke neeche wali 1-2 lines, 140-160 characters. Main keyword aur faida likhein. Khaali ho to Short summary use hogi."
+      - label: Last updated (optional)
+        name: updatedAt
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: false
+        hint: "Jab blog mein bari tabdeeli ya nayi maloomat daalein, aaj ki tareekh. Google taaza content pasand karta hai."
+      - label: Author
+        name: author
+        widget: string
+        required: false
+        hint: "Likhne wale ka naam, jaise: M Jahangir. Khaali ho to 'Printy Packaging Team'."
+      - label: Products to link (optional)
+        name: relatedProducts
+        widget: relation
+        collection: product_images
+        file: galleries
+        search_fields: ["products.*.name"]
+        value_field: "products.*.slug"
+        display_fields: ["products.*.name"]
+        multiple: true
+        max: 4
+        required: false
+        hint: "Blog ke neeche jin products ke link lagne chahiye (max 4). Khaali ho to blog ke text se khud chune jayenge."
       - label: Sections
         name: sections
         widget: list

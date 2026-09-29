@@ -4,11 +4,49 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
 import { getBlogVisual } from "@/data/blogVisuals";
+import { products } from "@/data/products";
+import type { BlogPost } from "@/data/blogs";
 import ShareButtons from "@/components/ShareButtons";
 
 const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
 const websiteId = `${siteUrl}#website`;
+const defaultAuthor = "Printy Packaging Team";
+
+// Google shows about 60 characters of a title and 155-160 of a description
+function seoTitle(post: BlogPost) {
+  if (post.seoTitle?.trim()) return post.seoTitle.trim();
+  const branded = `${post.title} | Printy Packaging`;
+  return branded.length <= 60 ? branded : post.title;
+}
+
+function seoDescription(post: BlogPost) {
+  const text = (post.metaDescription?.trim() || post.excerpt).replace(/\s+/g, " ");
+  if (text.length <= 160) return text;
+  return `${text.slice(0, 157).replace(/\s+\S*$/, "")}…`;
+}
+
+// Products linked from the article: the ones chosen in /admin, otherwise
+// products whose name appears in the article text
+function articleProducts(post: BlogPost) {
+  const chosen = (post.relatedProducts ?? [])
+    .map((slug) => products.find((product) => product.slug === slug))
+    .filter((product): product is (typeof products)[number] => Boolean(product));
+  if (chosen.length) return chosen.slice(0, 4);
+
+  const text = [post.title, ...post.sections.map((s) => `${s.heading} ${s.body}`)]
+    .join(" ")
+    .toLowerCase();
+  return products
+    .map((product) => ({
+      product,
+      hits: text.split(product.name.toLowerCase()).length - 1,
+    }))
+    .filter((item) => item.hits > 0)
+    .sort((a, b) => b.hits - a.hits)
+    .slice(0, 3)
+    .map((item) => item.product);
+}
 
 function headingId(heading: string) {
   return heading
@@ -41,19 +79,32 @@ export async function generateMetadata({
     };
   }
 
+  const image = `${siteUrl}${getBlogVisual(post.slug).src}`;
+  const description = seoDescription(post);
+
   return {
-    title: { absolute: `${post.title} | Printy Packaging Blog` },
-    description: post.excerpt,
+    title: { absolute: seoTitle(post) },
+    description,
     keywords: post.keywords,
+    authors: [{ name: post.author || defaultAuthor }],
     alternates: {
       canonical: `${siteUrl}/blog/${post.slug}`,
     },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description,
       type: "article",
       url: `${siteUrl}/blog/${post.slug}`,
       siteName: "Printy Packaging",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt || post.publishedAt,
+      images: [{ url: image, alt: getBlogVisual(post.slug).alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [image],
     },
   };
 }
@@ -71,17 +122,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .slice(0, 3);
 
   const articleVisual = getBlogVisual(post.slug);
+  const linkedProducts = articleProducts(post);
+  const author = post.author || defaultAuthor;
+  const updatedAt = post.updatedAt && post.updatedAt > post.publishedAt ? post.updatedAt : "";
 
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
-    description: post.excerpt,
+    description: seoDescription(post),
+    image: [`${siteUrl}${articleVisual.src}`],
     datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
-    author: {
-      "@id": organizationId,
-    },
+    dateModified: updatedAt || post.publishedAt,
+    author:
+      author === defaultAuthor
+        ? { "@id": organizationId }
+        : { "@type": "Person", name: author, worksFor: { "@id": organizationId } },
     publisher: {
       "@id": organizationId,
     },
@@ -182,9 +238,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-400">
+                <span>By {author}</span>
+                <span>•</span>
                 <span>{post.readTime}</span>
                 <span>•</span>
-                <span>{post.publishedAt}</span>
+                <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+                {updatedAt && (
+                  <>
+                    <span>•</span>
+                    <span>
+                      Updated <time dateTime={updatedAt}>{updatedAt}</time>
+                    </span>
+                  </>
+                )}
               </div>
 
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -228,9 +294,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Article Guide
               </p>
 
-              <h2 className="mt-4 text-2xl font-black tracking-tight">
+              <p className="mt-4 text-2xl font-black tracking-tight">
                 What this guide covers
-              </h2>
+              </p>
 
               <div className="mt-6 grid gap-3">
                 {post.sections.map((section) => (
@@ -311,14 +377,69 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               ))}
             </div>
 
-            <div className="mt-12 rounded-[2rem] bg-[#07111F] p-7 text-white">
+            {linkedProducts.length > 0 && (
+              <div className="mt-12">
+                <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+                  Products in this guide
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {linkedProducts.map((product) => (
+                    <Link
+                      key={product.slug}
+                      href={`/products/${product.slug}`}
+                      className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-3 transition hover:-translate-y-0.5 hover:border-[#FF6A00]"
+                    >
+                      {product.images?.[0] && (
+                        <span className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                          <Image
+                            src={product.images[0].src}
+                            alt={product.images[0].alt || product.name}
+                            fill
+                            sizes="80px"
+                            className="object-cover"
+                          />
+                        </span>
+                      )}
+                      <span>
+                        <span className="block font-black text-[#07111F] group-hover:text-[#FF6A00]">
+                          Custom {product.name}
+                        </span>
+                        <span className="mt-0.5 block text-xs leading-5 text-slate-500">
+                          {product.tagline}
+                        </span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="mt-10 flex items-start gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#07111F] text-lg font-black text-white">
+                {author.slice(0, 1)}
+              </span>
+              <span>
+                <span className="block text-xs font-black uppercase tracking-[0.2em] text-slate-400">
+                  Written by
+                </span>
+                <span className="block font-black text-[#07111F]">{author}</span>
+                <span className="mt-1 block text-sm leading-6 text-slate-600">
+                  Printy Packaging makes custom boxes, butter paper, labels and
+                  retail packaging for brands in the USA, UK, Europe and the
+                  UAE. Our guides are written from real orders and supplier
+                  experience.
+                </span>
+              </span>
+            </div>
+
+            <div className="mt-10 rounded-[2rem] bg-[#07111F] p-7 text-white">
               <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
                 Need Packaging Help?
               </p>
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight">
+              <p className="mt-4 text-3xl font-black tracking-tight">
                 Send your packaging details for quote support.
-              </h2>
+              </p>
 
               <p className="mt-4 leading-8 text-slate-300">
                 Share size, quantity, material, printing, finishing, artwork

@@ -19,6 +19,19 @@ const iconPaths: Record<SocialPlatform, string> = {
     "M12 0a9 9 0 0 0-9 9c0 6.75 9 15 9 15s9-8.25 9-15a9 9 0 0 0-9-9Zm0 12.5A3.5 3.5 0 1 1 12 5.5a3.5 3.5 0 0 1 0 7Z",
 };
 
+// Official brand colours; icons sit in white on top of these
+export const brandBackground: Record<SocialPlatform, string> = {
+  linkedin: "#0A66C2",
+  instagram:
+    "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%)",
+  facebook: "#1877F2",
+  youtube: "#FF0000",
+  tiktok: "#000000",
+  pinterest: "#E60023",
+  x: "#000000",
+  googleBusiness: "#4285F4",
+};
+
 export function SocialIcon({
   platform,
   className = "h-5 w-5",
@@ -52,8 +65,8 @@ export default function SocialIcons({
 
   const style =
     tone === "dark"
-      ? "border-white/15 bg-white/[0.06] text-white hover:border-[#FF6A00] hover:bg-[#FF6A00]"
-      : "border-slate-200 bg-white text-[#07111F] hover:border-[#FF6A00] hover:bg-[#FF6A00] hover:text-white";
+      ? "border-white/15 text-white"
+      : "border-slate-200 text-white";
 
   return (
     <ul className={`flex flex-wrap gap-2.5 ${className}`}>
@@ -65,7 +78,8 @@ export default function SocialIcons({
             rel="noopener noreferrer"
             aria-label={`Printy Packaging on ${link.label}`}
             title={link.label}
-            className={`flex h-10 w-10 items-center justify-center rounded-full border transition ${style}`}
+            className={`flex h-10 w-10 items-center justify-center rounded-full border shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${style}`}
+            style={{ background: brandBackground[link.platform] }}
           >
             <SocialIcon platform={link.platform} className="h-[18px] w-[18px]" />
           </a>

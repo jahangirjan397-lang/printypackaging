@@ -4,6 +4,12 @@
   "publishedAt": "2026-07-01",
   "category": "Quote Guide",
   "readTime": "5 min read",
+  "relatedProducts": [
+    "mailer-boxes",
+    "rigid-boxes",
+    "folding-cartons",
+    "labels-stickers"
+  ],
   "excerpt": "Learn what details buyers should send before requesting a custom packaging quote, including size, quantity, material, printing and finishing.",
   "coverImage": "/images/blog/quote-guide-v3.webp",
   "coverAlt": "Assorted rigid and drawer gift boxes with inserts laid out for a packaging quote (concept image)",

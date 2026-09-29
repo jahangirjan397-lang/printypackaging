@@ -14,6 +14,14 @@ export type BlogPost = {
   coverImage: string;
   coverAlt: string;
   keywords: string[];
+  // Optional SEO overrides; fall back to title / excerpt
+  seoTitle?: string;
+  metaDescription?: string;
+  // Date of the last real content update (YYYY-MM-DD)
+  updatedAt?: string;
+  author?: string;
+  // Product slugs linked from the article
+  relatedProducts?: string[];
   sections: {
     heading: string;
     // Separate paragraphs with a blank line ("\n\n")

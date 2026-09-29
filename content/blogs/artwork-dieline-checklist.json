@@ -4,6 +4,11 @@
   "publishedAt": "2026-07-01",
   "category": "Artwork",
   "readTime": "6 min read",
+  "relatedProducts": [
+    "mailer-boxes",
+    "folding-cartons",
+    "rigid-boxes"
+  ],
   "excerpt": "Learn how to prepare packaging artwork with dielines, bleed, safe area, CMYK, Pantone colors, barcode and final approval.",
   "coverImage": "/images/blog/artwork-dieline-v3.webp",
   "coverAlt": "Box dieline with fold lines and dimensions for artwork planning",

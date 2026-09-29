@@ -1,4 +1,5 @@
-import { SocialIcon } from "@/components/SocialIcons";
+import { SocialIcon, brandBackground } from "@/components/SocialIcons";
+import InstagramShareButton from "@/components/InstagramShareButton";
 
 // Share links need no account: each opens the platform's own share dialog
 // with the article URL filled in. utm_source tags the visits these shares
@@ -55,18 +56,20 @@ export default function ShareButtons({
           rel="noopener noreferrer"
           aria-label={`Share on ${share.label}`}
           title={`Share on ${share.label}`}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-[#07111F] transition hover:border-[#FF6A00] hover:bg-[#FF6A00] hover:text-white"
+          className="flex h-10 w-10 items-center justify-center rounded-full text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+          style={{ background: brandBackground[share.key] }}
         >
           <SocialIcon platform={share.key} className="h-[18px] w-[18px]" />
         </a>
       ))}
+      <InstagramShareButton url={withSource(url, "instagram")} title={title} />
       <a
         href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Share on WhatsApp"
         title="Share on WhatsApp"
-        className="flex h-10 items-center justify-center rounded-full border border-slate-200 bg-white px-4 text-sm font-black text-[#07111F] transition hover:border-[#19C463] hover:bg-[#19C463] hover:text-white"
+        className="flex h-10 items-center justify-center rounded-full bg-[#25D366] px-4 text-sm font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
       >
         WhatsApp
       </a>

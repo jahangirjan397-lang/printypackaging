@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { SocialIcon } from "@/components/SocialIcons";
+import { SocialIcon, brandBackground } from "@/components/SocialIcons";
 import { activeSocialLinks } from "@/data/socialLinks";
 import { salesPhone, salesTeam } from "@/data/businessInfo";
 import Link from "next/link";
@@ -251,7 +251,10 @@ export default function ContactPage() {
                   rel="noopener noreferrer"
                   className="group flex items-start gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00]"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#07111F] text-white transition group-hover:bg-[#FF6A00]">
+                  <span
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-white shadow-sm transition group-hover:scale-105"
+                    style={{ background: brandBackground[link.platform] }}
+                  >
                     <SocialIcon platform={link.platform} />
                   </span>
                   <span>
