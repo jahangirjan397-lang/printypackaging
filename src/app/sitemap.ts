@@ -92,6 +92,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
+    // Tells Google when a post last changed, so updates get recrawled
+    lastModified: post.updatedAt || post.publishedAt,
     changeFrequency: "monthly",
     priority: 0.72,
   }));
