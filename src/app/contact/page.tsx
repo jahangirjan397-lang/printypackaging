@@ -25,7 +25,7 @@ const contactOptions = [
   },
   {
     title: "WhatsApp Support",
-    value: "+92 333 888 9954",
+    value: "Chat with our team",
     detail:
       "Fast support for packaging questions, artwork guidance, quote details and order discussion.",
     href: "https://wa.me/923338889954",

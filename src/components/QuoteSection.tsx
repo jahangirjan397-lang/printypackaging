@@ -26,7 +26,6 @@ const countries = [
   "Europe",
   "UAE",
   "Australia",
-  "Pakistan",
   "Other",
 ];
 

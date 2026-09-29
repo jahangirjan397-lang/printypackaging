@@ -1,50 +1,72 @@
 {
-  "title": "How to Request a Custom Packaging Quote",
+  "title": "How to Get an Accurate Custom Packaging Quote (Checklist)",
   "slug": "custom-packaging-quote-guide",
   "publishedAt": "2026-07-01",
+  "updatedAt": "2026-09-29",
+  "seoTitle": "How to Get an Accurate Custom Packaging Quote: Checklist",
+  "metaDescription": "The 8 details that decide a custom box price, how to measure your product, and how to compare quotes from different packaging suppliers fairly.",
   "category": "Quote Guide",
-  "readTime": "5 min read",
-  "relatedProducts": [
-    "mailer-boxes",
-    "rigid-boxes",
-    "folding-cartons",
-    "labels-stickers"
-  ],
-  "excerpt": "Learn what details buyers should send before requesting a custom packaging quote, including size, quantity, material, printing and finishing.",
+  "readTime": "7 min read",
+  "relatedProducts": ["mailer-boxes", "folding-cartons", "rigid-boxes", "labels-stickers"],
+  "excerpt": "A vague request gets a vague price. Send these eight details and you get a quote you can actually budget with, plus a fair way to compare suppliers.",
   "coverImage": "/images/blog/quote-guide-v3.webp",
-  "coverAlt": "Assorted rigid and drawer gift boxes with inserts laid out for a packaging quote (concept image)",
+  "coverAlt": "Assorted rigid and drawer gift boxes with inserts laid out for a packaging quote",
   "keywords": [
     "custom packaging quote",
-    "packaging quote guide",
+    "custom box price",
+    "how much do custom boxes cost",
+    "packaging quote checklist",
     "custom boxes quote",
-    "printed packaging quote"
+    "packaging supplier comparison"
   ],
   "sections": [
     {
-      "heading": "Start with product size",
-      "body": "A good packaging quote starts with accurate product size. Buyers should share length, width and height with the correct unit such as inches, millimeters or centimeters."
+      "heading": "Why two quotes for the same box can look so different",
+      "body": "Ask three suppliers for \"a price for 500 custom boxes\" and you will get three very different numbers. Usually none of them is wrong. Each supplier simply guessed the parts you did not specify: the board, the print, the size, the finish.\n\nThe fix is easy. Give every supplier the same clear details and the prices become comparable, the quote arrives faster, and there are no surprises when the final invoice comes."
     },
     {
-      "heading": "Share quantity options",
-      "body": "Quantity affects printing, stock, setup and finishing cost. If you need multiple quantity options such as 500, 1000, 1500 or 2000 pieces, mention them clearly in the quote request."
+      "heading": "The 8 details that decide the price",
+      "body": "You do not need to know packaging jargon. Answer these as best you can and leave the rest to the supplier.",
+      "tableCaption": "Details to include in a packaging quote request",
+      "table": "Detail | What to send | Why it matters\n1. Box style | Mailer, tuck end, rigid, window, pillow, or a photo of what you like | Style sets the cutting die and the board\n2. Inside size | Length x width x height of the space the product needs, with units | The biggest driver of material cost\n3. Quantity | Two or three options, e.g. 500, 1,000 and 2,500 | Price per box drops as quantity rises\n4. Material | Kraft, white, corrugated or rigid, or ask for a suggestion | Changes strength, look and cost\n5. Printing | Number of colours, outside only or inside too | Coverage and sides affect price\n6. Finishing | Matte, gloss, foil, spot UV, embossing, or none | Each finish is an extra step\n7. Inserts | Needed or not, and what they hold | Protects fragile products\n8. Delivery | Country, city and the date you need it by | Affects shipping cost and schedule"
     },
     {
-      "heading": "Choose material and GSM",
-      "body": "Material selection affects strength, print quality, finishing result and final price. Common options include paperboard, kraft, corrugated board, rigid board and food-safe paper."
+      "heading": "How to measure your product the right way",
+      "body": "Always measure the inside space the product needs, not the outside of an old box. Measure length (the longest side of the opening), then width, then height (depth), in that order.\n\nAdd a few millimetres of clearance on each side so the product slides in easily, more if it goes in tissue or a pouch. If you have several products, measure the largest one, or ask whether two sizes would be cheaper than one box that fits everything.\n\nNot sure? Send a photo of the product next to a ruler and its weight. That is enough for us to suggest a size."
     },
     {
-      "heading": "Mention printing and finishing",
-      "body": "Buyers should mention CMYK printing, Pantone colors, inside printing, lamination, foil stamping, embossing, debossing, spot UV or window patching if required."
+      "heading": "Ask for more than one quantity",
+      "body": "Setup costs, the printing plates and the cutting die, are paid once per order. At 100 boxes those costs are shared by 100 boxes; at 2,000 they are shared by 2,000. That is why the price per box can fall sharply as quantity goes up.\n\nAsking for two or three quantities in one request shows you where the price breaks are. Sometimes ordering a little more costs only slightly more in total and leaves you with stock for months."
+    },
+    {
+      "heading": "Artwork: ready or not, you can still get a price",
+      "body": "You do not need finished artwork to get a quote. A logo and a rough idea of where it goes is enough to price the job.\n\nOnce you approve the price, the supplier sends a dieline, the flat template of your box, and your designer places the artwork on it. If you do not have a designer, ask whether design help is included. Ours is, for simple layouts."
+    },
+    {
+      "heading": "How to compare quotes fairly",
+      "body": "Line the quotes up side by side and check that each one includes the same things: the same board and thickness, the same print and finish, the same quantity, and whether shipping and taxes are included.\n\nAlso compare what happens before production. Is a digital proof included? Is a physical sample available, and at what cost? How long is production after approval? A slightly higher price that includes a proof, samples and delivery can work out cheaper than a low price with extras added later."
+    },
+    {
+      "heading": "What happens after you send a request",
+      "body": "At Printy Packaging the steps are simple:\n\n1. You send the details (the quote form takes about a minute).\n\n2. We reply with pricing and suggestions, usually within an hour during business hours.\n\n3. You approve the price and we send a free dieline.\n\n4. You or your designer add the artwork, and we send a digital proof.\n\n5. After you approve the proof, production takes about 12 to 15 business days, then we ship to the USA, UK, Europe, UAE or Australia.\n\nMinimum orders start from 100 boxes, so you can test a design before committing to a large run."
     }
   ],
   "faqs": [
     {
-      "question": "What details are needed for a packaging quote?",
-      "answer": "You should send box style, product size, quantity, material preference, GSM, printing colors, finishing options, artwork status and delivery country."
+      "question": "What information do I need for a custom packaging quote?",
+      "answer": "Box style, inside size with units, quantity, material, printing colours, finishing, inserts if needed, and the delivery country and date. A logo helps but finished artwork is not required."
     },
     {
-      "question": "Can I request multiple quantity prices?",
-      "answer": "Yes. You can request different quantity options such as 500, 1000, 1500 or 2000 pieces for comparison."
+      "question": "Why does the price per box drop with larger quantities?",
+      "answer": "Setup costs like printing plates and cutting dies are paid once per order, so they are spread across more boxes as the quantity grows."
+    },
+    {
+      "question": "Can I get a quote without finished artwork?",
+      "answer": "Yes. A logo and a rough idea of the layout is enough to price a job. You add the final artwork to the dieline after approving the price."
+    },
+    {
+      "question": "How fast will I get a quote from Printy Packaging?",
+      "answer": "Usually within an hour during business hours, with pricing, material suggestions and a free dieline once you approve."
     }
   ]
 }

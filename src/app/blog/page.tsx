@@ -67,7 +67,7 @@ export default function BlogPage() {
             href={`/blog/${featuredPost.slug}`}
             className="group grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70 transition hover:-translate-y-1 hover:border-[#FF6A00] lg:grid-cols-[0.95fr_1.05fr]"
           >
-            <div className="relative aspect-[4/3] bg-[#EDE5DC]">
+            <div className="relative aspect-[4/3] bg-[#EDE5DC] lg:aspect-auto lg:h-full lg:min-h-[26rem]">
               <Image
                 src={getBlogVisual(featuredPost.slug).src}
                 alt={getBlogVisual(featuredPost.slug).alt}
@@ -81,12 +81,12 @@ export default function BlogPage() {
               </div>
             </div>
 
-            <div className="p-8 sm:p-10">
+            <div className="flex flex-col justify-center p-8 sm:p-10">
               <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
                 {featuredPost.category}
               </p>
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+              <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight sm:text-4xl">
                 {featuredPost.title}
               </h2>
 
@@ -100,7 +100,7 @@ export default function BlogPage() {
                 <span>{featuredPost.publishedAt}</span>
               </div>
 
-              <span className="mt-8 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#007C91]">
+              <span className="mt-8 inline-flex self-start rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#007C91]">
                 Read Article
               </span>
             </div>

@@ -1,5 +1,6 @@
 import { SocialIcon, brandBackground } from "@/components/SocialIcons";
 import InstagramShareButton from "@/components/InstagramShareButton";
+import { WhatsAppIcon } from "@/components/FloatingActions";
 
 // Share links need no account: each opens the platform's own share dialog
 // with the article URL filled in. utm_source tags the visits these shares
@@ -69,9 +70,9 @@ export default function ShareButtons({
         rel="noopener noreferrer"
         aria-label="Share on WhatsApp"
         title="Share on WhatsApp"
-        className="flex h-10 items-center justify-center rounded-full bg-[#25D366] px-4 text-sm font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366] text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
       >
-        WhatsApp
+        <WhatsAppIcon className="h-[20px] w-[20px]" />
       </a>
     </div>
   );

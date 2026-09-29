@@ -69,12 +69,12 @@ export default function SiteFooter() {
                 rel="noreferrer"
                 className="block transition hover:text-[#FF6A00]"
               >
-                               WhatsApp: +92 333 888 9954
+                Chat on WhatsApp
               </a>
 
-                                          <p>
-                Lahore, Pakistan - Serving USA | UK | Europe | UAE and worldwide
-                packaging buyers
+              <p>
+                Serving USA | UK | Canada | Europe | UAE | Australia and
+                worldwide packaging buyers
               </p>
             </div>
 
@@ -94,7 +94,7 @@ export default function SiteFooter() {
               </Link>
             </div>
 
-            <SocialIcons className="mt-6" />
+            <SocialIcons className="mt-6" showAll />
           </div>
 
           <FooterColumn title="Products" links={productLinks} />

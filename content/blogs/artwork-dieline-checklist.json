@@ -1,49 +1,79 @@
 {
-  "title": "Artwork and Dieline Checklist for Packaging",
+  "title": "Packaging Artwork and Dieline Checklist: Get Print-Ready First Time",
   "slug": "artwork-dieline-checklist",
   "publishedAt": "2026-07-01",
+  "updatedAt": "2026-09-29",
+  "seoTitle": "Packaging Artwork & Dieline Checklist for Print-Ready Boxes",
+  "metaDescription": "Bleed, safe zones, CMYK vs Pantone, fonts, barcodes and file formats: a simple checklist to make your box artwork print-ready and avoid costly reprints.",
   "category": "Artwork",
-  "readTime": "6 min read",
-  "relatedProducts": [
-    "mailer-boxes",
-    "folding-cartons",
-    "rigid-boxes"
-  ],
-  "excerpt": "Learn how to prepare packaging artwork with dielines, bleed, safe area, CMYK, Pantone colors, barcode and final approval.",
+  "readTime": "8 min read",
+  "relatedProducts": ["folding-cartons", "mailer-boxes", "rigid-boxes", "labels-stickers"],
+  "excerpt": "Most printing problems start in the artwork file, not on the press. Use this checklist before you send your design and your boxes come out the way you pictured them.",
   "coverImage": "/images/blog/artwork-dieline-v3.webp",
   "coverAlt": "Box dieline with fold lines and dimensions for artwork planning",
   "keywords": [
-    "packaging artwork",
-    "dieline checklist",
-    "print ready artwork",
-    "packaging design guide"
+    "packaging dieline",
+    "box artwork checklist",
+    "print ready packaging file",
+    "packaging bleed",
+    "CMYK vs Pantone",
+    "box design template",
+    "packaging artwork guide"
   ],
   "sections": [
     {
-      "heading": "Use the correct dieline",
-      "body": "A dieline shows cut lines, crease lines, glue area, bleed and safe area. It must match the approved packaging size and structure."
+      "heading": "What a dieline is and why you need it first",
+      "body": "A dieline is the flat, unfolded template of your box. It shows the outline that will be cut, the lines that will be folded, and every panel: front, back, sides, lid and flaps.\n\nAlways design on the dieline from your supplier, not on a template from the internet. Board thickness changes the exact measurements, so a template made for a different board can put your logo across a fold or cut off the edge of your text."
     },
     {
-      "heading": "Keep important text inside safe area",
-      "body": "Logo, barcode, ingredients, product details and important text should stay inside the safe area to avoid trimming or folding issues."
+      "heading": "Read the dieline: what each line means",
+      "body": "Every supplier uses slightly different colours, but the meaning is always the same. Check the legend on your file.",
+      "tableCaption": "Common dieline lines and their meaning",
+      "table": "Line | Usually shown as | What happens there\nCut line | Solid line | The board is cut through\nFold or crease line | Dashed line | The board is folded\nBleed | Line outside the cut | Artwork must extend to here\nSafe zone | Line inside the cut | Keep text and logos inside this\nGlue area | Shaded panel | No ink here, glue is applied"
     },
     {
-      "heading": "Prepare CMYK or Pantone colors",
-      "body": "CMYK is common for full color printing, while Pantone colors may be used for exact brand colors or special spot color printing."
+      "heading": "The print-ready checklist",
+      "body": "Go through these before you send your file. Each one prevents a common reprint.",
+      "tableCaption": "Artwork checklist before sending",
+      "table": "Check | Why it matters\nArtwork extends 3 mm (1/8 inch) into the bleed | Stops thin white lines at the edges after cutting\nText and logos sit 3-5 mm inside the safe zone | Nothing important gets cut off or lands on a fold\nColour mode is CMYK, brand colours given as Pantone | Screen RGB colours shift when printed\nImages are at least 300 dpi at final size | Low resolution prints blurry\nFonts are outlined or embedded | Missing fonts get replaced with the wrong ones\nSmallest text is 6 pt or larger | Tiny text blurs, especially on kraft\nBarcodes are black on white, at 100% size | Scanners fail on coloured or shrunk barcodes\nDieline is on its own layer, not printed | Otherwise the template lines get printed\nFile is PDF, AI or EPS with vectors kept | Keeps logos and text sharp at any size"
     },
     {
-      "heading": "Check barcode and spelling",
-      "body": "Before final approval, customers should check barcode size, spelling, legal text, product claims, ingredients and all design details."
+      "heading": "Colours: CMYK, Pantone and why screens lie",
+      "body": "Your screen mixes red, green and blue light (RGB). Printers mix cyan, magenta, yellow and black inks (CMYK). Some bright screen colours, especially neon greens, electric blues and vivid oranges, simply cannot be reproduced exactly in CMYK, so they print duller than you expect.\n\nIf a colour is central to your brand, give its Pantone number. The printer can then match it closely or use a special ink. And always judge colour on a printed proof or sample, not on your monitor.\n\nOn kraft board every colour prints darker, because the brown shows through. Test light colours before committing to a big run."
+    },
+    {
+      "heading": "Plan every panel, not just the front",
+      "body": "Customers turn boxes around. Use each panel with a purpose:\n\nFront: logo, product name and the one line that says why it is good.\n\nSides: variant, size or scent, so the product is easy to find on a shelf.\n\nBack: description, ingredients or materials, instructions, legal text and the barcode.\n\nInside or under the lid: a thank-you message, social handle or QR code. This is the part people film when they unbox.\n\nFold the printed dieline into a paper mock-up before approving. It is the fastest way to catch a logo that ends up upside down."
+    },
+    {
+      "heading": "Mistakes that cause reprints",
+      "body": "Text too close to a fold or edge.\n\nArtwork that stops at the cut line with no bleed.\n\nRGB colours or low-resolution images pulled from a website.\n\nA barcode placed on a dark background or shrunk to fit.\n\nForgetting that the lid flap folds over, so its artwork appears the other way up.\n\nNone of these are hard to fix, but they are expensive once thousands of boxes are printed. A careful proof check is the cheapest insurance you can buy."
+    },
+    {
+      "heading": "Proofs: your last chance to catch errors",
+      "body": "Before production we send a digital proof: your artwork on the dieline, exactly as it will print. Check spelling, contact details, barcodes and the position of every element. Once you approve the proof, production starts, so take a few minutes over it.\n\nIf colour matters a lot, ask for a physical sample as well."
+    },
+    {
+      "heading": "No designer? We can help",
+      "body": "Send us your logo and brand colours with your quote request. We will send a free dieline, and for simple layouts our team can place your artwork and prepare the print file for you. We reply to quote requests usually within an hour during business hours."
     }
   ],
   "faqs": [
     {
-      "question": "Do I need a dieline for custom packaging?",
-      "answer": "Yes. Final production should use an approved dieline that matches box size, structure, bleed and safe area."
+      "question": "What is a dieline in packaging?",
+      "answer": "A dieline is the flat, unfolded template of a box that shows where the board will be cut, folded and glued. Artwork must be designed on the dieline for the exact board being used."
+    },
+    {
+      "question": "How much bleed does packaging artwork need?",
+      "answer": "Usually 3 mm (about 1/8 inch) beyond the cut line on every side, so no white edges appear after cutting."
+    },
+    {
+      "question": "Should my packaging artwork be CMYK or RGB?",
+      "answer": "CMYK. Printers use CMYK inks, so RGB files shift in colour. Give Pantone numbers for important brand colours."
     },
     {
       "question": "Which file format is best for packaging artwork?",
-      "answer": "Editable AI, PDF, EPS or high-quality print-ready files are commonly preferred for packaging production."
+      "answer": "A print-ready PDF, or an AI or EPS file, with fonts outlined, images at 300 dpi and the dieline on a separate layer."
     }
   ]
 }

@@ -1,5 +1,5 @@
 import type { SocialPlatform } from "@/data/socialLinks";
-import { activeSocialLinks } from "@/data/socialLinks";
+import { activeSocialLinks, socialLinks } from "@/data/socialLinks";
 
 const iconPaths: Record<SocialPlatform, string> = {
   linkedin:
@@ -51,15 +51,21 @@ export function SocialIcon({
   );
 }
 
-// Row of round icon links for every social profile that has a URL.
+// Row of round social icons. Profiles with a URL are coloured links.
+// With `showAll`, platforms without a URL yet are shown faded and not
+// clickable ("coming soon") until the link is added in /admin.
 export default function SocialIcons({
   tone = "dark",
   className = "",
+  showAll = false,
 }: {
   tone?: "dark" | "light";
   className?: string;
+  showAll?: boolean;
 }) {
-  if (activeSocialLinks.length === 0) {
+  const links = showAll ? socialLinks : activeSocialLinks;
+
+  if (links.length === 0) {
     return null;
   }
 
@@ -70,21 +76,36 @@ export default function SocialIcons({
 
   return (
     <ul className={`flex flex-wrap gap-2.5 ${className}`}>
-      {activeSocialLinks.map((link) => (
-        <li key={link.platform}>
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Printy Packaging on ${link.label}`}
-            title={link.label}
-            className={`flex h-10 w-10 items-center justify-center rounded-full border shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${style}`}
-            style={{ background: brandBackground[link.platform] }}
-          >
-            <SocialIcon platform={link.platform} className="h-[18px] w-[18px]" />
-          </a>
-        </li>
-      ))}
+      {links.map((link) => {
+        const isActive = activeSocialLinks.includes(link);
+
+        return (
+          <li key={link.platform}>
+            {isActive ? (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Printy Packaging on ${link.label}`}
+                title={link.label}
+                className={`flex h-10 w-10 items-center justify-center rounded-full border shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${style}`}
+                style={{ background: brandBackground[link.platform] }}
+              >
+                <SocialIcon platform={link.platform} className="h-[18px] w-[18px]" />
+              </a>
+            ) : (
+              <span
+                title={`${link.label} – coming soon`}
+                aria-label={`${link.label} coming soon`}
+                className={`flex h-10 w-10 cursor-default items-center justify-center rounded-full border opacity-35 grayscale ${style}`}
+                style={{ background: brandBackground[link.platform] }}
+              >
+                <SocialIcon platform={link.platform} className="h-[18px] w-[18px]" />
+              </span>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
