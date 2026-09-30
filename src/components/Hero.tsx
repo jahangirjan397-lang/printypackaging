@@ -41,7 +41,7 @@ const heroSlides = [
     title: "One brand look across every takeaway item.",
     description:
       "Bags, boxes, cups, trays and wraps printed as one coordinated food packaging set.",
-    image: "/images/home/home-hero-food-v5.webp",
+    image: "/images/home/home-hero-food-v5-brand.webp",
     href: "/products/food-packaging",
   },
   {
@@ -49,7 +49,7 @@ const heroSlides = [
     title: "Branded food wrapping that customers remember.",
     description:
       "Custom printed butter paper for bakeries, cafes, restaurants and takeaway brands.",
-    image: "/images/products/butter-paper/butter-paper-hero.webp",
+    image: "/images/products/butter-paper/butter-paper-hero-brand.webp",
     href: "/products/butter-paper",
   },
   {
@@ -57,7 +57,7 @@ const heroSlides = [
     title: "Shopping bags that carry your brand outside the store.",
     description:
       "Kraft, white and coloured paper bags with printed logos and rope or twisted handles.",
-    image: "/images/products/paper-bags/paper-bags-hero.webp",
+    image: "/images/products/paper-bags/paper-bags-hero-brand.webp",
     href: "/products/paper-bags",
   },
   {
@@ -65,7 +65,7 @@ const heroSlides = [
     title: "Printed cartons for retail shelves and product lines.",
     description:
       "Lightweight paperboard cartons with custom print, finishes and dieline support.",
-    image: "/images/products/folding-cartons/folding-cartons-hero-v4.webp",
+    image: "/images/products/folding-cartons/folding-cartons-hero-v4-brand.webp",
     href: "/products/folding-cartons",
   },
   {
@@ -73,7 +73,7 @@ const heroSlides = [
     title: "Beauty packaging with clean shelf presence.",
     description:
       "Cartons and presentation boxes for skincare, makeup and beauty brands.",
-    image: "/images/products/cosmetic-boxes/cosmetic-boxes-hero-v3.webp",
+    image: "/images/products/cosmetic-boxes/cosmetic-boxes-hero-v3-brand.webp",
     href: "/products/cosmetic-boxes",
   },
   {
@@ -89,7 +89,7 @@ const heroSlides = [
     title: "Takeaway boxes that hold up and look good.",
     description:
       "Printed burger boxes for restaurants, food trucks and delivery brands.",
-    image: "/images/products/burger-boxes/burger-boxes-hero.webp",
+    image: "/images/products/burger-boxes/burger-boxes-hero-brand-v2.webp",
     href: "/products/burger-boxes",
   },
   {
@@ -97,7 +97,7 @@ const heroSlides = [
     title: "Countertop displays that sell at the point of purchase.",
     description:
       "Branded display boxes for retail counters, promotions and product launches.",
-    image: "/images/products/display-boxes/display-boxes-hero-v4.webp",
+    image: "/images/products/display-boxes/display-boxes-hero-v4-brand.webp",
     href: "/products/display-boxes",
   },
 ];

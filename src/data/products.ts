@@ -504,27 +504,27 @@ const coreProducts: Product[] = [
     ["Cosmetics", "Food", "Retail", "Beverages", "E-commerce"],
     [
       {
-        src: "/images/products/labels-stickers/labels-stickers-hero.webp",
+        src: "/images/products/labels-stickers/labels-stickers-hero-brand.webp",
         alt: "Custom label rolls, sticker sheets and die-cut logo stickers",
         title: "Labels and Stickers Hero View",
       },
       {
-        src: "/images/products/labels-stickers/labels-stickers-front.webp",
+        src: "/images/products/labels-stickers/labels-stickers-front-brand.webp",
         alt: "Front view of custom printed labels and sticker assortment",
         title: "Labels and Stickers Front View",
       },
       {
-        src: "/images/products/labels-stickers/labels-stickers-open.webp",
+        src: "/images/products/labels-stickers/labels-stickers-open-brand.webp",
         alt: "Unrolled label strip with sticker sheets and die-cut pieces",
         title: "Labels and Stickers Open Roll View",
       },
       {
-        src: "/images/products/labels-stickers/labels-stickers-finish.webp",
+        src: "/images/products/labels-stickers/labels-stickers-finish-brand.webp",
         alt: "Close-up of label stock, die-cut edge and premium print finish",
         title: "Labels and Stickers Finish Detail",
       },
       {
-        src: "/images/products/labels-stickers/labels-stickers-lifestyle.webp",
+        src: "/images/products/labels-stickers/labels-stickers-lifestyle-brand.webp",
         alt: "Custom labels and stickers used on ecommerce shipping boxes",
         title: "Labels and Stickers Lifestyle View",
       },

@@ -63,7 +63,7 @@ export const inspirationGallery: InspirationImage[] = [
   { src: "/images/inspiration/bakery-24.webp", label: "Gable box", category: "bakery", product: "gable-boxes" },
   { src: "/images/products/bakery-boxes/bakery-boxes-hero.webp", label: "Window pastry box", category: "bakery", product: "bakery-boxes" },
   { src: "/images/products/bakery-boxes/bakery-boxes-lifestyle.webp", label: "Bakery box with pastries", category: "bakery", product: "bakery-boxes" },
-  { src: "/images/products/cake-boxes/cake-boxes-hero-v5.webp", label: "Kraft cake box", category: "bakery", product: "cake-boxes" },
+  { src: "/images/products/cake-boxes/cake-boxes-hero-v5-brand.webp", label: "Kraft cake box", category: "bakery", product: "cake-boxes" },
   { src: "/images/inspiration/bakery-29.webp", label: "Pillow box", category: "retail", product: "pillow-boxes" },
   { src: "/images/inspiration/bakery-30.webp", label: "Pillow box", category: "retail", product: "pillow-boxes" },
   { src: "/images/inspiration/carton-5.webp", label: "Printed tuck end cartons", category: "retail", product: "tuck-end-boxes" },

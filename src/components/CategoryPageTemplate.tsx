@@ -104,7 +104,7 @@ export default function CategoryPageTemplate({
         }
       : category.slug === "food-packaging"
         ? {
-            src: "/images/products/butter-paper/butter-paper-front.webp",
+            src: "/images/products/butter-paper/butter-paper-front-brand.webp",
             alt: "Custom printed butter paper roll, sheets and wrapped sandwich for food brands",
           }
         : heroProduct?.images?.[0];

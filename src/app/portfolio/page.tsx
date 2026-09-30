@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description:
       "Explore packaging structures, materials and print presentation through curated concept examples.",
     url: "https://printypackaging.com/portfolio",
-    images: ["/images/products/rigid-boxes/rigid-boxes-hero-v3.webp"],
+    images: ["/images/products/rigid-boxes/rigid-boxes-hero-v3-brand.webp"],
   },
 };
 
@@ -84,11 +84,11 @@ const gallery: GalleryItem[] = [
     description:
       "A coordinated carton family where each variant keeps its own colour and artwork.",
     cover: {
-      src: "/images/products/folding-cartons/folding-cartons-colour-set-v4.webp",
+      src: "/images/products/folding-cartons/folding-cartons-colour-set-v4-brand.webp",
       alt: "Four printed folding cartons in brown, orange, blue and black for a product line",
     },
     detail: {
-      src: "/images/products/folding-cartons/folding-cartons-tall-v4.webp",
+      src: "/images/products/folding-cartons/folding-cartons-tall-v4-brand.webp",
       alt: "Tall white folding cartons with a printed maze pattern",
     },
   },

@@ -61,7 +61,7 @@ const finishes = [
   },
   {
     title: "Window Patching",
-    image: "/images/products/window-boxes/window-boxes-hero-v3.webp",
+    image: "/images/products/window-boxes/window-boxes-hero-v3-brand.webp",
     imageAlt: "Kraft paper boxes with clear window cut-outs",
     text: "Window patching adds a transparent film window so customers can see the product inside the box.",
   },
