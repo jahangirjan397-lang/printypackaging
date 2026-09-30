@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import DrawnArrow from "@/components/DrawnArrow";
 import { businessPromises } from "@/data/businessInfo";
 
 // Headline numbers under the hero text (values live in data/businessInfo.ts)
@@ -195,7 +196,12 @@ export default function Hero() {
             UAE and worldwide brands.
           </p>
 
-          <div className="mt-7 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
+          <div className="relative mt-7 flex flex-wrap justify-center gap-3 sm:gap-4 lg:mt-14 lg:justify-start">
+            {/* Hand-drawn arrow pointing at the main call to action (desktop) */}
+            <DrawnArrow
+              direction="down-left"
+              className="pointer-events-none absolute -top-[3.9rem] left-[10.5rem] hidden h-16 w-20 lg:block"
+            />
             <a
               href="#quote"
               className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] md:px-7 md:py-4"

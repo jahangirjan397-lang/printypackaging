@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import DrawnArrow from "@/components/DrawnArrow";
 
 // Caveat (SIL Open Font License) is bundled in src/fonts so builds never
 // depend on downloading it from Google Fonts.
@@ -33,33 +34,9 @@ export default function HandNote({
         {children}
       </span>
       {arrow === "down-right" ? (
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 80 60"
-          className="hand-arrow h-12 w-16 translate-y-5 text-[#FF6A00]"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M4 8c18-4 38 2 50 16s14 22 14 28" />
-          <path d="m58 44 10 8 6-12" />
-        </svg>
+        <DrawnArrow direction="down-right" className="h-12 w-14 translate-y-5" />
       ) : (
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 80 40"
-          className="hand-arrow h-9 w-16 text-[#FF6A00]"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M4 26c14-16 36-18 64-6" />
-          <path d="m60 12 10 8-12 5" />
-        </svg>
+        <DrawnArrow direction="right" className="h-9 w-16" />
       )}
     </span>
   );

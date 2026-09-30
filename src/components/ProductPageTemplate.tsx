@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import DrawnArrow from "./DrawnArrow";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
 import { businessPromises } from "../data/businessInfo";
@@ -228,7 +229,11 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 {product.description}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="relative mt-8 flex flex-wrap gap-4 md:mt-14">
+                <DrawnArrow
+                  direction="down-left"
+                  className="pointer-events-none absolute -top-[3.9rem] left-[6.5rem] hidden h-16 w-20 md:block"
+                />
                 <Link
                   href={productQuoteLink}
                   prefetch={false}
