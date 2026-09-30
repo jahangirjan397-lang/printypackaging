@@ -364,7 +364,7 @@ export default function ProductsPage() {
             <div className="grid gap-6 md:grid-cols-3">
               <GuideCard
                 title="Need help choosing material?"
-                text="Select product style, quantity and size. Our team can guide you with SBS, art card, kraft, rigid board, corrugated or food-grade material."
+                text="Select product style, quantity and size. Our team can guide you with SBS, art card, kraft, rigid board, corrugated or greaseproof material."
               />
 
               <GuideCard

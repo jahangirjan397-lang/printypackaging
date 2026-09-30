@@ -118,8 +118,8 @@ function getProductMaterials(name: string, category: string) {
     text.includes("burger")
   ) {
     return [
-      "Food Grade SBS 250-400 GSM",
-      "Food Grade Kraft 200-350 GSM",
+      "SBS Board 250-400 GSM",
+      "Kraft Board 200-350 GSM",
       "Butter Paper 30-80 GSM",
       "Greaseproof Paper 40-70 GSM",
       "PE Coated Paper",
@@ -159,7 +159,7 @@ function getProductMaterials(name: string, category: string) {
     "Art Paper 128-200 GSM",
     "Duplex Board 300-500 GSM",
     "Kraft Card 250-450 GSM",
-    "Food Grade Card",
+    "Kraft Card 300 GSM",
   ];
 }
 
@@ -201,7 +201,7 @@ function getProductFinishes(name: string, category: string) {
       "All-Over Pattern Printing",
       "Printed One Side",
       "Custom Sheet or Roll Sizes",
-      "Paper and Ink Specs Confirmed in Writing on Request",
+      "Greaseproof Paper Option",
       "Plain (Unprinted) Option",
     ];
   }
@@ -214,12 +214,11 @@ function getProductFinishes(name: string, category: string) {
     text.includes("pizza")
   ) {
     return [
-      "Food Safe Printing",
       "Matte / Gloss Finish",
       "Grease Resistant Coating",
       "Die Cutting",
       "Window Patching",
-      "Food Grade Ink Guidance",
+      "Liners and Inserts",
     ];
   }
 
@@ -443,15 +442,15 @@ const coreProducts: Product[] = [
     "food-packaging",
     "Food Packaging",
     "Food Packaging",
-    "Food-safe custom packaging for restaurants and bakeries",
-    "Custom food packaging includes bakery boxes, burger boxes, pizza boxes, snack boxes, food wraps, paper bags and food-safe packaging solutions for restaurants, cafes, bakeries, takeaway shops and food brands that need practical branded packaging.",
+    "Custom printed packaging for restaurants and bakeries",
+    "Custom food packaging includes bakery boxes, burger boxes, pizza boxes, snack boxes, food wraps and paper bags for restaurants, cafes, bakeries, takeaway shops and food brands that need practical branded packaging.",
     [
       "custom food packaging",
       "bakery boxes",
       "burger boxes",
       "restaurant packaging",
       "food boxes",
-      "food-safe packaging",
+      "restaurant packaging boxes",
       "takeaway packaging",
       "printed food boxes",
       "custom bakery packaging",
@@ -661,8 +660,8 @@ const coreProducts: Product[] = [
     "bakery-boxes",
     "Bakery Boxes",
     "Food Packaging",
-    "Food-grade custom boxes for cakes, pastries and desserts",
-    "Custom bakery boxes provide secure and attractive packaging for cakes, cupcakes, pastries, cookies, donuts and desserts. Choose food-grade board, custom sizes, window options, branded logo printing and practical finishing to create professional takeaway and retail packaging for bakeries, cafes, cake shops and dessert brands.",
+    "Custom boxes for cakes, pastries and desserts",
+    "Custom bakery boxes provide secure and attractive packaging for cakes, cupcakes, pastries, cookies, donuts and desserts. Choose your board, custom sizes, window options, branded logo printing and practical finishing to create professional takeaway and retail packaging for bakeries, cafes, cake shops and dessert brands.",
     [
       "custom bakery boxes",
       "printed bakery boxes",
@@ -673,7 +672,7 @@ const coreProducts: Product[] = [
       "pastry boxes",
       "cookie boxes",
       "donut boxes",
-      "food grade bakery boxes",
+      "printed bakery boxes",
       "bakery boxes with logo",
       "wholesale bakery boxes",
       "takeaway dessert boxes",
@@ -686,15 +685,15 @@ const coreProducts: Product[] = [
     "burger-boxes",
     "Burger Boxes",
     "Food Packaging",
-    "Food-grade branded burger boxes for takeaway and delivery",
-    "Custom burger boxes help restaurants, fast-food brands, cafes and food trucks serve burgers in secure food-grade packaging. Choose kraft or white board, custom sizes, logo printing and grease-resistant finish guidance for professional dine-in, takeaway and food delivery presentation.",
+    "Branded burger boxes for takeaway and delivery",
+    "Custom burger boxes help restaurants, fast-food brands, cafes and food trucks serve burgers in sturdy branded packaging. Choose kraft or white board, custom sizes, logo printing and grease-resistant finish guidance for professional dine-in, takeaway and food delivery presentation.",
     [
       "custom burger boxes",
       "printed burger boxes",
       "burger packaging boxes",
       "burger takeaway boxes",
       "burger boxes with logo",
-      "food grade burger boxes",
+      "printed burger boxes",
       "kraft burger boxes",
       "cardboard burger boxes",
       "restaurant burger packaging",
@@ -718,7 +717,7 @@ const coreProducts: Product[] = [
     "Pizza Boxes",
     "Food Packaging",
     "Custom printed pizza boxes for secure delivery and takeaway",
-    "Custom pizza boxes are designed for safe takeaway, stacking and food delivery in sizes suited to your menu. Choose corrugated or kraft board, food-safe printing, branded artwork and practical finishing for pizzerias, restaurants, cloud kitchens and food delivery brands.",
+    "Custom pizza boxes are designed for safe takeaway, stacking and food delivery in sizes suited to your menu. Choose corrugated or kraft board, branded artwork and practical finishing for pizzerias, restaurants, cloud kitchens and food delivery brands.",
     [
       "custom pizza boxes",
       "printed pizza boxes",
@@ -726,7 +725,7 @@ const coreProducts: Product[] = [
       "branded pizza boxes",
       "corrugated pizza boxes",
       "kraft pizza boxes",
-      "food grade pizza boxes",
+      "printed pizza boxes",
       "takeaway pizza boxes",
       "pizza delivery boxes",
       "custom size pizza boxes",

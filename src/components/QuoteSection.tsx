@@ -110,10 +110,10 @@ const materialLibrary = {
     "Kraft Card 400 GSM",
     "Kraft Card 450 GSM",
 
-    "Food Grade Card 250 GSM",
-    "Food Grade Card 300 GSM",
-    "Food Grade Card 350 GSM",
-    "Food Grade Card 400 GSM",
+    "Card 250 GSM",
+    "Card 300 GSM",
+    "Card 350 GSM",
+    "Card 400 GSM",
 
     "Sticker Stock Paper",
     "Gloss Sticker Stock",
@@ -211,15 +211,15 @@ const materialLibrary = {
   food: [
     "Need suggestion",
 
-    "Food Grade SBS 250 GSM",
-    "Food Grade SBS 300 GSM",
-    "Food Grade SBS 350 GSM",
-    "Food Grade SBS 400 GSM",
+    "SBS 250 GSM",
+    "SBS 300 GSM",
+    "SBS 350 GSM",
+    "SBS 400 GSM",
 
-    "Food Grade Kraft 200 GSM",
-    "Food Grade Kraft 250 GSM",
-    "Food Grade Kraft 300 GSM",
-    "Food Grade Kraft 350 GSM",
+    "Kraft 200 GSM",
+    "Kraft 250 GSM",
+    "Kraft 300 GSM",
+    "Kraft 350 GSM",
 
     "PE Coated Paper",
     "Cup Stock Paper",

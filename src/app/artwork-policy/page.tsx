@@ -80,7 +80,7 @@ const sections: PolicySection[] = [
     id: "regulated",
     title: "Legal and regulated text",
     paragraphs: [
-      "You are responsible for the accuracy and legal compliance of product information on your packaging, such as ingredients, allergens, nutrition facts, dosage, safety warnings, recycling marks and country-of-origin text. We print the approved content as supplied and do not check it against the regulations of your market.",
+      "You are responsible for the accuracy and legal compliance of product information on your packaging, such as ingredients, allergens, nutrition facts, dosage, safety warnings, recycling marks and country-of-origin text. We print the approved content as supplied and do not check it against the regulations of your market. Our packaging is not certified for direct food contact, so do not describe it as food-safe on your packaging unless you have your own certification.",
     ],
   },
   {

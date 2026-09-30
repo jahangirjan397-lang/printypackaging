@@ -4,13 +4,9 @@
 // While a page is listed here it shows a "draft" banner, is hidden from
 // search engines, and is left out of the sitemap and footer. Remove a slug
 // once its wording is approved.
-export const draftPolicies = new Set<string>([
-  "terms",
-  "refund-policy",
-  "shipping-policy",
-  "artwork-policy",
-  "payment-policy",
-]);
+// All policies approved by the owner (30 Sep 2026). Add a slug back here to
+// mark a rewritten policy as a draft again.
+export const draftPolicies = new Set<string>([]);
 
 export function isDraftPolicy(slug: string) {
   return draftPolicies.has(slug);

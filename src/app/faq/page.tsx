@@ -39,7 +39,7 @@ const faqs = [
     category: "Material",
     question: "What materials can be used for custom boxes?",
     answer:
-      "Common options include paperboard, cardboard, corrugated stock, kraft board, rigid board, art card, SBS style board and food-safe packaging materials depending on the project.",
+      "Common options include paperboard, cardboard, corrugated stock, kraft board, rigid board, art card, SBS style board and greaseproof papers depending on the project.",
   },
   {
     category: "Finishing",
@@ -86,7 +86,7 @@ const supportCards = [
   },
   {
     title: "Material Guidance",
-    text: "Choose paperboard, kraft, corrugated, rigid board or food-safe packaging materials.",
+    text: "Choose paperboard, kraft, corrugated, rigid board or greaseproof papers.",
   },
   {
     title: "Finish Planning",

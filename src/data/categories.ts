@@ -92,9 +92,9 @@ export const categories: Category[] = [
   {
     slug: "food-packaging",
     name: "Food Packaging",
-    tagline: "Food-safe packaging for restaurants, bakeries and cafes",
+    tagline: "Branded packaging for restaurants, bakeries and cafes",
     description:
-      "Food packaging includes butter paper, bakery boxes, burger boxes, pizza boxes, food boxes and wrapping solutions for restaurants, cafes, bakeries, food trucks and takeaway brands. Printy Packaging helps food businesses plan branded food-safe packaging with practical material and printing guidance.",
+      "Food packaging includes butter paper, bakery boxes, burger boxes, pizza boxes, food boxes and wrapping solutions for restaurants, cafes, bakeries, food trucks and takeaway brands. Printy Packaging helps food businesses plan branded food packaging with practical material and printing guidance.",
     keywords: buildCategoryKeywords("Food Packaging", [
       "food packaging",
       "custom food boxes",
@@ -103,7 +103,7 @@ export const categories: Category[] = [
       "burger boxes",
       "pizza boxes",
       "restaurant packaging",
-      "food-safe packaging",
+      "takeaway packaging",
       "takeaway packaging",
     ]),
     productSlugs: [
@@ -114,7 +114,7 @@ export const categories: Category[] = [
       "pizza-boxes",
     ],
     benefits: [
-      "Food-safe packaging and wrapping options",
+      "Branded food packaging and wrapping options",
       "Useful for restaurants, cafes, bakeries and takeaway brands",
       "Custom logo printing for better food brand visibility",
       "Burger, pizza, bakery and butter paper packaging support",
@@ -134,7 +134,7 @@ export const categories: Category[] = [
       {
         question: "Which material is best for food packaging?",
         answer:
-          "The best material depends on food type, grease resistance, temperature, serving style and delivery method. Food-grade paper, kraft, SBS, greaseproof paper and coated paper may be used.",
+          "The best material depends on food type, grease resistance, temperature, serving style and delivery method. Paper, kraft, SBS, greaseproof paper and coated paper may be used.",
       },
     ],
   },
@@ -333,7 +333,7 @@ export const categories: Category[] = [
     name: "Bakery Packaging",
     tagline: "Boxes for cakes, cupcakes, cookies and pastries",
     description:
-      "Bakery packaging made with food-grade board: cake boxes with windows, cupcake boxes with inserts that stop sliding, cookie boxes, pastry boxes and greaseproof butter paper. Printed with your bakery logo so every order carries your name out of the shop.",
+      "Bakery packaging in SBS or kraft board: cake boxes with windows, cupcake boxes with inserts that stop sliding, cookie boxes, pastry boxes and greaseproof butter paper. Printed with your bakery logo so every order carries your name out of the shop.",
     keywords: buildCategoryKeywords("Bakery Packaging", [
       "bakery packaging",
       "bakery boxes",
@@ -344,7 +344,7 @@ export const categories: Category[] = [
     ]),
     productSlugs: ["bakery-boxes", "cake-boxes", "cupcake-boxes", "cookie-boxes", "window-boxes", "butter-paper"],
     benefits: [
-      "Food-contact board and ink options confirmed in writing with your quote",
+      "Greaseproof liners for buttery and oily bakes",
       "Windows so customers can see the bake before opening",
       "Inserts that hold cupcakes and macarons in place",
       "Grease-resistant options for buttery pastries",
@@ -353,7 +353,7 @@ export const categories: Category[] = [
     faqs: [
       {
         question: "Can bakery boxes touch food directly?",
-        answer: "Tell us what will touch the box. We confirm suitable board, coating and inks for direct food contact in writing with your quote. For oily items such as croissants, a grease-resistant coating or a butter paper liner helps.",
+        answer: "Our boxes are not certified for direct food contact, so use a greaseproof or butter paper liner between the food and the box. For oily items such as croissants, a greaseproof liner also keeps the box clean.",
       },
       {
         question: "Can cupcake boxes have inserts?",
@@ -386,12 +386,12 @@ export const categories: Category[] = [
       "Gift-ready rigid and drawer boxes for festive seasons",
       "Foil and embossing for a premium sweet-shop look",
       "Window boxes that show colourful sweets",
-      "Food-contact board and liners confirmed with your quote",
+      "Glassine or butter paper liners between sweets and the box",
     ],
     faqs: [
       {
         question: "Can you make inserts for chocolates?",
-        answer: "Yes. We make card and food-safe inserts sized to your truffles or bars, for 4, 9, 12, 16 or 24 pieces and more.",
+        answer: "Yes. We make card inserts sized to your truffles or bars, for 4, 9, 12, 16 or 24 pieces and more.",
       },
       {
         question: "Which box is best for Eid, Christmas or Valentine's collections?",
@@ -399,7 +399,7 @@ export const categories: Category[] = [
       },
       {
         question: "Can sweets touch the box directly?",
-        answer: "Tell us when sweets will touch the box and we confirm suitable board and inks in writing with your quote. Many brands also add a glassine or butter paper layer.",
+        answer: "Our boxes are not certified for direct food contact, so use a greaseproof or butter paper liner between the food and the box. Many chocolate brands use glassine cups or a butter paper layer.",
       },
     ],
   },

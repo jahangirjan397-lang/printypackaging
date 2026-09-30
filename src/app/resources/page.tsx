@@ -15,7 +15,7 @@ const resources = [
   {
     title: "Packaging Materials Guide",
     href: "/packaging-materials",
-    text: "Learn about paperboard, kraft, corrugated stock, rigid board, food-safe materials and label stock.",
+    text: "Learn about paperboard, kraft, corrugated stock, rigid board, greaseproof papers and label stock.",
   },
   {
     title: "Finishing Options Guide",

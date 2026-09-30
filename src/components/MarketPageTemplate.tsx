@@ -10,7 +10,7 @@ const guideLinks = [
   {
     title: "Packaging Materials",
     href: "/packaging-materials",
-    text: "Compare paperboard, kraft, corrugated, rigid board and food-safe material options.",
+    text: "Compare paperboard, kraft, corrugated, rigid board and greaseproof paper options.",
   },
   {
     title: "Finishing Options",

@@ -71,10 +71,10 @@ const mailerChecklist = [
 ];
 
 const bakeryBoards = [
-  { name: "Food-grade SBS 300–350 GSM", spec: "about 0.40–0.50 mm", bestFor: "Cupcakes, cookies and pastries — bright white print" },
-  { name: "Food-grade kraft 300–350 GSM", spec: "about 0.45–0.55 mm", bestFor: "Natural, eco look for artisan bakeries" },
-  { name: "Food-grade SBS 400 GSM", spec: "about 0.60 mm", bestFor: "Larger cake boxes and window boxes that need stiffness" },
-  { name: "E-flute with food-safe liner", spec: "about 1.5 mm", bestFor: "Heavy tiered cakes and delivery" },
+  { name: "SBS 300–350 GSM", spec: "about 0.40–0.50 mm", bestFor: "Cupcakes, cookies and pastries — bright white print" },
+  { name: "Kraft 300–350 GSM", spec: "about 0.45–0.55 mm", bestFor: "Natural, eco look for artisan bakeries" },
+  { name: "SBS 400 GSM", spec: "about 0.60 mm", bestFor: "Larger cake boxes and window boxes that need stiffness" },
+  { name: "E-flute with a liner", spec: "about 1.5 mm", bestFor: "Heavy tiered cakes and delivery" },
 ];
 
 const bakeryCompare = [
@@ -87,7 +87,7 @@ const bakeryCompare = [
 const foodChecklist = [
   "Tell us what goes inside and its size (cake diameter and height, cupcake liner size, cookie diameter)",
   "Say whether you need a window, a handle or an insert",
-  "Confirm the food will touch the board directly (we then use food-grade stock)",
+  "Tell us if food will sit directly in the box, so we can add space for a liner",
   "Share logo files as AI, PDF or SVG and colours as Pantone or CMYK",
   "Give the quantity per size and the delivery country",
 ];
@@ -364,14 +364,14 @@ export const styleGuides: StyleGuide[] = [
     name: "Cake Boxes",
     parent: "bakery-boxes",
     category: "Food Packaging",
-    tagline: "Custom printed cake boxes with windows, handles and food-safe board",
+    tagline: "Custom printed cake boxes with windows, handles and sturdy board",
     description:
-      `Custom cake boxes in food-grade SBS or kraft board, with optional window, handle and cake board. Printed with your bakery branding, MOQ from ${MOQ}, free dieline support and production in ${PRODUCTION}.`,
+      `Custom cake boxes in SBS or kraft board, with optional window, handle and cake board. Printed with your bakery branding, MOQ from ${MOQ}, free dieline support and production in ${PRODUCTION}.`,
     keywords: ["custom cake boxes", "cake boxes with window", "printed cake boxes", "cake boxes with logo", "bakery cake boxes", "wholesale cake boxes"],
     industries: ["Bakeries", "Cake Shops", "Cafes", "Home Bakers", "Hotels"],
     intro: [
       "A cake box has one job above all: get the cake home looking exactly as it left the counter. That means the right height so frosting never touches the lid, a base strong enough not to bow, and board that is safe to sit next to food.",
-      "Most bakeries choose a lock-corner or tuck-top cake box made from food-grade board, often with a PET window so the cake sells itself on display. Taller and heavier cakes move up to thicker SBS or a food-lined corrugated board, and many shops add a separate cake board so the cake can be lifted out cleanly.",
+      "Most bakeries choose a lock-corner or tuck-top cake box made from sturdy board, often with a PET window so the cake sells itself on display. Taller and heavier cakes move up to thicker SBS or a food-lined corrugated board, and many shops add a separate cake board so the cake can be lifted out cleanly.",
       "Printing your logo, colours and social handle on the lid turns every takeaway into advertising. We make each box to your cake sizes so there is no sliding in transit.",
     ],
     sizeNote: "Inside sizes for common round and square cakes. Allow at least 1 inch (25 mm) of height above the frosting.",
@@ -383,12 +383,12 @@ export const styleGuides: StyleGuide[] = [
       { name: "Tall cake", inches: "10 x 10 x 10 in", mm: "254 x 254 x 254 mm", bestFor: "Tall and tiered cakes" },
       { name: "Slice box", inches: "4.5 x 3.5 x 3.5 in", mm: "114 x 89 x 89 mm", bestFor: "Single slices and pastries" },
     ],
-    boardsTitle: "Food-safe board options",
+    boardsTitle: "Board options",
     boards: bakeryBoards,
     printing: [
       { title: "Logo on the lid", text: "One or two colour lid print — the most economical bakery branding." },
       { title: "Full-colour wrap", text: "Patterns and photography across every panel for premium cake shops." },
-      { title: "Window", text: "Food-safe PET window cut to your shape so the cake is on show." },
+      { title: "Window", text: "Clear PET window cut to your shape so the cake is on show." },
       { title: "Handle", text: "Built-in carry handle for larger cakes and takeaway." },
     ],
     costFactors: [
@@ -406,7 +406,7 @@ export const styleGuides: StyleGuide[] = [
     compare: bakeryCompare,
     checklist: foodChecklist,
     faqs: [
-      { question: "Are your cake boxes food safe?", answer: "Yes. We use food-grade SBS or kraft board and food-safe inks for boxes that hold cakes directly." },
+      { question: "Can cakes go straight into the box?", answer: "Our boxes are not certified for direct food contact, so use a greaseproof or butter paper liner between the food and the box. Most bakeries place cakes on a cake board inside the box." },
       { question: "How much taller than the cake should the box be?", answer: "Allow at least 1 inch (25 mm) above the highest point of the frosting or decoration so the lid never touches it." },
       { question: "Can I add a window?", answer: "Yes. We add a clear PET window in the lid or front panel, cut to any shape." },
       { question: "Do you make boxes for tall or tiered cakes?", answer: "Yes. Tall cakes use a taller box in thicker board or food-lined corrugated for strength." },
@@ -426,7 +426,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Food Packaging",
     tagline: "Cupcake boxes with inserts that keep every cupcake upright",
     description:
-      `Custom cupcake boxes for 1, 2, 4, 6, 12 and 24 cupcakes, with die-cut inserts, windows and food-grade board. Printed with your branding, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
+      `Custom cupcake boxes for 1, 2, 4, 6, 12 and 24 cupcakes, with die-cut inserts, windows and sturdy board. Printed with your branding, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["custom cupcake boxes", "cupcake boxes with inserts", "cupcake boxes with window", "printed cupcake boxes", "6 cupcake box", "12 cupcake box"],
     industries: ["Bakeries", "Cupcake Shops", "Cafes", "Event Caterers", "Home Bakers"],
     intro: [
@@ -443,7 +443,7 @@ export const styleGuides: StyleGuide[] = [
       { name: "12 cupcakes", inches: "14 x 10 x 4 in", mm: "356 x 254 x 102 mm", bestFor: "Parties and offices" },
       { name: "24 mini cupcakes", inches: "10 x 10 x 3 in", mm: "254 x 254 x 76 mm", bestFor: "Mini cupcakes and events" },
     ],
-    boardsTitle: "Food-safe board options",
+    boardsTitle: "Board options",
     boards: bakeryBoards,
     printing: [
       { title: "Die-cut insert", text: "Card inserts with holes sized to your liner keep cupcakes upright." },
@@ -486,7 +486,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Food Packaging",
     tagline: "Custom cookie boxes, sleeves and trays for bakeries and gifts",
     description:
-      `Custom cookie boxes in food-grade board: tuck-top boxes, sleeves with trays, window boxes and gift boxes. Greaseproof options, your branding, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
+      `Custom cookie boxes in SBS or kraft board: tuck-top boxes, sleeves with trays, window boxes and gift boxes. Greaseproof options, your branding, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["custom cookie boxes", "cookie packaging", "cookie gift boxes", "cookie boxes with window", "printed cookie boxes", "cookie sleeve boxes"],
     industries: ["Bakeries", "Cookie Brands", "Corporate Gifting", "Cafes", "Online Bakeries"],
     intro: [
@@ -502,7 +502,7 @@ export const styleGuides: StyleGuide[] = [
       { name: "Box of 12", inches: "12 x 9 x 2 in", mm: "305 x 229 x 51 mm", bestFor: "Party and office boxes" },
       { name: "Single cookie", inches: "4 x 4 x 1 in", mm: "102 x 102 x 25 mm", bestFor: "Favours and samples" },
     ],
-    boardsTitle: "Food-safe board options",
+    boardsTitle: "Board options",
     boards: bakeryBoards,
     printing: [
       { title: "Sleeve and tray", text: "A printed sleeve over a plain or kraft tray — premium feel at a sensible cost." },
@@ -524,7 +524,7 @@ export const styleGuides: StyleGuide[] = [
     compare: bakeryCompare,
     checklist: foodChecklist,
     faqs: [
-      { question: "How do I stop grease marks on cookie boxes?", answer: "Use a greaseproof liner or a coated food-grade board. Both keep butter and oil from showing through the print." },
+      { question: "How do I stop grease marks on cookie boxes?", answer: "Use a greaseproof liner or a grease-resistant coated board. Both keep butter and oil from showing through the print." },
       { question: "Can cookie boxes have a window?", answer: "Yes. We add a clear PET window in the lid or sleeve." },
       { question: "Do you make sleeve and tray cookie boxes?", answer: "Yes. The printed sleeve slides over a tray, which can include dividers." },
       { question: "What is the minimum order?", answer: `From ${MOQ} per size.` },
@@ -545,12 +545,12 @@ export const styleGuides: StyleGuide[] = [
     category: "Food Packaging",
     tagline: "Gable boxes with built-in handles for takeaway, gifts and events",
     description:
-      `Custom gable boxes with a built-in carry handle, in food-grade SBS or kraft board. Ideal for bakery takeaway, meals, party favours and gifts. MOQ from ${MOQ}, free dieline support, production in ${PRODUCTION}.`,
+      `Custom gable boxes with a built-in carry handle, in SBS or kraft board. Ideal for bakery takeaway, meals, party favours and gifts. MOQ from ${MOQ}, free dieline support, production in ${PRODUCTION}.`,
     keywords: ["custom gable boxes", "gable boxes with handle", "kraft gable boxes", "printed gable boxes", "gable gift boxes", "takeaway gable boxes"],
     industries: ["Bakeries", "Restaurants", "Events", "Retail Gifts", "Kids Parties"],
     intro: [
       "A gable box is a folding carton whose top panels rise into a peaked roof with a cut-out handle. It carries like a small bag, stands on a counter like a box, and needs no separate carrier — which is why bakeries, restaurants and event planners love it.",
-      "Gable boxes are made from a single sheet of board, usually food-grade SBS for bright printing or kraft for a natural look. They ship flat, fold up quickly and lock closed at the top without glue or tape.",
+      "Gable boxes are made from a single sheet of board, usually SBS for bright printing or kraft for a natural look. They ship flat, fold up quickly and lock closed at the top without glue or tape.",
       "Because every side is visible when the box is carried, gable boxes give you a lot of branding space. Print your logo on both sides and a message on the ends, or add a window to show what is inside.",
     ],
     sizeNote: "Common gable sizes (base length x width x height to the shoulder). Handles add about 2–3 inches on top.",
@@ -563,7 +563,7 @@ export const styleGuides: StyleGuide[] = [
     ],
     boardsTitle: "Board options for gable boxes",
     boards: [
-      { name: "Food-grade SBS 300–350 GSM", spec: "about 0.40–0.50 mm", bestFor: "Bright full-colour printing" },
+      { name: "SBS 300–350 GSM", spec: "about 0.40–0.50 mm", bestFor: "Bright full-colour printing" },
       { name: "Kraft 300–350 GSM", spec: "about 0.45–0.55 mm", bestFor: "Natural eco look" },
       { name: "SBS 400 GSM", spec: "about 0.60 mm", bestFor: "Heavier contents and larger sizes" },
       { name: "Coated / greaseproof board", spec: "SBS with coating", bestFor: "Oily food and takeaway meals" },
@@ -588,7 +588,7 @@ export const styleGuides: StyleGuide[] = [
     compare: bakeryCompare,
     checklist: foodChecklist,
     faqs: [
-      { question: "Are gable boxes strong enough for food?", answer: "Yes. In 350 GSM food-grade board they carry pastries, meals and gifts comfortably. Heavier contents use thicker board." },
+      { question: "Are gable boxes strong enough for food?", answer: "Yes. In 350 GSM board they carry pastries, meals and gifts comfortably. Heavier contents use thicker board." },
       { question: "Do gable boxes need glue or tape?", answer: "No. They ship flat and lock closed at the top with the built-in handle panels." },
       { question: "Can gable boxes have a window?", answer: "Yes. A clear PET window can be added on a side panel." },
       { question: "What is the minimum order?", answer: `From ${MOQ} per size.` },
@@ -761,12 +761,12 @@ export const styleGuides: StyleGuide[] = [
     category: "Eco Packaging",
     tagline: "Natural brown kraft boxes in every style — printed with your brand",
     description:
-      `Custom kraft boxes in recyclable brown kraft board: tuck end, gable, pillow, window and bakery styles. One-colour or full-colour print, food-grade options, MOQ from ${MOQ} and production in ${PRODUCTION}.`,
+      `Custom kraft boxes in recyclable brown kraft board: tuck end, gable, pillow, window and bakery styles. One-colour or full-colour print, window options, MOQ from ${MOQ} and production in ${PRODUCTION}.`,
     keywords: ["custom kraft boxes", "kraft paper boxes", "brown kraft boxes with logo", "eco friendly boxes", "recyclable packaging boxes", "kraft packaging"],
     industries: ["Organic & Natural Brands", "Food & Bakery", "Handmade Products", "Soap & Candles", "Gifts"],
     intro: [
       "Kraft board is made from unbleached wood pulp, which gives it its natural brown colour and strong fibres. It is widely recycled, often contains recycled content, and instantly signals an eco-conscious, handmade or organic brand.",
-      "Kraft is a material, not a single box style, so almost any structure can be made in kraft: tuck end cartons, gable boxes with handles, pillow boxes, window bakery boxes, sleeves and trays. Food-grade kraft is available for boxes that touch food directly.",
+      "Kraft is a material, not a single box style, so almost any structure can be made in kraft: tuck end cartons, gable boxes with handles, pillow boxes, window bakery boxes, sleeves and trays.",
       "Printing on kraft is different from white board. Dark inks look crisp and bold, while light colours look softer. A single dark logo is the classic, economical look; for bright artwork we print a white ink base first so colours stay true.",
     ],
     sizeNote: "Kraft boxes are made in any style and size. These are popular starting points.",
@@ -781,7 +781,7 @@ export const styleGuides: StyleGuide[] = [
     boards: [
       { name: "Kraft 300 GSM", spec: "about 0.45 mm", bestFor: "Pillow boxes, small cartons" },
       { name: "Kraft 350 GSM", spec: "about 0.50 mm", bestFor: "Most kraft boxes" },
-      { name: "Food-grade kraft 350 GSM", spec: "about 0.50 mm", bestFor: "Bakery and food contact" },
+      { name: "Kraft 350 GSM", spec: "about 0.50 mm", bestFor: "Bakery takeaway boxes" },
       { name: "Kraft E-flute", spec: "about 1.5 mm", bestFor: "Heavier products and shipping" },
     ],
     printing: [
@@ -793,7 +793,7 @@ export const styleGuides: StyleGuide[] = [
     costFactors: [
       { title: "Style", text: "Gable and window boxes use more board and steps than a simple tuck box." },
       { title: "White ink", text: "Full-colour on kraft needs a white base, which adds a pass." },
-      { title: "Food grade", text: "Food-contact kraft costs slightly more than standard kraft." },
+      { title: "Liners", text: "Greaseproof or butter paper liners add a small cost per box." },
       { title: "Quantity", text: "Larger runs lower the price per box." },
     ],
     savingTips: [
@@ -817,7 +817,7 @@ export const styleGuides: StyleGuide[] = [
     faqs: [
       { question: "Are kraft boxes recyclable?", answer: "Yes. Kraft board is widely recyclable. Avoid plastic lamination and windows if you want the whole box to go into paper recycling." },
       { question: "Can you print white or bright colours on kraft?", answer: "Yes, with a white ink base underneath. Without it, light colours look softer on brown." },
-      { question: "Are your kraft boxes food safe?", answer: "We offer food-grade kraft board for boxes that hold food directly." },
+      { question: "Can food touch kraft boxes directly?", answer: "Our boxes are not certified for direct food contact, so use a greaseproof or butter paper liner between the food and the box." },
       { question: "What is the minimum order?", answer: `From ${MOQ}.` },
       { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],

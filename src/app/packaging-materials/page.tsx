@@ -37,10 +37,10 @@ const materials = [
     text: "Rigid board is used for luxury packaging, gift boxes, premium product boxes, magnetic closure boxes and high-end presentation packaging.",
   },
   {
-    title: "Food-Safe Materials",
+    title: "Food Packaging Materials",
     image: "/images/materials/food-safe-paper-v3.webp",
     imageAlt: "Butter paper, parchment and kraft sheets used for food packaging",
-    text: "Food packaging may need food-safe paper, coating, grease resistance, butter paper or suitable board depending on the product and use.",
+    text: "Food packaging may need greaseproof paper, coatings, grease resistance, butter paper or suitable board depending on the product and use.",
   },
   {
     title: "Sticker & Label Stock",
@@ -83,7 +83,7 @@ const guidePoints = [
   "Printing quality",
   "Finishing option",
   "Shipping method",
-  "Food-safe requirement",
+  "Food contact use",
   "Luxury look",
   "Budget target",
 ];

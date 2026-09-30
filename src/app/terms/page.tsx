@@ -110,7 +110,7 @@ const sections: PolicySection[] = [
     id: "liability",
     title: "Limit of liability",
     paragraphs: [
-      "Our total liability for any order is limited to reprinting the defective items or, where a reprint is not possible, the amount paid for those items. We are not liable for indirect or consequential losses, including lost sales, lost profit, missed launch dates, marketplace penalties or the value of products packed in our packaging. Nothing in these terms limits rights that cannot be limited under the law that applies to the customer.",
+      "Our total liability for any order is limited to reprinting the defective items or, where a reprint is not possible, the amount paid for those items. We are not liable for indirect or consequential losses, including lost sales, lost profit, missed launch dates, marketplace penalties or the value of products packed in our packaging. Printy Packaging does not certify its packaging as food-grade or food-safe; if packaging will touch food, the customer is responsible for checking it is suitable and for using a liner where needed. Nothing in these terms limits rights that cannot be limited under the law that applies to the customer.",
     ],
   },
   {

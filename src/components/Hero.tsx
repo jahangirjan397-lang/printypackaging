@@ -79,7 +79,7 @@ const heroSlides = [
     eyebrow: "Bakery Boxes",
     title: "Window boxes that keep cakes and pastries on show.",
     description:
-      "Food-grade bakery boxes for cakes, cupcakes, cookies and desserts.",
+      "Branded bakery boxes for cakes, cupcakes, cookies and desserts.",
     image: "/images/products/bakery-boxes/bakery-boxes-hero-v4.webp",
     href: "/products/bakery-boxes",
   },
