@@ -10,9 +10,9 @@ const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
 
 export const metadata: Metadata = {
-  title: "Custom Packaging Products | Boxes, Bags, Labels & Food Packaging",
+  title: "Custom Packaging Products & Box Styles",
   description:
-    "Explore custom packaging products including rigid boxes, folding cartons, mailer boxes, butter paper, food packaging, paper bags, labels, stickers and luxury packaging.",
+    "Browse custom packaging products: rigid boxes, folding cartons, mailer boxes, butter paper, food packaging, paper bags, labels and stickers.",
   alternates: {
     canonical: `${siteUrl}/products`,
   },

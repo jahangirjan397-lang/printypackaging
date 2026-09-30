@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://printypackaging.com/sample-kit",
   },
-  title: "Packaging Sample Kit Guide | Custom Box Samples & Material Review",
+  title: "Custom Box Samples & Sample Kit Guide",
   description:
     "Learn how packaging samples help review materials, print quality, finishing, rigid boxes, folding cartons, mailer boxes and custom packaging decisions.",
 };
@@ -80,7 +80,7 @@ export default function SampleKitPage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=rigid-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Ask About Samples
@@ -181,7 +181,7 @@ export default function SampleKitPage() {
               </Link>
 
               <Link
-                href="/?product=rigid-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Request Quote

@@ -9,6 +9,17 @@
 import business from "../../content/settings/business.json";
 import reviews from "../../content/settings/reviews.json";
 
+// Team inboxes. Sales handles quotes and new orders; support handles
+// order updates, quality claims, reprints and shipping questions.
+export const teamEmails = {
+  sales: "sales@printypackaging.com",
+  support: "support@printypackaging.com",
+};
+
+// Set to true once the card/PayPal/Stripe merchant accounts are live, to show
+// the payment brand icons on the home page.
+export const paymentMethodsVerified = false;
+
 export const businessPromises = {
   // Smallest order you accept for most box styles
   minimumOrder: business.minimumOrder,

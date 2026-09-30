@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://printypackaging.com/resources",
   },
-  title: "Packaging Resources | Materials, Finishes, Artwork & Samples",
+  title: "Packaging Resources & Buying Guides",
   description:
     "Explore Printy Packaging resources for custom packaging materials, finishing options, artwork preparation, dielines, samples and quote planning.",
 };

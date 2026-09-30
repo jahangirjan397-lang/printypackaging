@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { SocialIcon, brandBackground } from "@/components/SocialIcons";
 import { activeSocialLinks } from "@/data/socialLinks";
-import { salesPhone, salesTeam } from "@/data/businessInfo";
+import { salesPhone, salesTeam, teamEmails } from "@/data/businessInfo";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Custom Packaging Quote Support",
+  title: "Contact Us | Custom Packaging Quotes",
   description:
-    "Contact Printy Packaging for custom boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, labels, stickers and luxury printed packaging quote support.",
+    "Contact Printy Packaging for a custom box quote. Email, WhatsApp or live chat for rigid boxes, mailer boxes, food packaging, butter paper and labels.",
   alternates: {
     canonical: "https://printypackaging.com/contact",
   },
@@ -32,12 +32,12 @@ const contactOptions = [
     action: "Open WhatsApp",
   },
   {
-    title: "USA Quote Support",
-    value: "Online support available",
+    title: "Customer Support & Claims",
+    value: teamEmails.support,
     detail:
-     "Fast quote support is available through email, WhatsApp, live chat and our secure online quote form.",
-    href: "/#quote",
-    action: "Request Quote",
+      "Existing orders: tracking, delivery questions, quality claims and reprints. Please include your order number.",
+    href: `mailto:${teamEmails.support}`,
+    action: "Email Support",
   },
 ];
 
@@ -66,6 +66,13 @@ export default function ContactPage() {
           "@type": "ContactPoint",
           email: "sales@printypackaging.com",
           contactType: "sales",
+          areaServed: ["US", "GB", "EU", "AE"],
+          availableLanguage: ["English"],
+        },
+        {
+          "@type": "ContactPoint",
+          email: teamEmails.support,
+          contactType: "customer support",
           areaServed: ["US", "GB", "EU", "AE"],
           availableLanguage: ["English"],
         },

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://printypackaging.com/packaging-materials",
   },
-  title: "Packaging Materials Guide | Paperboard, Kraft, Corrugated & Rigid Board",
+  title: "Packaging Materials Guide: Board & Paper",
   description:
     "Learn about custom packaging materials including paperboard, kraft board, corrugated stock, rigid board, food packaging materials and premium box materials.",
 };
@@ -115,7 +115,7 @@ export default function PackagingMaterialsPage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Material Quote
@@ -275,7 +275,7 @@ export default function PackagingMaterialsPage() {
               </Link>
 
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Request Quote

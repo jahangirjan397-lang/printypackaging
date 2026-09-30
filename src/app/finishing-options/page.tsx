@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://printypackaging.com/finishing-options",
   },
-  title: "Packaging Finishing Options | Foil, Embossing, Spot UV & Lamination",
+  title: "Box Finishes: Foil, Spot UV & Embossing",
   description:
     "Explore premium packaging finishing options including matte lamination, gloss lamination, soft touch, spot UV, foil stamping, embossing and window patching.",
 };
@@ -111,7 +111,7 @@ export default function FinishingOptionsPage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=rigid-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Finish Quote
@@ -245,7 +245,7 @@ export default function FinishingOptionsPage() {
               </Link>
 
               <Link
-                href="/?product=rigid-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Request Quote

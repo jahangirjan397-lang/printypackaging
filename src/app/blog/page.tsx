@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://printypackaging.com/blog",
   },
-  title: "Packaging Blog | Custom Boxes, Materials, Finishes & Quote Guides",
+  title: "Packaging Blog: Guides for Custom Boxes",
   description:
     "Read Printy Packaging blog guides about custom boxes, packaging materials, finishing options, artwork, dielines, ecommerce packaging and food packaging.",
 };

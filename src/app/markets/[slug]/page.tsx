@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
 import MarketPageTemplate from "../../../components/MarketPageTemplate";
 import { getMarketBySlug, markets } from "../../../data/markets";
+import { products } from "../../../data/products";
+import { metaDescription, metaTitle } from "@/lib/seo";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -38,8 +40,18 @@ export async function generateMetadata({
   }
 
   const marketUrl = `${siteUrl}/markets/${market.slug}`;
-  const title = `Custom Packaging for ${market.name} | ${brandName}`;
-  const description = market.description;
+  const title = metaTitle(
+    `Custom Packaging Boxes for ${market.name} Brands | ${brandName}`,
+    `Custom Packaging for ${market.name} | ${brandName}`
+  );
+  const description = metaDescription(market.description);
+  // Share image: first photo of the first product popular in this market
+  const coverImage = market.productSlugs
+    .map((productSlug) => products.find((product) => product.slug === productSlug)?.images?.[0])
+    .find(Boolean);
+  const socialImages = coverImage
+    ? [{ url: `${siteUrl}${coverImage.src}`, alt: coverImage.alt }]
+    : undefined;
 
   return {
     title: { absolute: title },
@@ -55,11 +67,13 @@ export async function generateMetadata({
       siteName: brandName,
       type: "website",
       locale: "en_US",
+      images: socialImages,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: socialImages?.map((image) => image.url),
     },
     robots: {
       index: true,

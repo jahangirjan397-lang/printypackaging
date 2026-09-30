@@ -9,14 +9,15 @@ import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
 import PaymentMethodsSection from "../components/PaymentMethodsSection";
+import { paymentMethodsVerified } from "@/data/businessInfo";
 import QuoteSection from "../components/QuoteSection";
 import BoxFinder from "../components/BoxFinder";
 import CustomerReviewsSection from "../components/CustomerReviewsSection";
 
 export const metadata: Metadata = {
-  title: "Custom Boxes, Rigid Boxes & Food Packaging",
+  title: { absolute: "Custom Packaging Boxes with Logo | Printy Packaging" },
   description:
-    "Printy Packaging provides premium custom boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels and stickers for USA, UK, Europe, UAE and worldwide brands.",
+    "Custom printed boxes, rigid boxes, mailer boxes, food packaging, butter paper and labels for USA, UK, Europe and UAE brands. Get a free packaging quote.",
   alternates: {
     canonical: "https://printypackaging.com",
   },
@@ -59,7 +60,7 @@ export default function Home() {
       <IndustryBuyerSection />
       <CustomerReviewsSection />
       <QuoteSection />
-      <PaymentMethodsSection />
+      {paymentMethodsVerified && <PaymentMethodsSection />}
     </>
   );
 }

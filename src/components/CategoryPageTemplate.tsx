@@ -284,10 +284,10 @@ export default function CategoryPageTemplate({
               </div>
               <div className="px-2 pb-1 pt-5">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                  Curated Packaging Range
+                  Products in this category
                 </p>
                 <p className="mt-2 max-w-md text-xl font-black leading-7 text-white sm:text-2xl">
-                  {categoryProducts.length} connected product styles with materials, finishes and quote guidance.
+                  {categoryProducts.length} product styles, each with sizes, materials, finishes and a quote form.
                 </p>
               </div>
             </div>

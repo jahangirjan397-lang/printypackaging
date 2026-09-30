@@ -426,9 +426,9 @@ export default function QuoteSection() {
   const sizeValue = [size.length, size.width, size.height].some(Boolean)
     ? `${size.length || "?"} x ${size.width || "?"} x ${size.height || "?"} ${size.unit}`
     : "";
-  const [selectedProduct, setSelectedProduct] = useState(
-    products[0]?.name || ""
-  );
+  // Empty until the buyer picks a product or arrives from a product page
+  // link (?product=slug), so generic "Get Quote" links preselect nothing
+  const [selectedProduct, setSelectedProduct] = useState("");
 
   const materialOptions = useMemo(() => {
     const materialType = getMaterialType(selectedProduct);
@@ -644,8 +644,12 @@ export default function QuoteSection() {
                   name="product"
                   value={selectedProduct}
                   onChange={(event) => setSelectedProduct(event.target.value)}
+                  required
                   className="field-input field-compact"
                 >
+                  <option value="" disabled>
+                    Select a product
+                  </option>
                   {products.map((product) => (
                     <option key={product.slug} value={product.name}>
                       {product.name}

@@ -41,7 +41,7 @@ function getMarketPreview(slug: string) {
 export const metadata: Metadata = {
   title: "International Packaging Markets",
   description:
-    "Explore custom packaging solutions for USA, UK, Canada, Europe, UAE and Australia buyers. Get custom boxes, food packaging, paper bags, labels and luxury packaging support.",
+    "Custom packaging for brands in the USA, UK, Canada, Europe, UAE and Australia: custom boxes, food packaging, paper bags and labels shipped to your door.",
   alternates: {
     canonical: `${siteUrl}/markets`,
   },
@@ -172,7 +172,7 @@ export default function MarketsPage() {
                   International quote support
                 </p>
                 <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
-                  Product, material, finish and delivery requirements kept in one buyer journey.
+                  Tell us the product, material, finish and delivery country in one quote request.
                 </p>
               </div>
             </div>

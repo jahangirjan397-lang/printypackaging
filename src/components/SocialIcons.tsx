@@ -52,18 +52,26 @@ export function SocialIcon({
 }
 
 // Row of round social icons. Profiles with a URL are coloured links.
-// With `showAll`, platforms without a URL yet are shown faded and not
-// clickable ("coming soon") until the link is added in /admin.
+// With `showAll`, platforms without a URL yet are shown in their brand
+// colour but are not clickable ("coming soon") until the link is added in /admin.
 export default function SocialIcons({
   tone = "dark",
   className = "",
   showAll = false,
+  platforms,
 }: {
   tone?: "dark" | "light";
   className?: string;
   showAll?: boolean;
+  // Limit the row to these platforms (in this order)
+  platforms?: SocialPlatform[];
 }) {
-  const links = showAll ? socialLinks : activeSocialLinks;
+  const pool = showAll ? socialLinks : activeSocialLinks;
+  const links = platforms
+    ? platforms
+        .map((platform) => pool.find((link) => link.platform === platform))
+        .filter((link): link is (typeof pool)[number] => Boolean(link))
+    : pool;
 
   if (links.length === 0) {
     return null;
@@ -97,7 +105,7 @@ export default function SocialIcons({
               <span
                 title={`${link.label} – coming soon`}
                 aria-label={`${link.label} coming soon`}
-                className={`flex h-10 w-10 cursor-default items-center justify-center rounded-full border opacity-35 grayscale ${style}`}
+                className={`flex h-10 w-10 cursor-default items-center justify-center rounded-full border shadow-sm ${style}`}
                 style={{ background: brandBackground[link.platform] }}
               >
                 <SocialIcon platform={link.platform} className="h-[18px] w-[18px]" />

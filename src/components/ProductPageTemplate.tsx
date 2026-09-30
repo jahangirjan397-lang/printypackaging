@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
 import { businessPromises } from "../data/businessInfo";
+import { printCategory } from "../data/printProducts";
 import BuyerTrustSection from "./BuyerTrustSection";
 import ProductGuideLinksSection from "./ProductGuideLinksSection";
 import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
@@ -247,7 +248,14 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
               <dl className="mt-8 grid gap-3 sm:grid-cols-3">
                 {[
-                  { label: "Minimum order", value: businessPromises.minimumOrder },
+                  {
+                    label: "Minimum order",
+                    // Print items are counted in pieces, not boxes
+                    value:
+                      product.category === printCategory
+                        ? businessPromises.minimumOrder.replace(/boxes?/i, "pieces")
+                        : businessPromises.minimumOrder,
+                  },
                   { label: "Production", value: businessPromises.productionTime },
                   { label: "Quote reply", value: businessPromises.quoteResponse },
                 ].map((item) => (

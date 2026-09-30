@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   },
   title: "Packaging FAQ | Custom Boxes Questions",
   description:
-    "Find answers about custom packaging quotes, box styles, materials, printing, finishing, artwork, samples and international packaging orders for USA, UK, Canada and worldwide buyers.",
+    "Answers about custom packaging quotes, box styles, materials, printing, finishes, artwork, samples, MOQ and shipping for USA, UK and Canada buyers.",
 };
 
 const faqs = [
@@ -149,7 +149,7 @@ export default function FAQPage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-orange-500 px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-orange-400"
               >
                 Get Quote
@@ -295,7 +295,7 @@ export default function FAQPage() {
               </a>
 
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-orange-500 px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-orange-400"
               >
                 Get Quote

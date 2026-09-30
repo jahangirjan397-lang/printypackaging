@@ -1,3 +1,10 @@
+import { businessPromises } from "./businessInfo";
+
+// Order promises come from /admin -> Business Info, so every style page
+// shows the same minimum order and production time.
+const MOQ = businessPromises.minimumOrder;
+const PRODUCTION = businessPromises.productionTime;
+
 // Long-form buyer guides for individual box styles. Each guide becomes a
 // product page (see data/products.ts) with size charts, board specs, cost
 // drivers and style-specific FAQs rendered by components/StyleGuideSections.
@@ -95,7 +102,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Corrugated Packaging",
     tagline: "Natural brown corrugated mailers with your brand printed on",
     description:
-      "Custom kraft mailer boxes made from brown corrugated board, printed with your logo inside or out. A natural, eco-minded look for ecommerce, subscription and gift brands, with free dieline support, MOQ from 100 boxes and 12–15 business day production.",
+      `Custom kraft mailer boxes made from brown corrugated board, printed with your logo inside or out. A natural, eco-minded look for ecommerce, subscription and gift brands, with free dieline support, MOQ from ${MOQ} and production in ${PRODUCTION}.`,
     keywords: ["kraft mailer boxes", "custom kraft mailer boxes", "brown mailer boxes", "eco friendly mailer boxes", "kraft shipping boxes with logo", "printed kraft mailers"],
     industries: ["Ecommerce", "Apparel", "Candles", "Organic Food", "Subscription Boxes"],
     intro: [
@@ -131,8 +138,8 @@ export const styleGuides: StyleGuide[] = [
     faqs: [
       { question: "Are kraft mailer boxes recyclable?", answer: "Yes. Kraft corrugated board is widely recyclable and can be made with recycled content. Avoid plastic lamination if you want the box to stay fully recyclable." },
       { question: "Can you print white or bright colours on kraft?", answer: "Yes. We print an opaque white ink base first so light colours stay bright. Without it, light colours look softer on the brown liner." },
-      { question: "What is the minimum order for kraft mailer boxes?", answer: "Our minimum order starts from 100 boxes. The price per box falls as the quantity increases." },
-      { question: "How long does production take?", answer: "Standard production is 12–15 business days after you approve the digital proof, plus shipping time to your country." },
+      { question: "What is the minimum order for kraft mailer boxes?", answer: `Our minimum order starts from ${MOQ}. The price per box falls as the quantity increases.` },
+      { question: "How long does production take?", answer: `Standard production is ${PRODUCTION} after you approve the digital proof, plus shipping time to your country.` },
       { question: "Which flute should I choose for kraft mailers?", answer: "E-flute suits most ecommerce products up to about 2–3 kg. Choose B-flute or double wall for heavy, fragile or high-value items." },
       { question: "Can I get a sample before the bulk order?", answer: "Yes. We share a free digital proof for every order and a free sample kit on orders of 10,000+ units." },
     ],
@@ -145,7 +152,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Corrugated Packaging",
     tagline: "Bold black mailers for premium ecommerce unboxing",
     description:
-      "Custom black mailer boxes with a deep black finish and your logo in white, foil or spot UV. Made to size in E-flute or B-flute corrugated board, MOQ from 100 boxes, free dieline support and 12–15 business day production.",
+      `Custom black mailer boxes with a deep black finish and your logo in white, foil or spot UV. Made to size in E-flute or B-flute corrugated board, MOQ from ${MOQ}, free dieline support and production in ${PRODUCTION}.`,
     keywords: ["black mailer boxes", "custom black mailer boxes", "black shipping boxes", "black boxes with logo", "matte black mailer boxes", "luxury mailer boxes"],
     industries: ["Fashion", "Cosmetics", "Tech Accessories", "Luxury Gifts", "Subscription Boxes"],
     intro: [
@@ -181,8 +188,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "Do black mailer boxes scratch easily?", answer: "Unprotected black print can show scuffs. We recommend anti-scratch matte lamination for black mailers that ship through courier networks." },
       { question: "What logo finishes work best on black?", answer: "White ink, gold or silver foil and spot UV on matte black all give strong contrast. Foil gives the most premium look." },
       { question: "Can the inside be a different colour?", answer: "Yes. Many brands print the inside in a bright brand colour or pattern so the box reveals a surprise when opened." },
-      { question: "What is the minimum order?", answer: "Black mailer boxes start from 100 boxes, with lower unit prices at higher quantities." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `Black mailer boxes start from ${MOQ}, with lower unit prices at higher quantities.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["mailer-boxes", "kraft-mailer-boxes", "white-mailer-boxes", "subscription-boxes", "rigid-boxes"],
   },
@@ -193,7 +200,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Corrugated Packaging",
     tagline: "Clean white mailers that make full-colour print pop",
     description:
-      "Custom white mailer boxes with a bright white outer liner for vivid full-colour CMYK printing. Ideal for beauty, wellness, kids and lifestyle brands. MOQ from 100 boxes, free dieline and digital proof, 12–15 business day production.",
+      `Custom white mailer boxes with a bright white outer liner for vivid full-colour CMYK printing. Ideal for beauty, wellness, kids and lifestyle brands. MOQ from ${MOQ}, free dieline and digital proof, production in ${PRODUCTION}.`,
     keywords: ["white mailer boxes", "custom white mailer boxes", "white shipping boxes", "printed white mailers", "white corrugated boxes with logo"],
     industries: ["Beauty", "Wellness", "Baby & Kids", "Lifestyle", "Ecommerce"],
     intro: [
@@ -227,8 +234,8 @@ export const styleGuides: StyleGuide[] = [
     faqs: [
       { question: "Do white mailer boxes get dirty in shipping?", answer: "They can show marks more than kraft. A coating or lamination helps keep them clean, and many brands ship them inside an outer carton for wholesale orders." },
       { question: "Can you match my brand colours exactly?", answer: "Yes. We can print Pantone spot colours for exact brand matching, or CMYK for full-colour artwork." },
-      { question: "What is the minimum order?", answer: "From 100 boxes, with the unit price falling as quantity increases." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping to your country." },
+      { question: "What is the minimum order?", answer: `From ${MOQ}, with the unit price falling as quantity increases.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping to your country.` },
       { question: "Do I get a proof before printing?", answer: "Yes. Every order gets a free digital proof, and a free sample kit is included on orders of 10,000+ units." },
     ],
     related: ["mailer-boxes", "kraft-mailer-boxes", "black-mailer-boxes", "subscription-boxes", "cosmetic-boxes"],
@@ -240,7 +247,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Corrugated Packaging",
     tagline: "Custom printed corrugated shipping boxes sized to your products",
     description:
-      "Custom shipping boxes in single and double wall corrugated board, printed with your logo and sized to cut dimensional-weight costs. MOQ from 100 boxes, free dieline support and 12–15 business day production for USA, UK, EU and UAE brands.",
+      `Custom shipping boxes in single and double wall corrugated board, printed with your logo and sized to cut dimensional-weight costs. MOQ from ${MOQ}, free dieline support and production in ${PRODUCTION} for USA, UK, EU and UAE brands.`,
     keywords: ["custom shipping boxes", "printed shipping boxes", "corrugated shipping boxes", "custom boxes for shipping", "shipping boxes with logo", "custom corrugated boxes"],
     industries: ["Ecommerce", "Wholesale", "Home & Kitchen", "Electronics", "Fulfilment"],
     intro: [
@@ -294,8 +301,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "What is dimensional weight?", answer: "Couriers charge by the larger of actual weight or dimensional weight. For many US domestic services, dimensional weight is length x width x height in inches divided by 139. Right-sized boxes keep this number low." },
       { question: "Single wall or double wall?", answer: "Single wall suits most ecommerce parcels. Double wall is for heavy, fragile or palletised shipments where extra crush strength is needed." },
       { question: "Can you print on the inside?", answer: "Yes. Inside printing is popular for thank-you messages, offers and QR codes." },
-      { question: "What is the minimum order?", answer: "From 100 boxes per size, with lower prices at higher quantities." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus freight." },
+      { question: "What is the minimum order?", answer: `From ${MOQ} per size, with lower prices at higher quantities.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus freight.` },
     ],
     related: ["mailer-boxes", "kraft-mailer-boxes", "subscription-boxes", "display-boxes", "kraft-boxes"],
   },
@@ -306,7 +313,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Corrugated Packaging",
     tagline: "Custom subscription boxes built for a repeat unboxing moment",
     description:
-      "Custom subscription boxes with inside and outside printing, inserts and consistent colour for every monthly or quarterly drop. MOQ from 100 boxes, free design and dieline support, 12–15 business day production.",
+      `Custom subscription boxes with inside and outside printing, inserts and consistent colour for every monthly or quarterly drop. MOQ from ${MOQ}, free design and dieline support, production in ${PRODUCTION}.`,
     keywords: ["custom subscription boxes", "subscription box packaging", "monthly subscription boxes", "printed subscription boxes", "subscription mailer boxes"],
     industries: ["Beauty", "Snacks", "Books", "Pet Products", "Wellness"],
     intro: [
@@ -347,8 +354,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "Can each month's box look different?", answer: "Yes. The most cost-effective way is one standard printed box with a changing sleeve, sticker or insert card. Fully different print runs are also possible." },
       { question: "Do you keep my artwork for reorders?", answer: "Yes. We keep your approved dieline and specifications on file so reorders match the previous run." },
       { question: "Can you add inserts?", answer: "Yes. We make die-cut card and corrugated inserts sized to your items." },
-      { question: "What is the minimum order?", answer: "From 100 boxes. Ordering several months at once lowers the unit price." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping. Plan reorders about a month ahead of each edition." },
+      { question: "What is the minimum order?", answer: `From ${MOQ}. Ordering several months at once lowers the unit price.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping. Plan reorders about a month ahead of each edition.` },
     ],
     related: ["mailer-boxes", "white-mailer-boxes", "black-mailer-boxes", "kraft-mailer-boxes", "cosmetic-boxes"],
   },
@@ -359,7 +366,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Food Packaging",
     tagline: "Custom printed cake boxes with windows, handles and food-safe board",
     description:
-      "Custom cake boxes in food-grade SBS or kraft board, with optional window, handle and cake board. Printed with your bakery branding, MOQ from 100 boxes, free dieline support and 12–15 business day production.",
+      `Custom cake boxes in food-grade SBS or kraft board, with optional window, handle and cake board. Printed with your bakery branding, MOQ from ${MOQ}, free dieline support and production in ${PRODUCTION}.`,
     keywords: ["custom cake boxes", "cake boxes with window", "printed cake boxes", "cake boxes with logo", "bakery cake boxes", "wholesale cake boxes"],
     industries: ["Bakeries", "Cake Shops", "Cafes", "Home Bakers", "Hotels"],
     intro: [
@@ -403,8 +410,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "How much taller than the cake should the box be?", answer: "Allow at least 1 inch (25 mm) above the highest point of the frosting or decoration so the lid never touches it." },
       { question: "Can I add a window?", answer: "Yes. We add a clear PET window in the lid or front panel, cut to any shape." },
       { question: "Do you make boxes for tall or tiered cakes?", answer: "Yes. Tall cakes use a taller box in thicker board or food-lined corrugated for strength." },
-      { question: "What is the minimum order?", answer: "From 100 boxes per size, with lower prices at higher quantities." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ} per size, with lower prices at higher quantities.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["bakery-boxes", "cupcake-boxes", "cookie-boxes", "gable-boxes", "window-boxes"],
     images: [
@@ -419,7 +426,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Food Packaging",
     tagline: "Cupcake boxes with inserts that keep every cupcake upright",
     description:
-      "Custom cupcake boxes for 1, 2, 4, 6, 12 and 24 cupcakes, with die-cut inserts, windows and food-grade board. Printed with your branding, MOQ from 100 boxes, 12–15 business day production.",
+      `Custom cupcake boxes for 1, 2, 4, 6, 12 and 24 cupcakes, with die-cut inserts, windows and food-grade board. Printed with your branding, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["custom cupcake boxes", "cupcake boxes with inserts", "cupcake boxes with window", "printed cupcake boxes", "6 cupcake box", "12 cupcake box"],
     industries: ["Bakeries", "Cupcake Shops", "Cafes", "Event Caterers", "Home Bakers"],
     intro: [
@@ -461,8 +468,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "Do cupcake boxes come with inserts?", answer: "Yes. We make die-cut inserts sized to your liner so each cupcake is held upright." },
       { question: "Can the insert be reversible for mini and regular cupcakes?", answer: "Yes. Reversible inserts with mini holes on one side and regular holes on the other are available." },
       { question: "How tall should a cupcake box be?", answer: "Measure from the liner base to the highest point of the frosting or topper and add about 0.5 inch (12 mm)." },
-      { question: "What is the minimum order?", answer: "From 100 boxes per size." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ} per size.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["cake-boxes", "cookie-boxes", "bakery-boxes", "window-boxes", "gable-boxes"],
     images: [
@@ -479,7 +486,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Food Packaging",
     tagline: "Custom cookie boxes, sleeves and trays for bakeries and gifts",
     description:
-      "Custom cookie boxes in food-grade board: tuck-top boxes, sleeves with trays, window boxes and gift boxes. Greaseproof options, your branding, MOQ from 100 boxes, 12–15 business day production.",
+      `Custom cookie boxes in food-grade board: tuck-top boxes, sleeves with trays, window boxes and gift boxes. Greaseproof options, your branding, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["custom cookie boxes", "cookie packaging", "cookie gift boxes", "cookie boxes with window", "printed cookie boxes", "cookie sleeve boxes"],
     industries: ["Bakeries", "Cookie Brands", "Corporate Gifting", "Cafes", "Online Bakeries"],
     intro: [
@@ -520,8 +527,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "How do I stop grease marks on cookie boxes?", answer: "Use a greaseproof liner or a coated food-grade board. Both keep butter and oil from showing through the print." },
       { question: "Can cookie boxes have a window?", answer: "Yes. We add a clear PET window in the lid or sleeve." },
       { question: "Do you make sleeve and tray cookie boxes?", answer: "Yes. The printed sleeve slides over a tray, which can include dividers." },
-      { question: "What is the minimum order?", answer: "From 100 boxes per size." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ} per size.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["cake-boxes", "cupcake-boxes", "bakery-boxes", "sleeve-boxes", "gable-boxes"],
     images: [
@@ -538,7 +545,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Food Packaging",
     tagline: "Gable boxes with built-in handles for takeaway, gifts and events",
     description:
-      "Custom gable boxes with a built-in carry handle, in food-grade SBS or kraft board. Ideal for bakery takeaway, meals, party favours and gifts. MOQ from 100 boxes, free dieline support, 12–15 business day production.",
+      `Custom gable boxes with a built-in carry handle, in food-grade SBS or kraft board. Ideal for bakery takeaway, meals, party favours and gifts. MOQ from ${MOQ}, free dieline support, production in ${PRODUCTION}.`,
     keywords: ["custom gable boxes", "gable boxes with handle", "kraft gable boxes", "printed gable boxes", "gable gift boxes", "takeaway gable boxes"],
     industries: ["Bakeries", "Restaurants", "Events", "Retail Gifts", "Kids Parties"],
     intro: [
@@ -584,8 +591,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "Are gable boxes strong enough for food?", answer: "Yes. In 350 GSM food-grade board they carry pastries, meals and gifts comfortably. Heavier contents use thicker board." },
       { question: "Do gable boxes need glue or tape?", answer: "No. They ship flat and lock closed at the top with the built-in handle panels." },
       { question: "Can gable boxes have a window?", answer: "Yes. A clear PET window can be added on a side panel." },
-      { question: "What is the minimum order?", answer: "From 100 boxes per size." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ} per size.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["food-packaging", "cake-boxes", "cookie-boxes", "pillow-boxes", "paper-bags"],
     images: [
@@ -602,7 +609,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Retail Packaging",
     tagline: "Curved pillow boxes for favours, jewelry, gift cards and small products",
     description:
-      "Custom pillow boxes in SBS or kraft board with curved, self-closing ends. Perfect for favours, jewelry, gift cards, soap and small retail items. Optional window, MOQ from 100 boxes, 12–15 business day production.",
+      `Custom pillow boxes in SBS or kraft board with curved, self-closing ends. Perfect for favours, jewelry, gift cards, soap and small retail items. Optional window, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["custom pillow boxes", "printed pillow boxes", "kraft pillow boxes", "pillow boxes with window", "pillow gift boxes", "favour pillow boxes"],
     industries: ["Weddings & Events", "Jewelry", "Cosmetics", "Gift Cards", "Handmade Products"],
     intro: [
@@ -658,8 +665,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "Do pillow boxes need glue?", answer: "No. The curved ends fold in and close themselves." },
       { question: "What can I pack in a pillow box?", answer: "Light items such as favours, gift cards, jewelry, soap, samples and accessories." },
       { question: "Can pillow boxes have a window?", answer: "Yes. We add a clear PET window cut to your shape." },
-      { question: "What is the minimum order?", answer: "From 100 boxes." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ}.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["folding-cartons", "gable-boxes", "sleeve-boxes", "jewelry-boxes", "soap-boxes"],
     images: [
@@ -677,7 +684,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Folding Cartons",
     tagline: "Straight, reverse and auto-bottom tuck end boxes for retail products",
     description:
-      "Custom tuck end boxes in SBS, kraft or rigid-look board: straight tuck, reverse tuck and auto-lock bottom styles for cosmetics, supplements, candles and retail products. MOQ from 100 boxes, free dieline, 12–15 business day production.",
+      `Custom tuck end boxes in SBS, kraft or rigid-look board: straight tuck, reverse tuck and auto-lock bottom styles for cosmetics, supplements, candles and retail products. MOQ from ${MOQ}, free dieline, production in ${PRODUCTION}.`,
     keywords: ["custom tuck end boxes", "reverse tuck end boxes", "straight tuck end boxes", "auto lock bottom boxes", "printed product boxes", "custom retail boxes"],
     industries: ["Cosmetics", "Supplements", "Candles", "Electronics Accessories", "Retail Products"],
     intro: [
@@ -735,8 +742,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "What is the difference between straight and reverse tuck?", answer: "In a straight tuck end box both flaps tuck from the same side, giving a clean front. In a reverse tuck box they tuck from opposite sides, which uses less board and costs less." },
       { question: "When should I use an auto-lock bottom?", answer: "For heavier products such as jars and bottles, or when boxes are packed quickly. The bottom locks into shape as the box is opened." },
       { question: "Can tuck end boxes have a window?", answer: "Yes. A clear PET window can be added on the front or top panel." },
-      { question: "What is the minimum order?", answer: "From 100 boxes per size." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ} per size.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["folding-cartons", "hang-tab-boxes", "cosmetic-boxes", "kraft-boxes", "sleeve-boxes"],
     images: [
@@ -754,7 +761,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Eco Packaging",
     tagline: "Natural brown kraft boxes in every style — printed with your brand",
     description:
-      "Custom kraft boxes in recyclable brown kraft board: tuck end, gable, pillow, window and bakery styles. One-colour or full-colour print, food-grade options, MOQ from 100 boxes and 12–15 business day production.",
+      `Custom kraft boxes in recyclable brown kraft board: tuck end, gable, pillow, window and bakery styles. One-colour or full-colour print, food-grade options, MOQ from ${MOQ} and production in ${PRODUCTION}.`,
     keywords: ["custom kraft boxes", "kraft paper boxes", "brown kraft boxes with logo", "eco friendly boxes", "recyclable packaging boxes", "kraft packaging"],
     industries: ["Organic & Natural Brands", "Food & Bakery", "Handmade Products", "Soap & Candles", "Gifts"],
     intro: [
@@ -811,8 +818,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "Are kraft boxes recyclable?", answer: "Yes. Kraft board is widely recyclable. Avoid plastic lamination and windows if you want the whole box to go into paper recycling." },
       { question: "Can you print white or bright colours on kraft?", answer: "Yes, with a white ink base underneath. Without it, light colours look softer on brown." },
       { question: "Are your kraft boxes food safe?", answer: "We offer food-grade kraft board for boxes that hold food directly." },
-      { question: "What is the minimum order?", answer: "From 100 boxes." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ}.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["kraft-mailer-boxes", "gable-boxes", "pillow-boxes", "tuck-end-boxes", "bakery-boxes"],
     images: [
@@ -830,7 +837,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Luxury Packaging",
     tagline: "Lid and base rigid boxes for gifts, apparel and premium products",
     description:
-      "Custom two-piece rigid boxes (lid and base, telescope and shoulder-neck styles) in 1.5–2.5 mm grey board wrapped in printed paper. Inserts and dividers available, MOQ from 100 boxes, 12–15 business day production.",
+      `Custom two-piece rigid boxes (lid and base, telescope and shoulder-neck styles) in 1.5–2.5 mm grey board wrapped in printed paper. Inserts and dividers available, MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["two piece rigid boxes", "lid and base boxes", "custom rigid gift boxes", "telescope boxes", "shoulder neck boxes", "rigid boxes with lid"],
     industries: ["Apparel", "Cosmetics", "Jewelry", "Corporate Gifts", "Stationery"],
     intro: [
@@ -887,8 +894,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "What is a shoulder-neck box?", answer: "A two-piece rigid box with an inner collar. The lid sits on the collar so it lines up flush with the base." },
       { question: "Do two-piece rigid boxes fold flat?", answer: "Standard rigid boxes ship assembled. If you need to save space, ask about collapsible rigid boxes." },
       { question: "Can you add dividers or inserts?", answer: "Yes. We make card, foam and EVA inserts and compartment dividers." },
-      { question: "What is the minimum order?", answer: "From 100 boxes." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ}.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["rigid-boxes", "magnetic-boxes", "drawer-boxes", "gift-boxes", "luxury-packaging"],
     images: [
@@ -904,7 +911,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Luxury Packaging",
     tagline: "Custom gift boxes that make the unboxing part of the present",
     description:
-      "Custom gift boxes in rigid, magnetic, drawer and folding styles with ribbons, inserts and premium finishes. For corporate gifts, holidays, weddings and retail gift sets. MOQ from 100 boxes, 12–15 business day production.",
+      `Custom gift boxes in rigid, magnetic, drawer and folding styles with ribbons, inserts and premium finishes. For corporate gifts, holidays, weddings and retail gift sets. MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["custom gift boxes", "luxury gift boxes", "corporate gift boxes", "gift boxes with logo", "magnetic gift boxes", "wholesale gift boxes"],
     industries: ["Corporate Gifting", "Holidays", "Weddings", "Cosmetics", "Retail Gift Sets"],
     intro: [
@@ -961,8 +968,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "What is the best box for corporate gifts?", answer: "Magnetic closure rigid boxes with a custom insert are the most popular. For large volumes, collapsible magnetic boxes save shipping cost." },
       { question: "Can you add a ribbon?", answer: "Yes. Ribbon pull-tabs, ties or bows can be added." },
       { question: "Do gift boxes come with inserts?", answer: "We design card, foam or EVA inserts around your items on request." },
-      { question: "What is the minimum order?", answer: "From 100 boxes." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping. For holiday orders, plan about two months ahead." },
+      { question: "What is the minimum order?", answer: `From ${MOQ}.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping. For holiday orders, plan about two months ahead.` },
     ],
     related: ["magnetic-boxes", "two-piece-rigid-boxes", "drawer-boxes", "luxury-packaging", "rigid-boxes"],
     images: [
@@ -980,7 +987,7 @@ export const styleGuides: StyleGuide[] = [
     category: "Retail Packaging",
     tagline: "Folding cartons with a hang tab for peg hooks and retail walls",
     description:
-      "Custom hang tab boxes: folding cartons with a built-in euro-slot or round hang hole so products hang on peg hooks. Ideal for accessories, electronics, cosmetics and hardware. MOQ from 100 boxes, 12–15 business day production.",
+      `Custom hang tab boxes: folding cartons with a built-in euro-slot or round hang hole so products hang on peg hooks. Ideal for accessories, electronics, cosmetics and hardware. MOQ from ${MOQ}, production in ${PRODUCTION}.`,
     keywords: ["hang tab boxes", "custom hang tab boxes", "euro slot boxes", "peg hook packaging", "hanging retail boxes", "hang tab packaging"],
     industries: ["Phone Accessories", "Cosmetics", "Hardware & Tools", "Toys", "Pet Products"],
     intro: [
@@ -1036,8 +1043,8 @@ export const styleGuides: StyleGuide[] = [
       { question: "What is a euro slot?", answer: "A sombrero-shaped hang hole that fits standard retail peg hooks. It is the most common hang tab hole." },
       { question: "Will the tab hold a heavy product?", answer: "For heavier products we use a double-thickness glued tab and thicker board." },
       { question: "Can hang tab boxes have a window?", answer: "Yes. A clear window can be added to the front panel." },
-      { question: "What is the minimum order?", answer: "From 100 boxes." },
-      { question: "How long does production take?", answer: "12–15 business days after proof approval, plus shipping." },
+      { question: "What is the minimum order?", answer: `From ${MOQ}.` },
+      { question: "How long does production take?", answer: `${PRODUCTION} after proof approval, plus shipping.` },
     ],
     related: ["tuck-end-boxes", "folding-cartons", "display-boxes", "cosmetic-boxes", "kraft-boxes"],
     images: [

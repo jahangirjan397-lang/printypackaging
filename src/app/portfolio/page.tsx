@@ -9,7 +9,7 @@ import {
 import InspirationGallery from "@/components/InspirationGallery";
 
 export const metadata: Metadata = {
-  title: "Packaging Gallery | Box Styles, Food Packaging & Print Finishes",
+  title: "Custom Packaging Gallery & Box Ideas",
   description:
     "Explore Printy Packaging concept examples for luxury boxes, ecommerce mailers, food packaging, beauty cartons, bakery boxes and branded retail packaging.",
   alternates: { canonical: "https://printypackaging.com/portfolio" },

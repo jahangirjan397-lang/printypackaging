@@ -855,33 +855,7 @@
     {
       "slug": "shipping-boxes",
       "name": "Shipping Boxes",
-      "images": [
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3.webp",
-          "alt": "Mailer Boxes - hero view (concept mockup)",
-          "title": "Mailer Boxes subscription kit"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero.webp",
-          "alt": "Printy Packaging branded mailer boxes, one open and one closed",
-          "title": "Mailer Boxes Hero View"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3.webp",
-          "alt": "Mailer Boxes - front view (concept mockup)",
-          "title": "Mailer Boxes front view"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3.webp",
-          "alt": "Mailer Boxes - open view (concept mockup)",
-          "title": "Mailer Boxes open view"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3.webp",
-          "alt": "Mailer Boxes - material and finish detail (concept mockup)",
-          "title": "Mailer Boxes material and finish detail"
-        }
-      ]
+      "images": []
     },
     {
       "slug": "subscription-boxes",
@@ -889,28 +863,28 @@
       "images": [
         {
           "src": "/images/products/mailer-boxes/mailer-boxes-hero.webp",
-          "alt": "Printy Packaging branded mailer boxes, one open and one closed",
-          "title": "Mailer Boxes Hero View"
+          "alt": "Mailer-style subscription box, open and closed (concept mockup)",
+          "title": "Subscription box open and closed"
         },
         {
           "src": "/images/products/mailer-boxes/mailer-boxes-front-v3.webp",
-          "alt": "Mailer Boxes - front view (concept mockup)",
-          "title": "Mailer Boxes front view"
+          "alt": "Mailer-style subscription box, front view (concept mockup)",
+          "title": "Subscription box front view"
         },
         {
           "src": "/images/products/mailer-boxes/mailer-boxes-open-v3.webp",
-          "alt": "Mailer Boxes - open view (concept mockup)",
-          "title": "Mailer Boxes open view"
+          "alt": "Mailer-style subscription box, open view (concept mockup)",
+          "title": "Subscription box open view"
         },
         {
           "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3.webp",
-          "alt": "Mailer Boxes - material and finish detail (concept mockup)",
-          "title": "Mailer Boxes material and finish detail"
+          "alt": "Mailer-style subscription box, material and finish detail (concept mockup)",
+          "title": "Subscription box material and finish detail"
         },
         {
           "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3.webp",
-          "alt": "Mailer Boxes - hero view (concept mockup)",
-          "title": "Mailer Boxes subscription kit"
+          "alt": "Mailer-style subscription box, hero view (concept mockup)",
+          "title": "Subscription box hero view"
         }
       ]
     },

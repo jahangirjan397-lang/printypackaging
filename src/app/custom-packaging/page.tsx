@@ -48,9 +48,9 @@ export default function CustomPackagingPage() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              Compare custom boxes, materials, printing and finishing in one connected
-              buyer journey. Move from packaging idea to product page, quote, artwork and
-              production planning without restarting the process.
+              Compare custom boxes, materials, printing and finishing in one place,
+              then go from your packaging idea to a quote, a proof and production
+              without starting over at each step.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -173,7 +173,7 @@ export default function CustomPackagingPage() {
               Ready For A Quote?
             </p>
             <h2 className="mt-4 text-3xl font-black md:text-4xl">
-              Send the details once and keep the buyer journey connected.
+              Send your details once and we take it from there.
             </h2>
             <p className="mt-4 max-w-3xl leading-7 text-slate-300">
               Share product type, size, quantity, material, printing, finishing, artwork status and delivery country.

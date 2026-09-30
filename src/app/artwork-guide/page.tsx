@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://printypackaging.com/artwork-guide",
   },
-  title: "Artwork & Dieline Guide | Custom Packaging Print File Checklist",
+  title: "Packaging Artwork & Dieline Guide",
   description:
     "Learn what artwork details are needed for custom packaging including dieline, bleed, safe area, CMYK, Pantone, barcode, logo, text and final approval.",
 };
@@ -81,7 +81,7 @@ export default function ArtworkGuidePage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=folding-cartons#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Artwork Help
@@ -180,7 +180,7 @@ export default function ArtworkGuidePage() {
               </Link>
 
               <Link
-                href="/?product=folding-cartons#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Request Quote

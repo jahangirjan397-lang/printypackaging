@@ -1,19 +1,23 @@
+import { businessPromises } from "@/data/businessInfo";
+
+// Order basics shown on product, category and market pages. Figures come
+// from /admin -> Business Info so they stay the same everywhere.
 const trustItems = [
   {
-    title: "Quote-Focused Support",
-    text: "We guide buyers with size, quantity, material, printing and finishing details before final quote planning.",
+    title: "Minimum order",
+    text: `Orders start from ${businessPromises.minimumOrder} for most styles, so you can test a design before ordering in bulk.`,
   },
   {
-    title: "International Buyer Ready",
-    text: "Our website is built for USA, UK, Canada, Europe, UAE and worldwide custom packaging inquiries.",
+    title: "Proof before printing",
+    text: "You see a digital proof with the dieline, artwork placement and finishes, and nothing is printed until you approve it.",
   },
   {
-    title: "Material & Finish Guidance",
-    text: "We help explain paperboard, kraft, corrugated stock, rigid board, lamination, foil, embossing and spot UV.",
+    title: "Production time",
+    text: `Standard production is ${businessPromises.productionTime} after proof approval, plus shipping to your country.`,
   },
   {
-    title: "Product Page Direction",
-    text: "Buyers can explore products, categories, markets and packaging guides before submitting an inquiry.",
+    title: "Material & finish advice",
+    text: "We explain paperboard, kraft, corrugated and rigid board, and finishes such as lamination, foil, embossing and spot UV.",
   },
 ];
 
@@ -23,16 +27,16 @@ export default function BuyerTrustSection() {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-            Buyer Trust
+            Ordering With Printy
           </p>
 
           <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-            Built for serious packaging buyers.
+            What to expect when you order.
           </h2>
 
           <p className="mt-5 leading-8 text-slate-600">
-            Printy Packaging is designed to help brands understand packaging
-            options clearly before moving toward quote and production planning.
+            The basics we confirm on every quote, so you know how the order
+            works before you commit.
           </p>
         </div>
 

@@ -1,240 +1,155 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import PolicyPage, { type PolicySection } from "@/components/PolicyPage";
+import { draftPolicyRobots, isDraftPolicy } from "@/data/policyStatus";
+import { businessPromises, teamEmails } from "@/data/businessInfo";
+
+const isDraft = isDraftPolicy("terms");
 
 export const metadata: Metadata = {
+  robots: isDraft ? draftPolicyRobots : undefined,
   alternates: {
     canonical: "https://printypackaging.com/terms",
   },
-  title: "Terms and Quote Policy",
+  title: "Terms & Conditions",
   description:
-    "Read Printy Packaging terms, quote policy, artwork approval, pricing guidance, production timing and customer responsibility for custom packaging orders.",
+    "Printy Packaging terms for custom packaging orders: quotes, proofs and artwork approval, colour, quantities, payment, production, shipping, claims and disputes.",
 };
 
-const policies = [
+const sections: PolicySection[] = [
   {
-    title: "Quote Requests",
-    text: "Quotes are prepared based on the information provided by the customer, including box style, size, quantity, material, printing colors, finishes, shipping country and project notes. Missing or unclear details may affect final pricing.",
+    id: "about",
+    title: "About these terms",
+    paragraphs: [
+      "These terms apply to every quote, order and website visit with Printy Packaging (\"we\", \"us\"). By approving a proof, paying an invoice or placing an order, the customer agrees to these terms and to our Return & Refund, Shipping, Artwork and Payment policies. If a written quote or invoice says something different, the quote or invoice applies to that order.",
+    ],
   },
   {
-    title: "Pricing Changes",
-    text: "Packaging prices may change due to material cost, paper market changes, finishing requirements, shipping method, currency rate, production complexity or updated customer requirements.",
+    id: "quotes",
+    title: "Quotes and pricing",
+    bullets: [
+      "Quotes are based on the size, style, material, quantity, printing, finishes and delivery country supplied by the customer. If any of these change, the price may change.",
+      "A quote is valid for 30 days, because board and freight prices move.",
+      "Prices are in the currency shown on the quote. Import duties and local taxes are not included unless the quote says the price is delivered duty paid (DDP).",
+    ],
   },
   {
-    title: "Artwork and Design",
-    text: "Customers are responsible for providing correct artwork, logos, text, barcode, dieline approval and final content. Production should move forward only after the customer reviews and approves the required details.",
+    id: "artwork",
+    title: "Artwork, proofs and approval",
+    paragraphs: [
+      "Every order receives a free digital proof showing the dieline, artwork placement and finishes. The customer is responsible for checking spelling, text, barcodes, measurements, colours, orientation and every other detail.",
+      "Production starts only after written approval of the proof (email or WhatsApp is accepted). Once approved, the proof is the final specification for the order. We are not responsible for errors that were present in an approved proof, and such errors do not qualify for a free reprint.",
+    ],
+    bullets: [
+      "Send vector artwork (AI, PDF or EPS) or images at 300 DPI.",
+      "Keep text at least 3 mm inside cut lines and extend background colour 3 mm past them (bleed). Full file requirements are in our Artwork Policy.",
+      "The customer confirms they own or have permission to use every logo, image, font and trademark sent to us, and accepts responsibility for any claim arising from that artwork.",
+    ],
   },
   {
-    title: "Color and Finish Variation",
-    text: "Printed colors, lamination, foil, embossing, spot UV and other finishes may have minor variation due to material, printing process, screen display difference and production conditions.",
+    id: "colour",
+    title: "Colour, finish and size tolerances",
+    paragraphs: [
+      "We print in CMYK unless Pantone (PMS) colours are agreed in writing. Printed colour can differ from screens, from earlier orders and between materials, for example white board and kraft. Small variations in colour, foil, texture and a cutting variation of up to 2 mm are normal and are not defects. Customers who need exact colour should order Pantone matching or a physical sample before the full run.",
+    ],
   },
   {
-    title: "Samples and Mockups",
-    text: "Digital previews, mockups or sample guidance are used for understanding the packaging direction. Final production details should be confirmed before order approval.",
+    id: "quantities",
+    title: "Quantities",
+    paragraphs: [
+      `Our minimum order is usually ${businessPromises.minimumOrder}; some styles differ and the quote will say. Production can run up to 5% over or under the ordered quantity. Overs are not charged. Unders within 5% are normal; if we deliver more than 5% short, we print the missing quantity.`,
+    ],
   },
   {
-    title: "Production Timing",
-    text: "Production and delivery timelines depend on order complexity, material availability, artwork approval, finishing process, shipping location and other operational factors.",
+    id: "payment",
+    title: "Payment",
+    bullets: [
+      "Payment terms are shown on the invoice. Production is scheduled only after the agreed payment has been received.",
+      "Available payment methods are shown on the quote and invoice. Transfer and bank fees on the customer's side are paid by the customer.",
+      "Orders are not shipped until any balance on the invoice has been paid in full. Full details are in our Payment Policy.",
+      "Card numbers and passwords must never be sent through the quote form, email or chat. We send secure payment links instead.",
+    ],
   },
   {
-    title: "Customer Approval",
-    text: "Before production, customers should carefully check size, quantity, material, printing, finishing, spelling, barcode, artwork and delivery details. Approved details are treated as final for production planning.",
+    id: "production",
+    title: "Production time",
+    paragraphs: [
+      `Standard production is ${businessPromises.productionTime} after proof approval and payment, plus shipping time. Rush production is available on many items for an extra charge; rush orders are non-refundable and cannot be cancelled once confirmed. Production dates are estimates and are not guaranteed, but we tell the customer straight away if an order is running late.`,
+    ],
   },
   {
-    title: "Website Information",
-    text: "Website content is provided for general packaging information and quote guidance. It should not be treated as a final contract unless confirmed in writing by Printy Packaging.",
+    id: "shipping",
+    title: "Shipping and delivery",
+    paragraphs: [
+      "Standard shipping to one address is included in the price of new orders unless the quote shows it separately. Reprints, replacements, returns and re-deliveries are shipped at the customer's expense. Import duties and taxes are paid by the customer unless the order is DDP. Delivery is complete when tracking shows the order delivered to the address supplied. Full details are in our Shipping Policy.",
+    ],
   },
-];
-
-const quoteChecklist = [
-  "Product or box style",
-  "Exact size with unit",
-  "Required quantity",
-  "Material preference",
-  "Printing colors",
-  "Finishing options",
-  "Shipping country",
-  "Artwork or dieline status",
+  {
+    id: "claims",
+    title: "Quality claims and reprints",
+    paragraphs: [
+      `Defects, damage and missing items must be reported to ${teamEmails.support} within 7 calendar days of delivery (48 hours for transit damage), with photos, a video and the order number, and the goods must be kept as delivered. Our quality team decides whether a claim is valid and its decision is final. A valid claim is resolved by a free reprint of the affected items, with shipping paid by the customer. Printed orders are not refunded in cash. Full details are in our Return & Refund Policy.`,
+    ],
+  },
+  {
+    id: "disputes",
+    title: "Disputes and chargebacks",
+    paragraphs: [
+      "The customer agrees to raise any problem with our support team first and to follow the claims process before contacting a bank or payment provider. If a chargeback or payment dispute is opened instead, we will submit the approved proof, order records, delivery tracking and correspondence as evidence; the order is no longer eligible for a reprint, and the customer is responsible for chargeback fees and any costs of recovering the amount owed.",
+    ],
+  },
+  {
+    id: "designs",
+    title: "Designs, dielines and samples",
+    bullets: [
+      "Customer logos and artwork remain the customer's property. We use them only to produce the customer's orders.",
+      "Dielines, structural designs and templates created by Printy Packaging remain our property and may be reused for the customer's repeat orders.",
+      "We only show photos of customer packaging on our website or social media with the customer's permission.",
+    ],
+  },
+  {
+    id: "liability",
+    title: "Limit of liability",
+    paragraphs: [
+      "Our total liability for any order is limited to reprinting the defective items or, where a reprint is not possible, the amount paid for those items. We are not liable for indirect or consequential losses, including lost sales, lost profit, missed launch dates, marketplace penalties or the value of products packed in our packaging. Nothing in these terms limits rights that cannot be limited under the law that applies to the customer.",
+    ],
+  },
+  {
+    id: "website",
+    title: "Website information",
+    paragraphs: [
+      "Guides, images, prices and examples on this website are general information. Mockups show a design direction and the final product may differ. Only a written quote and an approved proof form part of an order.",
+    ],
+  },
+  {
+    id: "changes",
+    title: "Changes to these terms",
+    paragraphs: [
+      "We may update these terms from time to time. The version published on this page when the proof is approved applies to that order.",
+    ],
+  },
 ];
 
 export default function TermsPage() {
   return (
-    <main className="bg-[#07111F] text-white">
-      <section className="relative overflow-hidden border-b border-cyan-400/10 bg-gradient-to-br from-[#07111F] via-[#09243A] to-[#061525]">
-        <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
-        <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
-
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-20 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
-          <div>
-            <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200 shadow-lg shadow-cyan-500/10">
-              Terms / Quote Policy
-            </div>
-
-            <h1 className="mt-8 max-w-4xl text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Clear quote terms for{" "}
-              <span className="bg-gradient-to-r from-orange-400 via-orange-300 to-cyan-300 bg-clip-text text-transparent">
-                custom packaging orders.
-              </span>
-            </h1>
-
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-              These terms explain how quote requests, artwork approval, pricing
-              guidance, production timing and customer responsibilities are
-              handled for Printy Packaging inquiries.
-            </p>
-
-            <p className="mt-5 text-sm font-bold text-slate-400">
-              Last updated: July 2026
-            </p>
-
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/?product=mailer-boxes#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
-              >
-                Get Quote
-              </Link>
-
-              <Link
-                href="/contact"
-                className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
-              >
-                Contact Support
-              </Link>
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-5 shadow-2xl shadow-cyan-950/40">
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#07111F] p-6">
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
-                Before Quote
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight">
-                Send complete details for accurate pricing.
-              </h2>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {quoteChecklist.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-slate-200"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 rounded-3xl border border-orange-400/20 bg-orange-500/10 p-5">
-                <p className="text-sm leading-7 text-slate-300">
-                  Complete information helps avoid wrong pricing, production
-                  confusion and approval delays.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-slate-50 text-slate-950">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
-            <aside className="lg:sticky lg:top-28 lg:self-start">
-              <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-xl shadow-slate-200/70">
-                <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
-                  Policy Guide
-                </p>
-
-                <h2 className="mt-4 text-3xl font-black tracking-tight">
-                  Simple rules for safe packaging orders.
-                </h2>
-
-                <p className="mt-4 leading-7 text-slate-600">
-                  Custom packaging depends on size, material, printing,
-                  finishing, artwork approval and delivery details. These terms
-                  help keep the quote and production process clear.
-                </p>
-
-                <div className="mt-7 rounded-3xl bg-[#07111F] p-6 text-white">
-                  <p className="text-sm font-black uppercase tracking-[0.2em] text-cyan-300">
-                    Important
-                  </p>
-                  <p className="mt-3 leading-7 text-slate-300">
-                    Final production should start only after customer approval
-                    of artwork, size, material and order details.
-                  </p>
-                </div>
-              </div>
-            </aside>
-
-            <div className="grid gap-5">
-              {policies.map((policy, index) => (
-                <article
-                  key={policy.title}
-                  className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
-                >
-                  <div className="flex items-start gap-5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-white shadow-lg shadow-orange-500/20">
-                      {index + 1}
-                    </div>
-
-                    <div>
-                      <h2 className="text-2xl font-black tracking-tight text-slate-950">
-                        {policy.title}
-                      </h2>
-
-                      <p className="mt-4 leading-8 text-slate-600">
-                        {policy.text}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#07111F] px-6 py-16 lg:px-8">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-gradient-to-br from-[#07111F] via-[#09243A] to-[#061525] p-8 shadow-2xl shadow-cyan-950/40 sm:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div>
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
-                Need a confirmed quote?
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-                Send complete product details before final pricing.
-              </h2>
-
-              <p className="mt-4 max-w-3xl leading-8 text-slate-300">
-                For accurate pricing, send product size, quantity, material,
-                printing colors, finishing options, artwork status and delivery
-                country through our quote form.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
-              <a
-                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-black text-white transition hover:border-cyan-300 hover:text-cyan-300"
-              >
-                WhatsApp
-              </a>
-
-              <Link
-                href="/?product=mailer-boxes#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
-              >
-                Request a Quote
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+    <PolicyPage
+      draft={isDraft}
+      eyebrow="Terms & Conditions"
+      title="Clear terms for custom packaging orders."
+      intro="How quotes, proofs, payment, production, shipping, claims and disputes work when you order custom packaging from Printy Packaging."
+      updated="September 2026"
+      highlights={[
+        { label: "Quote valid", value: "30 days" },
+        { label: "Proof", value: "Free digital proof on every order" },
+        { label: "Production", value: `${businessPromises.productionTime} after approval` },
+        { label: "Claims", value: "Within 7 days of delivery" },
+      ]}
+      sections={sections}
+      related={[
+        { label: "Return & Refund Policy", href: "/refund-policy" },
+        { label: "Shipping Policy", href: "/shipping-policy" },
+        { label: "Artwork Policy", href: "/artwork-policy" },
+        { label: "Payment Policy", href: "/payment-policy" },
+      ]}
+    />
   );
 }
-

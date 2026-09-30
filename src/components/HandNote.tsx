@@ -8,6 +8,8 @@ const caveat = localFont({
     { path: "../fonts/caveat-latin-700-normal.woff2", weight: "700", style: "normal" },
   ],
   display: "swap",
+  // Decorative only: don't let it compete with the hero for bandwidth
+  preload: false,
 });
 
 type HandNoteProps = {

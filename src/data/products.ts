@@ -1,3 +1,4 @@
+import { printCategory, printProducts } from "./printProducts";
 import productImagesContent from "../../content/product-images.json";
 import { styleGuides, type StyleGuide } from "./styleGuides";
 
@@ -43,6 +44,28 @@ export type Product = {
 function getProductMaterials(name: string, category: string) {
   const text = `${name} ${category}`.toLowerCase();
 
+  if (category === printCategory) {
+    if (text.includes("banner") || text.includes("decal") || text.includes("cling")) {
+      return [
+        "Outdoor Vinyl 440-510 GSM",
+        "Mesh Vinyl (windy areas)",
+        "Static Cling Film",
+        "Removable Adhesive Vinyl",
+        "Polyester Fabric",
+        "Roll-up Stand Film",
+      ];
+    }
+
+    return [
+      "Art Card 300-400 GSM",
+      "Art Paper 128-170 GSM",
+      "Uncoated Offset Paper 80-120 GSM",
+      "Textured / Linen Card",
+      "Kraft Card 300 GSM",
+      "Premium Cotton / Pearl Card",
+    ];
+  }
+
   if (
     text.includes("rigid") ||
     text.includes("magnetic") ||
@@ -74,6 +97,17 @@ function getProductMaterials(name: string, category: string) {
       "3 Ply Corrugated Board",
       "5 Ply Corrugated Board",
       "White Back / Kraft Corrugated Board",
+    ];
+  }
+
+  if (text.includes("butter paper")) {
+    return [
+      "Butter Paper 30-40 GSM (wraps and sheets)",
+      "Butter Paper 40-45 GSM (tray and basket liners)",
+      "Greaseproof Paper 35-50 GSM",
+      "Wax / Deli Paper 25-35 GSM",
+      "White or Natural Brown Paper",
+      "Rolls or Cut Sheets in Custom Sizes",
     ];
   }
 
@@ -132,6 +166,17 @@ function getProductMaterials(name: string, category: string) {
 function getProductFinishes(name: string, category: string) {
   const text = `${name} ${category}`.toLowerCase();
 
+  if (category === printCategory) {
+    return [
+      "Matte / Gloss Lamination",
+      "Soft Touch Lamination",
+      "Spot UV",
+      "Gold / Silver Foil",
+      "Embossing / Debossing",
+      "Die Cutting / Rounded Corners",
+    ];
+  }
+
   if (
     text.includes("rigid") ||
     text.includes("luxury") ||
@@ -147,6 +192,17 @@ function getProductFinishes(name: string, category: string) {
       "Embossing / Debossing",
       "Spot UV",
       "Magnetic Closure / Insert Options",
+    ];
+  }
+
+  if (text.includes("butter paper")) {
+    return [
+      "Logo Printing in 1-2 Colours",
+      "All-Over Pattern Printing",
+      "Printed One Side",
+      "Custom Sheet or Roll Sizes",
+      "Paper and Ink Specs Confirmed in Writing on Request",
+      "Plain (Unprinted) Option",
     ];
   }
 
@@ -198,8 +254,9 @@ function buildKeywords(name: string, category: string, keywords: string[]) {
       productName,
       `custom ${productName}`,
       `printed ${productName}`,
-      `${productName} packaging`,
-      `${productName} boxes`,
+      ...(categoryName === printCategory.toLowerCase()
+        ? [`${productName} printing`]
+        : [`${productName} packaging`, `${productName} boxes`]),
       categoryName,
       `custom ${categoryName}`,
       "custom packaging",
@@ -868,6 +925,17 @@ function makeStyleProduct(guide: StyleGuide, index: number): Product {
 export const products: Product[] = [
   ...coreProducts,
   ...styleGuides.map((guide, index) => makeStyleProduct(guide, index)),
+  ...printProducts.map((item) =>
+    makeProduct(
+      item.slug,
+      item.name,
+      printCategory,
+      item.tagline,
+      item.description,
+      item.keywords,
+      item.industries,
+    ),
+  ),
 ];
 
 export function getProductBySlug(slug: string) {

@@ -164,10 +164,10 @@ export default function CategoriesPage() {
               </div>
               <div className="px-2 pb-1 pt-5">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                  One connected packaging system
+                  How to use this page
                 </p>
                 <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
-                  Category to product to quote — without losing the buyer journey.
+                  Pick your industry, compare the products in it, then request a quote.
                 </p>
               </div>
             </div>
