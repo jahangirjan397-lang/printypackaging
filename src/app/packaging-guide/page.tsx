@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const guideCards = [
@@ -88,37 +89,59 @@ export default function PackagingGuidePage() {
         }}
       />
 
-      <section className="bg-[#07111F] px-4 py-20 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-            Packaging Guide
-          </span>
+      <section className="relative overflow-hidden bg-[#07111F] px-4 py-20 text-white sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(0,194,232,0.18),transparent_32%),radial-gradient(circle_at_82%_30%,rgba(255,106,0,0.12),transparent_28%)]" />
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
+            <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+              Packaging Guide
+            </span>
 
-          <h1 className="mt-6 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            Custom packaging guide for brands planning printed boxes and premium
-            packaging.
-          </h1>
+            <h1 className="mt-6 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+              Custom packaging guide for brands planning printed boxes and premium packaging.
+            </h1>
 
-          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300">
-            Use this guide to understand box styles, materials, finishing,
-            artwork and quote requirements before starting your packaging
-            project.
-          </p>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300">
+              Use this guide to understand box styles, materials, finishing,
+              artwork and quote requirements before starting your packaging project.
+            </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/#quote"
-              className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#E85F00]"
-            >
-              Start Quote
-            </Link>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/#quote"
+                className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#E85F00]"
+              >
+                Start Quote
+              </Link>
 
-            <Link
-              href="/custom-packaging"
-              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white/15"
-            >
-              Custom Packaging
-            </Link>
+              <Link
+                href="/custom-packaging"
+                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:bg-white/15"
+              >
+                Custom Packaging
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+              <Image
+                src="/images/home/home-materials-finishes-v3.webp"
+                alt="Packaging materials printing and finishing options"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+            </div>
+            <div className="px-2 pb-1 pt-5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
+                Buyer roadmap
+              </p>
+              <p className="mt-2 max-w-lg text-xl font-black text-white sm:text-2xl">
+                Box style → material → finish → artwork → quote.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -183,4 +206,3 @@ export default function PackagingGuidePage() {
     </main>
   );
 }
-

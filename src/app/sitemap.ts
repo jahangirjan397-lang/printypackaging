@@ -4,6 +4,7 @@ import { blogPosts } from "@/data/blogs";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { markets } from "@/data/markets";
+import { isDraftPolicy } from "@/data/policyStatus";
 
 const siteUrl = "https://printypackaging.com";
 
@@ -28,6 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/markets`,
       changeFrequency: "weekly",
       priority: 0.85,
+    },
+    {
+      url: `${siteUrl}/portfolio`,
+      changeFrequency: "monthly",
+      priority: 0.76,
     },
     {
       url: `${siteUrl}/blog`,
@@ -59,6 +65,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly",
     priority: 0.72,
   },
+  {
+    url: `${siteUrl}/terms`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/artwork-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/payment-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/shipping-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/refund-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/privacy-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
 ];
 
   const seoRoutes: MetadataRoute.Sitemap = topSeoRoutes.map((route) => ({
@@ -87,6 +123,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
+    // Tells Google when a post last changed, so updates get recrawled
+    lastModified: post.updatedAt || post.publishedAt,
     changeFrequency: "monthly",
     priority: 0.72,
   }));
@@ -102,7 +140,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return allRoutes.filter(
     (route, index) =>
-      allRoutes.findIndex((item) => item.url === route.url) === index
+      allRoutes.findIndex((item) => item.url === route.url) === index &&
+      // Draft policy pages are not listed until their wording is approved
+      !isDraftPolicy(route.url.replace(`${siteUrl}/`, ""))
   );
 }
 

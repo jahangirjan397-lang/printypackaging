@@ -21,7 +21,7 @@ const materials = [
   },
   {
     title: "Butter Paper",
-    text: "Food-safe wrapping paper for burgers, bakery, sandwiches and snacks.",
+    text: "Printed wrapping paper for burgers, bakery, sandwiches and snacks.",
     use: "Best for food wrapping",
   },
   {

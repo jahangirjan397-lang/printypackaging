@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   },
   title: "Packaging FAQ | Custom Boxes Questions",
   description:
-    "Find answers about custom packaging quotes, box styles, materials, printing, finishing, artwork, samples and international packaging orders for USA, UK, Canada and worldwide buyers.",
+    "Answers about custom packaging quotes, box styles, materials, printing, finishes, artwork, samples, MOQ and shipping for USA, UK and Canada buyers.",
 };
 
 const faqs = [
@@ -24,6 +24,12 @@ const faqs = [
       "Yes. Tell us about your product, product weight, usage, market and brand style. We can guide you toward mailer boxes, folding cartons, rigid boxes, display boxes, food packaging or other suitable options.",
   },
   {
+    category: "Payment",
+    question: "How can I pay for my packaging order?",
+    answer:
+      "You can pay by card (Visa, Mastercard, American Express), bank wire transfer or Payoneer. Payment details are shared with your approved quote and invoice, so you only pay once the specifications and price are confirmed.",
+  },
+  {
     category: "Market",
     question: "Do you support USA, UK and Canada buyers?",
     answer:
@@ -33,7 +39,7 @@ const faqs = [
     category: "Material",
     question: "What materials can be used for custom boxes?",
     answer:
-      "Common options include paperboard, cardboard, corrugated stock, kraft board, rigid board, art card, SBS style board and food-safe packaging materials depending on the project.",
+      "Common options include paperboard, cardboard, corrugated stock, kraft board, rigid board, art card, SBS style board and greaseproof papers depending on the project.",
   },
   {
     category: "Finishing",
@@ -80,7 +86,7 @@ const supportCards = [
   },
   {
     title: "Material Guidance",
-    text: "Choose paperboard, kraft, corrugated, rigid board or food-safe packaging materials.",
+    text: "Choose paperboard, kraft, corrugated, rigid board or greaseproof papers.",
   },
   {
     title: "Finish Planning",
@@ -143,7 +149,7 @@ export default function FAQPage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-orange-500 px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-orange-400"
               >
                 Get Quote
@@ -166,7 +172,12 @@ export default function FAQPage() {
                     key={card.title}
                     className="rounded-3xl border border-white/10 bg-white/[0.04] p-5"
                   >
-                    <div className="mb-4 h-10 w-10 rounded-2xl bg-orange-500/90 shadow-lg shadow-orange-500/20" />
+                    <div
+                      aria-hidden="true"
+                      className="mb-4 h-10 w-10 rounded-2xl bg-orange-500/90 shadow-lg shadow-orange-500/20 flex items-center justify-center text-white"
+                    >
+                      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                    </div>
                     <h2 className="text-lg font-black">{card.title}</h2>
                     <p className="mt-3 text-sm leading-6 text-slate-300">
                       {card.text}
@@ -284,7 +295,7 @@ export default function FAQPage() {
               </a>
 
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-orange-500 px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-orange-400"
               >
                 Get Quote

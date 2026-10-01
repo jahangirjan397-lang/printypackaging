@@ -1,11 +1,59 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
+import { getBlogVisual } from "@/data/blogVisuals";
+import { products } from "@/data/products";
+import type { BlogPost } from "@/data/blogs";
+import ShareButtons from "@/components/ShareButtons";
 
 const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
 const websiteId = `${siteUrl}#website`;
+const defaultAuthor = "Printy Packaging Team";
+
+// Google shows about 60 characters of a title and 155-160 of a description
+function seoTitle(post: BlogPost) {
+  if (post.seoTitle?.trim()) return post.seoTitle.trim();
+  const branded = `${post.title} | Printy Packaging`;
+  return branded.length <= 60 ? branded : post.title;
+}
+
+function seoDescription(post: BlogPost) {
+  const text = (post.metaDescription?.trim() || post.excerpt).replace(/\s+/g, " ");
+  if (text.length <= 160) return text;
+  return `${text.slice(0, 157).replace(/\s+\S*$/, "")}…`;
+}
+
+// Products linked from the article: the ones chosen in /admin, otherwise
+// products whose name appears in the article text
+function articleProducts(post: BlogPost) {
+  const chosen = (post.relatedProducts ?? [])
+    .map((slug) => products.find((product) => product.slug === slug))
+    .filter((product): product is (typeof products)[number] => Boolean(product));
+  if (chosen.length) return chosen.slice(0, 4);
+
+  const text = [post.title, ...post.sections.map((s) => `${s.heading} ${s.body}`)]
+    .join(" ")
+    .toLowerCase();
+  return products
+    .map((product) => ({
+      product,
+      hits: text.split(product.name.toLowerCase()).length - 1,
+    }))
+    .filter((item) => item.hits > 0)
+    .sort((a, b) => b.hits - a.hits)
+    .slice(0, 3)
+    .map((item) => item.product);
+}
+
+function headingId(heading: string) {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -31,19 +79,32 @@ export async function generateMetadata({
     };
   }
 
+  const image = `${siteUrl}${getBlogVisual(post.slug).src}`;
+  const description = seoDescription(post);
+
   return {
-    title: { absolute: `${post.title} | Printy Packaging Blog` },
-    description: post.excerpt,
+    title: { absolute: seoTitle(post) },
+    description,
     keywords: post.keywords,
+    authors: [{ name: post.author || defaultAuthor }],
     alternates: {
       canonical: `${siteUrl}/blog/${post.slug}`,
     },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description,
       type: "article",
       url: `${siteUrl}/blog/${post.slug}`,
       siteName: "Printy Packaging",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt || post.publishedAt,
+      images: [{ url: image, alt: getBlogVisual(post.slug).alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [image],
     },
   };
 }
@@ -60,16 +121,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .filter((item) => item.slug !== post.slug)
     .slice(0, 3);
 
+  const articleVisual = getBlogVisual(post.slug);
+  const linkedProducts = articleProducts(post);
+  const author = post.author || defaultAuthor;
+  const updatedAt = post.updatedAt && post.updatedAt > post.publishedAt ? post.updatedAt : "";
+
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
-    description: post.excerpt,
+    description: seoDescription(post),
+    image: [`${siteUrl}${articleVisual.src}`],
     datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
-    author: {
-      "@id": organizationId,
-    },
+    dateModified: updatedAt || post.publishedAt,
+    author:
+      author === defaultAuthor
+        ? { "@id": organizationId }
+        : { "@type": "Person", name: author, worksFor: { "@id": organizationId } },
     publisher: {
       "@id": organizationId,
     },
@@ -142,7 +210,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="absolute left-0 top-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
         <div className="absolute right-0 top-20 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-5xl px-6 py-20 sm:py-24 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-6 py-20 sm:py-24 lg:px-8">
           <div className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
             <Link href="/" className="hover:text-cyan-300">
               Home
@@ -155,27 +223,39 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span className="text-[#FF6A00]">{post.category}</span>
           </div>
 
-          <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
-            {post.category}
-          </div>
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <div className="inline-flex rounded-full border border-cyan-400/40 bg-cyan-400/10 px-5 py-2 text-sm font-black text-cyan-200">
+                {post.category}
+              </div>
 
-          <h1 className="mt-8 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
-            {post.title}
-          </h1>
+              <h1 className="mt-8 text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+                {post.title}
+              </h1>
 
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            {post.excerpt}
-          </p>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+                {post.excerpt}
+              </p>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-400">
-            <span>{post.readTime}</span>
-            <span>•</span>
-            <span>{post.publishedAt}</span>
-          </div>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-slate-400">
+                <span>By {author}</span>
+                <span>•</span>
+                <span>{post.readTime}</span>
+                <span>•</span>
+                <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+                {updatedAt && (
+                  <>
+                    <span>•</span>
+                    <span>
+                      Updated <time dateTime={updatedAt}>{updatedAt}</time>
+                    </span>
+                  </>
+                )}
+              </div>
 
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/?product=mailer-boxes#quote"
+              href="/#quote"
               className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
             >
               Get Quote
@@ -187,6 +267,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             >
               Resources
             </Link>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#EDE5DC]">
+                <Image
+                  src={articleVisual.src}
+                  alt={articleVisual.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 48vw"
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -199,17 +294,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Article Guide
               </p>
 
-              <h2 className="mt-4 text-2xl font-black tracking-tight">
+              <p className="mt-4 text-2xl font-black tracking-tight">
                 What this guide covers
-              </h2>
+              </p>
 
               <div className="mt-6 grid gap-3">
                 {post.sections.map((section) => (
                   <a
                     key={section.heading}
-                    href={`#${section.heading
-                      .toLowerCase()
-                      .replaceAll(" ", "-")}`}
+                    href={`#${headingId(section.heading)}`}
                     className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
                   >
                     {section.heading}
@@ -220,31 +313,133 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </aside>
 
           <article className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7 sm:p-10">
+            <div className="mb-10 border-b border-slate-200 pb-6">
+              <ShareButtons
+                url={`${siteUrl}/blog/${post.slug}`}
+                title={post.title}
+                image={`${siteUrl}${articleVisual.src}`}
+              />
+            </div>
+
             <div className="space-y-10">
               {post.sections.map((section) => (
                 <section
                   key={section.heading}
-                  id={section.heading.toLowerCase().replaceAll(" ", "-")}
+                  id={headingId(section.heading)}
                 >
                   <h2 className="text-3xl font-black tracking-tight text-[#07111F]">
                     {section.heading}
                   </h2>
 
-                  <p className="mt-4 text-lg leading-9 text-slate-600">
-                    {section.body}
-                  </p>
+                  {section.body.split(/\n\s*\n/).map((paragraph) => (
+                    <p
+                      key={paragraph.slice(0, 40)}
+                      className="mt-4 text-lg leading-9 text-slate-600"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+
+                  {section.table && (
+                    <div className="mt-6 overflow-x-auto rounded-[1.5rem] border border-slate-200 bg-white">
+                      <table className="w-full min-w-[560px] text-left text-sm">
+                        <caption className="sr-only">{section.table.caption}</caption>
+                        <thead className="bg-[#07111F] text-xs uppercase tracking-[0.14em] text-white">
+                          <tr>
+                            {section.table.headers.map((header) => (
+                              <th key={header} scope="col" className="px-5 py-4 font-black">
+                                {header}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.table.rows.map((row) => (
+                            <tr key={row[0]} className="border-t border-slate-100">
+                              {row.map((cell, index) =>
+                                index === 0 ? (
+                                  <th key={cell} scope="row" className="px-5 py-4 font-black text-[#07111F]">
+                                    {cell}
+                                  </th>
+                                ) : (
+                                  <td key={`${row[0]}-${index}`} className="px-5 py-4 text-slate-600">
+                                    {cell}
+                                  </td>
+                                ),
+                              )}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </section>
               ))}
             </div>
 
-            <div className="mt-12 rounded-[2rem] bg-[#07111F] p-7 text-white">
+            {linkedProducts.length > 0 && (
+              <div className="mt-12">
+                <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+                  Products in this guide
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {linkedProducts.map((product) => (
+                    <Link
+                      key={product.slug}
+                      href={`/products/${product.slug}`}
+                      className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-3 transition hover:-translate-y-0.5 hover:border-[#FF6A00]"
+                    >
+                      {product.images?.[0] && (
+                        <span className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                          <Image
+                            src={product.images[0].src}
+                            alt={product.images[0].alt || product.name}
+                            fill
+                            sizes="80px"
+                            className="object-cover"
+                          />
+                        </span>
+                      )}
+                      <span>
+                        <span className="block font-black text-[#07111F] group-hover:text-[#FF6A00]">
+                          Custom {product.name}
+                        </span>
+                        <span className="mt-0.5 block text-xs leading-5 text-slate-500">
+                          {product.tagline}
+                        </span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="mt-10 flex items-start gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#07111F] text-lg font-black text-white">
+                {author.slice(0, 1)}
+              </span>
+              <span>
+                <span className="block text-xs font-black uppercase tracking-[0.2em] text-slate-400">
+                  Written by
+                </span>
+                <span className="block font-black text-[#07111F]">{author}</span>
+                <span className="mt-1 block text-sm leading-6 text-slate-600">
+                  Printy Packaging makes custom boxes, butter paper, labels and
+                  retail packaging for brands in the USA, UK, Europe and the
+                  UAE. Our guides are written from real orders and supplier
+                  experience.
+                </span>
+              </span>
+            </div>
+
+            <div className="mt-10 rounded-[2rem] bg-[#07111F] p-7 text-white">
               <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
                 Need Packaging Help?
               </p>
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight">
+              <p className="mt-4 text-3xl font-black tracking-tight">
                 Send your packaging details for quote support.
-              </h2>
+              </p>
 
               <p className="mt-4 leading-8 text-slate-300">
                 Share size, quantity, material, printing, finishing, artwork
@@ -252,7 +447,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
 
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
               >
                 Request Quote
@@ -264,11 +459,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <section className="bg-slate-50 text-slate-950">
         <div className="mx-auto max-w-4xl px-6 py-16 lg:px-8">
-          <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black tracking-tight">
+          <h2 className="text-center mt-4 text-4xl font-black tracking-tight">
             Common questions
           </h2>
 

@@ -52,7 +52,7 @@ export default function FeaturedProducts() {
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(0,194,232,0.18),transparent_34%),linear-gradient(135deg,#FFFFFF,#EAF7FA)]" />
                   )}
 
-                  <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#07111F] shadow-sm backdrop-blur">
+                  <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#07111F] shadow-sm backdrop-blur">
                     {item.category}
                   </span>
                   <span className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white shadow-lg">

@@ -1,0 +1,32 @@
+name: Website validation
+
+on:
+  pull_request:
+    branches: [printy-final-work, main]
+  push:
+    branches: [printy-final-work, main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - name: Check built routes and internal links
+        run: |
+          npm run start -- --hostname 127.0.0.1 > /tmp/printy-next.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:3000/ > /dev/null; then break; fi
+            sleep 2
+          done
+          node scripts/check-links.mjs http://127.0.0.1:3000
+          node scripts/check-quote-api.mjs http://127.0.0.1:3000

@@ -7,11 +7,11 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   whatsappMessage,
 )}`;
 
-function WhatsAppIcon() {
+export function WhatsAppIcon({ className = "h-8 w-8" }: { className?: string }) {
   return (
     <svg
       aria-hidden="true"
-      className="h-6 w-6"
+      className={className}
       viewBox="0 0 24 24"
       fill="currentColor"
     >
@@ -22,20 +22,24 @@ function WhatsAppIcon() {
 
 export default function FloatingActions() {
   return (
+    // Bottom-left corner (owner's choice); live chat stays bottom-right
     <div className="fixed bottom-4 left-4 z-[999997] sm:bottom-6 sm:left-6">
+      {/* Official WhatsApp look: white logo on the brand green circle */}
       <a
         href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Printy Packaging on WhatsApp"
-        className="group flex h-14 w-14 items-center justify-center rounded-full bg-[#19C463] text-white shadow-[0_18px_45px_rgba(25,196,99,0.35)] ring-1 ring-white/30 transition hover:-translate-y-1 hover:bg-[#12A955] sm:w-auto sm:gap-3 sm:px-5"
+        title="Chat on WhatsApp"
+        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] transition hover:-translate-y-1 hover:scale-105 sm:h-[60px] sm:w-[60px]"
       >
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15">
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 animate-ping rounded-full bg-[#25D366] opacity-25 motion-reduce:hidden"
+          style={{ animationDuration: "2.4s" }}
+        />
+        <span className="relative">
           <WhatsAppIcon />
-        </span>
-
-        <span className="hidden whitespace-nowrap text-sm font-black sm:inline">
-          WhatsApp
         </span>
       </a>
     </div>

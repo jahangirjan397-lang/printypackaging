@@ -1,10 +1,17 @@
 "use client";
 
 import type { FormEvent, ReactNode } from "react";
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { products } from "../data/products";
+import {
+  isLiveHostname,
+  readAnalyticsConsent,
+} from "@/lib/analyticsConsent";
+import { readLeadSource } from "@/lib/leadSource";
+import { businessPromises } from "@/data/businessInfo";
+import HandNote from "@/components/HandNote";
 const quoteBenefits = [
   "Custom box style suggestion",
   "Material and GSM guidance",
@@ -19,7 +26,6 @@ const countries = [
   "Europe",
   "UAE",
   "Australia",
-  "Pakistan",
   "Other",
 ];
 
@@ -104,10 +110,10 @@ const materialLibrary = {
     "Kraft Card 400 GSM",
     "Kraft Card 450 GSM",
 
-    "Food Grade Card 250 GSM",
-    "Food Grade Card 300 GSM",
-    "Food Grade Card 350 GSM",
-    "Food Grade Card 400 GSM",
+    "Card 250 GSM",
+    "Card 300 GSM",
+    "Card 350 GSM",
+    "Card 400 GSM",
 
     "Sticker Stock Paper",
     "Gloss Sticker Stock",
@@ -205,15 +211,15 @@ const materialLibrary = {
   food: [
     "Need suggestion",
 
-    "Food Grade SBS 250 GSM",
-    "Food Grade SBS 300 GSM",
-    "Food Grade SBS 350 GSM",
-    "Food Grade SBS 400 GSM",
+    "SBS 250 GSM",
+    "SBS 300 GSM",
+    "SBS 350 GSM",
+    "SBS 400 GSM",
 
-    "Food Grade Kraft 200 GSM",
-    "Food Grade Kraft 250 GSM",
-    "Food Grade Kraft 300 GSM",
-    "Food Grade Kraft 350 GSM",
+    "Kraft 200 GSM",
+    "Kraft 250 GSM",
+    "Kraft 300 GSM",
+    "Kraft 350 GSM",
 
     "PE Coated Paper",
     "Cup Stock Paper",
@@ -416,9 +422,13 @@ export default function QuoteSection() {
 
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState(
-    products[0]?.name || ""
-  );
+  const [size, setSize] = useState({ length: "", width: "", height: "", unit: "in" });
+  const sizeValue = [size.length, size.width, size.height].some(Boolean)
+    ? `${size.length || "?"} x ${size.width || "?"} x ${size.height || "?"} ${size.unit}`
+    : "";
+  // Empty until the buyer picks a product or arrives from a product page
+  // link (?product=slug), so generic "Get Quote" links preselect nothing
+  const [selectedProduct, setSelectedProduct] = useState("");
 
   const materialOptions = useMemo(() => {
     const materialType = getMaterialType(selectedProduct);
@@ -429,41 +439,13 @@ export default function QuoteSection() {
     ]);
   }, [selectedProduct]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const productParam = params.get("product");
-
-    if (!productParam) return;
-
-    const cleanParam = productParam.toLowerCase().trim();
-
-    const matchedProduct = products.find((product) => {
-      const productSlug = product.slug.toLowerCase();
-      const productName = product.name.toLowerCase();
-      const productNameAsSlug = product.name.toLowerCase().replaceAll(" ", "-");
-
-      return (
-        productSlug === cleanParam ||
-        productName === cleanParam ||
-        productNameAsSlug === cleanParam
-      );
-    });
-
-    if (!matchedProduct) return;
-
-    const frame = window.requestAnimationFrame(() => {
-      setSelectedProduct(matchedProduct.name);
-    });
-
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
   event.preventDefault();
 
   setErrorMessage("");
 
   const formData = new FormData(event.currentTarget);
+  formData.set("leadSource", readLeadSource());
   const artworkFiles = formData
     .getAll("artworkFiles")
     .filter(
@@ -477,12 +459,12 @@ export default function QuoteSection() {
   }
 
   const oversizedFile = artworkFiles.find(
-    (file) => file.size > 5 * 1024 * 1024,
+    (file) => file.size > 4_000_000,
   );
 
   if (oversizedFile) {
     setErrorMessage(
-      `"${oversizedFile.name}" is larger than 5 MB. Please choose a smaller file.`,
+      `"${oversizedFile.name}" is larger than 4 MB. Please choose a smaller file.`,
     );
     return;
   }
@@ -492,9 +474,9 @@ export default function QuoteSection() {
     0,
   );
 
-  if (totalUploadSize > 10 * 1024 * 1024) {
+  if (totalUploadSize > 4_000_000) {
     setErrorMessage(
-      "Your artwork files are larger than 10 MB in total. Please reduce the file size or upload fewer files.",
+      "Your artwork files are larger than 4 MB in total. Please reduce the file size or upload fewer files.",
     );
     return;
   }
@@ -527,16 +509,10 @@ export default function QuoteSection() {
       throw new Error(result.message || "Quote request failed.");
     }
 
-        const hostname = window.location.hostname;
-    const analyticsConsent = window.localStorage.getItem(
-      "printy-analytics-consent",
-    );
-
-    const isLiveWebsite =
-      hostname === "printypackaging.com" ||
-      hostname === "www.printypackaging.com";
-
-    if (isLiveWebsite && analyticsConsent === "granted") {
+    if (
+      isLiveHostname(window.location.hostname) &&
+      readAnalyticsConsent() === "granted"
+    ) {
       sendGAEvent("event", "generate_lead", {
         form_name: "custom_packaging_quote",
         quote_id: result.quoteId || "not_available",
@@ -556,53 +532,69 @@ export default function QuoteSection() {
 }
 
   return (
-    <section className="bg-[#F7FAFC] px-5 py-16 md:px-8 md:py-20">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div>
+    <section className="bg-[#F7FAFC] px-5 py-10 md:px-8 md:py-12">
+      <Suspense fallback={null}>
+        <ProductFromUrl onProductMatch={setSelectedProduct} />
+      </Suspense>
+
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-10">
+          <div className="lg:sticky lg:top-28">
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
               Request Custom Quote
             </p>
 
-            <h2 className="mt-4 text-4xl font-black leading-tight text-[#07111F] md:text-6xl">
-              Get clear packaging price guidance for your project
+            <h2 className="mt-2 text-3xl font-black leading-tight text-[#07111F]">
+              Get your custom packaging price, fast
             </h2>
 
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              Share your box style, size, quantity, material, GSM and finishing
-              requirements. Our packaging team will review the details and guide
-              you with the best custom packaging solution.
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Tell us what you need. We reply with pricing, the right material
+              and a free dieline. No design skills needed.
             </p>
 
-            <div className="mt-8 grid gap-4">
+            <ul className="mt-4 grid gap-x-4 gap-y-2 sm:grid-cols-2">
               {quoteBenefits.map((item) => (
-                <div
+                <li
                   key={item}
-                  className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm"
+                  className="flex items-center gap-2 text-xs font-bold text-[#07111F]"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00C2E8] font-black text-[#07111F]">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#00C2E8] text-[0.65rem] font-black text-[#07111F]">
                     ✓
-                  </div>
-                  <p className="font-black text-[#07111F]">{item}</p>
-                </div>
+                  </span>
+                  {item}
+                </li>
               ))}
+            </ul>
+
+            <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl bg-[#07111F] px-4 py-3 text-white">
+              <p className="text-sm font-bold text-slate-300">Prefer to chat?</p>
+              <a
+                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full bg-[#25D366] px-4 py-2 text-sm font-black text-[#07111F] transition hover:bg-[#1ebe5b]"
+              >
+                WhatsApp
+              </a>
+              <a
+                href="mailto:sales@printypackaging.com"
+                className="text-sm font-black text-[#00C2E8] hover:underline"
+              >
+                sales@printypackaging.com
+              </a>
             </div>
 
-            <div className="mt-8 rounded-[1.7rem] bg-[#07111F] p-6 text-white">
-              <p className="text-xl font-black">Fast Quote Checklist</p>
-              <p className="mt-3 leading-7 text-slate-300">
-                For an accurate quote, please send product size, quantity, box
-                style, material preference, GSM or board thickness, printing
-                colors, finishing details and artwork status.
-              </p>
+            <div className="mt-4 hidden justify-end lg:flex">
+              <HandNote>{`Free quote ${businessPromises.quoteResponse.replace(" (business hours)", "")}`}</HandNote>
             </div>
           </div>
 
-            <form
-  id="quote"
-  onSubmit={handleSubmit}
-  className="relative scroll-mt-28 rounded-[2rem] bg-white p-6 shadow-xl md:p-8"
->
+          <form
+            id="quote"
+            onSubmit={handleSubmit}
+            className="relative scroll-mt-28 rounded-[1.5rem] border-t-4 border-[#FF6A00] bg-white p-4 shadow-xl md:p-5"
+          >
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
@@ -616,25 +608,25 @@ export default function QuoteSection() {
               />
             </div>
 
-            <div className="grid gap-5 md:grid-cols-2">
-              <FormField label="Full Name">
+            <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-3">
+              <FormField label="Name *">
                 <input
                   name="name"
                   required
                   autoComplete="name"
                   placeholder="Your name"
-                  className="field-input"
+                  className="field-input field-compact"
                 />
               </FormField>
 
-              <FormField label="Email">
+              <FormField label="Email *">
                 <input
                   name="email"
                   type="email"
                   required
                   autoComplete="email"
-                  placeholder="your@email.com"
-                  className="field-input"
+                  placeholder="you@brand.com"
+                  className="field-input field-compact"
                 />
               </FormField>
 
@@ -643,27 +635,21 @@ export default function QuoteSection() {
                   name="whatsapp"
                   autoComplete="tel"
                   placeholder="+1 000 000 0000"
-                  className="field-input"
+                  className="field-input field-compact"
                 />
               </FormField>
 
-              <FormField label="Country">
-                <select name="country" className="field-input">
-                  {countries.map((country) => (
-                    <option key={country} value={country}>
-                      {country}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
-              <FormField label="Product Type">
+              <FormField label="Product">
                 <select
                   name="product"
                   value={selectedProduct}
                   onChange={(event) => setSelectedProduct(event.target.value)}
-                  className="field-input"
+                  required
+                  className="field-input field-compact"
                 >
+                  <option value="" disabled>
+                    Select a product
+                  </option>
                   {products.map((product) => (
                     <option key={product.slug} value={product.name}>
                       {product.name}
@@ -675,63 +661,60 @@ export default function QuoteSection() {
               <FormField label="Quantity">
                 <input
                   name="quantity"
-                  placeholder="500 / 1000 / 5000"
-                  className="field-input"
+                  inputMode="numeric"
+                  placeholder="e.g. 1000"
+                  className="field-input field-compact"
                 />
               </FormField>
 
-              <FormField label="Size">
-                <input
-                  name="size"
-                  placeholder="L x W x H"
-                  className="field-input"
-                />
-              </FormField>
-
-              <FormField label="Material">
-                <select name="material" className="field-input">
-                  {materialOptions.map((material) => (
-                    <option key={material} value={material}>
-                      {material}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
-              <FormField label="GSM / Board Thickness">
-                <select name="gsm" className="field-input">
-                  {gsmOptions.map((gsm) => (
-                    <option key={gsm} value={gsm}>
-                      {gsm}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
-              <FormField label="Printing Colors">
-                <select name="printing" className="field-input">
-                  {printingOptions.map((printing) => (
-                    <option key={printing} value={printing}>
-                      {printing}
+              <FormField label="Country">
+                <select name="country" className="field-input field-compact">
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
                     </option>
                   ))}
                 </select>
               </FormField>
             </div>
 
-            <div className="mt-5 grid gap-5 md:grid-cols-2">
-              <FormField label="Finishing Options">
-                <select name="finishing" className="field-input">
-                  {finishingOptions.map((finish) => (
-                    <option key={finish} value={finish}>
-                      {finish}
-                    </option>
-                  ))}
+            <div className="mt-2.5 grid gap-2.5 lg:grid-cols-3">
+            <fieldset className="lg:col-span-2">
+              <legend className="mb-1 text-xs font-black text-[#07111F]">
+                Size <span className="font-bold text-slate-400">(optional)</span>
+              </legend>
+              <input type="hidden" name="size" value={sizeValue} />
+              <div className="grid grid-cols-[1fr_1fr_1fr_4.5rem] gap-2">
+                {(["length", "width", "height"] as const).map((side) => (
+                  <input
+                    key={side}
+                    inputMode="decimal"
+                    aria-label={`Box ${side}`}
+                    placeholder={side[0].toUpperCase() + side.slice(1)}
+                    value={size[side]}
+                    onChange={(event) =>
+                      setSize((current) => ({ ...current, [side]: event.target.value }))
+                    }
+                    className="field-input field-compact"
+                  />
+                ))}
+                <select
+                  aria-label="Size unit"
+                  value={size.unit}
+                  onChange={(event) =>
+                    setSize((current) => ({ ...current, unit: event.target.value }))
+                  }
+                  className="field-input field-compact"
+                >
+                  <option value="in">in</option>
+                  <option value="cm">cm</option>
+                  <option value="mm">mm</option>
                 </select>
-              </FormField>
+              </div>
+            </fieldset>
 
-              <FormField label="Artwork Status">
-                <select name="artworkStatus" className="field-input">
+              <FormField label="Artwork">
+                <select name="artworkStatus" className="field-input field-compact">
                   {artworkOptions.map((status) => (
                     <option key={status} value={status}>
                       {status}
@@ -741,40 +724,101 @@ export default function QuoteSection() {
               </FormField>
             </div>
 
-            <div className="mt-5">
-              <FormField label="Project Details">
-                <textarea
+            <div className="mt-2.5">
+              <FormField label="Anything else?">
+                <input
                   name="message"
-                  rows={5}
-                  placeholder="Tell us about your product, packaging style, deadline, shipping country and any special requirement..."
-                  className="field-input resize-none"
+                  placeholder="Box style, deadline or anything we should know (optional)"
+                  className="field-input field-compact"
                 />
               </FormField>
             </div>
 
-            <div className="mt-5 rounded-2xl border border-dashed border-[#00C2E8] bg-[#00C2E8]/10 p-5">
-              <p className="font-black text-[#07111F]">
-                Artwork & Reference Files
-              </p>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                Optional: upload your artwork, dieline, logo or packaging
-                reference files with the quote request.
-              </p>
-              <input
-                name="artworkFiles"
-                type="file"
-                multiple
-                accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr"
-                className="mt-4 block w-full rounded-xl border border-[#00C2E8]/30 bg-white px-4 py-3 text-sm text-slate-700 file:mr-4 file:rounded-full file:border-0 file:bg-[#07111F] file:px-4 file:py-2 file:font-black file:text-white"
-              />
-              <p className="mt-3 text-xs leading-5 text-slate-500">
-                Up to 5 files. Maximum 5 MB per file and 10 MB total. Accepted:
-                PDF, AI, EPS, PSD, SVG, PNG, JPG, WEBP, TIFF and CDR.
-              </p>
-            </div>
+            {/* Optional specs stay in the form (and are submitted) even while collapsed */}
+            <details className="group mt-3 rounded-xl border border-slate-200 bg-slate-50/70">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-2.5">
+                <span className="text-xs font-black text-[#07111F]">
+                  Material, printing &amp; files{" "}
+                  <span className="font-bold text-slate-400">(optional)</span>
+                </span>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 20 20"
+                  className="h-4 w-4 shrink-0 text-[#FF6A00] transition group-open:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m5 8 5 5 5-5" />
+                </svg>
+              </summary>
+
+              <div className="border-t border-slate-200 px-4 pb-4 pt-3">
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <FormField label="Material">
+                    <select name="material" className="field-input field-compact">
+                      {materialOptions.map((material) => (
+                        <option key={material} value={material}>
+                          {material}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
+                  <FormField label="GSM / Thickness">
+                    <select name="gsm" className="field-input field-compact">
+                      {gsmOptions.map((gsm) => (
+                        <option key={gsm} value={gsm}>
+                          {gsm}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
+                  <FormField label="Printing">
+                    <select name="printing" className="field-input field-compact">
+                      {printingOptions.map((printing) => (
+                        <option key={printing} value={printing}>
+                          {printing}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
+                  <FormField label="Finishing">
+                    <select name="finishing" className="field-input field-compact">
+                      {finishingOptions.map((finish) => (
+                        <option key={finish} value={finish}>
+                          {finish}
+                        </option>
+                      ))}
+                    </select>
+                  </FormField>
+
+                  <label className="block">
+                    <span className="mb-1.5 block text-sm font-black text-[#07111F]">
+                      Files
+                    </span>
+                    <input
+                      name="artworkFiles"
+                      type="file"
+                      multiple
+                      accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr"
+                      className="block w-full rounded-xl border border-dashed border-[#00C2E8]/60 bg-white px-3 py-2 text-xs text-slate-700 file:mr-3 file:rounded-full file:border-0 file:bg-[#07111F] file:px-3 file:py-1.5 file:font-black file:text-white"
+                    />
+                  </label>
+                </div>
+                <p className="mt-2 text-xs leading-5 text-slate-500">
+                  Up to 5 files, 4 MB total. PDF, AI, EPS, PSD, SVG, PNG, JPG,
+                  WEBP, TIFF or CDR.
+                </p>
+              </div>
+            </details>
 
             {errorMessage && (
-              <div className="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700">
+              <div className="mt-4 rounded-2xl bg-red-50 p-4 text-sm font-bold text-red-700">
                 {errorMessage}
               </div>
             )}
@@ -782,19 +826,61 @@ export default function QuoteSection() {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-6 w-full rounded-full bg-[#FF6A00] px-8 py-5 text-lg font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-3 w-full rounded-full bg-[#FF6A00] px-8 py-3 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSending ? "Sending Quote Request..." : "Submit Quote Request"}
+              {isSending ? "Sending..." : "Get My Free Quote"}
             </button>
 
-            <p className="mt-4 text-center text-sm text-slate-500">
-              Your request will be sent to our packaging team for review.
-            </p>
+            <ul className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[0.7rem] font-bold text-slate-500">
+              <li>✓ Reply {businessPromises.quoteResponse}</li>
+              <li>✓ MOQ from {businessPromises.minimumOrder}</li>
+              <li>✓ Free dieline</li>
+            </ul>
           </form>
         </div>
       </div>
     </section>
   );
+}
+
+function findProductFromParam(productParam: string | null) {
+  if (!productParam) return undefined;
+
+  const cleanParam = productParam.toLowerCase().trim();
+
+  return products.find((product) => {
+    const productSlug = product.slug.toLowerCase();
+    const productName = product.name.toLowerCase();
+    const productNameAsSlug = productName.replaceAll(" ", "-");
+
+    return (
+      productSlug === cleanParam ||
+      productName === cleanParam ||
+      productNameAsSlug === cleanParam
+    );
+  });
+}
+
+// Reads ?product= on every navigation, including links to "/?product=...#quote"
+// clicked while already on the homepage. Kept in its own Suspense boundary so
+// the quote form itself is still prerendered.
+function ProductFromUrl({
+  onProductMatch,
+}: {
+  onProductMatch: (productName: string) => void;
+}) {
+  const searchParams = useSearchParams();
+  const productParam = searchParams.get("product");
+
+  useEffect(() => {
+    const matchedProduct = findProductFromParam(productParam);
+
+    if (matchedProduct) {
+      onProductMatch(matchedProduct.name);
+    }
+  }, [productParam, onProductMatch]);
+
+  return null;
 }
 
 function FormField({
@@ -806,7 +892,7 @@ function FormField({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-black text-[#07111F]">
+      <span className="mb-1 block text-xs font-black text-[#07111F]">
         {label}
       </span>
       {children}

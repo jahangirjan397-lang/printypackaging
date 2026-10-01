@@ -154,7 +154,7 @@ export const markets: Market[] = [
     ],
     benefits: [
       "Packaging options for Canadian ecommerce and retail brands",
-      "Food-safe packaging and wrapping options",
+      "Branded food packaging and wrapping options",
       "Luxury packaging for premium product lines",
       "Material and finishing guidance for packaging quotes",
       "Internal links for product, category and guide discovery",
@@ -253,7 +253,7 @@ export const markets: Market[] = [
     ],
     benefits: [
       "Packaging options for Australian online and retail brands",
-      "Food wrapping and food-safe packaging support",
+      "Food wrapping and takeaway packaging support",
       "Product-specific pages for buyer education",
       "Clear internal links for product discovery",
       "Quote guidance for material, print and finish planning",

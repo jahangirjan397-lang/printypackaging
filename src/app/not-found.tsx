@@ -33,7 +33,7 @@ export default function NotFound() {
           </Link>
 
           <Link
-            href="/?product=mailer-boxes#quote"
+            href="/#quote"
             className="rounded-full border border-white/20 px-7 py-3 text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
           >
             Request Quote

@@ -2,17 +2,22 @@ import type { Metadata } from "next";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import StatsBar from "../components/StatsBar";
+import BrandTypesStrip from "../components/BrandTypesStrip";
 import FeaturedProducts from "../components/FeaturedProducts";
 import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
 import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
+import PaymentMethodsSection from "../components/PaymentMethodsSection";
+import { paymentMethodsVerified } from "@/data/businessInfo";
 import QuoteSection from "../components/QuoteSection";
+import BoxFinder from "../components/BoxFinder";
+import CustomerReviewsSection from "../components/CustomerReviewsSection";
 
 export const metadata: Metadata = {
-  title: "Custom Boxes, Rigid Boxes & Food Packaging",
+  title: { absolute: "Custom Packaging Boxes with Logo | Printy Packaging" },
   description:
-    "Printy Packaging provides premium custom boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels and stickers for USA, UK, Europe, UAE and worldwide brands.",
+    "Custom printed boxes, rigid boxes, mailer boxes, food packaging, butter paper and labels for USA, UK, Europe and UAE brands. Get a free packaging quote.",
   alternates: {
     canonical: "https://printypackaging.com",
   },
@@ -24,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://printypackaging.com/images/home/home-hero-mailer.webp",
+        url: "https://printypackaging.com/images/products/mailer-boxes/mailer-boxes-hero-brand.webp",
         width: 1448,
         height: 1086,
         alt: "Printy Packaging branded mailer boxes for ecommerce and retail brands",
@@ -36,7 +41,7 @@ export const metadata: Metadata = {
     title: "Printy Packaging | Premium Custom Boxes & Packaging",
     description:
       "Custom boxes, rigid boxes, food packaging, butter paper, paper bags, labels and stickers for USA, UK, Europe and worldwide buyers.",
-    images: ["https://printypackaging.com/images/home/home-hero-mailer.webp"],
+    images: ["https://printypackaging.com/images/products/mailer-boxes/mailer-boxes-hero-brand.webp"],
   },
 };
 
@@ -45,13 +50,17 @@ export default function Home() {
     <>
       <Header />
       <Hero />
+      <BrandTypesStrip />
       <StatsBar />
       <FeaturedProducts />
+      <BoxFinder />
       <PremiumPackagingShowcase />
       <WhyChoosePrintySection />
       <OrderProcessSection />
       <IndustryBuyerSection />
+      <CustomerReviewsSection />
       <QuoteSection />
+      {paymentMethodsVerified && <PaymentMethodsSection />}
     </>
   );
 }

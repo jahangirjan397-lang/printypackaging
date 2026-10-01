@@ -1,0 +1,355 @@
+# Printy Packaging admin panel (Decap CMS)
+# Every "Publish" saves a commit to GitHub (main branch) and Vercel updates
+# the live website 2-3 minutes later.
+
+backend:
+  name: github
+  repo: jahangirjan397-lang/printypackaging
+  branch: main
+  base_url: https://printypackaging.com
+  auth_endpoint: api/decap/auth
+  commit_messages:
+    create: "Admin: create {{collection}} \"{{slug}}\""
+    update: "Admin: update {{collection}} \"{{slug}}\""
+    delete: "Admin: delete {{collection}} \"{{slug}}\""
+    uploadMedia: "Admin: upload \"{{path}}\""
+    deleteMedia: "Admin: delete \"{{path}}\""
+
+# On your own computer (localhost) the admin edits files directly after
+# running: npx decap-server
+local_backend: true
+
+site_url: https://printypackaging.com
+display_url: https://printypackaging.com
+logo_url: /logo-icon.svg
+
+# Images uploaded from the admin panel
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  # ------------------------------------------------------------------ BLOGS
+  - name: blogs
+    label: Blogs
+    label_singular: Blog
+    description: >-
+      Naya blog likhne ke liye "+ Blog" dabayein. Publish ke 2-3 minute
+      baad blog website par aa jata hai. Guide: Help & Guides > Write a blog.
+    folder: content/blogs
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: title
+    summary: "{{publishedAt}} — {{title}}"
+    sortable_fields: [publishedAt, title, category]
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        hint: "Blog ka heading. 50-65 characters behtar hain. Jaise: Mailer Box Sizes: A Simple Size Chart"
+      - label: URL slug
+        name: slug
+        widget: string
+        pattern: ["^[a-z0-9]+(-[a-z0-9]+)*$", "Sirf chhote English huroof, numbers aur dash (-). Space nahi."]
+        hint: "Blog ka link banega: printypackaging.com/blog/YE-SLUG. Jaise: mailer-box-size-chart. Publish ke baad ise na badlein."
+      - label: Publish date
+        name: publishedAt
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        hint: "Sab se naya blog website par sab se pehle dikhta hai."
+      - label: Hide from website (draft)
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+        hint: "On karein to blog save to hoga lekin website par nahi dikhega."
+      - label: Category
+        name: category
+        widget: string
+        hint: "Jaise: Food Packaging, Materials, Finishing, Ecommerce, Quote Guide, Artwork"
+      - label: Read time
+        name: readTime
+        widget: string
+        default: "5 min read"
+        hint: "Takreeban 200 alfaaz = 1 minute. Jaise: 6 min read"
+      - label: Short summary (excerpt)
+        name: excerpt
+        widget: text
+        hint: "1-2 jumle jo blog list aur Google par dikhte hain. 140-160 characters behtar."
+      - label: Cover image
+        name: coverImage
+        widget: image
+        hint: "Landscape (leti hui) image, kam az kam 1200 x 900. Printy logo wali image behtar."
+      - label: Cover image description (alt text)
+        name: coverAlt
+        widget: string
+        hint: "Image mein kya hai, ek seedhe jumle mein. Google aur nabina log isi se samajhte hain."
+      - label: SEO keywords
+        name: keywords
+        widget: list
+        hint: "Wo alfaaz jo log Google par search karte hain. Har keyword alag line mein ya comma se."
+      - label: Google title (optional)
+        name: seoTitle
+        widget: string
+        required: false
+        pattern: ["^.{0,60}$", "60 characters se kam rakhein, warna Google kaat dega."]
+        hint: "Google search mein dikhne wala title, 60 characters tak. Khaali chhorein to blog ka Title use hoga."
+      - label: Google description (optional)
+        name: metaDescription
+        widget: text
+        required: false
+        pattern: ["^[\\s\\S]{0,160}$", "160 characters se kam rakhein."]
+        hint: "Google mein title ke neeche wali 1-2 lines, 140-160 characters. Main keyword aur faida likhein. Khaali ho to Short summary use hogi."
+      - label: Last updated (optional)
+        name: updatedAt
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: false
+        hint: "Jab blog mein bari tabdeeli ya nayi maloomat daalein, aaj ki tareekh. Google taaza content pasand karta hai."
+      - label: Author
+        name: author
+        widget: string
+        required: false
+        hint: "Likhne wale ka naam, jaise: M Jahangir. Khaali ho to 'Printy Packaging Team'."
+      - label: Products to link (optional)
+        name: relatedProducts
+        widget: relation
+        collection: product_images
+        file: galleries
+        search_fields: ["products.*.name"]
+        value_field: "products.*.slug"
+        display_fields: ["products.*.name"]
+        multiple: true
+        max: 4
+        required: false
+        hint: "Blog ke neeche jin products ke link lagne chahiye (max 4). Khaali ho to blog ke text se khud chune jayenge."
+      - label: Sections
+        name: sections
+        widget: list
+        summary: "{{fields.heading}}"
+        collapsed: true
+        hint: "Har section ka apna heading aur text. Upar-neeche ghasit kar tarteeb badal sakte hain."
+        fields:
+          - label: Heading
+            name: heading
+            widget: string
+          - label: Text
+            name: body
+            widget: text
+            hint: "Naya paragraph shuru karne ke liye ek line khaali chhor dein (2 baar Enter)."
+          - label: Table title (optional)
+            name: tableCaption
+            widget: string
+            required: false
+          - label: Table (optional)
+            name: table
+            widget: text
+            required: false
+            hint: "Har line ek row, cells ke beech | lagayein. Pehli line heading hai. Misal:\nSize | Good for\n10 x 10 | Small burgers"
+      - label: FAQs
+        name: faqs
+        widget: list
+        summary: "{{fields.question}}"
+        collapsed: true
+        required: false
+        hint: "Aam sawal-jawab. Google inhein search results mein dikha sakta hai."
+        fields:
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
+
+  # ------------------------------------------------------- PRODUCT IMAGES
+  - name: product_images
+    label: Product Images
+    description: >-
+      Har product ki gallery. Pehli image product ka card aur main image banti
+      hai. Zyada se zyada 12 images. Guide: Help & Guides > Images.
+    files:
+      - label: Product galleries
+        name: galleries
+        file: content/product-images.json
+        fields:
+          - label: Products
+            name: products
+            widget: list
+            allow_add: false
+            allow_remove: false
+            allow_reorder: false
+            collapsed: true
+            summary: "{{fields.name}}"
+            hint: "Product kholein, images badlein, phir upar Publish dabayein."
+            fields:
+              - label: Product name
+                name: name
+                widget: string
+                hint: "Sirf pehchan ke liye. Product ka asal naam code mein hai."
+              - label: Product slug (do not change)
+                name: slug
+                widget: string
+                hint: "Ise na badlein. Isi se image sahi product par lagti hai."
+              - label: Images
+                name: images
+                widget: list
+                min: 1
+                max: 12
+                collapsed: true
+                summary: "{{fields.title}}"
+                hint: "Ghasit kar tarteeb badlein. Sab se upar wali image main image hai."
+                fields:
+                  - label: Image
+                    name: src
+                    widget: image
+                    hint: "Landscape 4:3 (jaise 1448 x 1086), WebP ya JPG, 1 MB se kam. Kone mein Printy logo."
+                  - label: Description (alt text)
+                    name: alt
+                    widget: string
+                    hint: "Image mein kya dikh raha hai. Jaise: Kraft mailer box with printed logo"
+                  - label: Short title
+                    name: title
+                    widget: string
+                    hint: "Image ke neeche dikhne wala chhota naam. Jaise: Front View"
+
+  # --------------------------------------------------------- SITE SETTINGS
+  - name: settings
+    label: Business Info & Social
+    description: "Wo baatein jo poori website par dikhti hain: MOQ, production time, phone, reviews aur social links."
+    files:
+      - label: Business Info
+        name: business
+        file: content/settings/business.json
+        fields:
+          - label: Minimum order
+            name: minimumOrder
+            widget: string
+            hint: "Jaise: 100 boxes. Har product page aur quote form par dikhta hai."
+          - label: Production time
+            name: productionTime
+            widget: string
+            hint: "Jaise: 12–15 business days"
+          - label: Quote reply time
+            name: quoteResponse
+            widget: string
+            hint: "Jaise: within 1 hour (business hours). Wahi likhein jo aap waqai kar sakte hain."
+          - label: Design support
+            name: designSupport
+            widget: string
+          - label: Sample offer
+            name: sampleOffer
+            widget: string
+          - label: Sales phone (as shown)
+            name: salesPhoneDisplay
+            widget: string
+            required: false
+            hint: "Jaise: +1 (917) 555-0123. Khaali chhorein to phone website par nahi dikhega."
+          - label: Sales phone (digits for calling)
+            name: salesPhoneTel
+            widget: string
+            required: false
+            hint: "Sirf + aur numbers, jaise: +19175550123"
+          - label: Reviews page link
+            name: reviewsProfileUrl
+            widget: string
+            required: false
+            hint: "Trustpilot ya Google reviews ka poora link (https://...)"
+
+      - label: Reviews & Team
+        name: reviews
+        file: content/settings/reviews.json
+        fields:
+          - label: Customer reviews
+            name: customerReviews
+            widget: list
+            required: false
+            summary: "{{fields.name}} — {{fields.rating}}★"
+            hint: "Sirf asli customers ke asli reviews, un ki ijazat se. Pehla review add hote hi reviews section website par aa jata hai."
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Company, name: company, widget: string, required: false }
+              - { label: Country, name: country, widget: string }
+              - { label: Rating (1-5), name: rating, widget: number, value_type: int, min: 1, max: 5, default: 5 }
+              - { label: Review text, name: text, widget: text }
+              - { label: Source, name: source, widget: string, hint: "Jahan review mila: Google, Trustpilot, Email" }
+          - label: Sales team
+            name: salesTeam
+            widget: list
+            required: false
+            summary: "{{fields.name}} — {{fields.role}}"
+            hint: "Asli log jin se customer baat kar sake. Khaali ho to ye section nahi dikhta."
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Role, name: role, widget: string }
+              - { label: Email, name: email, widget: string }
+              - { label: Photo, name: photo, widget: image, required: false }
+
+      - label: Social Links
+        name: social
+        file: content/settings/social.json
+        fields:
+          - { label: LinkedIn, name: linkedin, widget: string, required: false, hint: "Poora link, https:// se shuru. Khaali ho to icon nahi dikhega." }
+          - { label: Instagram, name: instagram, widget: string, required: false }
+          - { label: Facebook, name: facebook, widget: string, required: false }
+          - { label: YouTube, name: youtube, widget: string, required: false }
+          - { label: TikTok, name: tiktok, widget: string, required: false }
+          - { label: Pinterest, name: pinterest, widget: string, required: false }
+          - { label: X (Twitter), name: x, widget: string, required: false }
+          - { label: Google Business Profile, name: googleBusiness, widget: string, required: false }
+
+  # ------------------------------------------------------ BACKLINK TRACKER
+  - name: backlinks
+    label: Backlinks Tracker
+    label_singular: Backlink
+    description: >-
+      Aap ke backlinks ka record. Ye website par nahi dikhta, sirf aap ke liye
+      hai. Guide: Help & Guides > Backlinks.
+    folder: content/backlinks
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{fields.site}}-{{year}}-{{month}}-{{day}}"
+    identifier_field: site
+    summary: "{{status}} — {{site}}"
+    sortable_fields: [date, status, site]
+    fields:
+      - { label: Website name, name: site, widget: string, hint: "Jaise: Clutch, Yelp, Packaging World blog" }
+      - { label: Page with our link, name: pageUrl, widget: string, required: false, hint: "Us website ka page jahan hamara link laga hai" }
+      - { label: Links to (our page), name: targetUrl, widget: string, default: "https://printypackaging.com", hint: "Hamari website ka kaunsa page" }
+      - label: Type
+        name: type
+        widget: select
+        options: [Directory listing, Guest post, Supplier / partner, Social profile, Forum / Q&A, Press / news, Review site, Other]
+      - label: Status
+        name: status
+        widget: select
+        default: Idea
+        options: [Idea, Requested, Live, Lost]
+        hint: "Idea = soch rahe hain, Requested = request bheji, Live = link lag gaya, Lost = hata diya gaya"
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Login / contact used, name: account, widget: string, required: false, hint: "Kis email se account banaya. Password yahan KABHI na likhein." }
+      - { label: Notes, name: notes, widget: text, required: false }
+
+  # --------------------------------------------------------- HELP & GUIDES
+  - name: help
+    label: Help & Guides
+    label_singular: Guide
+    description: >-
+      Website chalane ki poori guide: blog, images, backlinks, masle aur un
+      ka hal, AI se madad, aur accounts ki hifazat. Aap apni guide bhi add
+      kar sakte hain.
+    folder: content/help
+    format: frontmatter
+    extension: md
+    create: true
+    slug: "{{fields.order}}-{{slug}}"
+    identifier_field: title
+    summary: "{{order}}. {{title}}"
+    sortable_fields: [order, title]
+    fields:
+      - { label: Order, name: order, widget: number, value_type: int, hint: "List mein tarteeb (1 sab se upar)" }
+      - { label: Title, name: title, widget: string }
+      - { label: Guide, name: body, widget: markdown }

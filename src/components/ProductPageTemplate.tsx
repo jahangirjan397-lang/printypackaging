@@ -1,11 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import DrawnArrow from "./DrawnArrow";
 import type { Product } from "../data/products";
 import { products } from "../data/products";
+import { businessPromises } from "../data/businessInfo";
+import { printCategory } from "../data/printProducts";
 import BuyerTrustSection from "./BuyerTrustSection";
 import ProductGuideLinksSection from "./ProductGuideLinksSection";
 import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
 import ProductImageGallery from "./ProductImageGallery";
+import StyleGuideSections from "./StyleGuideSections";
+import { getStyleGuide, styleGuides } from "../data/styleGuides";
 
 function getProductSpecs(product: Product) {
   return [
@@ -90,6 +95,8 @@ function getRelatedProducts(product: Product) {
 }
 
 export default function ProductPageTemplate({ product }: { product: Product }) {
+  const styleGuide = getStyleGuide(product.slug);
+  const childStyles = styleGuides.filter((guide) => guide.parent === product.slug);
   const relatedProducts = getRelatedProducts(product);
   const productQuoteLink = `/?product=${product.slug}#quote`;
   const productSpecs = getProductSpecs(product);
@@ -107,38 +114,37 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
     })),
   };
 
+  // Custom packaging is quoted per order (no fixed price or reviews yet), so it
+  // is marked up as a Service. Product markup without offers/reviews/rating is
+  // reported as an invalid product snippet by Google Search Console.
   const productSchema = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
+    "@type": "Service",
+    name: `Custom ${product.name}`,
+    serviceType: product.name,
     description: product.description,
     category: product.category,
-        image: product.images?.map(
+    image: product.images?.map(
       (image) => `https://printypackaging.com${image.src}`
     ),
-    brand: {
-      "@type": "Brand",
-      name: "Printy Packaging",
-    },
-    material: product.materials.join(", "),
     url: `https://printypackaging.com/products/${product.slug}`,
-    additionalProperty: [
-      {
-        "@type": "PropertyValue",
-        name: "Available materials",
-        value: product.materials.join(", "),
-      },
-      {
-        "@type": "PropertyValue",
-        name: "Available finishes",
-        value: product.finishes.join(", "),
-      },
-      {
-        "@type": "PropertyValue",
-        name: "Industries",
-        value: product.industries.join(", "),
-      },
+    provider: {
+      "@type": "Organization",
+      name: "Printy Packaging",
+      url: "https://printypackaging.com",
+    },
+    areaServed: [
+      "United States",
+      "United Kingdom",
+      "Canada",
+      "Europe",
+      "United Arab Emirates",
+      "Australia",
     ],
+    audience: {
+      "@type": "BusinessAudience",
+      audienceType: product.industries.join(", "),
+    },
   };
 
   const breadcrumbSchema = {
@@ -223,7 +229,11 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 {product.description}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="relative mt-8 flex flex-wrap gap-4 md:mt-14">
+                <DrawnArrow
+                  direction="down-left"
+                  className="pointer-events-none absolute -top-[3.9rem] left-[6.5rem] hidden h-16 w-20 md:block"
+                />
                 <Link
                   href={productQuoteLink}
                   prefetch={false}
@@ -241,18 +251,36 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 </Link>
               </div>
 
-              <div className="mt-8 grid gap-3 text-sm font-bold text-slate-300 sm:grid-cols-2">
-                {["Custom Size", "Print Ready Help"].map(
-                  (item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/10 bg-white/[0.06] p-4"
-                    >
-                      {item}
-                    </div>
-                  )
-                )}
-              </div>
+              <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+                {[
+                  {
+                    label: "Minimum order",
+                    // Print items are counted in pieces, not boxes
+                    value:
+                      product.category === printCategory
+                        ? businessPromises.minimumOrder.replace(/boxes?/i, "pieces")
+                        : businessPromises.minimumOrder,
+                  },
+                  { label: "Production", value: businessPromises.productionTime },
+                  { label: "Quote reply", value: businessPromises.quoteResponse },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-white/10 bg-white/[0.06] p-4"
+                  >
+                    <dt className="text-[11px] font-black uppercase tracking-[0.18em] text-[#00C2E8]">
+                      {item.label}
+                    </dt>
+                    <dd className="mt-1 text-sm font-black text-white">
+                      {item.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-4 text-sm font-bold text-slate-300">
+                ✓ {businessPromises.designSupport} · ✓ {businessPromises.sampleOffer}
+              </p>
             </div>
 
                         <ProductImageGallery
@@ -262,6 +290,30 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
           </div>
         </div>
       </section>
+
+      {styleGuide && <StyleGuideSections guide={styleGuide} />}
+
+      {childStyles.length > 0 && (
+        <section className="border-b border-slate-200 bg-white px-5 py-8 md:px-8">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 md:flex-row md:items-center">
+            <p className="shrink-0 text-sm font-black uppercase tracking-[0.2em] text-[#FF6A00]">
+              {product.name} styles
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {childStyles.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`/products/${guide.slug}`}
+                  prefetch={false}
+                  className="rounded-full border border-slate-200 bg-[#F7FAFC] px-4 py-2 text-sm font-black text-[#07111F] transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
+                >
+                  {guide.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
           <section id="product-details" className="bg-[#F7FAFC] px-5 py-20 md:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -332,11 +384,11 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
 
       <section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
-          <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
+          <p className="text-center text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
             FAQ
           </p>
 
-          <h2 className="mt-4 text-4xl font-black text-[#07111F]">
+          <h2 className="text-center mt-4 text-4xl font-black text-[#07111F]">
             Questions about {product.name}
           </h2>
 

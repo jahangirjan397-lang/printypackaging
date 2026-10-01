@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "@/data/blogs";
+import { getBlogVisual } from "@/data/blogVisuals";
 
 export const metadata: Metadata = {
   alternates: {
     canonical: "https://printypackaging.com/blog",
   },
-  title: "Packaging Blog | Custom Boxes, Materials, Finishes & Quote Guides",
+  title: "Packaging Blog: Guides for Custom Boxes",
   description:
     "Read Printy Packaging blog guides about custom boxes, packaging materials, finishing options, artwork, dielines, ecommerce packaging and food packaging.",
 };
@@ -42,7 +44,7 @@ export default function BlogPage() {
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/?product=mailer-boxes#quote"
+                href="/#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Quote
@@ -65,23 +67,26 @@ export default function BlogPage() {
             href={`/blog/${featuredPost.slug}`}
             className="group grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70 transition hover:-translate-y-1 hover:border-[#FF6A00] lg:grid-cols-[0.95fr_1.05fr]"
           >
-            <div className="relative min-h-80 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]">
-              <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle,white_1px,transparent_1px)] [background-size:24px_24px]" />
-              <div className="absolute left-8 top-8 rounded-full bg-white/15 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
-                Featured
-              </div>
-              <div className="absolute bottom-8 left-8 h-36 w-44 rotate-[-7deg] rounded-2xl bg-white shadow-2xl" />
-              <div className="absolute bottom-14 right-10 h-48 w-36 rounded-2xl bg-[#07111F] shadow-2xl">
-                <div className="mx-auto mt-10 h-14 w-14 rounded-full border border-[#FF6A00]" />
+            <div className="relative aspect-[4/3] bg-[#EDE5DC] lg:aspect-auto lg:h-full lg:min-h-[26rem]">
+              <Image
+                src={getBlogVisual(featuredPost.slug).src}
+                alt={getBlogVisual(featuredPost.slug).alt}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute bottom-8 left-8 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur">
+                Featured Guide
               </div>
             </div>
 
-            <div className="p-8 sm:p-10">
+            <div className="flex flex-col justify-center p-8 sm:p-10">
               <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
                 {featuredPost.category}
               </p>
 
-              <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
+              <h2 className="mt-4 text-3xl font-black leading-tight tracking-tight sm:text-4xl">
                 {featuredPost.title}
               </h2>
 
@@ -95,7 +100,7 @@ export default function BlogPage() {
                 <span>{featuredPost.publishedAt}</span>
               </div>
 
-              <span className="mt-8 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#007C91]">
+              <span className="mt-8 inline-flex self-start rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#007C91]">
                 Read Article
               </span>
             </div>
@@ -106,10 +111,19 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60 transition hover:-translate-y-1 hover:border-[#FF6A00]"
+                className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-200/60 transition hover:-translate-y-1 hover:border-[#FF6A00]"
               >
-                <div className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91]" />
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5DC]">
+                  <Image
+                    src={getBlogVisual(post.slug).src}
+                    alt={getBlogVisual(post.slug).alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
 
+                <div className="p-7">
                 <p className="text-xs font-black uppercase tracking-[0.25em] text-[#FF6A00]">
                   {post.category}
                 </p>
@@ -129,6 +143,7 @@ export default function BlogPage() {
                 <span className="mt-6 inline-flex text-sm font-black text-[#FF6A00]">
                   Read guide →
                 </span>
+                </div>
               </Link>
             ))}
           </div>
