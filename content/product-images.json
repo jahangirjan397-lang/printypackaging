@@ -1273,6 +1273,52 @@
           "title": "Printed business card front and back"
         }
       ]
+    },
+    {
+      "slug": "thank-you-cards",
+      "name": "Thank You Cards",
+      "images": [
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-1-brand.webp",
+          "alt": "Custom printed thank you card example 1",
+          "title": "Custom printed thank you card example 1"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-2-brand.webp",
+          "alt": "Custom printed thank you card example 2",
+          "title": "Custom printed thank you card example 2"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-3-brand.webp",
+          "alt": "Custom printed thank you card example 3",
+          "title": "Custom printed thank you card example 3"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-4-brand.webp",
+          "alt": "Custom printed thank you card example 4",
+          "title": "Custom printed thank you card example 4"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-5-brand.webp",
+          "alt": "Custom printed thank you card example 5",
+          "title": "Custom printed thank you card example 5"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-6-brand.webp",
+          "alt": "Custom printed thank you card example 6",
+          "title": "Custom printed thank you card example 6"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-7-brand.webp",
+          "alt": "Custom printed thank you card example 7",
+          "title": "Custom printed thank you card example 7"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-8-brand.webp",
+          "alt": "Custom printed thank you card example 8",
+          "title": "Custom printed thank you card example 8"
+        }
+      ]
     }
   ]
 }
