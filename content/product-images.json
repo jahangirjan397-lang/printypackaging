@@ -1370,6 +1370,47 @@
           "title": "Custom printed flyer example 9"
         }
       ]
+    },
+    {
+      "slug": "brochures",
+      "name": "Brochures",
+      "images": [
+        {
+          "src": "/images/products/brochures/brochures-1-brand.webp",
+          "alt": "Custom printed brochure example 1",
+          "title": "Custom printed brochure example 1"
+        },
+        {
+          "src": "/images/products/brochures/brochures-2-brand.webp",
+          "alt": "Custom printed brochure example 2",
+          "title": "Custom printed brochure example 2"
+        },
+        {
+          "src": "/images/products/brochures/brochures-3-brand.webp",
+          "alt": "Custom printed brochure example 3",
+          "title": "Custom printed brochure example 3"
+        },
+        {
+          "src": "/images/products/brochures/brochures-4-brand.webp",
+          "alt": "Custom printed brochure example 4",
+          "title": "Custom printed brochure example 4"
+        },
+        {
+          "src": "/images/products/brochures/brochures-5-brand.webp",
+          "alt": "Custom printed brochure example 5",
+          "title": "Custom printed brochure example 5"
+        },
+        {
+          "src": "/images/products/brochures/brochures-6-brand.webp",
+          "alt": "Custom printed brochure example 6",
+          "title": "Custom printed brochure example 6"
+        },
+        {
+          "src": "/images/products/brochures/brochures-7-brand.webp",
+          "alt": "Custom printed brochure example 7",
+          "title": "Custom printed brochure example 7"
+        }
+      ]
     }
   ]
 }
