@@ -1411,6 +1411,52 @@
           "title": "Custom printed brochure example 7"
         }
       ]
+    },
+    {
+      "slug": "catalogs-magazines",
+      "name": "Catalogs & Magazines",
+      "images": [
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-1-brand.webp",
+          "alt": "Custom printed catalog and magazine example 1",
+          "title": "Custom printed catalog and magazine example 1"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-2-brand.webp",
+          "alt": "Custom printed catalog and magazine example 2",
+          "title": "Custom printed catalog and magazine example 2"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-3-brand.webp",
+          "alt": "Custom printed catalog and magazine example 3",
+          "title": "Custom printed catalog and magazine example 3"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-4-brand.webp",
+          "alt": "Custom printed catalog and magazine example 4",
+          "title": "Custom printed catalog and magazine example 4"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-5-brand.webp",
+          "alt": "Custom printed catalog and magazine example 5",
+          "title": "Custom printed catalog and magazine example 5"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-6-brand.webp",
+          "alt": "Custom printed catalog and magazine example 6",
+          "title": "Custom printed catalog and magazine example 6"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-7-brand.webp",
+          "alt": "Custom printed catalog and magazine example 7",
+          "title": "Custom printed catalog and magazine example 7"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-8-brand.webp",
+          "alt": "Custom printed catalog and magazine example 8",
+          "title": "Custom printed catalog and magazine example 8"
+        }
+      ]
     }
   ]
 }
