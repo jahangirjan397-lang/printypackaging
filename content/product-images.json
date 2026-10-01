@@ -1457,6 +1457,62 @@
           "title": "Custom printed catalog and magazine example 8"
         }
       ]
+    },
+    {
+      "slug": "booklets",
+      "name": "Booklets",
+      "images": [
+        {
+          "src": "/images/products/booklets/booklets-1-brand.webp",
+          "alt": "Custom printed booklet example 1",
+          "title": "Custom printed booklet example 1"
+        },
+        {
+          "src": "/images/products/booklets/booklets-2-brand.webp",
+          "alt": "Custom printed booklet example 2",
+          "title": "Custom printed booklet example 2"
+        },
+        {
+          "src": "/images/products/booklets/booklets-3-brand.webp",
+          "alt": "Custom printed booklet example 3",
+          "title": "Custom printed booklet example 3"
+        },
+        {
+          "src": "/images/products/booklets/booklets-4-brand.webp",
+          "alt": "Custom printed booklet example 4",
+          "title": "Custom printed booklet example 4"
+        },
+        {
+          "src": "/images/products/booklets/booklets-5-brand.webp",
+          "alt": "Custom printed booklet example 5",
+          "title": "Custom printed booklet example 5"
+        },
+        {
+          "src": "/images/products/booklets/booklets-6-brand.webp",
+          "alt": "Custom printed booklet example 6",
+          "title": "Custom printed booklet example 6"
+        },
+        {
+          "src": "/images/products/booklets/booklets-7-brand.webp",
+          "alt": "Custom printed booklet example 7",
+          "title": "Custom printed booklet example 7"
+        },
+        {
+          "src": "/images/products/booklets/booklets-8-brand.webp",
+          "alt": "Custom printed booklet example 8",
+          "title": "Custom printed booklet example 8"
+        },
+        {
+          "src": "/images/products/booklets/booklets-9-brand.webp",
+          "alt": "Custom printed booklet example 9",
+          "title": "Custom printed booklet example 9"
+        },
+        {
+          "src": "/images/products/booklets/booklets-10-brand.webp",
+          "alt": "Custom printed booklet example 10",
+          "title": "Custom printed booklet example 10"
+        }
+      ]
     }
   ]
 }
