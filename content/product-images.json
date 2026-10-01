@@ -1319,6 +1319,57 @@
           "title": "Custom printed thank you card example 8"
         }
       ]
+    },
+    {
+      "slug": "flyers",
+      "name": "Flyers",
+      "images": [
+        {
+          "src": "/images/products/flyers/flyers-1-brand.webp",
+          "alt": "Custom printed flyer example 1",
+          "title": "Custom printed flyer example 1"
+        },
+        {
+          "src": "/images/products/flyers/flyers-2-brand.webp",
+          "alt": "Custom printed flyer example 2",
+          "title": "Custom printed flyer example 2"
+        },
+        {
+          "src": "/images/products/flyers/flyers-3-brand.webp",
+          "alt": "Custom printed flyer example 3",
+          "title": "Custom printed flyer example 3"
+        },
+        {
+          "src": "/images/products/flyers/flyers-4-brand.webp",
+          "alt": "Custom printed flyer example 4",
+          "title": "Custom printed flyer example 4"
+        },
+        {
+          "src": "/images/products/flyers/flyers-5-brand.webp",
+          "alt": "Custom printed flyer example 5",
+          "title": "Custom printed flyer example 5"
+        },
+        {
+          "src": "/images/products/flyers/flyers-6-brand.webp",
+          "alt": "Custom printed flyer example 6",
+          "title": "Custom printed flyer example 6"
+        },
+        {
+          "src": "/images/products/flyers/flyers-7-brand.webp",
+          "alt": "Custom printed flyer example 7",
+          "title": "Custom printed flyer example 7"
+        },
+        {
+          "src": "/images/products/flyers/flyers-8-brand.webp",
+          "alt": "Custom printed flyer example 8",
+          "title": "Custom printed flyer example 8"
+        },
+        {
+          "src": "/images/products/flyers/flyers-9-brand.webp",
+          "alt": "Custom printed flyer example 9",
+          "title": "Custom printed flyer example 9"
+        }
+      ]
     }
   ]
 }
