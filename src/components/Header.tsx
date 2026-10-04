@@ -68,34 +68,40 @@ export default function Header() {
       >
         <div className="min-h-0">
           <div className="border-b border-[#0B1B2A]">
-            <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-[11px] font-black sm:px-5 sm:text-xs md:gap-6 md:px-8 2xl:max-w-[1520px] 2xl:px-10">
-              <p className="hidden text-white md:block">
-                Premium Custom Boxes | Butter Paper | Food Packaging | Labels & Stickers
-              </p>
+            <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-xs font-bold sm:px-5 md:gap-6 md:px-8 md:text-[13px] 2xl:max-w-[1520px] 2xl:px-10">
+              {/* Buyer benefits read better than a product list */}
+              <ul className="hidden items-center gap-5 text-slate-100 md:flex">
+                {[
+                  businessPromises.designSupport,
+                  `Low MOQ from ${businessPromises.minimumOrder}`,
+                  `Quote reply ${businessPromises.quoteResponse.replace(" (business hours)", "")}`,
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <span aria-hidden="true" className="text-[#FF6A00]">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
 
               <div className="flex min-w-0 flex-1 items-center justify-between gap-3 md:flex-none md:justify-end md:gap-5">
                 <a
                   href="mailto:sales@printypackaging.com"
-                  className="min-w-0 truncate text-cyan-300 transition hover:text-[#FF6A00]"
+                  className="min-w-0 truncate font-black text-cyan-300 transition hover:text-[#FF6A00]"
                 >
                   sales@printypackaging.com
                 </a>
 
-                <span className="hidden h-4 w-px bg-white/30 md:block" />
-                {salesPhone.display && salesPhone.tel ? (
-                  <a
-                    href={`tel:${salesPhone.tel}`}
-                    className="hidden text-cyan-300 transition hover:text-[#FF6A00] md:inline"
-                  >
-                    Call {salesPhone.display}
-                  </a>
-                ) : (
-                  <span className="hidden text-cyan-300 md:inline">
-                    {businessPromises.designSupport}
-                  </span>
+                {salesPhone.display && salesPhone.tel && (
+                  <>
+                    <span className="hidden h-4 w-px bg-white/30 md:block" />
+                    <a
+                      href={`tel:${salesPhone.tel}`}
+                      className="hidden font-black text-cyan-300 transition hover:text-[#FF6A00] md:inline"
+                    >
+                      Call {salesPhone.display}
+                    </a>
+                  </>
                 )}
-                <span className="hidden h-4 w-px bg-white/30 md:block" />
-                <span className="hidden md:inline">Shipping to USA | UK | Europe | UAE | Worldwide</span>
                 {salesPhone.display && salesPhone.tel ? (
                   <a
                     href={`tel:${salesPhone.tel}`}

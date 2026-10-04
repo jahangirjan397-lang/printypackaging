@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { products } from "../data/products";
+import {
+  formatStartingPrice,
+  getStartingPrice,
+  startingPriceNote,
+} from "../data/startingPrices";
 
 const featuredProducts = products.slice(0, 8);
 
@@ -30,6 +35,8 @@ export default function FeaturedProducts() {
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {featuredProducts.map((item, index) => {
             const productImage = item.images?.[0];
+            const startingPrice = getStartingPrice(item.slug);
+            const price = startingPrice ? formatStartingPrice(startingPrice) : null;
 
             return (
               <Link
@@ -65,14 +72,29 @@ export default function FeaturedProducts() {
                   <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">
                     {item.tagline}
                   </p>
-                  <span className="mt-5 inline-flex font-black text-[#D95500] transition group-hover:text-[#007C91]">
-                    View Details →
-                  </span>
+                  <div className="mt-5 flex items-end justify-between gap-3">
+                    {price ? (
+                      <p className="text-sm font-bold text-slate-500">
+                        From{" "}
+                        <span className="text-lg font-black text-[#07111F]">{price.amount}</span>
+                        {price.per}
+                      </p>
+                    ) : (
+                      <span />
+                    )}
+                    <span className="inline-flex font-black text-[#D95500] transition group-hover:text-[#007C91]">
+                      View Details →
+                    </span>
+                  </div>
                 </div>
               </Link>
             );
           })}
         </div>
+
+        <p className="mt-6 text-center text-sm leading-6 text-slate-500">
+          &ldquo;From&rdquo; prices are for a standard size and quantity. {startingPriceNote}
+        </p>
       </div>
     </section>
   );

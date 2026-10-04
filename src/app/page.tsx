@@ -5,7 +5,6 @@ import StatsBar from "../components/StatsBar";
 import BrandTypesStrip from "../components/BrandTypesStrip";
 import FeaturedProducts from "../components/FeaturedProducts";
 import PremiumPackagingShowcase from "../components/PremiumPackagingShowcase";
-import WhyChoosePrintySection from "../components/WhyChoosePrintySection";
 import OrderProcessSection from "../components/OrderProcessSection";
 import IndustryBuyerSection from "../components/IndustryBuyerSection";
 import PaymentMethodsSection from "../components/PaymentMethodsSection";
@@ -55,7 +54,6 @@ export default function Home() {
       <FeaturedProducts />
       <BoxFinder />
       <PremiumPackagingShowcase />
-      <WhyChoosePrintySection />
       <OrderProcessSection />
       <IndustryBuyerSection />
       <CustomerReviewsSection />

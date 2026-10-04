@@ -23,7 +23,7 @@ export function WhatsAppIcon({ className = "h-8 w-8" }: { className?: string }) 
 export default function FloatingActions() {
   return (
     // Bottom-left corner (owner's choice); live chat stays bottom-right
-    <div className="fixed bottom-4 left-4 z-[999997] sm:bottom-6 sm:left-6">
+    <div className="floating-whatsapp fixed bottom-4 left-4 z-[999997] sm:bottom-6 sm:left-6">
       {/* Official WhatsApp look: white logo on the brand green circle */}
       <a
         href={whatsappHref}

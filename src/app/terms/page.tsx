@@ -87,7 +87,7 @@ const sections: PolicySection[] = [
     id: "claims",
     title: "Quality claims and reprints",
     paragraphs: [
-      `Defects, damage and missing items must be reported to ${teamEmails.support} within 7 calendar days of delivery (48 hours for transit damage), with photos, a video and the order number, and the goods must be kept as delivered. Our quality team decides whether a claim is valid and its decision is final. A valid claim is resolved by a free reprint of the affected items, with shipping paid by the customer. Printed orders are not refunded in cash. Full details are in our Return & Refund Policy.`,
+      `Defects, damage and missing items must be reported to ${teamEmails.support} within 10 calendar days of delivery (48 hours for transit damage), with photos, a video and the order number, and the goods must be kept as delivered. Our quality team decides whether a claim is valid and its decision is final. A valid claim is resolved by a free reprint of the affected items, with shipping paid by the customer. Printed orders are not refunded in cash. Full details are in our Return & Refund Policy.`,
     ],
   },
   {
@@ -141,7 +141,7 @@ export default function TermsPage() {
         { label: "Quote valid", value: "30 days" },
         { label: "Proof", value: "Free digital proof on every order" },
         { label: "Production", value: `${businessPromises.productionTime} after approval` },
-        { label: "Claims", value: "Within 7 days of delivery" },
+        { label: "Claims", value: "Within 10 days of delivery" },
       ]}
       sections={sections}
       related={[

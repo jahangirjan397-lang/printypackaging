@@ -26,9 +26,9 @@ const sections: PolicySection[] = [
   },
   {
     id: "report",
-    title: "Report a problem within 7 days",
+    title: "Report a problem within 10 days",
     paragraphs: [
-      `Please inspect your order as soon as it arrives. Any defect, damage, missing quantity or printing error must be reported within 7 calendar days of delivery (as shown by the carrier's tracking) by emailing ${teamEmails.support}. Claims received after 7 days are not eligible for a reprint or review.`,
+      `Please inspect your order as soon as it arrives. Any defect, damage, missing quantity or printing error must be reported within 10 calendar days of delivery (as shown by the carrier's tracking) by emailing ${teamEmails.support}. Claims received after 10 days are not eligible for a reprint or review.`,
     ],
   },
   {
@@ -128,7 +128,7 @@ export default function RefundPolicyPage() {
       intro="This policy explains what to do if your custom packaging arrives with a problem, what we need to review it, and how reprints, cancellations and disputes are handled."
       updated="September 2026"
       highlights={[
-        { label: "Report within", value: "7 days of delivery" },
+        { label: "Report within", value: "10 days of delivery" },
         { label: "Our error", value: "Free reprint (shipping paid by customer)" },
         { label: "We need", value: "Photos, video and the items kept" },
         { label: "Rush orders", value: "Non-refundable" },

@@ -7,37 +7,16 @@ import { businessPromises } from "../data/businessInfo";
 import { printCategory } from "../data/printProducts";
 import BuyerTrustSection from "./BuyerTrustSection";
 import ProductGuideLinksSection from "./ProductGuideLinksSection";
-import ProductQuoteChecklistSection from "./ProductQuoteChecklistSection";
 import ProductImageGallery from "./ProductImageGallery";
-import StyleGuideSections from "./StyleGuideSections";
+import ProductQuickQuote from "./ProductQuickQuote";
+import MobileQuoteBar from "./MobileQuoteBar";
+import StyleGuideSections, { GuideTopic } from "./StyleGuideSections";
+import {
+  formatStartingPrice,
+  getStartingPrice,
+  startingPriceNote,
+} from "../data/startingPrices";
 import { getStyleGuide, styleGuides } from "../data/styleGuides";
-
-function getProductSpecs(product: Product) {
-  return [
-    {
-      title: "Custom Size",
-      description:
-        "Produced according to product dimensions, structure and packing requirement.",
-    },
-    {
-      title: "Material Guidance",
-      description: `${product.materials
-        .slice(0, 2)
-        .join(", ")} and other professional material options can be selected according to product use.`,
-    },
-    {
-      title: "Printing Support",
-      description:
-        "CMYK, Pantone, inside/outside printing and brand-focused artwork support.",
-    },
-    {
-      title: "Finishing Options",
-      description: `${product.finishes
-        .slice(0, 2)
-        .join(", ")} and other finishing options are available for better brand presentation.`,
-    },
-  ];
-}
 
 function getProductVisualLabel(product: Product) {
   const name = product.name.toLowerCase();
@@ -98,8 +77,13 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
   const styleGuide = getStyleGuide(product.slug);
   const childStyles = styleGuides.filter((guide) => guide.parent === product.slug);
   const relatedProducts = getRelatedProducts(product);
-  const productQuoteLink = `/?product=${product.slug}#quote`;
-  const productSpecs = getProductSpecs(product);
+  // Buttons on the page jump to the short quote form under the hero
+  const productQuoteLink = "#product-quote";
+  // Style pages without their own price use their parent product's price
+  const startingPrice =
+    getStartingPrice(product.slug) ??
+    (styleGuide ? getStartingPrice(styleGuide.parent) : undefined);
+  const price = startingPrice ? formatStartingPrice(startingPrice) : null;
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -189,13 +173,13 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <section className="relative overflow-hidden bg-[#07111F] px-5 py-20 text-white md:px-8 md:py-28">
+      <section className="relative overflow-hidden bg-[#07111F] px-5 pb-14 pt-8 text-white md:px-8 md:py-24">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,232,0.22),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,106,0,0.14),transparent_30%)]" />
         <div className="absolute left-0 top-0 h-44 w-44 rounded-full bg-[#00C2E8]/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#FF6A00]/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300">
+          <div className="mb-6 flex flex-wrap items-center gap-2 text-sm font-bold text-slate-300 md:mb-10">
             <Link href="/" prefetch={false} className="hover:text-[#00C2E8]">
               Home
             </Link>
@@ -211,21 +195,33 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
             <span className="text-[#FF6A00]">{product.name}</span>
           </div>
 
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.35em] text-[#00C2E8]">
                 {product.category}
               </p>
 
-              <h1 className="mt-5 text-4xl font-black leading-tight md:text-6xl">
+              <h1 className="mt-3 text-4xl font-black leading-tight md:mt-5 md:text-6xl">
                 {product.name}
               </h1>
 
-              <p className="mt-5 text-2xl font-black text-[#FF6A00]">
+              <p className="mt-4 text-xl font-black text-[#FF6A00] md:mt-5 md:text-2xl">
                 {product.tagline}
               </p>
 
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+              {price && (
+                <div className="mt-5 max-w-xl rounded-2xl border border-[#00C2E8]/30 bg-[#00C2E8]/10 px-4 py-3">
+                  <p className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-sm font-bold text-slate-300">From</span>
+                    <span className="text-3xl font-black text-white">{price.amount}</span>
+                    <span className="text-sm font-black text-white">{price.per}</span>
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-slate-200">{price.reference}</p>
+                  <p className="mt-1 text-xs leading-5 text-slate-400">{startingPriceNote}</p>
+                </div>
+              )}
+
+              <p className="mt-6 line-clamp-3 max-w-2xl text-base leading-7 text-slate-300 md:line-clamp-none md:text-lg md:leading-8">
                 {product.description}
               </p>
 
@@ -234,13 +230,12 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                   direction="down-left"
                   className="pointer-events-none absolute -top-[3.9rem] left-[6.5rem] hidden h-16 w-20 md:block"
                 />
-                <Link
+                <a
                   href={productQuoteLink}
-                  prefetch={false}
                   className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
                 >
-                  Get Quote
-                </Link>
+                  Get Free Quote
+                </a>
 
                 <Link
                   href="/products"
@@ -283,15 +278,49 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               </p>
             </div>
 
-                        <ProductImageGallery
-              productName={product.name}
-              images={product.images}
-            />
+            {/* On phones the photos come first: buyers want to see the box */}
+            <div className="order-first lg:order-none">
+              <ProductImageGallery
+                productName={product.name}
+                images={product.images}
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {styleGuide && <StyleGuideSections guide={styleGuide} />}
+      <section className="bg-[#F7FAFC] px-5 py-10 md:px-8 md:py-14">
+        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.35fr_0.65fr] lg:items-start">
+          <ProductQuickQuote productName={product.name} productSlug={product.slug} />
+
+          <aside className="rounded-[1.5rem] bg-[#07111F] p-6 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-[#00C2E8]">
+              What you get
+            </p>
+            <ul className="mt-4 space-y-3 text-sm font-bold">
+              {[
+                "Exact price for your size and quantity",
+                "Material and board advice",
+                businessPromises.designSupport,
+                "Free digital proof before production",
+              ].map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span aria-hidden="true" className="text-[#FF6A00]">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20quote."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-black text-[#07111F] transition hover:bg-[#1ebe5b]"
+            >
+              Prefer WhatsApp? Chat now
+            </a>
+          </aside>
+        </div>
+      </section>
 
       {childStyles.length > 0 && (
         <section className="border-b border-slate-200 bg-white px-5 py-8 md:px-8">
@@ -315,74 +344,37 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
         </section>
       )}
 
-          <section id="product-details" className="bg-[#F7FAFC] px-5 py-20 md:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
-              Product Details
+      {styleGuide ? (
+        <StyleGuideSections guide={styleGuide} />
+      ) : (
+        <section className="bg-[#F7FAFC] px-5 py-14 md:px-8 md:py-20">
+          <div className="mx-auto max-w-5xl">
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#FF6A00]">
+              Product details
             </p>
-
-            <h2 className="mt-4 text-4xl font-black text-[#07111F] md:text-5xl">
-              Why choose {product.name}?
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-[#07111F] sm:text-4xl">
+              {product.name} options
             </h2>
-
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              {product.name} help brands improve presentation, product safety,
-              customer experience and professional shelf impact.
-            </p>
-
-            <Link
-              href={productQuoteLink}
-              prefetch={false}
-              className="mt-8 inline-flex rounded-full bg-[#07111F] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#FF6A00]"
-            >
-              Request Price Guidance
-            </Link>
+            <div className="mt-8 space-y-3">
+              <GuideTopic title="Materials" open>
+                <OptionList items={product.materials} />
+              </GuideTopic>
+              <GuideTopic title="Finishing options">
+                <OptionList items={product.finishes} />
+              </GuideTopic>
+              <GuideTopic title="Industries we make them for">
+                <OptionList items={product.industries} />
+              </GuideTopic>
+            </div>
           </div>
-
-          <div className="grid gap-5 sm:grid-cols-2">
-            {productSpecs.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-[1.5rem] border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-[#00C2E8]"
-              >
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#00C2E8] font-black text-[#07111F]">
-                  ✓
-                </div>
-                <h3 className="font-black text-[#07111F]">{feature.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <BuyerTrustSection />
 
-      <section className="bg-white px-5 py-20 md:px-8">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-3">
-          <InfoCard title="Materials" items={product.materials} />
-          <InfoCard title="Finishing Options" items={product.finishes} />
-          <InfoCard title="Industries" items={product.industries} />
-        </div>
-      </section>
-
-
       <ProductGuideLinksSection product={product} />
 
-
-
-            <ProductQuoteChecklistSection
-        product={product}
-        quoteLink={productQuoteLink}
-      />
-
-
-
-
-      <section className="bg-white px-5 py-20 md:px-8">
+<section className="bg-white px-5 py-20 md:px-8">
         <div className="mx-auto max-w-4xl">
           <p className="text-center text-sm font-black uppercase tracking-[0.32em] text-[#FF6A00]">
             FAQ
@@ -480,35 +472,32 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
             the best material, printing and finishing options.
           </p>
 
-          <Link
+          <a
             href={productQuoteLink}
-            prefetch={false}
             className="mt-8 inline-flex rounded-full bg-[#07111F] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
           >
-            Request Quote
-          </Link>
+            Get My Free Quote
+          </a>
         </div>
       </section>
-            </main>
+              <MobileQuoteBar
+        priceLabel={price ? `${price.amount}${price.per}` : undefined}
+      />
+    </main>
   );
 }
 
-function InfoCard({ title, items }: { title: string; items: string[] }) {
+function OptionList({ items }: { items: string[] }) {
   return (
-    <div className="rounded-[1.7rem] bg-[#F7FAFC] p-7 shadow-sm">
-      <h3 className="text-2xl font-black text-[#07111F]">{title}</h3>
-
-      <div className="mt-6 grid gap-3">
-        {items.map((item) => (
-          <div
-            key={item}
-            className="rounded-2xl bg-white px-4 py-3 font-bold text-slate-700"
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
+    <ul className="flex flex-wrap gap-2">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="rounded-full bg-[#F7FAFC] px-4 py-2 text-sm font-bold text-slate-700"
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
-
