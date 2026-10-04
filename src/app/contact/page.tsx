@@ -3,7 +3,7 @@ import Image from "next/image";
 import { SocialIcon, brandBackground } from "@/components/SocialIcons";
 import { activeSocialLinks } from "@/data/socialLinks";
 import { salesPhone, salesTeam, teamEmails } from "@/data/businessInfo";
-import Link from "next/link";
+import QuoteSection from "@/components/QuoteSection";
 
 export const metadata: Metadata = {
   title: "Contact Us | Custom Packaging Quotes",
@@ -112,12 +112,12 @@ export default function ContactPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/#quote"
+              <a
+                href="#quote"
                 className="rounded-full bg-[#FF6A00] px-7 py-4 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
               >
                 Request Custom Quote
-              </Link>
+              </a>
 
               <a
                 href="mailto:sales@printypackaging.com"
@@ -328,34 +328,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="px-4 py-16 sm:px-5 md:px-8">
-        <div className="mx-auto max-w-7xl rounded-[2rem] bg-[#07111F] p-6 text-white shadow-2xl md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#00C2E8]">
-                Ready To Start?
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black tracking-tight md:text-4xl">
-                Request a packaging quote for your next product.
-              </h2>
-
-              <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
-                Get guidance for custom box sizes, rigid packaging, ecommerce
-                mailers, food packaging, printed butter paper, labels and
-                stickers.
-              </p>
-            </div>
-
-            <Link
-              href="/#quote"
-              className="rounded-full bg-[#FF6A00] px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
-            >
-              Go To Quote Form
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* The full quote form right here, so buyers do not leave the page */}
+      <QuoteSection />
     </main>
   );
 }
