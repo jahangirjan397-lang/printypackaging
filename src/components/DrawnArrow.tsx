@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 type Direction = "down-right" | "down-left" | "right";
 
-// Orange hand-drawn arrow that draws itself when it scrolls into view:
+// Orange hand-drawn arrow that keeps drawing itself on a loop once it scrolls into view:
 // a dot, a curved line, then the arrowhead. Purely decorative.
 const shapes: Record<Direction, { viewBox: string; line: string; head: string; dot: [number, number] }> = {
   "down-right": {
