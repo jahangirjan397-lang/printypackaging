@@ -39,6 +39,16 @@ export const industryOverrides: Record<
   string,
   { hero?: PickedImage; products?: Record<string, PickedImage> }
 > = {
+  "food-packaging": {
+    products: {
+      "butter-paper": { src: "/images/products/butter-paper/butter-paper-checkered-v4-brand-v2.webp", alt: "Red and white checkered deli paper sheets for burgers and baskets" },
+    },
+  },
+  "candle-packaging": {
+    products: {
+      "two-piece-rigid-boxes": { src: "/images/products/rigid-boxes/rigid-boxes-lid-base-v5-brand.webp", alt: "Two-piece lid and base rigid box with a printed pattern" },
+    },
+  },
   "sports-packaging": {
     hero: { src: "/images/industries/sports-packaging/sports-packaging-1-brand.webp", alt: "Printed window boxes for sports and fitness gear" },
   },
