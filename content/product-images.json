@@ -1508,6 +1508,151 @@
           "title": "Custom printed booklet example 9"
         }
       ]
+    },
+    {
+      "slug": "postcards",
+      "name": "Postcards",
+      "images": [
+        {
+          "src": "/images/products/postcards/postcards-1-brand.webp",
+          "alt": "Custom printed A6 postcards with photo fronts and address backs",
+          "title": "Custom printed A6 postcards with photo fronts and address backs"
+        },
+        {
+          "src": "/images/products/postcards/postcards-2-brand.webp",
+          "alt": "Two-sided travel postcard with a full-bleed photo and printed back",
+          "title": "Two-sided travel postcard with a full-bleed photo and printed back"
+        },
+        {
+          "src": "/images/products/postcards/postcards-3-brand.webp",
+          "alt": "Watercolour floral postcards with a printed address side",
+          "title": "Watercolour floral postcards with a printed address side"
+        },
+        {
+          "src": "/images/products/postcards/postcards-4-brand.webp",
+          "alt": "Patterned teal postcards printed front and back",
+          "title": "Patterned teal postcards printed front and back"
+        },
+        {
+          "src": "/images/products/postcards/postcards-5-brand.webp",
+          "alt": "Stack of printed postcards on a yellow background",
+          "title": "Stack of printed postcards on a yellow background"
+        }
+      ]
+    },
+    {
+      "slug": "greeting-cards",
+      "name": "Greeting Cards",
+      "images": [
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-1-brand.webp",
+          "alt": "Green happy birthday greeting card in a kraft envelope",
+          "title": "Green happy birthday greeting card in a kraft envelope"
+        },
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-2-brand.webp",
+          "alt": "Thank you greeting card with bright printed flowers",
+          "title": "Thank you greeting card with bright printed flowers"
+        },
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-3-brand.webp",
+          "alt": "Folded birthday greeting card with candle artwork",
+          "title": "Folded birthday greeting card with candle artwork"
+        },
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-4-brand.webp",
+          "alt": "Hello greeting card with gold lettering on a floral pattern",
+          "title": "Hello greeting card with gold lettering on a floral pattern"
+        },
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-5-brand.webp",
+          "alt": "Minimal white greeting card with an illustrated message",
+          "title": "Minimal white greeting card with an illustrated message"
+        }
+      ]
+    },
+    {
+      "slug": "invitation-cards",
+      "name": "Invitation Cards",
+      "images": [
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-1-brand.webp",
+          "alt": "Wedding invitation card with gold names, envelope and wax seal",
+          "title": "Wedding invitation card with gold names, envelope and wax seal"
+        },
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-2-brand.webp",
+          "alt": "Floral wedding invitation suite with thank you and save the date cards",
+          "title": "Floral wedding invitation suite with thank you and save the date cards"
+        },
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-3-brand.webp",
+          "alt": "Elegant invitation card with foil frame on a kraft envelope",
+          "title": "Elegant invitation card with foil frame on a kraft envelope"
+        },
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-4-brand.webp",
+          "alt": "Hand holding a printed invitation card",
+          "title": "Hand holding a printed invitation card"
+        },
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-5-brand.webp",
+          "alt": "Invitation cards with a printed blue envelope",
+          "title": "Invitation cards with a printed blue envelope"
+        }
+      ]
+    },
+    {
+      "slug": "posters",
+      "name": "Posters",
+      "images": [
+        {
+          "src": "/images/products/posters/posters-1-brand.webp",
+          "alt": "Framed advertising poster displayed on a wall",
+          "title": "Framed advertising poster displayed on a wall"
+        },
+        {
+          "src": "/images/products/posters/posters-2-brand.webp",
+          "alt": "Printed blue poster with a kraft poster tube",
+          "title": "Printed blue poster with a kraft poster tube"
+        },
+        {
+          "src": "/images/products/posters/posters-3-brand.webp",
+          "alt": "Bold typographic poster printed on gloss paper",
+          "title": "Bold typographic poster printed on gloss paper"
+        },
+        {
+          "src": "/images/products/posters/posters-4-brand.webp",
+          "alt": "24 x 36 outdoor advertising poster",
+          "title": "24 x 36 outdoor advertising poster"
+        }
+      ]
+    },
+    {
+      "slug": "banners",
+      "name": "Banners",
+      "images": [
+        {
+          "src": "/images/products/banners/banners-1-brand.webp",
+          "alt": "Roll-up banner stand with full-colour print",
+          "title": "Roll-up banner stand with full-colour print"
+        },
+        {
+          "src": "/images/products/banners/banners-2-brand.webp",
+          "alt": "Pair of printed street pole banners",
+          "title": "Pair of printed street pole banners"
+        },
+        {
+          "src": "/images/products/banners/banners-3-brand.webp",
+          "alt": "Hanging printed banner with top and bottom rails",
+          "title": "Hanging printed banner with top and bottom rails"
+        },
+        {
+          "src": "/images/products/banners/banners-4-brand.webp",
+          "alt": "Yellow roll-up banner for events and retail",
+          "title": "Yellow roll-up banner for events and retail"
+        }
+      ]
     }
   ]
 }
