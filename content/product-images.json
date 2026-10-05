@@ -391,16 +391,6 @@
           "title": "Soap Boxes front view"
         },
         {
-          "src": "/images/products/soap-boxes/soap-boxes-open-v3-brand-v2.webp",
-          "alt": "Soap Boxes - open view (concept mockup)",
-          "title": "Soap Boxes open view"
-        },
-        {
-          "src": "/images/products/soap-boxes/soap-boxes-finish-v3-brand.webp",
-          "alt": "Soap Boxes - material and finish detail (concept mockup)",
-          "title": "Soap Boxes material and finish detail"
-        },
-        {
           "src": "/images/products/soap-boxes/soap-boxes-lifestyle-v3-brand.webp",
           "alt": "Soap Boxes - in use (concept mockup)",
           "title": "Soap Boxes in use"
@@ -430,11 +420,6 @@
           "src": "/images/products/jewelry-boxes/jewelry-boxes-finish-v3-brand.webp",
           "alt": "Jewelry Boxes - material and finish detail (concept mockup)",
           "title": "Jewelry Boxes material and finish detail"
-        },
-        {
-          "src": "/images/products/jewelry-boxes/jewelry-boxes-lifestyle-v3-brand-v2.webp",
-          "alt": "Jewelry Boxes - in use (concept mockup)",
-          "title": "Jewelry Boxes in use"
         }
       ]
     },
@@ -764,29 +749,24 @@
       "name": "Kraft Mailer Boxes",
       "images": [
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3-brand.webp",
-          "alt": "Mailer Boxes - front view (concept mockup)",
-          "title": "Mailer Boxes front view"
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-1-brand.webp",
+          "alt": "Plain kraft mailer box with a printed logo on the lid",
+          "title": "Plain kraft mailer box with a printed logo on the lid"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3-brand.webp",
-          "alt": "Mailer Boxes - open view (concept mockup)",
-          "title": "Mailer Boxes open view"
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-2-brand.webp",
+          "alt": "Kraft mailer box with black hand-drawn print",
+          "title": "Kraft mailer box with black hand-drawn print"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3-brand.webp",
-          "alt": "Mailer Boxes - material and finish detail (concept mockup)",
-          "title": "Mailer Boxes material and finish detail"
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-3-brand.webp",
+          "alt": "Kraft mailer box with a black printed inside",
+          "title": "Kraft mailer box with a black printed inside"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3-brand.webp",
-          "alt": "Mailer Boxes - hero view (concept mockup)",
-          "title": "Mailer Boxes subscription kit"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-brand.webp",
-          "alt": "Printy Packaging branded mailer boxes, one open and one closed",
-          "title": "Mailer Boxes Hero View"
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-4-brand.webp",
+          "alt": "Kraft delivery mailer boxes with a bright pink inside print",
+          "title": "Kraft delivery mailer boxes with a bright pink inside print"
         }
       ]
     },
@@ -795,29 +775,19 @@
       "name": "Black Mailer Boxes",
       "images": [
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3-brand.webp",
-          "alt": "Mailer Boxes - open view (concept mockup)",
-          "title": "Mailer Boxes open view"
+          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-1-brand.webp",
+          "alt": "Stacked black mailer boxes with a kraft inside",
+          "title": "Stacked black mailer boxes with a kraft inside"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3-brand.webp",
-          "alt": "Mailer Boxes - material and finish detail (concept mockup)",
-          "title": "Mailer Boxes material and finish detail"
+          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-2-brand.webp",
+          "alt": "Black mailer box with a printed kraft sleeve",
+          "title": "Black mailer box with a printed kraft sleeve"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3-brand.webp",
-          "alt": "Mailer Boxes - hero view (concept mockup)",
-          "title": "Mailer Boxes subscription kit"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-brand.webp",
-          "alt": "Printy Packaging branded mailer boxes, one open and one closed",
-          "title": "Mailer Boxes Hero View"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3-brand.webp",
-          "alt": "Mailer Boxes - front view (concept mockup)",
-          "title": "Mailer Boxes front view"
+          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-3-brand.webp",
+          "alt": "Black and blush premium mailer boxes for a product range",
+          "title": "Black and blush premium mailer boxes for a product range"
         }
       ]
     },
@@ -826,65 +796,81 @@
       "name": "White Mailer Boxes",
       "images": [
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3-brand.webp",
-          "alt": "Mailer Boxes - material and finish detail (concept mockup)",
-          "title": "Mailer Boxes material and finish detail"
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-1-brand.webp",
+          "alt": "White mailer box with a blue printed inside",
+          "title": "White mailer box with a blue printed inside"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3-brand.webp",
-          "alt": "Mailer Boxes - hero view (concept mockup)",
-          "title": "Mailer Boxes subscription kit"
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-2-brand.webp",
+          "alt": "White mailer box with a floral thank you print inside",
+          "title": "White mailer box with a floral thank you print inside"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-brand.webp",
-          "alt": "Printy Packaging branded mailer boxes, one open and one closed",
-          "title": "Mailer Boxes Hero View"
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-3-brand.webp",
+          "alt": "White and pink mailer box with a thank you message",
+          "title": "White and pink mailer box with a thank you message"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3-brand.webp",
-          "alt": "Mailer Boxes - front view (concept mockup)",
-          "title": "Mailer Boxes front view"
-        },
-        {
-          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3-brand.webp",
-          "alt": "Mailer Boxes - open view (concept mockup)",
-          "title": "Mailer Boxes open view"
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-4-brand.webp",
+          "alt": "White mailer box with a carry handle cut-out",
+          "title": "White mailer box with a carry handle cut-out"
         }
       ]
     },
     {
       "slug": "shipping-boxes",
       "name": "Shipping Boxes",
-      "images": []
+      "images": [
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-1-brand.webp",
+          "alt": "Corrugated shipping boxes, mailers and envelopes in different sizes",
+          "title": "Corrugated shipping boxes, mailers and envelopes in different sizes"
+        },
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-2-brand.webp",
+          "alt": "Kraft shipping box with a printed insert holding bottles",
+          "title": "Kraft shipping box with a printed insert holding bottles"
+        },
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-3-brand.webp",
+          "alt": "Single, double and triple wall corrugated board",
+          "title": "Single, double and triple wall corrugated board"
+        },
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-4-brand.webp",
+          "alt": "Plain kraft corrugated shipping box",
+          "title": "Plain kraft corrugated shipping box"
+        }
+      ]
     },
     {
       "slug": "subscription-boxes",
       "name": "Subscription Boxes",
       "images": [
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-brand.webp",
-          "alt": "Mailer-style subscription box, open and closed (concept mockup)",
-          "title": "Subscription box open and closed"
+          "src": "/images/products/subscription-boxes/subscription-boxes-1-brand.webp",
+          "alt": "Mystery subscription box printed in teal",
+          "title": "Mystery subscription box printed in teal"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3-brand.webp",
-          "alt": "Mailer-style subscription box, front view (concept mockup)",
-          "title": "Subscription box front view"
+          "src": "/images/products/subscription-boxes/subscription-boxes-2-brand.webp",
+          "alt": "Colourful printed subscription box with a gift message",
+          "title": "Colourful printed subscription box with a gift message"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3-brand.webp",
-          "alt": "Mailer-style subscription box, open view (concept mockup)",
-          "title": "Subscription box open view"
+          "src": "/images/products/subscription-boxes/subscription-boxes-3-brand.webp",
+          "alt": "Light blue subscription box with a printed insert",
+          "title": "Light blue subscription box with a printed insert"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3-brand.webp",
-          "alt": "Mailer-style subscription box, material and finish detail (concept mockup)",
-          "title": "Subscription box material and finish detail"
+          "src": "/images/products/subscription-boxes/subscription-boxes-4-brand.webp",
+          "alt": "Pink and blue printed subscription boxes",
+          "title": "Pink and blue printed subscription boxes"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-hero-v3-brand.webp",
-          "alt": "Mailer-style subscription box, hero view (concept mockup)",
-          "title": "Subscription box hero view"
+          "src": "/images/products/subscription-boxes/subscription-boxes-5-brand.webp",
+          "alt": "Navy subscription box with an illustrated print",
+          "title": "Navy subscription box with an illustrated print"
         }
       ]
     },
@@ -1122,11 +1108,6 @@
         {
           "src": "/images/products/rigid-boxes/rigid-boxes-insert-v5-brand.webp",
           "alt": "Rigid box with a fitted insert",
-          "title": "Rigid Box with Insert"
-        },
-        {
-          "src": "/images/products/rigid-boxes/rigid-boxes-insert-v5-brand.webp",
-          "alt": "Green rigid box with a fitted leather-look insert",
           "title": "Rigid Box with Insert"
         },
         {
