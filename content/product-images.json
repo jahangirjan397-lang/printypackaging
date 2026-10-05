@@ -1653,6 +1653,48 @@
           "title": "Yellow roll-up banner for events and retail"
         }
       ]
+    },
+    {
+      "slug": "clings-decals",
+      "name": "Clings & Decals",
+      "images": [
+        {
+          "src": "/images/products/clings-decals/clings-decals-1-brand.webp",
+          "alt": "Round vegetarian friendly static cling on a shop window",
+          "title": "Round vegetarian friendly static cling on a shop window"
+        },
+        {
+          "src": "/images/products/clings-decals/clings-decals-2-brand.webp",
+          "alt": "Die-cut vinyl decals with a cat and chequered flag design",
+          "title": "Die-cut vinyl decals with a cat and chequered flag design"
+        }
+      ]
+    },
+    {
+      "slug": "menus",
+      "name": "Menus",
+      "images": [
+        {
+          "src": "/images/products/menus/menus-1-brand.webp",
+          "alt": "Open restaurant menu printed in full colour with food photos",
+          "title": "Open restaurant menu printed in full colour with food photos"
+        },
+        {
+          "src": "/images/products/menus/menus-2-brand.webp",
+          "alt": "Cafe food menu with a dark cover and printed inside page",
+          "title": "Cafe food menu with a dark cover and printed inside page"
+        },
+        {
+          "src": "/images/products/menus/menus-3-brand.webp",
+          "alt": "Folded menu card on a plate with soups and salads",
+          "title": "Folded menu card on a plate with soups and salads"
+        },
+        {
+          "src": "/images/products/menus/menus-4-brand.webp",
+          "alt": "Tri-fold pizza menu with hours and price list",
+          "title": "Tri-fold pizza menu with hours and price list"
+        }
+      ]
     }
   ]
 }
