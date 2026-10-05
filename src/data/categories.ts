@@ -380,7 +380,7 @@ export const categories: Category[] = [
       "truffle boxes",
       "chocolate packaging",
     ]),
-    productSlugs: ["drawer-boxes", "gift-boxes", "window-boxes", "pillow-boxes", "sleeve-boxes", "labels-stickers"],
+    productSlugs: ["drawer-boxes", "gift-boxes", "window-boxes", "display-boxes", "pillow-boxes", "sleeve-boxes"],
     benefits: [
       "Cavity inserts that keep chocolates from touching",
       "Gift-ready rigid and drawer boxes for festive seasons",

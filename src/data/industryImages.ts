@@ -38,7 +38,30 @@ const industryWords: Record<string, string[]> = {
 export const industryOverrides: Record<
   string,
   { hero?: PickedImage; products?: Record<string, PickedImage> }
-> = {};
+> = {
+  "sports-packaging": {
+    hero: { src: "/images/industries/sports-packaging/sports-packaging-1-brand.webp", alt: "Printed window boxes for sports and fitness gear" },
+  },
+  "toys-games-packaging": {
+    hero: { src: "/images/industries/toys-games-packaging/toys-games-packaging-1-brand.webp", alt: "Printed board game boxes with a matching rule booklet" },
+  },
+  "household-packaging": {
+    hero: { src: "/images/industries/household-packaging/household-packaging-1-brand.webp", alt: "Printed boxes for kitchen and home goods" },
+  },
+  "events-packaging": {
+    hero: { src: "/images/industries/events-packaging/events-packaging-1-brand.webp", alt: "Festive printed advent calendar box for seasonal events" },
+  },
+  "health-pharma-packaging": {
+    hero: { src: "/images/industries/health-pharma-packaging/health-pharma-packaging-1-brand.webp", alt: "Printed medicine cartons for pain relief tablets" },
+  },
+  "confectionery-packaging": {
+    hero: { src: "/images/industries/confectionery-packaging/confectionery-packaging-3-brand.webp", alt: "Bright printed candy boxes in bold colours" },
+    products: {
+      "drawer-boxes": { src: "/images/industries/confectionery-packaging/confectionery-packaging-1-brand.webp", alt: "Drawer-style sweet box with a tray of sweets" },
+      "display-boxes": { src: "/images/industries/confectionery-packaging/confectionery-packaging-2-brand.webp", alt: "Chocolate bar display box with matching outer boxes" },
+    },
+  },
+};
 
 function score(alt: string, words: string[]) {
   const text = alt.toLowerCase();
