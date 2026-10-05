@@ -443,14 +443,14 @@
           "title": "Bakery Boxes open view"
         },
         {
-          "src": "/images/products/bakery-boxes/bakery-boxes-finish-v3-brand.webp",
-          "alt": "Bakery Boxes - material and finish detail (concept mockup)",
-          "title": "Bakery Boxes material and finish detail"
-        },
-        {
           "src": "/images/products/bakery-boxes/bakery-boxes-lifestyle-v3-brand.webp",
           "alt": "Bakery Boxes - in use (concept mockup)",
           "title": "Bakery Boxes in use"
+        },
+        {
+          "src": "/images/products/bakery-boxes/bakery-boxes-x1-brand.webp",
+          "alt": "White donut box with a printed sprinkle pattern",
+          "title": "White donut box with a printed sprinkle pattern"
         }
       ]
     },
@@ -889,19 +889,9 @@
           "title": "Window Handle Cake Box"
         },
         {
-          "src": "/images/products/bakery-boxes/bakery-boxes-front-v3-brand.webp",
-          "alt": "Bakery Boxes - front view (concept mockup)",
-          "title": "Bakery Boxes front view"
-        },
-        {
-          "src": "/images/products/bakery-boxes/bakery-boxes-open-v3-brand-v2.webp",
-          "alt": "Bakery Boxes - open view (concept mockup)",
-          "title": "Bakery Boxes open view"
-        },
-        {
-          "src": "/images/products/bakery-boxes/bakery-boxes-finish-v3-brand.webp",
-          "alt": "Bakery Boxes - material and finish detail (concept mockup)",
-          "title": "Bakery Boxes material and finish detail"
+          "src": "/images/products/cake-boxes/cake-boxes-x1-brand.webp",
+          "alt": "White cake and pastry boxes with copper line art",
+          "title": "White cake and pastry boxes with copper line art"
         }
       ]
     },
@@ -930,9 +920,9 @@
           "title": "Two Cupcake Box"
         },
         {
-          "src": "/images/products/bakery-boxes/bakery-boxes-open-v3-brand-v2.webp",
-          "alt": "Bakery Boxes - open view (concept mockup)",
-          "title": "Bakery Boxes open view"
+          "src": "/images/products/cupcake-boxes/cupcake-boxes-x1-brand.webp",
+          "alt": "Teal printed cupcake boxes with windows and inserts",
+          "title": "Teal printed cupcake boxes with windows and inserts"
         }
       ]
     },
@@ -990,11 +980,6 @@
           "src": "/images/products/gable-boxes/gable-boxes-pastry-v5-brand.webp",
           "alt": "Polka dot gable pastry carrier box",
           "title": "Pastry Carrier Gable Box"
-        },
-        {
-          "src": "/images/products/food-packaging/food-packaging-lifestyle-v3-brand.webp",
-          "alt": "Food Packaging - in use (concept mockup)",
-          "title": "Food Packaging in use"
         }
       ]
     },
@@ -1044,19 +1029,19 @@
           "title": "Tuck End Box Range"
         },
         {
-          "src": "/images/products/folding-cartons/folding-cartons-open-v4-brand.webp",
-          "alt": "White tuck end boxes with the top tuck flap open",
-          "title": "Tuck Flap Open"
-        },
-        {
           "src": "/images/products/folding-cartons/folding-cartons-tall-v4-brand.webp",
           "alt": "Tall tuck end cartons with a printed pattern",
           "title": "Tall Tuck End Boxes"
         },
         {
-          "src": "/images/products/folding-cartons/folding-cartons-front-v4-brand.webp",
-          "alt": "White tuck end box standing on a display podium",
-          "title": "Retail Display"
+          "src": "/images/products/tuck-end-boxes/tuck-end-boxes-x1-brand.webp",
+          "alt": "Printed tuck end boxes with a patterned inside",
+          "title": "Printed tuck end boxes with a patterned inside"
+        },
+        {
+          "src": "/images/products/tuck-end-boxes/tuck-end-boxes-x2-brand.webp",
+          "alt": "Unfolded printed tuck end carton showing the flaps",
+          "title": "Unfolded printed tuck end carton showing the flaps"
         }
       ]
     },
@@ -1065,29 +1050,19 @@
       "name": "Kraft Boxes",
       "images": [
         {
-          "src": "/images/products/gable-boxes/gable-boxes-kraft-v5-brand.webp",
-          "alt": "Kraft gable box with handle",
-          "title": "Kraft Gable Box"
+          "src": "/images/products/kraft-boxes/kraft-boxes-x1-brand.webp",
+          "alt": "Kraft lid and base box",
+          "title": "Kraft lid and base box"
         },
         {
-          "src": "/images/products/cake-boxes/cake-boxes-window-handle-v5-brand.webp",
-          "alt": "Kraft window box with handle",
-          "title": "Kraft Window Box"
+          "src": "/images/products/kraft-boxes/kraft-boxes-x2-brand.webp",
+          "alt": "Stacked kraft food boxes with clear windows",
+          "title": "Stacked kraft food boxes with clear windows"
         },
         {
-          "src": "/images/products/cookie-boxes/cookie-boxes-window-v5-brand.webp",
-          "alt": "Kraft cookie boxes with windows",
-          "title": "Kraft Cookie Box"
-        },
-        {
-          "src": "/images/products/pillow-boxes/pillow-boxes-kraft-v5-brand.webp",
-          "alt": "Kraft pillow boxes",
-          "title": "Kraft Pillow Box"
-        },
-        {
-          "src": "/images/products/hang-tab-boxes/hang-tab-boxes-kraft-window-v5-brand.webp",
-          "alt": "Kraft hang tab box with a window",
-          "title": "Kraft Retail Box"
+          "src": "/images/products/kraft-boxes/kraft-boxes-x3-brand.webp",
+          "alt": "Kraft cupcake box with a window and carry handle",
+          "title": "Kraft cupcake box with a window and carry handle"
         }
       ]
     },
@@ -1096,24 +1071,24 @@
       "name": "Two-Piece Rigid Boxes",
       "images": [
         {
-          "src": "/images/products/rigid-boxes/rigid-boxes-lid-base-v5-brand.webp",
-          "alt": "Two-piece lid and base rigid box with a printed pattern",
-          "title": "Lid and Base Box"
-        },
-        {
           "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-dividers-v5-brand.webp",
           "alt": "White two-piece box with compartment dividers",
           "title": "Two-Piece Box with Dividers"
         },
         {
-          "src": "/images/products/rigid-boxes/rigid-boxes-insert-v5-brand.webp",
-          "alt": "Rigid box with a fitted insert",
-          "title": "Rigid Box with Insert"
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x1-brand.webp",
+          "alt": "Black two-piece rigid box with a deep lid",
+          "title": "Black two-piece rigid box with a deep lid"
         },
         {
-          "src": "/images/products/rigid-boxes/rigid-boxes-collapsible-v5-brand.webp",
-          "alt": "Black collapsible rigid box shown flat and assembled",
-          "title": "Collapsible Rigid Box"
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x2-brand.webp",
+          "alt": "Black and white two-piece rigid boxes with a foil logo",
+          "title": "Black and white two-piece rigid boxes with a foil logo"
+        },
+        {
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x3-brand.webp",
+          "alt": "Black and gold two-piece box for a bamboo product set",
+          "title": "Black and gold two-piece box for a bamboo product set"
         }
       ]
     },
@@ -1127,24 +1102,24 @@
           "title": "Long Magnetic Gift Box"
         },
         {
-          "src": "/images/products/magnetic-boxes/magnetic-boxes-open-v5-brand.webp",
-          "alt": "Purple book-style gift boxes",
-          "title": "Book-Style Gift Box"
+          "src": "/images/products/gift-boxes/gift-boxes-x1-brand.webp",
+          "alt": "Mint magnetic gift box tied with a ribbon",
+          "title": "Mint magnetic gift box tied with a ribbon"
         },
         {
-          "src": "/images/products/magnetic-boxes/magnetic-boxes-front-v5-brand.webp",
-          "alt": "Sage magnetic gift box with a cosmetic insert",
-          "title": "Gift Box with Insert"
+          "src": "/images/products/gift-boxes/gift-boxes-x2-brand.webp",
+          "alt": "Stacked mint magnetic gift boxes",
+          "title": "Stacked mint magnetic gift boxes"
         },
         {
-          "src": "/images/products/luxury-packaging/luxury-packaging-range-v5-brand.webp",
-          "alt": "Range of luxury gift boxes in white, grey, silver and gold",
-          "title": "Gift Box Range"
+          "src": "/images/products/gift-boxes/gift-boxes-x3-brand.webp",
+          "alt": "Blue printed gift box with a bow",
+          "title": "Blue printed gift box with a bow"
         },
         {
-          "src": "/images/products/drawer-boxes/drawer-boxes-set-v5-brand.webp",
-          "alt": "Pink, navy and blue drawer gift boxes",
-          "title": "Drawer Gift Boxes"
+          "src": "/images/products/gift-boxes/gift-boxes-x4-brand.webp",
+          "alt": "Pink and coral gift box set with inserts",
+          "title": "Pink and coral gift box set with inserts"
         }
       ]
     },
