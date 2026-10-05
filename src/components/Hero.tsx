@@ -240,7 +240,7 @@ export default function Hero() {
           <svg aria-hidden="true" width="0" height="0" className="absolute">
             <defs>
               <clipPath id="pp-curved-screen" clipPathUnits="objectBoundingBox">
-                <path d="M0,0 Q0.5,0.09 1,0 L1,1 Q0.5,0.95 0,1 Z" />
+                <path d="M0,0 Q0.5,0.06 1,0 L1,1 Q0.5,0.965 0,1 Z" />
               </clipPath>
               <clipPath id="pp-curved-stand" clipPathUnits="objectBoundingBox">
                 <path d="M0,0 L1,0 L1,1 Q0.5,0.72 0,1 Z" />
@@ -262,8 +262,13 @@ export default function Hero() {
               ) : (
                 imageArea
               )}
-              {/* Side shading makes the flat image read as a curved screen */}
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.28)_0%,transparent_14%,transparent_86%,rgba(0,0,0,0.32)_100%)]" />
+              {/* Light side shading makes the flat image read as a curved screen */}
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.14)_0%,transparent_9%,transparent_91%,rgba(0,0,0,0.16)_100%)]" />
+              {/* Glass: a soft diagonal glare and a sheen along the curved top
+                  edge, kept faint so the box photos stay bright */}
+              <div className="pointer-events-none absolute inset-[6px] bg-[linear-gradient(115deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.06)_26%,transparent_38%,transparent_72%,rgba(255,255,255,0.05)_84%,transparent_100%)] [clip-path:url(#pp-curved-screen)] md:inset-2" />
+              <div className="pointer-events-none absolute inset-[6px] bg-[radial-gradient(ellipse_at_50%_-30%,rgba(255,255,255,0.16),transparent_45%)] [clip-path:url(#pp-curved-screen)] md:inset-2" />
+              <div className="pointer-events-none absolute inset-[6px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12),inset_0_14px_30px_-18px_rgba(255,255,255,0.35)] [clip-path:url(#pp-curved-screen)] md:inset-2" />
             </div>
 
             {/* Stand */}
