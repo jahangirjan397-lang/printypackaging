@@ -104,6 +104,24 @@ const heroSlides = [
 
 // Only the current slide and the one after it are mounted at first, so the
 // homepage does not download all ten slide images up front.
+// One line for short titles, otherwise two lines of about equal length
+function splitTitle(title: string) {
+  if (title.length <= 30) return [title];
+  const words = title.split(" ");
+  let best = 1;
+  let bestDiff = Infinity;
+  for (let i = 1; i < words.length; i++) {
+    const diff = Math.abs(
+      words.slice(0, i).join(" ").length - words.slice(i).join(" ").length,
+    );
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      best = i;
+    }
+  }
+  return [words.slice(0, best).join(" "), words.slice(best).join(" ")];
+}
+
 function markLoaded(loaded: boolean[], index: number) {
   const next = [...loaded];
   next[index] = true;
@@ -121,6 +139,7 @@ export default function Hero() {
   }));
   const activeIndex = slider.active;
   const activeSlide = heroSlides[activeIndex];
+  const titleLines = splitTitle(activeSlide.title);
 
   function showSlide(index: number) {
     const target = (index + heroSlides.length) % heroSlides.length;
@@ -242,13 +261,10 @@ export default function Hero() {
               <clipPath id="pp-curved-screen" clipPathUnits="objectBoundingBox">
                 <path d="M0,0 Q0.5,0.06 1,0 L1,1 Q0.5,0.965 0,1 Z" />
               </clipPath>
-              <clipPath id="pp-curved-stand" clipPathUnits="objectBoundingBox">
-                <path d="M0,0 L1,0 L1,1 Q0.5,0.72 0,1 Z" />
-              </clipPath>
             </defs>
           </svg>
 
-          <div className="relative">
+          <div className="relative [filter:drop-shadow(-14px_22px_26px_rgba(0,0,0,0.55))]">
             {/* Screen with bezel */}
             <div className="relative z-10 bg-[linear-gradient(180deg,#2A323D,#0B1119)] p-[6px] shadow-2xl shadow-black/40 [clip-path:url(#pp-curved-screen)] md:p-2">
               {activeSlide.href ? (
@@ -271,25 +287,100 @@ export default function Hero() {
               <div className="pointer-events-none absolute inset-[6px] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12),inset_0_14px_30px_-18px_rgba(255,255,255,0.35)] [clip-path:url(#pp-curved-screen)] md:inset-2" />
             </div>
 
-            {/* Stand */}
-            <div className="relative mx-[1.5%] -mt-3 bg-[linear-gradient(180deg,#3B424C_0%,#232931_45%,#151A21_100%)] px-5 pb-10 pt-6 text-center [clip-path:url(#pp-curved-stand)] md:pb-12 md:pt-7">
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.35)_0%,transparent_18%,transparent_82%,rgba(0,0,0,0.4)_100%)]" />
-              <div className="relative">
-                <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[#00C2E8] md:text-xs">
-                  {activeSlide.eyebrow}
-                </p>
-                <h2 className="mx-auto mt-1 max-w-md text-base font-black leading-tight text-white md:text-lg">
-                  {activeSlide.title}
-                </h2>
+            {/* Stand: same width as the screen, with visible side edges, a
+                lit rim along the curved bottom and the screen's shadow on top */}
+            <div className="relative mx-[0.4%] -mt-3">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                className="absolute inset-0 h-full w-full"
+              >
+                <defs>
+                  <linearGradient id="pp-stand-face" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#4A515B" />
+                    <stop offset="0.45" stopColor="#2A3038" />
+                    <stop offset="1" stopColor="#161A20" />
+                  </linearGradient>
+                  <linearGradient id="pp-stand-sides" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stopColor="#000" stopOpacity="0.45" />
+                    <stop offset="0.16" stopColor="#000" stopOpacity="0" />
+                    <stop offset="0.84" stopColor="#000" stopOpacity="0" />
+                    <stop offset="1" stopColor="#000" stopOpacity="0.5" />
+                  </linearGradient>
+                  <linearGradient id="pp-stand-top" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#000" stopOpacity="0.55" />
+                    <stop offset="1" stopColor="#000" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient id="pp-stand-edge" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#6B7380" />
+                    <stop offset="1" stopColor="#2B3038" />
+                  </linearGradient>
+                </defs>
+                <path d="M0,0 L100,0 L100,100 Q50,72 0,100 Z" fill="url(#pp-stand-face)" />
+                <path d="M0,0 L100,0 L100,100 Q50,72 0,100 Z" fill="url(#pp-stand-sides)" />
+                <rect x="0" y="0" width="100" height="14" fill="url(#pp-stand-top)" />
+                {/* Side edges (the stand's thickness) */}
+                <rect x="0" y="0" width="1.3" height="100" fill="url(#pp-stand-edge)" />
+                <rect x="98.7" y="0" width="1.3" height="100" fill="url(#pp-stand-edge)" />
+                {/* Lit rim along the curved bottom edge */}
+                <path
+                  d="M0,99.5 Q50,71.5 100,99.5"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.22)"
+                  strokeWidth="1.5"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+
+              <div className="relative px-4 pb-12 pt-6 text-center md:pb-14 md:pt-7">
+                <h2 className="sr-only">{activeSlide.title}</h2>
+                {/* Text follows a gentle arch, like the curved display */}
+                <svg
+                  aria-hidden="true"
+                  viewBox={`0 0 600 ${titleLines.length > 1 ? 112 : 80}`}
+                  className="mx-auto block w-full max-w-[520px]"
+                >
+                  <defs>
+                    {[26, 62, 96].map((y, index) => (
+                      <path
+                        key={y}
+                        id={`pp-stand-arc-${index}`}
+                        d={`M40,${y + 9} Q300,${y - 9} 560,${y + 9}`}
+                      />
+                    ))}
+                  </defs>
+                  <text
+                    fill="#00C2E8"
+                    fontSize="17"
+                    fontWeight="900"
+                    letterSpacing="5"
+                  >
+                    <textPath href="#pp-stand-arc-0" startOffset="50%" textAnchor="middle">
+                      {activeSlide.eyebrow.toUpperCase()}
+                    </textPath>
+                  </text>
+                  {titleLines.map((line, index) => (
+                    <text key={line} fill="#FFFFFF" fontSize="27" fontWeight="900">
+                      <textPath
+                        href={`#pp-stand-arc-${index + 1}`}
+                        startOffset="50%"
+                        textAnchor="middle"
+                      >
+                        {line}
+                      </textPath>
+                    </text>
+                  ))}
+                </svg>
                 {activeSlide.href ? (
                   <Link
                     href={activeSlide.href}
-                    className="mt-3 inline-flex rounded-full bg-[#FF6A00] px-5 py-2 text-xs font-black text-white shadow-lg transition hover:bg-[#007C91]"
+                    className="mt-1 inline-flex rounded-full bg-[#FF6A00] px-5 py-2 text-xs font-black text-white shadow-lg transition hover:bg-[#007C91]"
                   >
                     View Product
                   </Link>
                 ) : (
-                  <span className="mt-3 inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black text-white">
+                  <span className="mt-1 inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black text-white">
                     Showcase
                   </span>
                 )}
