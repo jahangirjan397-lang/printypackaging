@@ -146,7 +146,7 @@ export default function Hero() {
   }, [slider.active]);
 
   const imageArea = (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-[#FFFDF9] md:rounded-[2rem]">
+    <div className="relative aspect-[4/3] overflow-hidden bg-[#FFFDF9] [clip-path:url(#pp-curved-screen)]">
       {heroSlides.map((slide, index) =>
         slider.loaded[index] ? (
         <Image
@@ -235,47 +235,64 @@ export default function Hero() {
         <div className="relative mx-auto w-full max-w-xl lg:max-w-[540px] 2xl:max-w-none">
           <div className="absolute -inset-5 rounded-[2.4rem] bg-[#00C2E8]/20 blur-3xl md:-inset-8" />
 
-          <div className="relative overflow-hidden rounded-[2rem] border border-[#00C2E8]/25 bg-white/[0.06] p-3 shadow-2xl shadow-cyan-500/10 backdrop-blur md:rounded-[2.4rem] md:p-4">
-            {activeSlide.href ? (
-              <Link
-                href={activeSlide.href}
-                aria-label={`Open ${activeSlide.eyebrow} page`}
-                className="block transition hover:scale-[1.01]"
-              >
-                {imageArea}
-              </Link>
-            ) : (
-              imageArea
-            )}
+          {/* Curved-screen display: the slides play on a gently curved
+              screen, and the active slide's caption sits on the stand */}
+          <svg aria-hidden="true" width="0" height="0" className="absolute">
+            <defs>
+              <clipPath id="pp-curved-screen" clipPathUnits="objectBoundingBox">
+                <path d="M0,0 Q0.5,0.09 1,0 L1,1 Q0.5,0.95 0,1 Z" />
+              </clipPath>
+              <clipPath id="pp-curved-stand" clipPathUnits="objectBoundingBox">
+                <path d="M0,0 L1,0 L1,1 Q0.5,0.72 0,1 Z" />
+              </clipPath>
+            </defs>
+          </svg>
 
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-[#07111F]/70 px-4 py-4 backdrop-blur md:px-5">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[#00C2E8] md:text-xs">
-                  {activeSlide.eyebrow}
-                </p>
-
-                <h2 className="mt-1 text-lg font-black leading-tight text-white md:text-xl">
-                  {activeSlide.title}
-                </h2>
-
-                <p className="mt-1 max-w-xl text-xs leading-5 text-slate-300 md:text-sm">
-                  {activeSlide.description}
-                </p>
-              </div>
-
+          <div className="relative">
+            {/* Screen with bezel */}
+            <div className="relative z-10 bg-[linear-gradient(180deg,#2A323D,#0B1119)] p-[6px] shadow-2xl shadow-black/40 [clip-path:url(#pp-curved-screen)] md:p-2">
               {activeSlide.href ? (
                 <Link
                   href={activeSlide.href}
-                  className="shrink-0 rounded-full bg-[#FF6A00] px-5 py-2.5 text-xs font-black text-white shadow-lg transition hover:bg-[#007C91]"
+                  aria-label={`Open ${activeSlide.eyebrow} page`}
+                  className="block"
                 >
-                  View Product
+                  {imageArea}
                 </Link>
               ) : (
-                <span className="shrink-0 rounded-full border border-white/15 bg-white/10 px-5 py-2.5 text-xs font-black text-white">
-                  Showcase
-                </span>
+                imageArea
               )}
+              {/* Side shading makes the flat image read as a curved screen */}
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.28)_0%,transparent_14%,transparent_86%,rgba(0,0,0,0.32)_100%)]" />
             </div>
+
+            {/* Stand */}
+            <div className="relative mx-[1.5%] -mt-3 bg-[linear-gradient(180deg,#3B424C_0%,#232931_45%,#151A21_100%)] px-5 pb-10 pt-6 text-center [clip-path:url(#pp-curved-stand)] md:pb-12 md:pt-7">
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.35)_0%,transparent_18%,transparent_82%,rgba(0,0,0,0.4)_100%)]" />
+              <div className="relative">
+                <p className="text-[10px] font-black uppercase tracking-[0.24em] text-[#00C2E8] md:text-xs">
+                  {activeSlide.eyebrow}
+                </p>
+                <h2 className="mx-auto mt-1 max-w-md text-base font-black leading-tight text-white md:text-lg">
+                  {activeSlide.title}
+                </h2>
+                {activeSlide.href ? (
+                  <Link
+                    href={activeSlide.href}
+                    className="mt-3 inline-flex rounded-full bg-[#FF6A00] px-5 py-2 text-xs font-black text-white shadow-lg transition hover:bg-[#007C91]"
+                  >
+                    View Product
+                  </Link>
+                ) : (
+                  <span className="mt-3 inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black text-white">
+                    Showcase
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Floor shadow */}
+            <div className="pointer-events-none mx-auto -mt-4 h-6 w-[80%] rounded-[50%] bg-black/50 blur-xl" />
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
