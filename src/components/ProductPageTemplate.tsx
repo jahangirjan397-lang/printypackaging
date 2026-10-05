@@ -129,6 +129,23 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
       "@type": "BusinessAudience",
       audienceType: product.industries.join(", "),
     },
+    // Starting price, so search engines and AI assistants can quote it
+    ...(startingPrice && price
+      ? {
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "USD",
+            price: price.amount.replace("$", ""),
+            eligibleQuantity: {
+              "@type": "QuantitativeValue",
+              minValue: startingPrice.quantity,
+              unitText: startingPrice.unit,
+            },
+            description: `${price.reference} Final price depends on size, quantity, material and finish.`,
+            url: `https://printypackaging.com/products/${product.slug}#product-quote`,
+          },
+        }
+      : {}),
   };
 
   const breadcrumbSchema = {
