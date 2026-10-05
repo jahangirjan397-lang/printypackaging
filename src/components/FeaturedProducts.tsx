@@ -33,7 +33,7 @@ export default function FeaturedProducts() {
         </div>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredProducts.map((item, index) => {
+          {featuredProducts.map((item) => {
             const productImage = item.images?.[0];
             const startingPrice = getStartingPrice(item.slug);
             const price = startingPrice ? formatStartingPrice(startingPrice) : null;
@@ -58,17 +58,14 @@ export default function FeaturedProducts() {
                   ) : (
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(0,194,232,0.18),transparent_34%),linear-gradient(135deg,#FFFFFF,#EAF7FA)]" />
                   )}
-
-                  <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-[#07111F] shadow-sm backdrop-blur">
-                    {item.category}
-                  </span>
-                  <span className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white shadow-lg">
-                    {index + 1}
-                  </span>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-black text-[#07111F]">{item.name}</h3>
+                  {/* Category sits under the photo so nothing covers the box */}
+                  <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#007C91]">
+                    {item.category}
+                  </p>
+                  <h3 className="mt-1.5 text-xl font-black text-[#07111F]">{item.name}</h3>
                   <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">
                     {item.tagline}
                   </p>

@@ -54,39 +54,6 @@ const buyerSteps = [
   "Request quote guidance",
 ];
 
-function getProductVisualLabel(productName: string) {
-  const name = productName.toLowerCase();
-
-  if (
-    name.includes("rigid") ||
-    name.includes("magnetic") ||
-    name.includes("drawer") ||
-    name.includes("luxury")
-  ) {
-    return "LUX";
-  }
-
-  if (
-    name.includes("food") ||
-    name.includes("bakery") ||
-    name.includes("burger") ||
-    name.includes("pizza") ||
-    name.includes("butter")
-  ) {
-    return "FOOD";
-  }
-
-  if (name.includes("label") || name.includes("sticker")) {
-    return "LBL";
-  }
-
-  if (name.includes("bag")) {
-    return "BAG";
-  }
-
-  return "BOX";
-}
-
 export default function CategoryPageTemplate({
   category,
 }: {
@@ -280,14 +247,11 @@ export default function CategoryPageTemplate({
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
                 )}
-
-                <div className="absolute right-6 top-6 rounded-full bg-[#07111F]/85 px-4 py-2 text-xs font-black uppercase tracking-[0.2em] text-white backdrop-blur sm:right-8 sm:top-8">
-                  {category.name}
-                </div>
               </div>
+              {/* Labels sit under the photo, never on top of it */}
               <div className="px-2 pb-1 pt-5">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00C2E8]">
-                  Products in this category
+                  {category.name} · Products in this category
                 </p>
                 <p className="mt-2 max-w-md text-xl font-black leading-7 text-white sm:text-2xl">
                   {categoryProducts.length} product styles, each with sizes, materials, finishes and a quote form.
@@ -321,7 +285,7 @@ export default function CategoryPageTemplate({
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {categoryProducts.map((product, index) => (
+            {categoryProducts.map((product) => (
               <article
                 key={product.slug}
                 className="group overflow-hidden rounded-[1.7rem] bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl"
@@ -339,16 +303,6 @@ export default function CategoryPageTemplate({
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
                     )}
-
-
-                    <span className="absolute bottom-5 left-5 rounded-full bg-[#07111F]/88 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white backdrop-blur">
-                      {getProductVisualLabel(product.name)}
-                    </span>
-
-                    <span className="absolute right-5 top-5 flex h-8 min-w-8 items-center justify-center rounded-full bg-[#FF6A00] px-2 text-xs font-black text-white">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
                   </div>
                 </Link>
 
