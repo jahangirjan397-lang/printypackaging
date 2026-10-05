@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getIndustryImages } from "../data/industryImages";
 import Link from "next/link";
 import type { Category } from "../data/categories";
 import { products } from "../data/products";
@@ -96,6 +97,8 @@ export default function CategoryPageTemplate({
   );
 
   const heroProduct = categoryProducts[0];
+  // Industry-matched photos that are not repeated across industry pages
+  const industryImages = getIndustryImages(category.slug);
   const heroImage =
     category.slug === "printing-finishing"
       ? {
@@ -107,7 +110,7 @@ export default function CategoryPageTemplate({
             src: "/images/products/butter-paper/butter-paper-front-brand.webp",
             alt: "Custom printed butter paper roll, sheets and wrapped sandwich for food brands",
           }
-        : heroProduct?.images?.[0];
+        : (industryImages?.hero ?? heroProduct?.images?.[0]);
 
   const otherProducts = products
     .filter((product) => !category.productSlugs.includes(product.slug))
@@ -325,10 +328,10 @@ export default function CategoryPageTemplate({
               >
                 <Link href={`/products/${product.slug}`} prefetch={false}>
                   <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE5DC]">
-                    {product.images?.[0] ? (
+                    {(industryImages?.cards[product.slug] ?? product.images?.[0]) ? (
                       <Image
-                        src={product.images[0].src}
-                        alt={product.images[0].alt}
+                        src={(industryImages?.cards[product.slug] ?? product.images![0]).src}
+                        alt={(industryImages?.cards[product.slug] ?? product.images![0]).alt}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover object-center transition duration-500 group-hover:scale-[1.03]"
