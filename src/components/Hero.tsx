@@ -300,7 +300,7 @@ export default function Hero() {
                 aria-hidden="true"
                 viewBox="0 0 100 100"
                 preserveAspectRatio="none"
-                className="absolute inset-0 h-full w-full translate-y-[5px] overflow-visible blur-[5px]"
+                className="absolute inset-0 h-full w-full translate-y-[1px] overflow-visible blur-[5px]"
               >
                 <path
                   d="M-1,99 Q50,71 101,99"
