@@ -294,6 +294,22 @@ export default function Hero() {
             {/* Stand: tucked under the screen, lighter on the left, darker on
                 the right, with a gently arched bottom edge */}
             <div className="relative z-[5] mx-[0.6%] -mt-3">
+              {/* Contact shadow on the floor along the stand's curved bottom
+                  edge, so the display looks like it stands on the ground */}
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                className="absolute inset-0 h-full w-full translate-y-[5px] overflow-visible blur-[5px]"
+              >
+                <path
+                  d="M-1,99 Q50,71 101,99"
+                  fill="none"
+                  stroke="rgba(0,0,0,0.85)"
+                  strokeWidth="12"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
               <svg
                 aria-hidden="true"
                 viewBox="0 0 100 100"
@@ -317,16 +333,16 @@ export default function Hero() {
                 <path d="M0,0 L100,0 L100,100 Q50,74 0,100 Z" fill="url(#pp-stand-shade)" />
               </svg>
 
-              <div className="relative px-4 pb-9 pt-5 text-center md:pb-10 md:pt-6">
+              <div className="relative px-4 pb-7 pt-3 text-center md:pb-8 md:pt-4">
                 <h2 className="sr-only">{activeSlide.title}</h2>
                 {/* Text follows a gentle arch, like the curved display */}
                 <svg
                   aria-hidden="true"
-                  viewBox={`0 0 600 ${titleLines.length > 1 ? 104 : 74}`}
+                  viewBox={`0 0 600 ${titleLines.length > 1 ? 92 : 64}`}
                   className="mx-auto block w-full max-w-[500px]"
                 >
                   <defs>
-                    {[24, 58, 90].map((y, index) => (
+                    {[22, 52, 80].map((y, index) => (
                       <path
                         key={y}
                         id={`pp-stand-arc-${index}`}
@@ -340,7 +356,7 @@ export default function Hero() {
                     </textPath>
                   </text>
                   {titleLines.map((line, index) => (
-                    <text key={line} fill="#FFFFFF" fontSize="25" fontWeight="900">
+                    <text key={line} fill="#FFFFFF" fontSize="24" fontWeight="900">
                       <textPath
                         href={`#pp-stand-arc-${index + 1}`}
                         startOffset="50%"
@@ -354,7 +370,7 @@ export default function Hero() {
                 {activeSlide.href ? (
                   <Link
                     href={activeSlide.href}
-                    className="inline-flex rounded-full bg-[#FF6A00] px-5 py-2 text-xs font-black text-white shadow-lg transition hover:bg-[#007C91]"
+                    className="inline-flex rounded-full bg-[#FF6A00] px-5 py-1.5 text-xs font-black text-white shadow-lg transition hover:bg-[#007C91]"
                   >
                     View Product
                   </Link>
@@ -367,7 +383,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
             <button
               type="button"
               onClick={() => showSlide(activeIndex - 1)}
