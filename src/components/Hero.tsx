@@ -203,6 +203,9 @@ export default function Hero() {
           aria-hidden={index !== activeIndex}
           fill
           priority={index === 0}
+          // Slides are only mounted when about to be shown, so load them now
+          // instead of waiting for the lazy loader
+          loading={index === 0 ? undefined : "eager"}
           sizes="(max-width: 768px) 100vw, 50vw"
           className={`object-cover object-center transition-opacity duration-700 motion-reduce:transition-none ${
             index === activeIndex ? "opacity-100" : "pointer-events-none opacity-0"
@@ -419,35 +422,41 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-5 flex flex-wrap items-center justify-center">
             <button
               type="button"
               onClick={() => showSlide(activeIndex - 1)}
-              className="mr-1 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
+              className="mr-1 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
               aria-label="Previous slide"
             >
-              ‹
+              <span aria-hidden="true" className="text-lg leading-none">‹</span>
             </button>
+            {/* Each dot sits in a larger button so it is easy to tap on a phone */}
             {heroSlides.map((slide, index) => (
               <button
                 key={slide.eyebrow}
                 type="button"
                 onClick={() => showSlide(index)}
-                className={`h-2.5 rounded-full transition ${
-                  activeIndex === index
-                    ? "w-10 bg-[#FF6A00]"
-                    : "w-2.5 bg-white/30 hover:bg-[#00C2E8]"
-                }`}
+                className="group flex h-10 items-center justify-center px-[5px]"
                 aria-label={`Show ${slide.eyebrow}`}
-              />
+                aria-current={activeIndex === index ? "true" : undefined}
+              >
+                <span
+                  className={`block h-2.5 rounded-full transition-all ${
+                    activeIndex === index
+                      ? "w-8 bg-[#FF6A00]"
+                      : "w-2.5 bg-white/30 group-hover:bg-[#00C2E8]"
+                  }`}
+                />
+              </button>
             ))}
             <button
               type="button"
               onClick={() => showSlide(activeIndex + 1)}
-              className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
+              className="ml-1 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-sm font-black text-white transition hover:border-[#00C2E8] hover:text-[#00C2E8]"
               aria-label="Next slide"
             >
-              ›
+              <span aria-hidden="true" className="text-lg leading-none">›</span>
             </button>
           </div>
         </div>
