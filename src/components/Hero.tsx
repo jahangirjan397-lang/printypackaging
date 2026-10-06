@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import type { TouchEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import DrawnArrow from "@/components/DrawnArrow";
 import { businessPromises } from "@/data/businessInfo";
 
@@ -149,20 +150,43 @@ export default function Hero() {
     }));
   }
 
+  // Keep sliding even when the phone asks for reduced motion (battery saver
+  // often turns that on): slides then change more slowly and without the fade
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const timer = window.setInterval(() => {
       setSlider((current) => {
         const target = (current.active + 1) % heroSlides.length;
         return { active: target, loaded: markLoaded(current.loaded, target) };
       });
-    }, 4500);
+    }, reduced ? 7000 : 4500);
 
     return () => window.clearInterval(timer);
   }, [slider.active]);
+
+  // Swipe left or right on the screen to change slides on touch devices
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
+
+  function handleTouchStart(event: TouchEvent) {
+    const touch = event.touches[0];
+    touchStart.current = { x: touch.clientX, y: touch.clientY };
+    swiped.current = false;
+  }
+
+  function handleTouchEnd(event: TouchEvent) {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      swiped.current = true;
+      showSlide(activeIndex + (dx < 0 ? 1 : -1));
+    }
+  }
 
   const imageArea = (
     <div className="relative aspect-[4/3] overflow-hidden bg-[#FFFDF9] [clip-path:url(#pp-curved-screen)]">
@@ -180,7 +204,7 @@ export default function Hero() {
           fill
           priority={index === 0}
           sizes="(max-width: 768px) 100vw, 50vw"
-          className={`object-cover object-center transition-opacity duration-700 ${
+          className={`object-cover object-center transition-opacity duration-700 motion-reduce:transition-none ${
             index === activeIndex ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         />
@@ -272,7 +296,19 @@ export default function Hero() {
             <div className="pointer-events-none absolute -bottom-[6%] left-[14%] h-[12%] w-[72%] rounded-[50%] bg-[#BFEFFF]/20 blur-2xl" />
 
             {/* Screen: even thin black bezel on every side */}
-            <div className="relative z-10 bg-[#05080C] p-[5px] [clip-path:url(#pp-curved-screen)] md:p-1.5">
+            <div
+              className="relative z-10 touch-pan-y bg-[#05080C] p-[5px] [clip-path:url(#pp-curved-screen)] md:p-1.5"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              onClickCapture={(event) => {
+                // A swipe should change the slide, not open the product page
+                if (swiped.current) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  swiped.current = false;
+                }
+              }}
+            >
               {activeSlide.href ? (
                 <Link
                   href={activeSlide.href}
