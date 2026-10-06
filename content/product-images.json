@@ -54,11 +54,6 @@
           "src": "/images/products/folding-cartons/folding-cartons-finish-v4-brand.webp",
           "alt": "Stack of folding cartons with a printed maze pattern",
           "title": "Print and Pattern Detail"
-        },
-        {
-          "src": "/images/products/folding-cartons/folding-cartons-lifestyle-v4-brand.webp",
-          "alt": "Set of brightly printed folding cartons for a product range",
-          "title": "Folding Carton Product Range"
         }
       ]
     },
@@ -303,11 +298,6 @@
           "title": "Cosmetic Boxes open view"
         },
         {
-          "src": "/images/products/cosmetic-boxes/cosmetic-boxes-finish-v3-brand.webp",
-          "alt": "Cosmetic Boxes - material and finish detail (concept mockup)",
-          "title": "Cosmetic Boxes material and finish detail"
-        },
-        {
           "src": "/images/products/cosmetic-boxes/cosmetic-boxes-lifestyle-v3-brand.webp",
           "alt": "Cosmetic Boxes - in use (concept mockup)",
           "title": "Cosmetic Boxes in use"
@@ -441,11 +431,6 @@
           "src": "/images/products/bakery-boxes/bakery-boxes-open-v3-brand-v2.webp",
           "alt": "Bakery Boxes - open view (concept mockup)",
           "title": "Bakery Boxes open view"
-        },
-        {
-          "src": "/images/products/bakery-boxes/bakery-boxes-lifestyle-v3-brand.webp",
-          "alt": "Bakery Boxes - in use (concept mockup)",
-          "title": "Bakery Boxes in use"
         },
         {
           "src": "/images/products/bakery-boxes/bakery-boxes-x1-brand.webp",
@@ -697,7 +682,7 @@
           "title": "Apparel Boxes hero view"
         },
         {
-          "src": "/images/products/apparel-boxes/apparel-boxes-front-v3-brand.webp",
+          "src": "/images/products/apparel-boxes/apparel-boxes-front-v3-brand-clean.webp",
           "alt": "Apparel Boxes - front view (concept mockup)",
           "title": "Apparel Boxes front view"
         },
@@ -728,11 +713,6 @@
           "title": "Hang Tags front view"
         },
         {
-          "src": "/images/products/hang-tags/hang-tags-open-v3-brand-v2.webp",
-          "alt": "Hang Tags - open view (concept mockup)",
-          "title": "Hang Tags open view"
-        },
-        {
           "src": "/images/products/hang-tags/hang-tags-finish-v3-brand.webp",
           "alt": "Hang Tags - material and finish detail (concept mockup)",
           "title": "Hang Tags material and finish detail"
@@ -749,24 +729,14 @@
       "name": "Kraft Mailer Boxes",
       "images": [
         {
-          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-1-brand.webp",
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-1-brand-clean.webp",
           "alt": "Plain kraft mailer box with a printed logo on the lid",
           "title": "Plain kraft mailer box with a printed logo on the lid"
-        },
-        {
-          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-2-brand.webp",
-          "alt": "Kraft mailer box with black hand-drawn print",
-          "title": "Kraft mailer box with black hand-drawn print"
         },
         {
           "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-3-brand.webp",
           "alt": "Kraft mailer box with a black printed inside",
           "title": "Kraft mailer box with a black printed inside"
-        },
-        {
-          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-4-brand.webp",
-          "alt": "Kraft delivery mailer boxes with a bright pink inside print",
-          "title": "Kraft delivery mailer boxes with a bright pink inside print"
         }
       ]
     },
@@ -795,11 +765,6 @@
       "slug": "white-mailer-boxes",
       "name": "White Mailer Boxes",
       "images": [
-        {
-          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-1-brand.webp",
-          "alt": "White mailer box with a blue printed inside",
-          "title": "White mailer box with a blue printed inside"
-        },
         {
           "src": "/images/products/white-mailer-boxes/white-mailer-boxes-2-brand.webp",
           "alt": "White mailer box with a floral thank you print inside",
@@ -1347,19 +1312,9 @@
           "title": "Custom printed brochure example 3"
         },
         {
-          "src": "/images/products/brochures/brochures-4-brand.webp",
-          "alt": "Custom printed brochure example 4",
-          "title": "Custom printed brochure example 4"
-        },
-        {
           "src": "/images/products/brochures/brochures-5-brand.webp",
           "alt": "Custom printed brochure example 5",
           "title": "Custom printed brochure example 5"
-        },
-        {
-          "src": "/images/products/brochures/brochures-6-brand.webp",
-          "alt": "Custom printed brochure example 6",
-          "title": "Custom printed brochure example 6"
         },
         {
           "src": "/images/products/brochures/brochures-7-brand.webp",
@@ -1372,11 +1327,6 @@
       "slug": "catalogs-magazines",
       "name": "Catalogs & Magazines",
       "images": [
-        {
-          "src": "/images/products/catalogs-magazines/catalogs-magazines-1-brand.webp",
-          "alt": "Custom printed catalog and magazine example 1",
-          "title": "Custom printed catalog and magazine example 1"
-        },
         {
           "src": "/images/products/catalogs-magazines/catalogs-magazines-2-brand.webp",
           "alt": "Custom printed catalog and magazine example 2",
@@ -1457,11 +1407,6 @@
           "src": "/images/products/booklets/booklets-9-brand.webp",
           "alt": "Custom printed booklet example 8",
           "title": "Custom printed booklet example 8"
-        },
-        {
-          "src": "/images/products/booklets/booklets-10-brand.webp",
-          "alt": "Custom printed booklet example 9",
-          "title": "Custom printed booklet example 9"
         }
       ]
     },
@@ -1470,7 +1415,7 @@
       "name": "Postcards",
       "images": [
         {
-          "src": "/images/products/postcards/postcards-1-brand.webp",
+          "src": "/images/products/postcards/postcards-1-brand-clean.webp",
           "alt": "Custom printed A6 postcards with photo fronts and address backs",
           "title": "Custom printed A6 postcards with photo fronts and address backs"
         },
@@ -1488,11 +1433,6 @@
           "src": "/images/products/postcards/postcards-4-brand.webp",
           "alt": "Patterned teal postcards printed front and back",
           "title": "Patterned teal postcards printed front and back"
-        },
-        {
-          "src": "/images/products/postcards/postcards-5-brand.webp",
-          "alt": "Stack of printed postcards on a yellow background",
-          "title": "Stack of printed postcards on a yellow background"
         }
       ]
     },
@@ -1550,11 +1490,6 @@
           "src": "/images/products/invitation-cards/invitation-cards-4-brand.webp",
           "alt": "Hand holding a printed invitation card",
           "title": "Hand holding a printed invitation card"
-        },
-        {
-          "src": "/images/products/invitation-cards/invitation-cards-5-brand.webp",
-          "alt": "Invitation cards with a printed blue envelope",
-          "title": "Invitation cards with a printed blue envelope"
         }
       ]
     },
@@ -1563,7 +1498,7 @@
       "name": "Posters",
       "images": [
         {
-          "src": "/images/products/posters/posters-1-brand.webp",
+          "src": "/images/products/posters/posters-1-brand-clean.webp",
           "alt": "Framed advertising poster displayed on a wall",
           "title": "Framed advertising poster displayed on a wall"
         },
@@ -1578,7 +1513,7 @@
           "title": "Bold typographic poster printed on gloss paper"
         },
         {
-          "src": "/images/products/posters/posters-4-brand.webp",
+          "src": "/images/products/posters/posters-4-brand-clean.webp",
           "alt": "24 x 36 outdoor advertising poster",
           "title": "24 x 36 outdoor advertising poster"
         }
