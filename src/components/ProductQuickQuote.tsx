@@ -17,9 +17,15 @@ const countries = ["USA", "UK", "Canada", "Europe", "UAE", "Australia", "Other"]
 export default function ProductQuickQuote({
   productName,
   productSlug,
+  heading,
+  formName = "product_quick_quote",
 }: {
   productName: string;
   productSlug: string;
+  // Defaults to "Get your <product> price"
+  heading?: string;
+  // GA form_name, e.g. "blog_quick_quote" on articles
+  formName?: string;
 }) {
   const router = useRouter();
   const [isSending, setIsSending] = useState(false);
@@ -56,7 +62,7 @@ export default function ProductQuickQuote({
 
       if (isLiveHostname(window.location.hostname) && readAnalyticsConsent() === "granted") {
         sendGAEvent("event", "generate_lead", {
-          form_name: "product_quick_quote",
+          form_name: formName,
           product: productSlug,
           quote_id: result.quoteId || "not_available",
         });
@@ -86,7 +92,9 @@ export default function ProductQuickQuote({
 
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="text-xl font-black md:text-2xl">Get your {productName.toLowerCase()} price</h2>
+          <h2 className="text-xl font-black md:text-2xl">
+            {heading ?? `Get your ${productName.toLowerCase()} price`}
+          </h2>
           <p className="mt-1 text-sm font-bold text-slate-600">
             Free quote · No commitment · Reply within 1 hour
           </p>
@@ -173,7 +181,7 @@ export default function ProductQuickQuote({
           {isSending ? "Sending…" : "Get My Free Quote →"}
         </button>
         <Link
-          href={`/?product=${productSlug}#quote`}
+          href={productSlug ? `/?product=${productSlug}#quote` : "/#quote"}
           prefetch={false}
           className="text-sm font-black text-[#007C91] hover:text-[#FF6A00]"
         >

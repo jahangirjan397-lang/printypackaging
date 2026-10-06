@@ -7,7 +7,12 @@
   "metaDescription": "The 8 details that decide a custom box price, how to measure your product, and how to compare quotes from different packaging suppliers fairly.",
   "category": "Quote Guide",
   "readTime": "7 min read",
-  "relatedProducts": ["mailer-boxes", "folding-cartons", "rigid-boxes", "labels-stickers"],
+  "relatedProducts": [
+    "mailer-boxes",
+    "folding-cartons",
+    "rigid-boxes",
+    "labels-stickers"
+  ],
   "excerpt": "A vague request gets a vague price. Send these eight details and you get a quote you can actually budget with, plus a fair way to compare suppliers.",
   "coverImage": "/images/blog/quote-guide-v3.webp",
   "coverAlt": "Assorted rigid and drawer gift boxes with inserts laid out for a packaging quote",
@@ -18,6 +23,12 @@
     "packaging quote checklist",
     "custom boxes quote",
     "packaging supplier comparison"
+  ],
+  "keyTakeaways": [
+    "Eight details decide the price: style, inside size, quantity, material, printing, finishing, inserts and delivery.",
+    "Measure the inside space the product needs, then add a little clearance on each side.",
+    "Ask for two or three quantities: the price per box drops as quantity rises.",
+    "You can get a quote without finished artwork; a logo and a rough layout are enough."
   ],
   "sections": [
     {

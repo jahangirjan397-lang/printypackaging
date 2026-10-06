@@ -7,7 +7,12 @@
   "metaDescription": "What matte, gloss and soft-touch lamination, foil stamping, spot UV, embossing and debossing do to a custom box, what they cost and when to use them.",
   "category": "Finishing",
   "readTime": "8 min read",
-  "relatedProducts": ["rigid-boxes", "luxury-packaging", "magnetic-boxes", "folding-cartons"],
+  "relatedProducts": [
+    "rigid-boxes",
+    "luxury-packaging",
+    "magnetic-boxes",
+    "folding-cartons"
+  ],
   "excerpt": "Finishing is what makes people pick a box up and turn it over. Here is what each option actually does, how they combine, and where they are worth the money.",
   "coverImage": "/images/blog/finishing-options-v3.webp",
   "coverAlt": "Print operator checking colour on a press with colour charts",
@@ -19,6 +24,12 @@
     "spot UV boxes",
     "embossing vs debossing",
     "luxury packaging finishes"
+  ],
+  "keyTakeaways": [
+    "Lamination (matte, gloss or soft-touch) protects the print and sets the overall look.",
+    "Foil gives a real metallic shine; spot UV adds gloss to chosen areas and usually costs less.",
+    "Embossing raises a design and debossing presses it in; both show best on thicker board.",
+    "One lamination plus one or two effects is usually the sweet spot for cost and impact."
   ],
   "sections": [
     {

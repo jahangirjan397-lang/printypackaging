@@ -2,11 +2,17 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { blogPosts, getBlogPostBySlug } from "@/data/blogs";
+import {
+  blogPosts,
+  formatBlogDate,
+  getBlogPostBySlug,
+  getRelatedPosts,
+} from "@/data/blogs";
 import { getBlogVisual } from "@/data/blogVisuals";
 import { products } from "@/data/products";
 import type { BlogPost } from "@/data/blogs";
 import ShareButtons from "@/components/ShareButtons";
+import ProductQuickQuote from "@/components/ProductQuickQuote";
 
 const siteUrl = "https://printypackaging.com";
 const organizationId = `${siteUrl}#organization`;
@@ -117,9 +123,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const relatedPosts = blogPosts
-    .filter((item) => item.slug !== post.slug)
-    .slice(0, 3);
+  const relatedPosts = getRelatedPosts(post);
 
   const articleVisual = getBlogVisual(post.slug);
   const linkedProducts = articleProducts(post);
@@ -242,31 +246,31 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <span>•</span>
                 <span>{post.readTime}</span>
                 <span>•</span>
-                <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+                <time dateTime={post.publishedAt}>{formatBlogDate(post.publishedAt)}</time>
                 {updatedAt && (
                   <>
                     <span>•</span>
                     <span>
-                      Updated <time dateTime={updatedAt}>{updatedAt}</time>
+                      Updated <time dateTime={updatedAt}>{formatBlogDate(updatedAt)}</time>
                     </span>
                   </>
                 )}
               </div>
 
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/#quote"
-              className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
-            >
-              Get Quote
-            </Link>
+                <a
+                  href="#product-quote"
+                  className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                >
+                  Get Free Quote
+                </a>
 
-            <Link
-              href="/resources"
-              className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
-            >
-              Resources
-            </Link>
+                <Link
+                  href="/blog"
+                  className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-bold text-white transition hover:border-cyan-300 hover:text-cyan-300"
+                >
+                  All Guides
+                </Link>
               </div>
             </div>
 
@@ -310,6 +314,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 ))}
               </div>
             </div>
+
+            <div className="mt-5 hidden rounded-[2rem] bg-[#07111F] p-7 text-white lg:block">
+              <p className="text-xl font-black tracking-tight">
+                Need a price for your boxes?
+              </p>
+              <p className="mt-3 text-sm leading-6 text-slate-300">
+                Send size and quantity. Free quote within 1 hour, from 100
+                pcs.
+              </p>
+              <a
+                href="#product-quote"
+                className="mt-5 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
+              >
+                Get Free Quote
+              </a>
+            </div>
           </aside>
 
           <article className="rounded-[2rem] border border-slate-200 bg-slate-50 p-7 sm:p-10">
@@ -321,8 +341,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               />
             </div>
 
+            {post.keyTakeaways.length > 0 && (
+              <div className="mb-10 rounded-[1.5rem] border-l-4 border-[#FF6A00] bg-white p-6 shadow-sm">
+                <p className="text-sm font-black uppercase tracking-[0.25em] text-[#FF6A00]">
+                  Key takeaways
+                </p>
+                <ul className="mt-4 space-y-3">
+                  {post.keyTakeaways.map((item) => (
+                    <li key={item} className="flex gap-3 leading-7 text-slate-700">
+                      <span aria-hidden="true" className="mt-0.5 font-black text-[#007C91]">
+                        ✓
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="space-y-10">
-              {post.sections.map((section) => (
+              {post.sections.map((section, sectionIndex) => (
                 <section
                   key={section.heading}
                   id={headingId(section.heading)}
@@ -371,6 +409,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                           ))}
                         </tbody>
                       </table>
+                    </div>
+                  )}
+
+                  {sectionIndex === 1 && post.sections.length > 3 && (
+                    <div className="mt-10 flex flex-col gap-4 rounded-[1.5rem] bg-[#FFF4EC] p-6 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="font-black text-[#07111F]">
+                        Already know your box?{" "}
+                        <span className="font-bold text-slate-600">
+                          Get your exact price free within 1 hour.
+                        </span>
+                      </p>
+                      <a
+                        href="#product-quote"
+                        className="shrink-0 self-start rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#007C91] sm:self-auto"
+                      >
+                        Get Free Quote
+                      </a>
                     </div>
                   )}
                 </section>
@@ -432,26 +487,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </span>
             </div>
 
-            <div className="mt-10 rounded-[2rem] bg-[#07111F] p-7 text-white">
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
-                Need Packaging Help?
-              </p>
-
-              <p className="mt-4 text-3xl font-black tracking-tight">
-                Send your packaging details for quote support.
-              </p>
-
-              <p className="mt-4 leading-8 text-slate-300">
-                Share size, quantity, material, printing, finishing, artwork
-                status and delivery country for better guidance.
-              </p>
-
-              <Link
-                href="/#quote"
-                className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
-              >
-                Request Quote
-              </Link>
+            <div className="mt-10">
+              <ProductQuickQuote
+                productName={`Custom packaging (blog: ${post.title})`}
+                productSlug={linkedProducts[0]?.slug ?? ""}
+                heading="Get your custom packaging price"
+                formName="blog_quick_quote"
+              />
             </div>
           </article>
         </div>
@@ -504,8 +546,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <Link
                 key={related.slug}
                 href={`/blog/${related.slug}`}
-                className="rounded-3xl border border-white/10 bg-white/[0.05] p-7 transition hover:-translate-y-1 hover:border-[#FF6A00]"
+                className="group overflow-hidden rounded-3xl border border-white/10 bg-white/[0.05] transition hover:-translate-y-1 hover:border-[#FF6A00]"
               >
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#EDE5DC]">
+                  <Image
+                    src={getBlogVisual(related.slug).src}
+                    alt={getBlogVisual(related.slug).alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div className="p-7">
                 <p className="text-xs font-black uppercase tracking-[0.25em] text-cyan-300">
                   {related.category}
                 </p>
@@ -521,6 +573,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <span className="mt-6 inline-flex text-sm font-black text-[#FF6A00]">
                   Read guide →
                 </span>
+                </div>
               </Link>
             ))}
           </div>

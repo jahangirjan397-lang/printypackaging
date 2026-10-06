@@ -7,7 +7,12 @@
   "metaDescription": "Bleed, safe zones, CMYK vs Pantone, fonts, barcodes and file formats: a simple checklist to make your box artwork print-ready and avoid costly reprints.",
   "category": "Artwork",
   "readTime": "8 min read",
-  "relatedProducts": ["folding-cartons", "mailer-boxes", "rigid-boxes", "labels-stickers"],
+  "relatedProducts": [
+    "folding-cartons",
+    "mailer-boxes",
+    "rigid-boxes",
+    "labels-stickers"
+  ],
   "excerpt": "Most printing problems start in the artwork file, not on the press. Use this checklist before you send your design and your boxes come out the way you pictured them.",
   "coverImage": "/images/blog/artwork-dieline-v3.webp",
   "coverAlt": "Box dieline with fold lines and dimensions for artwork planning",
@@ -19,6 +24,12 @@
     "CMYK vs Pantone",
     "box design template",
     "packaging artwork guide"
+  ],
+  "keyTakeaways": [
+    "Always design on the dieline for your exact board, not a template from the internet.",
+    "Extend artwork 3 mm (1/8 inch) into the bleed and keep text 3-5 mm inside the safe zone.",
+    "Send CMYK files with Pantone numbers for brand colours, images at 300 dpi and fonts outlined.",
+    "Check the digital proof carefully: production starts as soon as you approve it."
   ],
   "sections": [
     {

@@ -7,7 +7,12 @@
   "metaDescription": "Paperboard, kraft, corrugated or rigid board? Compare strength, print quality, GSM and cost to choose the right material for your custom boxes.",
   "category": "Materials",
   "readTime": "8 min read",
-  "relatedProducts": ["folding-cartons", "mailer-boxes", "rigid-boxes", "kraft-boxes"],
+  "relatedProducts": [
+    "folding-cartons",
+    "mailer-boxes",
+    "rigid-boxes",
+    "kraft-boxes"
+  ],
   "excerpt": "The material decides how your box feels, how well it prints, how it survives shipping and most of what it costs. This guide explains the main board types in plain language.",
   "coverImage": "/images/blog/materials-guide-v3.webp",
   "coverAlt": "Paperboard, corrugated board and tissue samples beside folding cartons",
@@ -19,6 +24,12 @@
     "rigid box board",
     "packaging GSM guide",
     "SBS paperboard"
+  ],
+  "keyTakeaways": [
+    "Paperboard is for retail shelves, corrugated is for shipping, kraft gives a natural look and rigid board feels most premium.",
+    "Most cosmetic and candle boxes use around 350 GSM paperboard.",
+    "Colours print darker on kraft, so use white board for bright or photographic artwork.",
+    "If two boards both work, pick the lighter one: it is cheaper to make and to ship."
   ],
   "sections": [
     {

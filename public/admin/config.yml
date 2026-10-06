@@ -129,6 +129,11 @@ collections:
         max: 4
         required: false
         hint: "Blog ke neeche jin products ke link lagne chahiye (max 4). Khaali ho to blog ke text se khud chune jayenge."
+      - label: Key takeaways
+        name: keyTakeaways
+        widget: list
+        required: false
+        hint: "3-5 chhoti lines jo blog ke shuru mein box mein dikhti hain. Har line ek seedha jawab, jaise: Minimum order 100 boxes hai. Google aur ChatGPT inhi se jawab uthate hain."
       - label: Sections
         name: sections
         widget: list
