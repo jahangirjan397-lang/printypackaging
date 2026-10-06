@@ -48,13 +48,45 @@ export default function LiveChatWidget() {
 
     tawkWindow.Tawk_API.customStyle = {
       zIndex: 999998,
-      // Keep the chat button and its "We Are Here!" bubble clear of the
-      // screen edge and the scrollbar so they are never cut off
+      // Keep the chat button and its message preview clear of the screen
+      // edge and the scrollbar so they are never cut off
       visibility: {
         desktop: { position: "br", xOffset: 28, yOffset: 24 },
         mobile: { position: "br", xOffset: 14, yOffset: 18 },
         bubble: { rotate: "0deg", xOffset: -18, yOffset: 0 },
       },
+    };
+
+    // Open the chat window by itself once per visit, 12 seconds after the
+    // page loads, so the welcome message and quick questions are seen. Only
+    // on desktop (on a phone it would cover the page; the message preview
+    // shows there instead), not on the contact/thank-you pages, and never
+    // while the visitor is typing in a form.
+    tawkWindow.Tawk_API.onLoad = () => {
+      window.setTimeout(() => {
+        const api = tawkWindow.Tawk_API as {
+          maximize?: () => void;
+          isChatMaximized?: () => boolean;
+        };
+        const typing = document.activeElement?.matches("input, textarea, select");
+        const quietPage = /^\/(contact|thank-you)/.test(window.location.pathname);
+        let alreadyOpened = false;
+        try {
+          alreadyOpened = sessionStorage.getItem("pp-chat-auto-opened") === "1";
+          sessionStorage.setItem("pp-chat-auto-opened", "1");
+        } catch {
+          // Storage blocked: still open once for this page view
+        }
+        if (
+          window.innerWidth >= 768 &&
+          !typing &&
+          !quietPage &&
+          !alreadyOpened &&
+          !api.isChatMaximized?.()
+        ) {
+          api.maximize?.();
+        }
+      }, 12000);
     };
 
     const script = document.createElement("script");
