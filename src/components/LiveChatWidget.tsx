@@ -57,7 +57,7 @@ export default function LiveChatWidget() {
       },
     };
 
-    // Open the chat window by itself once per visit, 12 seconds after the
+    // Open the chat window by itself once per visit, 10 seconds after the
     // page loads, so the welcome message and quick questions are seen. Only
     // on desktop (on a phone it would cover the page; the message preview
     // shows there instead), not on the contact/thank-you pages, and never
@@ -86,7 +86,7 @@ export default function LiveChatWidget() {
         ) {
           api.maximize?.();
         }
-      }, 12000);
+      }, 10000);
     };
 
     const script = document.createElement("script");
