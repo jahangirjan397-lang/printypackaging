@@ -102,15 +102,23 @@ export async function POST(request: Request) {
     `📱 ${device}`,
   ].join("\n");
 
+  // An alert that fails to send must never affect the visitor, but the
+  // reason is logged (never the token) so it shows in the hosting logs
   try {
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const response = await fetch(`https://api.telegram.org/bot${token.trim()}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text, disable_web_page_preview: true }),
+      body: JSON.stringify({ chat_id: chatId.trim(), text, disable_web_page_preview: true }),
       signal: AbortSignal.timeout(8_000),
     });
-  } catch {
-    // An alert that fails to send must never affect the visitor
+    if (!response.ok) {
+      const reason = await response.text().catch(() => "");
+      console.error(`[visitor-alert] Telegram ${response.status}: ${reason.slice(0, 200)}`);
+    } else {
+      console.log(`[visitor-alert] sent (${chat ? "chat" : "visit"} ${path})`);
+    }
+  } catch (error) {
+    console.error(`[visitor-alert] Telegram request failed: ${error instanceof Error ? error.message : "unknown"}`);
   }
   return done;
 }
