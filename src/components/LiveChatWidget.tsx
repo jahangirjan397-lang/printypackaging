@@ -17,7 +17,38 @@ type TawkWindow = Window &
     Tawk_LoadStart?: Date;
   };
 
+// Tell the owner (Telegram, via /api/visitor-alert) about a real visitor:
+// once per visit after 10 seconds on the site, and when the chat is opened
+function sendVisitorAlert(type: "visit" | "chat") {
+  try {
+    const key = `pp-alert-${type}`;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+  } catch {
+    // Storage blocked: send anyway
+  }
+  const body = JSON.stringify({
+    type,
+    path: window.location.pathname,
+    referrer: document.referrer,
+  });
+  const blob = new Blob([body], { type: "application/json" });
+  if (!navigator.sendBeacon?.("/api/visitor-alert", blob)) {
+    fetch("/api/visitor-alert", { method: "POST", body, keepalive: true }).catch(() => {});
+  }
+}
+
 export default function LiveChatWidget() {
+  useEffect(() => {
+    const host = window.location.hostname;
+    if (host !== "printypackaging.com" && host !== "www.printypackaging.com") return;
+    // Only count visitors who actually look at the page for 10 seconds
+    const timer = window.setTimeout(() => {
+      if (document.visibilityState === "visible") sendVisitorAlert("visit");
+    }, 10000);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const propertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
     const widgetId = process.env.NEXT_PUBLIC_TAWK_WIDGET_ID || "default";
@@ -57,11 +88,14 @@ export default function LiveChatWidget() {
       },
     };
 
+    if (isLiveWebsite) {
+      tawkWindow.Tawk_API.onChatStarted = () => sendVisitorAlert("chat");
+    }
+
     // Open the chat window by itself once per visit, 10 seconds after the
-    // page loads, so the welcome message and quick questions are seen. Only
-    // on desktop (on a phone it would cover the page; the message preview
-    // shows there instead), not on the contact/thank-you pages, and never
-    // while the visitor is typing in a form.
+    // page loads (desktop and mobile), so the welcome message and quick
+    // questions are seen. Not on the contact/thank-you pages, and never while
+    // the visitor is typing in a form.
     tawkWindow.Tawk_API.onLoad = () => {
       window.setTimeout(() => {
         const api = tawkWindow.Tawk_API as {
@@ -78,7 +112,6 @@ export default function LiveChatWidget() {
           // Storage blocked: still open once for this page view
         }
         if (
-          window.innerWidth >= 768 &&
           !typing &&
           !quietPage &&
           !alreadyOpened &&
