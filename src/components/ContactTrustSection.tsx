@@ -9,7 +9,7 @@ const contactCards = [
   },
   {
     title: "WhatsApp Support",
-    value: "+92 333 888 9954",
+    value: "Chat with our team",
     detail: "Fast support for packaging questions, artwork and quote guidance.",
     href: "https://wa.me/923338889954",
   },

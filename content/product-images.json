@@ -1,0 +1,1321 @@
+{
+  "products": [
+    {
+      "slug": "rigid-boxes",
+      "name": "Rigid Boxes",
+      "images": [
+        {
+          "src": "/images/products/rigid-boxes/rigid-boxes-hero-v3-brand.webp",
+          "alt": "Rigid Boxes - hero view (concept mockup)",
+          "title": "Rigid Boxes hero view"
+        },
+        {
+          "src": "/images/products/rigid-boxes/rigid-boxes-lid-base-v5-brand.webp",
+          "alt": "Two-piece lid and base rigid box with a printed pattern",
+          "title": "Lid and Base Rigid Box"
+        },
+        {
+          "src": "/images/products/rigid-boxes/rigid-boxes-insert-v5-brand.webp",
+          "alt": "Green rigid box with a fitted leather-look insert",
+          "title": "Rigid Box with Insert"
+        },
+        {
+          "src": "/images/products/rigid-boxes/rigid-boxes-collapsible-v5-brand.webp",
+          "alt": "Black collapsible rigid box shown flat and assembled",
+          "title": "Collapsible Rigid Box"
+        }
+      ]
+    },
+    {
+      "slug": "folding-cartons",
+      "name": "Folding Cartons",
+      "images": [
+        {
+          "src": "/images/products/folding-cartons/folding-cartons-hero-v4-brand.webp",
+          "alt": "Printy Packaging branded folding carton with a printed geometric pattern",
+          "title": "Folding Carton Hero View"
+        },
+        {
+          "src": "/images/products/folding-cartons/folding-cartons-front-v4-brand.webp",
+          "alt": "Tall white folding carton standing on a display podium",
+          "title": "Folding Carton Front View"
+        },
+        {
+          "src": "/images/products/folding-cartons/folding-cartons-open-v4-brand.webp",
+          "alt": "White folding cartons with one tuck-end lid open",
+          "title": "Folding Carton Open View"
+        },
+        {
+          "src": "/images/products/folding-cartons/folding-cartons-finish-v4-brand.webp",
+          "alt": "Stack of folding cartons with a printed maze pattern",
+          "title": "Print and Pattern Detail"
+        }
+      ]
+    },
+    {
+      "slug": "mailer-boxes",
+      "name": "Mailer Boxes",
+      "images": [
+        {
+          "src": "/images/products/mailer-boxes/mailer-boxes-hero-brand.webp",
+          "alt": "Printy Packaging branded mailer boxes, one open and one closed",
+          "title": "Mailer Boxes Hero View"
+        },
+        {
+          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3-brand.webp",
+          "alt": "Mailer Boxes - front view (concept mockup)",
+          "title": "Mailer Boxes front view"
+        },
+        {
+          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3-brand.webp",
+          "alt": "Mailer Boxes - open view (concept mockup)",
+          "title": "Mailer Boxes open view"
+        },
+        {
+          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3-brand.webp",
+          "alt": "Mailer Boxes - material and finish detail (concept mockup)",
+          "title": "Mailer Boxes material and finish detail"
+        }
+      ]
+    },
+    {
+      "slug": "butter-paper",
+      "name": "Butter Paper",
+      "images": [
+        {
+          "src": "/images/products/butter-paper/butter-paper-hero-brand.webp",
+          "alt": "Custom printed butter paper sheets, roll and wrapped sandwich",
+          "title": "Butter Paper Hero View"
+        },
+        {
+          "src": "/images/products/butter-paper/butter-paper-front-v3-brand-v2.webp",
+          "alt": "Colourful printed street food wrapping paper sheets in different designs",
+          "title": "Printed Pattern Options"
+        },
+        {
+          "src": "/images/products/butter-paper/butter-paper-checkered-v4-brand-v2.webp",
+          "alt": "Red and white checkered deli paper sheets for burgers and baskets",
+          "title": "Checkered Deli Paper"
+        },
+        {
+          "src": "/images/products/butter-paper/butter-paper-lifestyle-v3-brand.webp",
+          "alt": "White and kraft butter paper rolls with flat sheets",
+          "title": "White and Kraft Rolls"
+        }
+      ]
+    },
+    {
+      "slug": "food-packaging",
+      "name": "Food Packaging",
+      "images": [
+        {
+          "src": "/images/home/home-hero-food-v5-brand.webp",
+          "alt": "Food Packaging - hero view (concept mockup)",
+          "title": "Food Packaging hero view"
+        },
+        {
+          "src": "/images/products/food-packaging/food-packaging-open-v3-brand.webp",
+          "alt": "Food Packaging - open view (concept mockup)",
+          "title": "Food Packaging open view"
+        },
+        {
+          "src": "/images/products/food-packaging/food-packaging-finish-v3-brand.webp",
+          "alt": "Food Packaging - material and finish detail (concept mockup)",
+          "title": "Food Packaging material and finish detail"
+        },
+        {
+          "src": "/images/products/food-packaging/food-packaging-lifestyle-v3-brand.webp",
+          "alt": "Food Packaging - in use (concept mockup)",
+          "title": "Food Packaging in use"
+        }
+      ]
+    },
+    {
+      "slug": "paper-bags",
+      "name": "Paper Bags",
+      "images": [
+        {
+          "src": "/images/products/paper-bags/paper-bags-hero-brand.webp",
+          "alt": "Printy branded kraft, white and navy paper shopping bags",
+          "title": "Paper Bags Hero View"
+        },
+        {
+          "src": "/images/products/paper-bags/paper-bags-open-brand.webp",
+          "alt": "Open branded paper bags showing the inside and handles",
+          "title": "Paper Bags Open View"
+        },
+        {
+          "src": "/images/products/paper-bags/paper-bags-finish-brand.webp",
+          "alt": "Close-up of printed logo and handle on a branded paper bag",
+          "title": "Print and Handle Detail"
+        },
+        {
+          "src": "/images/products/paper-bags/paper-bags-lifestyle-brand.webp",
+          "alt": "Branded paper bags on a boutique retail counter",
+          "title": "Paper Bags Lifestyle View"
+        }
+      ]
+    },
+    {
+      "slug": "labels-stickers",
+      "name": "Labels & Stickers",
+      "images": [
+        {
+          "src": "/images/products/labels-stickers/labels-stickers-hero-brand.webp",
+          "alt": "Custom label rolls, sticker sheets and die-cut logo stickers",
+          "title": "Labels and Stickers Hero View"
+        },
+        {
+          "src": "/images/products/labels-stickers/labels-stickers-open-brand.webp",
+          "alt": "Unrolled label strip with sticker sheets and die-cut pieces",
+          "title": "Labels and Stickers Open Roll View"
+        },
+        {
+          "src": "/images/products/labels-stickers/labels-stickers-finish-brand.webp",
+          "alt": "Close-up of label stock, die-cut edge and premium print finish",
+          "title": "Labels and Stickers Finish Detail"
+        },
+        {
+          "src": "/images/products/labels-stickers/labels-stickers-lifestyle-brand.webp",
+          "alt": "Custom labels and stickers used on ecommerce shipping boxes",
+          "title": "Labels and Stickers Lifestyle View"
+        }
+      ]
+    },
+    {
+      "slug": "luxury-packaging",
+      "name": "Luxury Packaging",
+      "images": [
+        {
+          "src": "/images/products/luxury-packaging/luxury-packaging-range-v5-brand.webp",
+          "alt": "Range of collapsible luxury rigid boxes in white, grey, silver and gold",
+          "title": "Luxury Packaging Range"
+        },
+        {
+          "src": "/images/products/luxury-packaging/luxury-packaging-open-v3-brand-v2.webp",
+          "alt": "Luxury Packaging - open view (concept mockup)",
+          "title": "Luxury Packaging open view"
+        },
+        {
+          "src": "/images/products/luxury-packaging/luxury-packaging-finish-v3-brand.webp",
+          "alt": "Luxury Packaging - material and finish detail (concept mockup)",
+          "title": "Luxury Packaging material and finish detail"
+        },
+        {
+          "src": "/images/products/luxury-packaging/luxury-packaging-lifestyle-v3-brand.webp",
+          "alt": "Luxury Packaging - in use (concept mockup)",
+          "title": "Luxury Packaging in use"
+        }
+      ]
+    },
+    {
+      "slug": "cosmetic-boxes",
+      "name": "Cosmetic Boxes",
+      "images": [
+        {
+          "src": "/images/products/cosmetic-boxes/cosmetic-boxes-hero-v3-brand.webp",
+          "alt": "Cosmetic Boxes - hero view (concept mockup)",
+          "title": "Cosmetic Boxes hero view"
+        },
+        {
+          "src": "/images/products/cosmetic-boxes/cosmetic-boxes-front-v4-brand.webp",
+          "alt": "Cosmetic Boxes - front view (concept mockup)",
+          "title": "Cosmetic Boxes front view"
+        },
+        {
+          "src": "/images/products/cosmetic-boxes/cosmetic-boxes-open-v3-brand-v2.webp",
+          "alt": "Cosmetic Boxes - open view (concept mockup)",
+          "title": "Cosmetic Boxes open view"
+        },
+        {
+          "src": "/images/products/cosmetic-boxes/cosmetic-boxes-lifestyle-v3-brand.webp",
+          "alt": "Cosmetic Boxes - in use (concept mockup)",
+          "title": "Cosmetic Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "perfume-boxes",
+      "name": "Perfume Boxes",
+      "images": [
+        {
+          "src": "/images/products/perfume-boxes/perfume-boxes-hero-v3-brand.webp",
+          "alt": "Perfume Boxes - hero view (concept mockup)",
+          "title": "Perfume Boxes hero view"
+        },
+        {
+          "src": "/images/products/perfume-boxes/perfume-boxes-open-v3-brand-v2.webp",
+          "alt": "Perfume Boxes - open view (concept mockup)",
+          "title": "Perfume Boxes open view"
+        },
+        {
+          "src": "/images/products/perfume-boxes/perfume-boxes-finish-v3-brand.webp",
+          "alt": "Perfume Boxes - material and finish detail (concept mockup)",
+          "title": "Perfume Boxes material and finish detail"
+        },
+        {
+          "src": "/images/products/perfume-boxes/perfume-boxes-lifestyle-v3-brand.webp",
+          "alt": "Perfume Boxes - in use (concept mockup)",
+          "title": "Perfume Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "candle-boxes",
+      "name": "Candle Boxes",
+      "images": [
+        {
+          "src": "/images/products/candle-boxes/candle-boxes-hero-v3-brand.webp",
+          "alt": "Candle Boxes - hero view (concept mockup)",
+          "title": "Candle Boxes hero view"
+        },
+        {
+          "src": "/images/products/candle-boxes/candle-boxes-front-v3-brand.webp",
+          "alt": "Candle Boxes - front view (concept mockup)",
+          "title": "Candle Boxes front view"
+        },
+        {
+          "src": "/images/products/candle-boxes/candle-boxes-finish-v3-brand.webp",
+          "alt": "Candle Boxes - material and finish detail (concept mockup)",
+          "title": "Candle Boxes material and finish detail"
+        },
+        {
+          "src": "/images/products/candle-boxes/candle-boxes-lifestyle-v3-brand.webp",
+          "alt": "Candle Boxes - in use (concept mockup)",
+          "title": "Candle Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "soap-boxes",
+      "name": "Soap Boxes",
+      "images": [
+        {
+          "src": "/images/products/soap-boxes/soap-boxes-hero-v3-brand.webp",
+          "alt": "Soap Boxes - hero view (concept mockup)",
+          "title": "Soap Boxes hero view"
+        },
+        {
+          "src": "/images/products/soap-boxes/soap-boxes-front-v3-brand.webp",
+          "alt": "Soap Boxes - front view (concept mockup)",
+          "title": "Soap Boxes front view"
+        },
+        {
+          "src": "/images/products/soap-boxes/soap-boxes-lifestyle-v3-brand.webp",
+          "alt": "Soap Boxes - in use (concept mockup)",
+          "title": "Soap Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "jewelry-boxes",
+      "name": "Jewelry Boxes",
+      "images": [
+        {
+          "src": "/images/products/jewelry-boxes/jewelry-boxes-hero-v3-brand.webp",
+          "alt": "Jewelry Boxes - hero view (concept mockup)",
+          "title": "Jewelry Boxes hero view"
+        },
+        {
+          "src": "/images/products/jewelry-boxes/jewelry-boxes-front-v3-brand-v2.webp",
+          "alt": "Jewelry Boxes - front view (concept mockup)",
+          "title": "Jewelry Boxes front view"
+        },
+        {
+          "src": "/images/products/jewelry-boxes/jewelry-boxes-open-v3-brand.webp",
+          "alt": "Jewelry Boxes - open view (concept mockup)",
+          "title": "Jewelry Boxes open view"
+        },
+        {
+          "src": "/images/products/jewelry-boxes/jewelry-boxes-finish-v3-brand.webp",
+          "alt": "Jewelry Boxes - material and finish detail (concept mockup)",
+          "title": "Jewelry Boxes material and finish detail"
+        }
+      ]
+    },
+    {
+      "slug": "bakery-boxes",
+      "name": "Bakery Boxes",
+      "images": [
+        {
+          "src": "/images/products/bakery-boxes/bakery-boxes-hero-v4.webp",
+          "alt": "Bakery Boxes - hero view (concept mockup)",
+          "title": "Bakery Boxes hero view"
+        },
+        {
+          "src": "/images/products/bakery-boxes/bakery-boxes-front-v3-brand.webp",
+          "alt": "Bakery Boxes - front view (concept mockup)",
+          "title": "Bakery Boxes front view"
+        },
+        {
+          "src": "/images/products/bakery-boxes/bakery-boxes-open-v3-brand-v2.webp",
+          "alt": "Bakery Boxes - open view (concept mockup)",
+          "title": "Bakery Boxes open view"
+        },
+        {
+          "src": "/images/products/bakery-boxes/bakery-boxes-x1-brand.webp",
+          "alt": "White donut box with a printed sprinkle pattern",
+          "title": "White donut box with a printed sprinkle pattern"
+        }
+      ]
+    },
+    {
+      "slug": "burger-boxes",
+      "name": "Burger Boxes",
+      "images": [
+        {
+          "src": "/images/products/burger-boxes/burger-boxes-hero-brand-v2.webp",
+          "alt": "Printy branded burger box holding a stacked cheeseburger",
+          "title": "Burger Boxes branded view"
+        },
+        {
+          "src": "/images/products/burger-boxes/burger-boxes-open-v3-brand.webp",
+          "alt": "Burger Boxes - open view (concept mockup)",
+          "title": "Burger Boxes open view"
+        },
+        {
+          "src": "/images/products/burger-boxes/burger-boxes-lifestyle-brand-v2.webp",
+          "alt": "Branded burger box on a restaurant counter",
+          "title": "Burger Boxes in a restaurant"
+        },
+        {
+          "src": "/images/products/burger-boxes/burger-boxes-lifestyle-v3-brand.webp",
+          "alt": "Burger Boxes - in use (concept mockup)",
+          "title": "Burger Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "pizza-boxes",
+      "name": "Pizza Boxes",
+      "images": [
+        {
+          "src": "/images/products/pizza-boxes/pizza-boxes-hero-v3-brand.webp",
+          "alt": "Pizza Boxes - hero view (concept mockup)",
+          "title": "Pizza Boxes hero view"
+        },
+        {
+          "src": "/images/products/pizza-boxes/pizza-boxes-front-v3-brand.webp",
+          "alt": "Pizza Boxes - front view (concept mockup)",
+          "title": "Pizza Boxes front view"
+        },
+        {
+          "src": "/images/products/pizza-boxes/pizza-boxes-open-v3-brand.webp",
+          "alt": "Pizza Boxes - open view (concept mockup)",
+          "title": "Pizza Boxes open view"
+        },
+        {
+          "src": "/images/products/pizza-boxes/pizza-boxes-lifestyle-v3-brand.webp",
+          "alt": "Pizza Boxes - in use (concept mockup)",
+          "title": "Pizza Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "display-boxes",
+      "name": "Display Boxes",
+      "images": [
+        {
+          "src": "/images/products/display-boxes/display-boxes-hero-v4-brand.webp",
+          "alt": "Printy Packaging branded countertop display box with a cup tray",
+          "title": "Display Boxes hero view"
+        },
+        {
+          "src": "/images/products/display-boxes/display-boxes-front-v3-brand.webp",
+          "alt": "Display Boxes - front view (concept mockup)",
+          "title": "Display Boxes front view"
+        },
+        {
+          "src": "/images/products/display-boxes/display-boxes-open-v3-brand.webp",
+          "alt": "Display Boxes - open view (concept mockup)",
+          "title": "Display Boxes open view"
+        },
+        {
+          "src": "/images/products/display-boxes/display-boxes-finish-v3-brand.webp",
+          "alt": "Display Boxes - material and finish detail (concept mockup)",
+          "title": "Display Boxes material and finish detail"
+        }
+      ]
+    },
+    {
+      "slug": "window-boxes",
+      "name": "Window Boxes",
+      "images": [
+        {
+          "src": "/images/products/window-boxes/window-boxes-hero-v3-brand.webp",
+          "alt": "Window Boxes - hero view (concept mockup)",
+          "title": "Window Boxes hero view"
+        },
+        {
+          "src": "/images/products/window-boxes/window-boxes-open-v3-brand-v2.webp",
+          "alt": "Window Boxes - open view (concept mockup)",
+          "title": "Window Boxes open view"
+        },
+        {
+          "src": "/images/products/window-boxes/window-boxes-finish-v3-brand.webp",
+          "alt": "Window Boxes - material and finish detail (concept mockup)",
+          "title": "Window Boxes material and finish detail"
+        },
+        {
+          "src": "/images/products/window-boxes/window-boxes-lifestyle-v3-brand.webp",
+          "alt": "Window Boxes - in use (concept mockup)",
+          "title": "Window Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "sleeve-boxes",
+      "name": "Sleeve Boxes",
+      "images": [
+        {
+          "src": "/images/products/sleeve-boxes/sleeve-boxes-hero-v3-brand.webp",
+          "alt": "Sleeve Boxes - hero view (concept mockup)",
+          "title": "Sleeve Boxes hero view"
+        },
+        {
+          "src": "/images/products/sleeve-boxes/sleeve-boxes-open-v3-brand.webp",
+          "alt": "Sleeve Boxes - open view (concept mockup)",
+          "title": "Sleeve Boxes open view"
+        },
+        {
+          "src": "/images/products/sleeve-boxes/sleeve-boxes-finish-v3-brand.webp",
+          "alt": "Sleeve Boxes - material and finish detail (concept mockup)",
+          "title": "Sleeve Boxes material and finish detail"
+        },
+        {
+          "src": "/images/products/sleeve-boxes/sleeve-boxes-lifestyle-v3-brand.webp",
+          "alt": "Sleeve Boxes - in use (concept mockup)",
+          "title": "Sleeve Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "magnetic-boxes",
+      "name": "Magnetic Boxes",
+      "images": [
+        {
+          "src": "/images/products/magnetic-boxes/magnetic-boxes-hero-v5-brand.webp",
+          "alt": "Navy magnetic closure rigid box with the lid open",
+          "title": "Magnetic Box Hero View"
+        },
+        {
+          "src": "/images/products/magnetic-boxes/magnetic-boxes-front-v5-brand.webp",
+          "alt": "Sage green magnetic rigid box holding a skincare jar and serum",
+          "title": "Magnetic Box with Insert"
+        },
+        {
+          "src": "/images/products/magnetic-boxes/magnetic-boxes-open-v5-brand.webp",
+          "alt": "Purple book-style magnetic rigid boxes, one closed and one open",
+          "title": "Book Style Magnetic Box"
+        },
+        {
+          "src": "/images/products/magnetic-boxes/magnetic-boxes-lifestyle-v5-brand.webp",
+          "alt": "White magnetic rigid box with a die-cut vial insert",
+          "title": "Custom Insert View"
+        }
+      ]
+    },
+    {
+      "slug": "drawer-boxes",
+      "name": "Drawer Boxes",
+      "images": [
+        {
+          "src": "/images/products/drawer-boxes/drawer-boxes-hero-v3-brand.webp",
+          "alt": "Drawer Boxes - hero view (concept mockup)",
+          "title": "Drawer Boxes hero view"
+        },
+        {
+          "src": "/images/products/drawer-boxes/drawer-boxes-front-v3-brand.webp",
+          "alt": "Drawer Boxes - front view (concept mockup)",
+          "title": "Drawer Boxes front view"
+        },
+        {
+          "src": "/images/products/drawer-boxes/drawer-boxes-open-v3-brand.webp",
+          "alt": "Drawer Boxes - open view (concept mockup)",
+          "title": "Drawer Boxes open view"
+        },
+        {
+          "src": "/images/products/drawer-boxes/drawer-boxes-set-v5-brand.webp",
+          "alt": "Pink, navy and blue drawer-style rigid boxes",
+          "title": "Drawer Box Colour Range"
+        }
+      ]
+    },
+    {
+      "slug": "pharmaceutical-boxes",
+      "name": "Pharmaceutical Boxes",
+      "images": [
+        {
+          "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-hero-v3-brand.webp",
+          "alt": "Pharmaceutical Boxes - hero view (concept mockup)",
+          "title": "Pharmaceutical Boxes hero view"
+        },
+        {
+          "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-front-v4-brand.webp",
+          "alt": "Pharmaceutical Boxes - front view (concept mockup)",
+          "title": "Pharmaceutical Boxes front view"
+        },
+        {
+          "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-finish-v3-brand.webp",
+          "alt": "Pharmaceutical Boxes - material and finish detail (concept mockup)",
+          "title": "Pharmaceutical Boxes material and finish detail"
+        },
+        {
+          "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-lifestyle-v3-brand.webp",
+          "alt": "Pharmaceutical Boxes - in use (concept mockup)",
+          "title": "Pharmaceutical Boxes in use"
+        }
+      ]
+    },
+    {
+      "slug": "apparel-boxes",
+      "name": "Apparel Boxes",
+      "images": [
+        {
+          "src": "/images/products/apparel-boxes/apparel-boxes-hero-v3-brand-v2.webp",
+          "alt": "Apparel Boxes - hero view (concept mockup)",
+          "title": "Apparel Boxes hero view"
+        },
+        {
+          "src": "/images/products/apparel-boxes/apparel-boxes-front-v3-brand-clean.webp",
+          "alt": "Apparel Boxes - front view (concept mockup)",
+          "title": "Apparel Boxes front view"
+        },
+        {
+          "src": "/images/products/apparel-boxes/apparel-boxes-open-v4-brand.webp",
+          "alt": "Green sleeve apparel box with gold foil emblem, partly open",
+          "title": "Apparel Boxes open view"
+        },
+        {
+          "src": "/images/products/apparel-boxes/apparel-boxes-finish-v3-brand-v2.webp",
+          "alt": "Apparel Boxes - material and finish detail (concept mockup)",
+          "title": "Apparel Boxes material and finish detail"
+        }
+      ]
+    },
+    {
+      "slug": "hang-tags",
+      "name": "Hang Tags",
+      "images": [
+        {
+          "src": "/images/products/hang-tags/hang-tags-hero-v4-brand-v2.webp",
+          "alt": "Hang Tags - hero view (concept mockup)",
+          "title": "Hang Tags hero view"
+        },
+        {
+          "src": "/images/products/hang-tags/hang-tags-front-v3-brand.webp",
+          "alt": "Hang Tags - front view (concept mockup)",
+          "title": "Hang Tags front view"
+        },
+        {
+          "src": "/images/products/hang-tags/hang-tags-finish-v3-brand.webp",
+          "alt": "Hang Tags - material and finish detail (concept mockup)",
+          "title": "Hang Tags material and finish detail"
+        },
+        {
+          "src": "/images/products/hang-tags/hang-tags-lifestyle-v4-brand.webp",
+          "alt": "Pair of green hang tags with gold foil logo and printed pattern",
+          "title": "Hang Tags foil detail"
+        }
+      ]
+    },
+    {
+      "slug": "kraft-mailer-boxes",
+      "name": "Kraft Mailer Boxes",
+      "images": [
+        {
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-1-brand-clean.webp",
+          "alt": "Plain kraft mailer box with a printed logo on the lid",
+          "title": "Plain kraft mailer box with a printed logo on the lid"
+        },
+        {
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-3-brand.webp",
+          "alt": "Kraft mailer box with a black printed inside",
+          "title": "Kraft mailer box with a black printed inside"
+        }
+      ]
+    },
+    {
+      "slug": "black-mailer-boxes",
+      "name": "Black Mailer Boxes",
+      "images": [
+        {
+          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-1-brand.webp",
+          "alt": "Stacked black mailer boxes with a kraft inside",
+          "title": "Stacked black mailer boxes with a kraft inside"
+        },
+        {
+          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-2-brand.webp",
+          "alt": "Black mailer box with a printed kraft sleeve",
+          "title": "Black mailer box with a printed kraft sleeve"
+        },
+        {
+          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-3-brand.webp",
+          "alt": "Black and blush premium mailer boxes for a product range",
+          "title": "Black and blush premium mailer boxes for a product range"
+        }
+      ]
+    },
+    {
+      "slug": "white-mailer-boxes",
+      "name": "White Mailer Boxes",
+      "images": [
+        {
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-2-brand.webp",
+          "alt": "White mailer box with a floral thank you print inside",
+          "title": "White mailer box with a floral thank you print inside"
+        },
+        {
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-3-brand.webp",
+          "alt": "White and pink mailer box with a thank you message",
+          "title": "White and pink mailer box with a thank you message"
+        },
+        {
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-4-brand.webp",
+          "alt": "White mailer box with a carry handle cut-out",
+          "title": "White mailer box with a carry handle cut-out"
+        }
+      ]
+    },
+    {
+      "slug": "shipping-boxes",
+      "name": "Shipping Boxes",
+      "images": [
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-1-brand.webp",
+          "alt": "Corrugated shipping boxes, mailers and envelopes in different sizes",
+          "title": "Corrugated shipping boxes, mailers and envelopes in different sizes"
+        },
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-2-brand.webp",
+          "alt": "Kraft shipping box with a printed insert holding bottles",
+          "title": "Kraft shipping box with a printed insert holding bottles"
+        },
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-3-brand.webp",
+          "alt": "Single, double and triple wall corrugated board",
+          "title": "Single, double and triple wall corrugated board"
+        },
+        {
+          "src": "/images/products/shipping-boxes/shipping-boxes-4-brand.webp",
+          "alt": "Plain kraft corrugated shipping box",
+          "title": "Plain kraft corrugated shipping box"
+        }
+      ]
+    },
+    {
+      "slug": "subscription-boxes",
+      "name": "Subscription Boxes",
+      "images": [
+        {
+          "src": "/images/products/subscription-boxes/subscription-boxes-1-brand.webp",
+          "alt": "Mystery subscription box printed in teal",
+          "title": "Mystery subscription box printed in teal"
+        },
+        {
+          "src": "/images/products/subscription-boxes/subscription-boxes-2-brand.webp",
+          "alt": "Colourful printed subscription box with a gift message",
+          "title": "Colourful printed subscription box with a gift message"
+        },
+        {
+          "src": "/images/products/subscription-boxes/subscription-boxes-3-brand.webp",
+          "alt": "Light blue subscription box with a printed insert",
+          "title": "Light blue subscription box with a printed insert"
+        },
+        {
+          "src": "/images/products/subscription-boxes/subscription-boxes-5-brand.webp",
+          "alt": "Navy subscription box with an illustrated print",
+          "title": "Navy subscription box with an illustrated print"
+        }
+      ]
+    },
+    {
+      "slug": "cake-boxes",
+      "name": "Cake Boxes",
+      "images": [
+        {
+          "src": "/images/products/cake-boxes/cake-boxes-hero-v5-brand.webp",
+          "alt": "Orange printed cake box with the Printy Packaging logo, lid open",
+          "title": "Cake Box Hero View"
+        },
+        {
+          "src": "/images/products/cake-boxes/cake-boxes-window-handle-v5-brand.webp",
+          "alt": "Kraft cake box with carry handle and front window",
+          "title": "Window Handle Cake Box"
+        },
+        {
+          "src": "/images/products/cake-boxes/cake-boxes-x1-brand.webp",
+          "alt": "White cake and pastry boxes with copper line art",
+          "title": "White cake and pastry boxes with copper line art"
+        }
+      ]
+    },
+    {
+      "slug": "cupcake-boxes",
+      "name": "Cupcake Boxes",
+      "images": [
+        {
+          "src": "/images/products/cupcake-boxes/cupcake-boxes-hero-v5-brand.webp",
+          "alt": "Single cupcake box with a window and pastel print",
+          "title": "Cupcake Box Hero View"
+        },
+        {
+          "src": "/images/products/cupcake-boxes/cupcake-boxes-window-v5-brand.webp",
+          "alt": "Pink window pastry box with a Printy Packaging label and cupcake",
+          "title": "Window Cupcake Box"
+        },
+        {
+          "src": "/images/products/cupcake-boxes/cupcake-boxes-insert-v5-brand.webp",
+          "alt": "Kraft four-cupcake box with a die-cut insert",
+          "title": "Cupcake Insert"
+        },
+        {
+          "src": "/images/products/cupcake-boxes/cupcake-boxes-x1-brand.webp",
+          "alt": "Teal printed cupcake boxes with windows and inserts",
+          "title": "Teal printed cupcake boxes with windows and inserts"
+        }
+      ]
+    },
+    {
+      "slug": "cookie-boxes",
+      "name": "Cookie Boxes",
+      "images": [
+        {
+          "src": "/images/products/cookie-boxes/cookie-boxes-tray-v5-brand.webp",
+          "alt": "Pink cookie box open with cookies inside",
+          "title": "Cookie Tray Box"
+        },
+        {
+          "src": "/images/products/cookie-boxes/cookie-boxes-sleeve-v5-brand.webp",
+          "alt": "Light blue cookie box open with cookies",
+          "title": "Cookie Tuck Box"
+        },
+        {
+          "src": "/images/products/cookie-boxes/cookie-boxes-window-v5-brand.webp",
+          "alt": "Kraft cookie gift boxes with a window showing four cookies",
+          "title": "Cookie Window Box"
+        },
+        {
+          "src": "/images/products/bakery-boxes/bakery-boxes-finish-v3-brand.webp",
+          "alt": "Bakery Boxes - material and finish detail (concept mockup)",
+          "title": "Bakery Boxes material and finish detail"
+        }
+      ]
+    },
+    {
+      "slug": "gable-boxes",
+      "name": "Gable Boxes",
+      "images": [
+        {
+          "src": "/images/products/gable-boxes/gable-boxes-hero-v5-brand.webp",
+          "alt": "Yellow gable boxes with navy Printy Packaging logos",
+          "title": "Gable Box Hero View"
+        },
+        {
+          "src": "/images/products/gable-boxes/gable-boxes-colours-v5-brand.webp",
+          "alt": "Gable boxes in kraft, white, navy, green, black and red",
+          "title": "Gable Box Colours"
+        },
+        {
+          "src": "/images/products/gable-boxes/gable-boxes-kraft-v5-brand.webp",
+          "alt": "Plain kraft gable box with handle",
+          "title": "Kraft Gable Box"
+        },
+        {
+          "src": "/images/products/gable-boxes/gable-boxes-pastry-v5-brand.webp",
+          "alt": "Polka dot gable pastry carrier box",
+          "title": "Pastry Carrier Gable Box"
+        }
+      ]
+    },
+    {
+      "slug": "pillow-boxes",
+      "name": "Pillow Boxes",
+      "images": [
+        {
+          "src": "/images/products/pillow-boxes/pillow-boxes-hero-v5-brand.webp",
+          "alt": "Striped pillow boxes on a light blue background",
+          "title": "Pillow Box Hero View"
+        },
+        {
+          "src": "/images/products/pillow-boxes/pillow-boxes-window-v5-brand.webp",
+          "alt": "Kraft pillow boxes with clear windows",
+          "title": "Window Pillow Box"
+        },
+        {
+          "src": "/images/products/pillow-boxes/pillow-boxes-kraft-v5-brand.webp",
+          "alt": "Plain kraft pillow boxes",
+          "title": "Kraft Pillow Box"
+        },
+        {
+          "src": "/images/products/pillow-boxes/pillow-boxes-printed-v5-brand.webp",
+          "alt": "Floral printed pillow boxes",
+          "title": "Printed Pillow Box"
+        }
+      ]
+    },
+    {
+      "slug": "tuck-end-boxes",
+      "name": "Tuck End Boxes",
+      "images": [
+        {
+          "src": "/images/products/tuck-end-boxes/tuck-end-boxes-auto-lock-v5-brand.webp",
+          "alt": "Colourful auto-lock bottom tuck end boxes",
+          "title": "Auto-Lock Tuck End Boxes"
+        },
+        {
+          "src": "/images/products/folding-cartons/folding-cartons-tall-v4-brand.webp",
+          "alt": "Tall tuck end cartons with a printed pattern",
+          "title": "Tall Tuck End Boxes"
+        },
+        {
+          "src": "/images/products/tuck-end-boxes/tuck-end-boxes-x1-brand.webp",
+          "alt": "Printed tuck end boxes with a patterned inside",
+          "title": "Printed tuck end boxes with a patterned inside"
+        },
+        {
+          "src": "/images/products/tuck-end-boxes/tuck-end-boxes-x2-brand.webp",
+          "alt": "Unfolded printed tuck end carton showing the flaps",
+          "title": "Unfolded printed tuck end carton showing the flaps"
+        }
+      ]
+    },
+    {
+      "slug": "kraft-boxes",
+      "name": "Kraft Boxes",
+      "images": [
+        {
+          "src": "/images/products/kraft-boxes/kraft-boxes-x1-brand.webp",
+          "alt": "Kraft lid and base box",
+          "title": "Kraft lid and base box"
+        },
+        {
+          "src": "/images/products/kraft-boxes/kraft-boxes-x2-brand.webp",
+          "alt": "Stacked kraft food boxes with clear windows",
+          "title": "Stacked kraft food boxes with clear windows"
+        },
+        {
+          "src": "/images/products/kraft-boxes/kraft-boxes-x3-brand.webp",
+          "alt": "Kraft cupcake box with a window and carry handle",
+          "title": "Kraft cupcake box with a window and carry handle"
+        }
+      ]
+    },
+    {
+      "slug": "two-piece-rigid-boxes",
+      "name": "Two-Piece Rigid Boxes",
+      "images": [
+        {
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-dividers-v5-brand.webp",
+          "alt": "White two-piece box with compartment dividers",
+          "title": "Two-Piece Box with Dividers"
+        },
+        {
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x1-brand.webp",
+          "alt": "Black two-piece rigid box with a deep lid",
+          "title": "Black two-piece rigid box with a deep lid"
+        },
+        {
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x2-brand.webp",
+          "alt": "Black and white two-piece rigid boxes with a foil logo",
+          "title": "Black and white two-piece rigid boxes with a foil logo"
+        },
+        {
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x3-brand.webp",
+          "alt": "Black and gold two-piece box for a bamboo product set",
+          "title": "Black and gold two-piece box for a bamboo product set"
+        }
+      ]
+    },
+    {
+      "slug": "gift-boxes",
+      "name": "Gift Boxes",
+      "images": [
+        {
+          "src": "/images/products/gift-boxes/gift-boxes-magnetic-long-v5-brand.webp",
+          "alt": "Long black magnetic gift box with the lid open",
+          "title": "Long Magnetic Gift Box"
+        },
+        {
+          "src": "/images/products/gift-boxes/gift-boxes-x1-brand.webp",
+          "alt": "Mint magnetic gift box tied with a ribbon",
+          "title": "Mint magnetic gift box tied with a ribbon"
+        },
+        {
+          "src": "/images/products/gift-boxes/gift-boxes-x3-brand.webp",
+          "alt": "Blue printed gift box with a bow",
+          "title": "Blue printed gift box with a bow"
+        },
+        {
+          "src": "/images/products/gift-boxes/gift-boxes-x4-brand.webp",
+          "alt": "Pink and coral gift box set with inserts",
+          "title": "Pink and coral gift box set with inserts"
+        }
+      ]
+    },
+    {
+      "slug": "hang-tab-boxes",
+      "name": "Hang Tab Boxes",
+      "images": [
+        {
+          "src": "/images/products/hang-tab-boxes/hang-tab-boxes-hero-v5-brand.webp",
+          "alt": "Blue hang tab box with Printy Packaging branding",
+          "title": "Hang Tab Box Hero View"
+        },
+        {
+          "src": "/images/products/hang-tab-boxes/hang-tab-boxes-kraft-window-v5-brand.webp",
+          "alt": "Kraft hang tab box with a window and Printy logo",
+          "title": "Kraft Window Hang Tab Box"
+        },
+        {
+          "src": "/images/products/hang-tab-boxes/hang-tab-boxes-flat-v5-brand.webp",
+          "alt": "Flat hang tab box for a charger",
+          "title": "Flat Hanging Box"
+        },
+        {
+          "src": "/images/products/hang-tab-boxes/hang-tab-boxes-window-v5-brand.webp",
+          "alt": "Floral printed hang tab box with a window",
+          "title": "Window Hang Tab Box"
+        }
+      ]
+    },
+    {
+      "slug": "business-cards",
+      "name": "Business Cards",
+      "images": [
+        {
+          "src": "/images/products/business-cards/business-cards-1-brand-v2.webp",
+          "alt": "Matte black business cards with spot UV logo and Printy Packaging branding",
+          "title": "Matte black business cards"
+        },
+        {
+          "src": "/images/products/business-cards/business-cards-2-brand-v2.webp",
+          "alt": "Grey business cards with gold, copper and rose foil lettering",
+          "title": "Grey business cards"
+        },
+        {
+          "src": "/images/products/business-cards/business-cards-4-brand-v2.webp",
+          "alt": "Square business cards with holographic foil edges",
+          "title": "Square business cards"
+        },
+        {
+          "src": "/images/products/business-cards/business-cards-5-brand-v2.webp",
+          "alt": "Hand holding a black business card with a gold foil geometric pattern",
+          "title": "Hand holding a black business card"
+        }
+      ]
+    },
+    {
+      "slug": "thank-you-cards",
+      "name": "Thank You Cards",
+      "images": [
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-1-brand-v2.webp",
+          "alt": "Custom printed thank you card example 1",
+          "title": "Custom printed thank you card example 1"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-4-brand-v2.webp",
+          "alt": "Custom printed thank you card example 4",
+          "title": "Custom printed thank you card example 4"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-5-brand-v2.webp",
+          "alt": "Custom printed thank you card example 5",
+          "title": "Custom printed thank you card example 5"
+        },
+        {
+          "src": "/images/products/thank-you-cards/thank-you-cards-7-brand-v2.webp",
+          "alt": "Custom printed thank you card example 7",
+          "title": "Custom printed thank you card example 7"
+        }
+      ]
+    },
+    {
+      "slug": "flyers",
+      "name": "Flyers",
+      "images": [
+        {
+          "src": "/images/products/flyers/flyers-2-brand-v2.webp",
+          "alt": "Custom printed flyer example 2",
+          "title": "Custom printed flyer example 2"
+        },
+        {
+          "src": "/images/products/flyers/flyers-4-brand-v2.webp",
+          "alt": "Custom printed flyer example 4",
+          "title": "Custom printed flyer example 4"
+        },
+        {
+          "src": "/images/products/flyers/flyers-7-brand-v2.webp",
+          "alt": "Custom printed flyer example 7",
+          "title": "Custom printed flyer example 7"
+        },
+        {
+          "src": "/images/products/flyers/flyers-8-brand-v2.webp",
+          "alt": "Custom printed flyer example 8",
+          "title": "Custom printed flyer example 8"
+        }
+      ]
+    },
+    {
+      "slug": "brochures",
+      "name": "Brochures",
+      "images": [
+        {
+          "src": "/images/products/brochures/brochures-1-brand.webp",
+          "alt": "Custom printed brochure example 1",
+          "title": "Custom printed brochure example 1"
+        },
+        {
+          "src": "/images/products/brochures/brochures-2-brand.webp",
+          "alt": "Custom printed brochure example 2",
+          "title": "Custom printed brochure example 2"
+        },
+        {
+          "src": "/images/products/brochures/brochures-3-brand.webp",
+          "alt": "Custom printed brochure example 3",
+          "title": "Custom printed brochure example 3"
+        },
+        {
+          "src": "/images/products/brochures/brochures-5-brand.webp",
+          "alt": "Custom printed brochure example 5",
+          "title": "Custom printed brochure example 5"
+        }
+      ]
+    },
+    {
+      "slug": "catalogs-magazines",
+      "name": "Catalogs & Magazines",
+      "images": [
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-2-brand.webp",
+          "alt": "Custom printed catalog and magazine example 2",
+          "title": "Custom printed catalog and magazine example 2"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-3-brand.webp",
+          "alt": "Custom printed catalog and magazine example 3",
+          "title": "Custom printed catalog and magazine example 3"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-5-brand.webp",
+          "alt": "Custom printed catalog and magazine example 5",
+          "title": "Custom printed catalog and magazine example 5"
+        },
+        {
+          "src": "/images/products/catalogs-magazines/catalogs-magazines-7-brand.webp",
+          "alt": "Custom printed catalog and magazine example 7",
+          "title": "Custom printed catalog and magazine example 7"
+        }
+      ]
+    },
+    {
+      "slug": "booklets",
+      "name": "Booklets",
+      "images": [
+        {
+          "src": "/images/products/booklets/booklets-2-brand.webp",
+          "alt": "Custom printed booklet example 2",
+          "title": "Custom printed booklet example 2"
+        },
+        {
+          "src": "/images/products/booklets/booklets-3-brand.webp",
+          "alt": "Custom printed booklet example 3",
+          "title": "Custom printed booklet example 3"
+        },
+        {
+          "src": "/images/products/booklets/booklets-5-brand.webp",
+          "alt": "Custom printed booklet example 4",
+          "title": "Custom printed booklet example 4"
+        },
+        {
+          "src": "/images/products/booklets/booklets-9-brand.webp",
+          "alt": "Custom printed booklet example 8",
+          "title": "Custom printed booklet example 8"
+        }
+      ]
+    },
+    {
+      "slug": "postcards",
+      "name": "Postcards",
+      "images": [
+        {
+          "src": "/images/products/postcards/postcards-1-brand-clean.webp",
+          "alt": "Custom printed A6 postcards with photo fronts and address backs",
+          "title": "Custom printed A6 postcards with photo fronts and address backs"
+        },
+        {
+          "src": "/images/products/postcards/postcards-2-brand.webp",
+          "alt": "Two-sided travel postcard with a full-bleed photo and printed back",
+          "title": "Two-sided travel postcard with a full-bleed photo and printed back"
+        },
+        {
+          "src": "/images/products/postcards/postcards-3-brand.webp",
+          "alt": "Watercolour floral postcards with a printed address side",
+          "title": "Watercolour floral postcards with a printed address side"
+        },
+        {
+          "src": "/images/products/postcards/postcards-4-brand.webp",
+          "alt": "Patterned teal postcards printed front and back",
+          "title": "Patterned teal postcards printed front and back"
+        }
+      ]
+    },
+    {
+      "slug": "greeting-cards",
+      "name": "Greeting Cards",
+      "images": [
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-1-brand.webp",
+          "alt": "Green happy birthday greeting card in a kraft envelope",
+          "title": "Green happy birthday greeting card in a kraft envelope"
+        },
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-2-brand.webp",
+          "alt": "Thank you greeting card with bright printed flowers",
+          "title": "Thank you greeting card with bright printed flowers"
+        },
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-3-brand.webp",
+          "alt": "Folded birthday greeting card with candle artwork",
+          "title": "Folded birthday greeting card with candle artwork"
+        },
+        {
+          "src": "/images/products/greeting-cards/greeting-cards-4-brand.webp",
+          "alt": "Hello greeting card with gold lettering on a floral pattern",
+          "title": "Hello greeting card with gold lettering on a floral pattern"
+        }
+      ]
+    },
+    {
+      "slug": "invitation-cards",
+      "name": "Invitation Cards",
+      "images": [
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-1-brand.webp",
+          "alt": "Wedding invitation card with gold names, envelope and wax seal",
+          "title": "Wedding invitation card with gold names, envelope and wax seal"
+        },
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-2-brand.webp",
+          "alt": "Floral wedding invitation suite with thank you and save the date cards",
+          "title": "Floral wedding invitation suite with thank you and save the date cards"
+        },
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-3-brand.webp",
+          "alt": "Elegant invitation card with foil frame on a kraft envelope",
+          "title": "Elegant invitation card with foil frame on a kraft envelope"
+        },
+        {
+          "src": "/images/products/invitation-cards/invitation-cards-4-brand.webp",
+          "alt": "Hand holding a printed invitation card",
+          "title": "Hand holding a printed invitation card"
+        }
+      ]
+    },
+    {
+      "slug": "posters",
+      "name": "Posters",
+      "images": [
+        {
+          "src": "/images/products/posters/posters-1-brand-clean.webp",
+          "alt": "Framed advertising poster displayed on a wall",
+          "title": "Framed advertising poster displayed on a wall"
+        },
+        {
+          "src": "/images/products/posters/posters-2-brand.webp",
+          "alt": "Printed blue poster with a kraft poster tube",
+          "title": "Printed blue poster with a kraft poster tube"
+        },
+        {
+          "src": "/images/products/posters/posters-3-brand.webp",
+          "alt": "Bold typographic poster printed on gloss paper",
+          "title": "Bold typographic poster printed on gloss paper"
+        },
+        {
+          "src": "/images/products/posters/posters-4-brand-clean.webp",
+          "alt": "24 x 36 outdoor advertising poster",
+          "title": "24 x 36 outdoor advertising poster"
+        }
+      ]
+    },
+    {
+      "slug": "banners",
+      "name": "Banners",
+      "images": [
+        {
+          "src": "/images/products/banners/banners-1-brand.webp",
+          "alt": "Roll-up banner stand with full-colour print",
+          "title": "Roll-up banner stand with full-colour print"
+        },
+        {
+          "src": "/images/products/banners/banners-2-brand.webp",
+          "alt": "Pair of printed street pole banners",
+          "title": "Pair of printed street pole banners"
+        },
+        {
+          "src": "/images/products/banners/banners-3-brand.webp",
+          "alt": "Hanging printed banner with top and bottom rails",
+          "title": "Hanging printed banner with top and bottom rails"
+        },
+        {
+          "src": "/images/products/banners/banners-4-brand.webp",
+          "alt": "Yellow roll-up banner for events and retail",
+          "title": "Yellow roll-up banner for events and retail"
+        }
+      ]
+    },
+    {
+      "slug": "clings-decals",
+      "name": "Clings & Decals",
+      "images": [
+        {
+          "src": "/images/products/clings-decals/clings-decals-1-brand.webp",
+          "alt": "Round vegetarian friendly static cling on a shop window",
+          "title": "Round vegetarian friendly static cling on a shop window"
+        },
+        {
+          "src": "/images/products/clings-decals/clings-decals-2-brand.webp",
+          "alt": "Die-cut vinyl decals with a cat and chequered flag design",
+          "title": "Die-cut vinyl decals with a cat and chequered flag design"
+        },
+        {
+          "src": "/images/products/clings-decals/clings-decals-3-brand.webp",
+          "alt": "Rectangular and custom-shape window decals for a restaurant front",
+          "title": "Rectangular and custom-shape window decals for a restaurant front"
+        },
+        {
+          "src": "/images/products/clings-decals/clings-decals-5-brand.webp",
+          "alt": "Sheets of white heat transfer lettering decals",
+          "title": "Sheets of white heat transfer lettering decals"
+        }
+      ]
+    },
+    {
+      "slug": "menus",
+      "name": "Menus",
+      "images": [
+        {
+          "src": "/images/products/menus/menus-1-brand.webp",
+          "alt": "Open restaurant menu printed in full colour with food photos",
+          "title": "Open restaurant menu printed in full colour with food photos"
+        },
+        {
+          "src": "/images/products/menus/menus-2-brand.webp",
+          "alt": "Cafe food menu with a dark cover and printed inside page",
+          "title": "Cafe food menu with a dark cover and printed inside page"
+        },
+        {
+          "src": "/images/products/menus/menus-3-brand.webp",
+          "alt": "Folded menu card on a plate with soups and salads",
+          "title": "Folded menu card on a plate with soups and salads"
+        },
+        {
+          "src": "/images/products/menus/menus-4-brand.webp",
+          "alt": "Tri-fold pizza menu with hours and price list",
+          "title": "Tri-fold pizza menu with hours and price list"
+        }
+      ]
+    }
+  ]
+}

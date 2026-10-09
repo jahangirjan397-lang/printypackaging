@@ -5,7 +5,7 @@ export default function Sustainability() {
         <div className="rounded-[2rem] bg-gradient-to-br from-[#007C91] to-[#00C2E8] p-10 text-white">
           <h3 className="text-4xl font-black">Eco-friendly packaging options</h3>
           <p className="mt-5 text-lg leading-8">
-            Kraft paper, recyclable boards and food-safe wrapping papers for modern brands.
+            Kraft paper, recyclable boards and printed wrapping papers for modern brands.
           </p>
         </div>
 
@@ -15,7 +15,7 @@ export default function Sustainability() {
             Better packaging for better brands
           </h2>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            We will create dedicated pages for eco packaging, kraft boxes, recycled paper and food-safe materials.
+            We will create dedicated pages for eco packaging, kraft boxes, recycled paper and paper-based materials.
           </p>
         </div>
       </div>

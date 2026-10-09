@@ -7,7 +7,7 @@ const industries = [
   {
     title: "Food & Bakery",
     description:
-      "Food-safe butter paper, bakery boxes, burger wraps and custom printed food packaging.",
+      "Printed butter paper, bakery boxes, burger wraps and custom printed food packaging.",
   },
   {
     title: "Pharmaceutical",
@@ -60,7 +60,7 @@ export default function Industries() {
           </h2>
 
           <p className="mt-5 text-base leading-7 text-slate-300 md:text-lg md:leading-8">
-            From luxury cosmetics to food-safe packaging, Printy Packaging helps
+            From luxury cosmetics to food packaging, Printy Packaging helps
             brands create premium packaging experiences for every market.
           </p>
         </div>

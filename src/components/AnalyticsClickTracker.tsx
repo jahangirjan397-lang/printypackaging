@@ -2,19 +2,15 @@
 
 import { useEffect } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
-
-const consentKey = "printy-analytics-consent";
+import {
+  isLiveHostname,
+  readAnalyticsConsent,
+} from "@/lib/analyticsConsent";
 
 function analyticsAllowed() {
-  const hostname = window.location.hostname;
-
-  const isLiveWebsite =
-    hostname === "printypackaging.com" ||
-    hostname === "www.printypackaging.com";
-
   return (
-    isLiveWebsite &&
-    window.localStorage.getItem(consentKey) === "granted"
+    isLiveHostname(window.location.hostname) &&
+    readAnalyticsConsent() === "granted"
   );
 }
 

@@ -4,74 +4,18 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import PackagingSearch from "@/components/PackagingSearch";
-import CategoryIcon from "@/components/CategoryIcon";
+import NavIcon from "@/components/NavIcon";
+import { businessPromises, salesPhone } from "@/data/businessInfo";
+import { navMenus, type NavMenu } from "@/data/navigation";
 
-const productLinks = [
-  { name: "Rigid Boxes", href: "/products/rigid-boxes", label: "Luxury boxes" },
-  { name: "Mailer Boxes", href: "/products/mailer-boxes", label: "Ecommerce" },
-  { name: "Folding Cartons", href: "/products/folding-cartons", label: "Retail" },
-  { name: "Luxury Packaging", href: "/products/luxury-packaging", label: "Premium" },
-  { name: "Food Packaging", href: "/products/food-packaging", label: "Food brands" },
-  { name: "Butter Paper", href: "/products/butter-paper", label: "Food wrap" },
-  { name: "Paper Bags", href: "/products/paper-bags", label: "Retail bags" },
-  { name: "Labels & Stickers", href: "/products/labels-stickers", label: "Branding" },
-];
-
-const categoryLinks = [
-  {
-    name: "Luxury Packaging",
-    href: "/categories/luxury-packaging",
-    label: "Premium brands",
-    iconSlug: "luxury-packaging",
-  },
-  {
-    name: "Food Packaging",
-    href: "/categories/food-packaging",
-    label: "Food packaging options",
-    iconSlug: "food-packaging",
-  },
-  {
-    name: "Retail Packaging",
-    href: "/categories/retail-packaging",
-    label: "Shops and brands",
-    iconSlug: "retail-packaging",
-  },
-  {
-    name: "Cosmetic Packaging",
-    href: "/categories/cosmetic-packaging",
-    label: "Beauty brands",
-    iconSlug: "cosmetic-packaging",
-  },
-  {
-    name: "Printing & Finishing",
-    href: "/categories/printing-finishing",
-    label: "Premium finishes",
-    iconSlug: "printing-finishing",
-  },
-];
-
-const marketLinks = [
-  { name: "USA Packaging", href: "/markets/usa", label: "United States" },
-  { name: "UK Packaging", href: "/markets/uk", label: "United Kingdom" },
-  { name: "Canada Packaging", href: "/markets/canada", label: "Canada" },
-  { name: "Europe Packaging", href: "/markets/europe", label: "European brands" },
-  { name: "UAE Packaging", href: "/markets/uae", label: "Dubai and UAE" },
-  { name: "Australia Packaging", href: "/markets/australia", label: "Australia" },
-];
-
-const mobileLinks = [
-  { name: "Home", href: "/" },
-  { name: "Products", href: "/products" },
-  { name: "Categories", href: "/categories" },
-  { name: "Markets", href: "/markets" },
-  { name: "Blog", href: "/blog" },
-  { name: "About", href: "/about" },
+const simpleLinks = [
+  { name: "About Us", href: "/about" },
   { name: "Contact", href: "/contact" },
-  { name: "Get Quote", href: "/#quote" },
 ];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
   const [hideTopBar, setHideTopBar] = useState(false);
   const ticking = useRef(false);
 
@@ -110,6 +54,11 @@ export default function Header() {
     };
   }, []);
 
+  function closeMobile() {
+    setMobileOpen(false);
+    setOpenSection(null);
+  }
+
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
       <div
@@ -119,81 +68,93 @@ export default function Header() {
       >
         <div className="min-h-0">
           <div className="border-b border-[#0B1B2A]">
-            <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-[11px] font-black sm:px-5 sm:text-xs md:gap-6 md:px-8 2xl:max-w-[1520px] 2xl:px-10">
-              <p className="hidden text-white md:block">
-                Premium Custom Boxes | Butter Paper | Food Packaging | Labels & Stickers
-              </p>
+            <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-xs font-bold sm:px-5 md:gap-6 md:px-8 md:text-[13px] 2xl:max-w-[1520px] 2xl:px-10">
+              {/* Buyer benefits read better than a product list */}
+              <ul className="hidden items-center gap-5 text-slate-100 md:flex">
+                {[
+                  businessPromises.designSupport,
+                  `Low MOQ from ${businessPromises.minimumOrder}`,
+                  `Quote reply ${businessPromises.quoteResponse.replace(" (business hours)", "")}`,
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <span aria-hidden="true" className="text-[#FF6A00]">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
 
               <div className="flex min-w-0 flex-1 items-center justify-between gap-3 md:flex-none md:justify-end md:gap-5">
                 <a
                   href="mailto:sales@printypackaging.com"
-                  className="min-w-0 truncate text-cyan-300 transition hover:text-[#FF6A00]"
+                  className="min-w-0 truncate font-black text-cyan-300 transition hover:text-[#FF6A00]"
                 >
                   sales@printypackaging.com
                 </a>
 
-                <span className="hidden h-4 w-px bg-white/30 md:block" />
-                <span className="hidden text-cyan-300 md:inline">
-                  USA | UK | Europe Quote Support
-                </span>
-                <span className="hidden h-4 w-px bg-white/30 md:block" />
-                <span className="hidden md:inline">USA | UK | Europe | UAE | Worldwide</span>
-                <span className="shrink-0 text-cyan-300 md:hidden">Worldwide Quotes</span>
+                {salesPhone.display && salesPhone.tel && (
+                  <>
+                    <span className="hidden h-4 w-px bg-white/30 md:block" />
+                    <a
+                      href={`tel:${salesPhone.tel}`}
+                      className="hidden font-black text-cyan-300 transition hover:text-[#FF6A00] md:inline"
+                    >
+                      Call {salesPhone.display}
+                    </a>
+                  </>
+                )}
+                {salesPhone.display && salesPhone.tel ? (
+                  <a
+                    href={`tel:${salesPhone.tel}`}
+                    className="shrink-0 text-cyan-300 md:hidden"
+                  >
+                    {salesPhone.display}
+                  </a>
+                ) : (
+                  <span className="shrink-0 text-cyan-300 md:hidden">Worldwide Quotes</span>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-            <div className="border-b border-slate-200 bg-white/95">
+      <div className="border-b border-slate-200 bg-white/95">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-5 sm:py-4 md:px-8 md:py-5 2xl:max-w-[1520px] 2xl:px-10">
           <div className="shrink-0">
             <span className="sm:hidden"><BrandLogo variant="dark" size="small" /></span>
             <span className="hidden sm:inline-flex"><BrandLogo variant="dark" size="default" /></span>
           </div>
 
-          <nav className="hidden items-center gap-5 text-sm font-black text-[#07111F] xl:flex">
-            <NavLink href="/">Home</NavLink>
+          <nav
+            aria-label="Main"
+            className="relative hidden items-center gap-4 whitespace-nowrap text-sm font-black text-[#07111F] xl:flex 2xl:gap-7"
+          >
+            {navMenus.map((menu) => (
+              <DesktopMenu key={menu.title} menu={menu} />
+            ))}
 
-            <MegaMenu
-              title="Products"
-              href="/products"
-              heading="Popular Product Pages"
-              description="Fast links to important custom packaging products."
-              links={productLinks}
-              ctaText="View All Products"
-              ctaHref="/products"
-              wide
-            />
-
-            <MegaMenu
-              title="Categories"
-              href="/categories"
-              heading="Packaging Categories"
-              description="Browse packaging by business and product type."
-              links={categoryLinks}
-              ctaText="All Categories"
-              ctaHref="/categories"
-            />
-
-            <MegaMenu
-              title="Markets"
-              href="/markets"
-              heading="International Markets"
-              description="Packaging support for global buyers."
-              links={marketLinks}
-              ctaText="All Markets"
-              ctaHref="/markets"
-            />
-
-            <NavLink href="/blog">Blog</NavLink>
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="/contact">Contact</NavLink>
-            <NavLink href="/#quote">Quote</NavLink>
+            {simpleLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                prefetch={false}
+                className="transition hover:text-[#FF6A00]"
+              >
+                {link.name}
+              </Link>
+            ))}
           </nav>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <PackagingSearch />
+            {salesPhone.display && salesPhone.tel && (
+              <a
+                href={`tel:${salesPhone.tel}`}
+                className="hidden whitespace-nowrap text-sm font-black text-[#07111F] transition hover:text-[#FF6A00] 2xl:inline"
+              >
+                {salesPhone.display}
+              </a>
+            )}
             <Link
               href="/#quote"
               prefetch={false}
@@ -204,7 +165,7 @@ export default function Header() {
 
             <button
               type="button"
-              onClick={() => setMobileOpen((current) => !current)}
+              onClick={() => (mobileOpen ? closeMobile() : setMobileOpen(true))}
               className="rounded-xl border border-slate-300 px-3 py-2 text-sm font-black text-[#07111F] transition hover:border-[#FF6A00] hover:text-[#FF6A00] xl:hidden"
               aria-expanded={mobileOpen}
               aria-label="Toggle mobile navigation"
@@ -215,43 +176,68 @@ export default function Header() {
         </div>
 
         {mobileOpen && (
-          <div className="border-t border-slate-200 bg-white px-4 py-4 shadow-xl xl:hidden">
-            <div className="grid gap-3 text-sm font-black text-[#07111F]">
-              {mobileLinks.map((link) => (
+          <div className="max-h-[calc(100vh-7rem)] overflow-y-auto border-t border-slate-200 bg-white px-4 py-4 shadow-xl xl:hidden">
+            <div className="grid gap-2 text-sm font-black text-[#07111F]">
+              {navMenus.map((menu) => {
+                const isOpen = openSection === menu.title;
+
+                return (
+                  <div key={menu.title} className="rounded-2xl bg-[#F7FAFC]">
+                    <button
+                      type="button"
+                      onClick={() => setOpenSection(isOpen ? null : menu.title)}
+                      aria-expanded={isOpen}
+                      className="flex w-full items-center justify-between px-4 py-3 text-left"
+                    >
+                      {menu.title}
+                      <Chevron open={isOpen} />
+                    </button>
+
+                    {isOpen && (
+                      <div className="grid grid-cols-2 gap-1 px-2 pb-3">
+                        {menu.items.map((item) => (
+                          <Link
+                            key={`${item.href}-${item.name}`}
+                            href={item.href}
+                            prefetch={false}
+                            onClick={closeMobile}
+                            className="flex items-center gap-2 rounded-xl px-2 py-2 text-[13px] font-bold text-slate-700 transition hover:bg-white hover:text-[#FF6A00]"
+                          >
+                            <NavIcon name={item.icon} className="h-6 w-6 text-[#FF6A00]" />
+                            {item.name}
+                          </Link>
+                        ))}
+                        <Link
+                          href={menu.ctaHref}
+                          prefetch={false}
+                          onClick={closeMobile}
+                          className="col-span-2 mt-1 rounded-xl px-2 py-2 text-[13px] font-black text-[#FF6A00]"
+                        >
+                          {menu.ctaText} →
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              {simpleLinks.map((link) => (
                 <Link
-                  key={link.name}
+                  key={link.href}
                   href={link.href}
                   prefetch={false}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={closeMobile}
                   className="rounded-2xl bg-[#F7FAFC] px-4 py-3 transition hover:bg-[#07111F] hover:text-white"
                 >
                   {link.name}
                 </Link>
               ))}
 
-              <div className="mt-2 grid gap-2">
-                <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">
-                  Popular Products
-                </p>
-
-                {productLinks.slice(0, 6).map((product) => (
-                  <Link
-                    key={product.href}
-                    href={product.href}
-                    prefetch={false}
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-2xl border border-slate-200 px-4 py-3 transition hover:border-[#FF6A00] hover:text-[#FF6A00]"
-                  >
-                    {product.name}
-                  </Link>
-                ))}
-              </div>
-
               <Link
                 href="/#quote"
                 prefetch={false}
-                onClick={() => setMobileOpen(false)}
-                className="rounded-2xl bg-[#FF6A00] px-4 py-3 text-center text-white shadow-lg shadow-orange-500/20"
+                onClick={closeMobile}
+                className="mt-2 rounded-2xl bg-[#FF6A00] px-4 py-3 text-center text-white shadow-lg shadow-orange-500/20"
               >
                 Get Custom Quote
               </Link>
@@ -263,113 +249,103 @@ export default function Header() {
   );
 }
 
-function NavLink({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
+function Chevron({ open }: { open: boolean }) {
   return (
-    <Link
-      href={href}
-      prefetch={false}
-      className="transition hover:text-[#FF6A00]"
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.4}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`h-4 w-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
     >
-      {children}
-    </Link>
+      <path d="M5 8l5 5 5-5" />
+    </svg>
   );
 }
 
-function MegaMenu({
-  title,
-  href,
-  heading,
-  description,
-  links,
-  ctaText,
-  ctaHref,
-  wide = false,
-}: {
-  title: string;
-  href: string;
-  heading: string;
-  description: string;
-    links: {
-    name: string;
-    href: string;
-    label: string;
-    iconSlug?: string;
-  }[];
-  ctaText: string;
-  ctaHref: string;
-  wide?: boolean;
-}) {
+// Compact dropdown card centred under the menu bar (the nav is the
+// positioning parent, so wide menus never run off the screen edge). The trigger's padding is stretched down to the header's edge
+// so the menu stays open while the pointer moves into it; keyboard users open
+// it by tabbing to it.
+function DesktopMenu({ menu }: { menu: NavMenu }) {
+  const count = menu.items.length;
+  const columns = count <= 8 ? "grid-cols-2" : "grid-cols-4";
+  const width = count <= 4 ? "w-[480px]" : count <= 8 ? "w-[620px]" : "w-[920px]";
+  // Links are always in the HTML for search engines; the icons are only
+  // drawn once the menu is first opened, which keeps every page lighter.
+  const [opened, setOpened] = useState(false);
+  const open = () => setOpened(true);
+
   return (
-    <div className="group relative">
-      <Link
-        href={href}
-        prefetch={false}
-        className="transition hover:text-[#FF6A00]"
+    <div className="group -my-8 py-8" onMouseEnter={open} onFocus={open}>
+      <button
+        type="button"
+        aria-haspopup="true"
+        className="flex items-center gap-1 transition group-hover:text-[#FF6A00] group-has-[:focus-visible]:text-[#FF6A00]"
       >
-        {title}
-      </Link>
+        {menu.title}
+        <span className="text-[#FF6A00]">
+          <Chevron open={false} />
+        </span>
+      </button>
 
       <div
-        className={`invisible absolute left-1/2 top-8 z-50 -translate-x-1/2 rounded-3xl border border-slate-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 group-hover:visible group-hover:top-10 group-hover:opacity-100 ${
-          wide ? "w-[760px]" : "w-[560px]"
-        }`}
+        className={`invisible absolute left-1/2 top-[calc(100%+2rem)] z-50 ${width} -translate-x-1/2 whitespace-normal rounded-2xl border border-slate-200 bg-white p-4 opacity-0 shadow-2xl shadow-slate-900/15 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-has-[:focus-visible]:visible group-has-[:focus-visible]:opacity-100`}
       >
-        <div className="mb-5 flex items-center justify-between gap-5 border-b border-slate-200 pb-4">
-          <div>
-            <p className="text-lg font-black text-[#07111F]">{heading}</p>
-            <p className="mt-1 text-xs font-bold text-slate-500">
-              {description}
-            </p>
-          </div>
-
-          <Link
-            href={ctaHref}
-            prefetch={false}
-            className="shrink-0 rounded-full bg-[#FF6A00] px-5 py-3 text-xs font-black text-white transition hover:bg-[#007C91]"
-          >
-            {ctaText}
-          </Link>
-        </div>
-
-        <div
-          className={wide ? "grid grid-cols-4 gap-3" : "grid grid-cols-2 gap-3"}
-        >
-                    {links.map((item) => (
-            <Link
-              href={item.href}
-              prefetch={false}
-              key={item.href}
-              className={`rounded-2xl bg-[#F7FAFC] p-4 transition hover:bg-[#07111F] hover:text-white ${
-                item.iconSlug ? "flex items-center gap-3" : ""
-              }`}
-            >
-              {item.iconSlug ? (
-                <>
-                  <CategoryIcon slug={item.iconSlug} size="sm" tone="orange" />
-
-                  <span className="min-w-0">
-                    <span className="block font-black">{item.name}</span>
-                    <span className="mt-1 block text-xs font-medium text-slate-500">
-                      {item.label}
+        <ul className={`grid gap-x-2 gap-y-0.5 ${columns}`}>
+          {menu.items.map((item) => (
+            <li key={`${item.href}-${item.name}`}>
+              <Link
+                href={item.href}
+                prefetch={false}
+                className="group/item flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition hover:bg-[#FFF4EC]"
+              >
+                {opened ? (
+                  <NavIcon
+                    name={item.icon}
+                    className="h-7 w-7 text-[#FF6A00] transition group-hover/item:scale-110"
+                  />
+                ) : (
+                  <span aria-hidden="true" className="h-7 w-7 shrink-0" />
+                )}
+                <span className="min-w-0">
+                  <span className="block text-[13px] font-bold text-[#07111F] group-hover/item:text-[#FF6A00]">
+                    {item.name}
+                  </span>
+                  {item.text && (
+                    <span className="block text-[11px] font-medium leading-4 text-slate-500">
+                      {item.text}
                     </span>
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="block font-black">{item.name}</span>
-                  <span className="mt-1 block text-xs font-medium text-slate-500">
-                    {item.label}
-                  </span>
-                </>
-              )}
-            </Link>
+                  )}
+                </span>
+              </Link>
+            </li>
           ))}
+        </ul>
+
+        <div className="mt-3 flex items-center justify-between gap-3 border-t border-slate-100 px-2 pt-3 text-[13px] font-black">
+          {menu.extra ? (
+            <Link
+              href={menu.extra.href}
+              prefetch={false}
+              className="flex items-center gap-1.5 text-[#007C91] transition hover:text-[#FF6A00]"
+            >
+              {opened && <NavIcon name={menu.extra.icon} className="h-4 w-4" />}
+              {menu.extra.name}
+            </Link>
+          ) : (
+            <span className="font-medium text-slate-500">{menu.description}</span>
+          )}
+          <Link
+            href={menu.ctaHref}
+            prefetch={false}
+            className="shrink-0 text-[#FF6A00] transition hover:text-[#007C91]"
+          >
+            {menu.ctaText} →
+          </Link>
         </div>
       </div>
     </div>
