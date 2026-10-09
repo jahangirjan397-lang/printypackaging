@@ -59,27 +59,29 @@ function clean(value: unknown, max: number) {
 export async function POST(request: Request) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
-  const done = new NextResponse(null, { status: 204 });
-  if (!token || !chatId) return done;
+  // Always 204 for the visitor; x-alert says what happened (never the token)
+  const done = (state: string) =>
+    new NextResponse(null, { status: 204, headers: { "x-alert": state } });
+  if (!token || !chatId) return done("off");
 
   const origin = request.headers.get("origin") ?? "";
-  if (!/^https:\/\/(www\.)?printypackaging\.com$/.test(origin)) return done;
+  if (!/^https:\/\/(www\.)?printypackaging\.com$/.test(origin)) return done("origin");
 
   const ua = request.headers.get("user-agent") ?? "";
-  if (!ua || BOT_PATTERN.test(ua) || !request.headers.get("accept-language")) return done;
+  if (!ua || BOT_PATTERN.test(ua) || !request.headers.get("accept-language")) return done("bot");
 
   const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || "unknown";
-  if (limited(ip)) return done;
+  if (limited(ip)) return done("limited");
 
   let body: { type?: string; path?: string; referrer?: string } = {};
   try {
     body = JSON.parse(await request.text());
   } catch {
-    return done;
+    return done("bad-body");
   }
 
   const path = clean(body.path, 120) || "/";
-  if (!path.startsWith("/")) return done;
+  if (!path.startsWith("/")) return done("bad-path");
   const chat = body.type === "chat";
 
   const decode = (v: string | null) => {
@@ -114,11 +116,12 @@ export async function POST(request: Request) {
     if (!response.ok) {
       const reason = await response.text().catch(() => "");
       console.error(`[visitor-alert] Telegram ${response.status}: ${reason.slice(0, 200)}`);
-    } else {
-      console.log(`[visitor-alert] sent (${chat ? "chat" : "visit"} ${path})`);
+      return done(`telegram-${response.status}`);
     }
+    console.log(`[visitor-alert] sent (${chat ? "chat" : "visit"} ${path})`);
+    return done("sent");
   } catch (error) {
     console.error(`[visitor-alert] Telegram request failed: ${error instanceof Error ? error.message : "unknown"}`);
+    return done("telegram-unreachable");
   }
-  return done;
 }
