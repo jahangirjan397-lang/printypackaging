@@ -62,17 +62,17 @@
           "title": "Mailer Boxes Hero View"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3-brand.webp",
+          "src": "/images/products/mailer-boxes/mailer-boxes-front-v3-brand-e1.webp",
           "alt": "Mailer Boxes - front view (concept mockup)",
           "title": "Mailer Boxes front view"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3-brand.webp",
+          "src": "/images/products/mailer-boxes/mailer-boxes-open-v3-brand-e1.webp",
           "alt": "Mailer Boxes - open view (concept mockup)",
           "title": "Mailer Boxes open view"
         },
         {
-          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3-brand.webp",
+          "src": "/images/products/mailer-boxes/mailer-boxes-finish-v3-brand-e1.webp",
           "alt": "Mailer Boxes - material and finish detail (concept mockup)",
           "title": "Mailer Boxes material and finish detail"
         }
@@ -228,7 +228,7 @@
           "title": "Cosmetic Boxes open view"
         },
         {
-          "src": "/images/products/cosmetic-boxes/cosmetic-boxes-lifestyle-v3-brand.webp",
+          "src": "/images/products/cosmetic-boxes/cosmetic-boxes-lifestyle-v3-brand-e1.webp",
           "alt": "Cosmetic Boxes - in use (concept mockup)",
           "title": "Cosmetic Boxes in use"
         }
@@ -244,7 +244,7 @@
           "title": "Perfume Boxes hero view"
         },
         {
-          "src": "/images/products/perfume-boxes/perfume-boxes-open-v3-brand-v2.webp",
+          "src": "/images/products/perfume-boxes/perfume-boxes-open-v3-brand-v2-e1.webp",
           "alt": "Perfume Boxes - open view (concept mockup)",
           "title": "Perfume Boxes open view"
         },
@@ -275,12 +275,12 @@
           "title": "Candle Boxes front view"
         },
         {
-          "src": "/images/products/candle-boxes/candle-boxes-finish-v3-brand.webp",
+          "src": "/images/products/candle-boxes/candle-boxes-finish-v3-brand-e1.webp",
           "alt": "Candle Boxes - material and finish detail (concept mockup)",
           "title": "Candle Boxes material and finish detail"
         },
         {
-          "src": "/images/products/candle-boxes/candle-boxes-lifestyle-v3-brand.webp",
+          "src": "/images/products/candle-boxes/candle-boxes-lifestyle-v3-brand-e1.webp",
           "alt": "Candle Boxes - in use (concept mockup)",
           "title": "Candle Boxes in use"
         }
@@ -291,11 +291,6 @@
       "name": "Soap Boxes",
       "images": [
         {
-          "src": "/images/products/soap-boxes/soap-boxes-hero-v3-brand.webp",
-          "alt": "Soap Boxes - hero view (concept mockup)",
-          "title": "Soap Boxes hero view"
-        },
-        {
           "src": "/images/products/soap-boxes/soap-boxes-front-v3-brand.webp",
           "alt": "Soap Boxes - front view (concept mockup)",
           "title": "Soap Boxes front view"
@@ -304,6 +299,16 @@
           "src": "/images/products/soap-boxes/soap-boxes-lifestyle-v3-brand.webp",
           "alt": "Soap Boxes - in use (concept mockup)",
           "title": "Soap Boxes in use"
+        },
+        {
+          "src": "/images/products/soap-boxes/soap-boxes-n1-brand.webp",
+          "alt": "Soap gift boxes with lids and floral printed trays",
+          "title": "Soap gift boxes with lids and floral printed trays"
+        },
+        {
+          "src": "/images/products/soap-boxes/soap-boxes-n2-brand.webp",
+          "alt": "Printed soap box with an aloe design next to a bar of soap",
+          "title": "Printed soap box with an aloe design next to a bar of soap"
         }
       ]
     },
@@ -312,17 +317,17 @@
       "name": "Jewelry Boxes",
       "images": [
         {
-          "src": "/images/products/jewelry-boxes/jewelry-boxes-hero-v3-brand.webp",
+          "src": "/images/products/jewelry-boxes/jewelry-boxes-hero-v3-brand-e1.webp",
           "alt": "Jewelry Boxes - hero view (concept mockup)",
           "title": "Jewelry Boxes hero view"
         },
         {
-          "src": "/images/products/jewelry-boxes/jewelry-boxes-front-v3-brand-v2.webp",
+          "src": "/images/products/jewelry-boxes/jewelry-boxes-front-v3-brand-v2-e1.webp",
           "alt": "Jewelry Boxes - front view (concept mockup)",
           "title": "Jewelry Boxes front view"
         },
         {
-          "src": "/images/products/jewelry-boxes/jewelry-boxes-open-v3-brand.webp",
+          "src": "/images/products/jewelry-boxes/jewelry-boxes-open-v3-brand-e1.webp",
           "alt": "Jewelry Boxes - open view (concept mockup)",
           "title": "Jewelry Boxes open view"
         },
@@ -343,7 +348,7 @@
           "title": "Bakery Boxes hero view"
         },
         {
-          "src": "/images/products/bakery-boxes/bakery-boxes-front-v3-brand.webp",
+          "src": "/images/products/bakery-boxes/bakery-boxes-front-v3-brand-e1.webp",
           "alt": "Bakery Boxes - front view (concept mockup)",
           "title": "Bakery Boxes front view"
         },
@@ -421,12 +426,12 @@
           "title": "Display Boxes hero view"
         },
         {
-          "src": "/images/products/display-boxes/display-boxes-front-v3-brand.webp",
+          "src": "/images/products/display-boxes/display-boxes-front-v3-brand-e1.webp",
           "alt": "Display Boxes - front view (concept mockup)",
           "title": "Display Boxes front view"
         },
         {
-          "src": "/images/products/display-boxes/display-boxes-open-v3-brand.webp",
+          "src": "/images/products/display-boxes/display-boxes-open-v3-brand-e1.webp",
           "alt": "Display Boxes - open view (concept mockup)",
           "title": "Display Boxes open view"
         },
@@ -457,7 +462,7 @@
           "title": "Window Boxes material and finish detail"
         },
         {
-          "src": "/images/products/window-boxes/window-boxes-lifestyle-v3-brand.webp",
+          "src": "/images/products/window-boxes/window-boxes-lifestyle-v3-brand-e1.webp",
           "alt": "Window Boxes - in use (concept mockup)",
           "title": "Window Boxes in use"
         }
@@ -483,7 +488,7 @@
           "title": "Sleeve Boxes material and finish detail"
         },
         {
-          "src": "/images/products/sleeve-boxes/sleeve-boxes-lifestyle-v3-brand.webp",
+          "src": "/images/products/sleeve-boxes/sleeve-boxes-lifestyle-v3-brand-e1.webp",
           "alt": "Sleeve Boxes - in use (concept mockup)",
           "title": "Sleeve Boxes in use"
         }
@@ -546,7 +551,7 @@
       "name": "Pharmaceutical Boxes",
       "images": [
         {
-          "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-hero-v3-brand.webp",
+          "src": "/images/products/pharmaceutical-boxes/pharmaceutical-boxes-hero-v3-brand-e1.webp",
           "alt": "Pharmaceutical Boxes - hero view (concept mockup)",
           "title": "Pharmaceutical Boxes hero view"
         },
@@ -603,7 +608,7 @@
           "title": "Hang Tags hero view"
         },
         {
-          "src": "/images/products/hang-tags/hang-tags-front-v3-brand.webp",
+          "src": "/images/products/hang-tags/hang-tags-front-v3-brand-e1.webp",
           "alt": "Hang Tags - front view (concept mockup)",
           "title": "Hang Tags front view"
         },
@@ -629,9 +634,19 @@
           "title": "Plain kraft mailer box with a printed logo on the lid"
         },
         {
-          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-3-brand.webp",
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-3-brand-e1.webp",
           "alt": "Kraft mailer box with a black printed inside",
           "title": "Kraft mailer box with a black printed inside"
+        },
+        {
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-n1-brand.webp",
+          "alt": "Open kraft mailer box printed with the Printy Packaging logo",
+          "title": "Open kraft mailer box printed with the Printy Packaging logo"
+        },
+        {
+          "src": "/images/products/kraft-mailer-boxes/kraft-mailer-boxes-n2-brand.webp",
+          "alt": "Kraft mailer boxes with a one-colour leaf print and branded inside flap",
+          "title": "Kraft mailer boxes with a one-colour leaf print and branded inside flap"
         }
       ]
     },
@@ -645,7 +660,7 @@
           "title": "Stacked black mailer boxes with a kraft inside"
         },
         {
-          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-2-brand.webp",
+          "src": "/images/products/black-mailer-boxes/black-mailer-boxes-2-brand-e1.webp",
           "alt": "Black mailer box with a printed kraft sleeve",
           "title": "Black mailer box with a printed kraft sleeve"
         },
@@ -666,14 +681,19 @@
           "title": "White mailer box with a floral thank you print inside"
         },
         {
-          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-3-brand.webp",
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-3-brand-e1.webp",
           "alt": "White and pink mailer box with a thank you message",
           "title": "White and pink mailer box with a thank you message"
         },
         {
-          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-4-brand.webp",
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-4-brand-e1.webp",
           "alt": "White mailer box with a carry handle cut-out",
           "title": "White mailer box with a carry handle cut-out"
+        },
+        {
+          "src": "/images/products/white-mailer-boxes/white-mailer-boxes-n1-brand.webp",
+          "alt": "White mailer box with a printed logo and kraft inside",
+          "title": "White mailer box with a printed logo and kraft inside"
         }
       ]
     },
@@ -718,12 +738,12 @@
           "title": "Colourful printed subscription box with a gift message"
         },
         {
-          "src": "/images/products/subscription-boxes/subscription-boxes-3-brand.webp",
+          "src": "/images/products/subscription-boxes/subscription-boxes-3-brand-e1.webp",
           "alt": "Light blue subscription box with a printed insert",
           "title": "Light blue subscription box with a printed insert"
         },
         {
-          "src": "/images/products/subscription-boxes/subscription-boxes-5-brand.webp",
+          "src": "/images/products/subscription-boxes/subscription-boxes-5-brand-e1.webp",
           "alt": "Navy subscription box with an illustrated print",
           "title": "Navy subscription box with an illustrated print"
         }
@@ -744,9 +764,14 @@
           "title": "Window Handle Cake Box"
         },
         {
-          "src": "/images/products/cake-boxes/cake-boxes-x1-brand.webp",
+          "src": "/images/products/cake-boxes/cake-boxes-x1-brand-e1.webp",
           "alt": "White cake and pastry boxes with copper line art",
           "title": "White cake and pastry boxes with copper line art"
+        },
+        {
+          "src": "/images/products/cake-boxes/cake-boxes-n1-brand.webp",
+          "alt": "Round cake carry box with a handle and polka dot print",
+          "title": "Round cake carry box with a handle and polka dot print"
         }
       ]
     },
@@ -898,6 +923,11 @@
           "src": "/images/products/kraft-boxes/kraft-boxes-x3-brand.webp",
           "alt": "Kraft cupcake box with a window and carry handle",
           "title": "Kraft cupcake box with a window and carry handle"
+        },
+        {
+          "src": "/images/products/kraft-boxes/kraft-boxes-n1-brand.webp",
+          "alt": "Kraft gable box with handle on a bakery table",
+          "title": "Kraft gable box with handle on a bakery table"
         }
       ]
     },
@@ -916,7 +946,7 @@
           "title": "Black two-piece rigid box with a deep lid"
         },
         {
-          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x2-brand.webp",
+          "src": "/images/products/two-piece-rigid-boxes/two-piece-rigid-boxes-x2-brand-e1.webp",
           "alt": "Black and white two-piece rigid boxes with a foil logo",
           "title": "Black and white two-piece rigid boxes with a foil logo"
         },
@@ -1280,7 +1310,7 @@
           "title": "Die-cut vinyl decals with a cat and chequered flag design"
         },
         {
-          "src": "/images/products/clings-decals/clings-decals-3-brand.webp",
+          "src": "/images/products/clings-decals/clings-decals-3-brand-e1.webp",
           "alt": "Rectangular and custom-shape window decals for a restaurant front",
           "title": "Rectangular and custom-shape window decals for a restaurant front"
         },
