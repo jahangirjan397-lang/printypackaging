@@ -72,7 +72,7 @@ export default function FeaturedProducts() {
                   <div className="mt-5 flex items-end justify-between gap-3">
                     {price ? (
                       <p className="text-sm font-bold text-slate-500">
-                        From{" "}
+                        Est. from{" "}
                         <span className="text-lg font-black text-[#07111F]">{price.amount}</span>
                         {price.per}
                       </p>
@@ -90,7 +90,7 @@ export default function FeaturedProducts() {
         </div>
 
         <p className="mt-6 text-center text-sm leading-6 text-slate-500">
-          &ldquo;From&rdquo; prices are for a standard size and quantity. {startingPriceNote}
+          Prices shown are rough estimates for a standard size, not fixed prices. {startingPriceNote}
         </p>
       </div>
     </section>

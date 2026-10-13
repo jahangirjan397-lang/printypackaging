@@ -129,7 +129,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
       "@type": "BusinessAudience",
       audienceType: product.industries.join(", "),
     },
-    // Starting price, so search engines and AI assistants can quote it
+    // Estimated starting price, so search engines and AI assistants can quote it
     ...(startingPrice && price
       ? {
           offers: {
@@ -141,7 +141,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               minValue: startingPrice.quantity,
               unitText: startingPrice.unit,
             },
-            description: `${price.reference} Final price depends on size, quantity, material and finish.`,
+            description: `Estimated price only. ${price.reference} The exact quote depends on size, quantity, material and finish.`,
             url: `https://printypackaging.com/products/${product.slug}#product-quote`,
           },
         }
@@ -229,7 +229,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               {price && (
                 <div className="mt-5 max-w-xl rounded-2xl border border-[#00C2E8]/30 bg-[#00C2E8]/10 px-4 py-3">
                   <p className="flex flex-wrap items-baseline gap-x-2">
-                    <span className="text-sm font-bold text-slate-300">From</span>
+                    <span className="text-sm font-bold text-slate-300">Estimated from</span>
                     <span className="text-3xl font-black text-white">{price.amount}</span>
                     <span className="text-sm font-black text-white">{price.per}</span>
                   </p>

@@ -123,12 +123,12 @@ export function formatStartingPrice({ cost, quantity, unit }: StartingPrice) {
     amount: `$${amount}`,
     per: `/${unit}`,
     basis: `at ${quantity.toLocaleString("en-US")} pcs`,
-    // e.g. "Starting price for 100 pcs." (the reference size stays internal)
-    reference: `Starting price for ${quantity.toLocaleString("en-US")} pcs.`,
+    // A rough guide only, never a fixed price (the reference size stays internal)
+    reference: `Rough estimate for a standard size at about ${quantity.toLocaleString("en-US")} pcs. Your real price can be lower or higher.`,
   };
 }
 
 // Shown under starting prices: sets the expectation that size and quantity
 // change the price, while keeping the buyer interested in asking
 export const startingPriceNote =
-  "Your size and quantity set the final price, and the more you order, the less you pay per unit. Get your exact price free within 1 hour.";
+  "Size, material, finish and quantity set the final quote. Bigger orders cost less per unit, and smaller runs are possible too. Send your details for an exact quote, free within 1 hour.";

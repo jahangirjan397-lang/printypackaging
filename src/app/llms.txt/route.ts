@@ -14,7 +14,7 @@ const siteUrl = "https://printypackaging.com";
 function productLine(slug: string, name: string, tagline: string) {
   const startingPrice = getStartingPrice(slug);
   const price = startingPrice
-    ? ` From ${formatStartingPrice(startingPrice).amount}${formatStartingPrice(startingPrice).per} (${startingPrice.quantity.toLocaleString("en-US")} pcs).`
+    ? ` Estimated from ${formatStartingPrice(startingPrice).amount}${formatStartingPrice(startingPrice).per} for a standard size (rough guide, exact price quoted per order).`
     : "";
   return `- [Custom ${name}](${siteUrl}/products/${slug}): ${tagline}.${price}`;
 }

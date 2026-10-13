@@ -24,7 +24,7 @@ export default function MobileQuoteBar({
             {priceLabel ? (
               <>
                 <p className="text-[11px] font-bold leading-tight text-slate-500">
-                  Starting from
+                  Estimated from
                 </p>
                 <p className="truncate text-base font-black leading-tight text-[#07111F]">
                   {priceLabel}
