@@ -28,7 +28,7 @@ const sections: PolicySection[] = [
     title: "Quotes and pricing",
     bullets: [
       "Quotes are based on the size, style, material, quantity, printing, finishes and delivery country supplied by the customer. If any of these change, the price may change.",
-      "A quote is valid for 30 days, because board and freight prices move.",
+      "A quote is valid for 15 days, because board and freight prices move.",
       "Prices are in the currency shown on the quote. Import duties and local taxes are not included unless the quote says the price is delivered duty paid (DDP).",
     ],
   },
@@ -138,7 +138,7 @@ export default function TermsPage() {
       intro="How quotes, proofs, payment, production, shipping, claims and disputes work when you order custom packaging from Printy Packaging."
       updated="September 2026"
       highlights={[
-        { label: "Quote valid", value: "30 days" },
+        { label: "Quote valid", value: "15 days" },
         { label: "Proof", value: "Free digital proof on every order" },
         { label: "Production", value: `${businessPromises.productionTime} after approval` },
         { label: "Claims", value: "Within 10 days of delivery" },

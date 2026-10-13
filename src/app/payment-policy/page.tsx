@@ -46,7 +46,7 @@ const sections: PolicySection[] = [
     title: "Prices, currency and quotes",
     bullets: [
       "Prices are in the currency shown on your quote, usually US dollars.",
-      "Quotes are valid for 30 days. After that, prices may change with board and freight costs.",
+      "Quotes are valid for 15 days. After that, prices may change with board and freight costs.",
       "Changes to size, quantity, material, finishes or delivery after the quote may change the price; we confirm any change before production.",
     ],
   },
