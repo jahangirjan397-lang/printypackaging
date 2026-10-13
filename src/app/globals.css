@@ -84,3 +84,117 @@ body {
 .field-input:focus {
   border-color: #00c2e8;
 }
+
+/* Tighter fields for the quote form */
+.field-input.field-compact {
+  border-radius: 0.7rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* Hand-drawn arrow (DrawnArrow): once it scrolls into view the dot appears,
+   then on a loop the line and arrowhead draw themselves, hold for a moment,
+   fade out and draw again (3.2s per cycle) */
+.drawn-arrow circle {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.drawn-arrow path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.drawn-arrow.is-drawn circle {
+  opacity: 1;
+}
+
+.drawn-arrow.is-drawn path {
+  animation: hand-arrow-line 3.2s cubic-bezier(0.65, 0, 0.35, 1) 0.15s infinite;
+}
+
+.drawn-arrow.is-drawn path + path {
+  animation-name: hand-arrow-head;
+}
+
+@keyframes hand-arrow-line {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  30%,
+  80% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  92% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+}
+
+@keyframes hand-arrow-head {
+  0%,
+  30% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  42%,
+  80% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  92% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawn-arrow circle {
+    opacity: 1;
+  }
+
+  .drawn-arrow path,
+  .drawn-arrow.is-drawn path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Endless scrolling strip, pauses on hover */
+.brand-marquee-track {
+  animation: brand-marquee 40s linear infinite;
+}
+
+.brand-marquee:hover .brand-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes brand-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    row-gap: 1rem;
+  }
+
+  .brand-marquee-track li[aria-hidden] {
+    display: none;
+  }
+}

@@ -1,3 +1,5 @@
+import { activeSocialLinks } from "@/data/socialLinks";
+
 export default function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
@@ -5,7 +7,7 @@ export default function OrganizationSchema() {
     name: "Printy Packaging",
     alternateName: "Printy Packaging",
     url: "https://printypackaging.com",
-    logo: "https://printypackaging.com/logo-icon.svg",
+    logo: "https://printypackaging.com/icon.png",
     email: "sales@printypackaging.com",
     description:
       "Printy Packaging provides custom printed packaging boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, labels, stickers and luxury packaging for USA, UK, Europe, UAE and worldwide brands.",
@@ -87,7 +89,8 @@ export default function OrganizationSchema() {
         },
       },
     ],
-    sameAs: ["https://printypackaging.com"],
+    // Real social profiles only (empty ones are filtered out)
+    sameAs: activeSocialLinks.map((link) => link.url),
   };
 
   return (

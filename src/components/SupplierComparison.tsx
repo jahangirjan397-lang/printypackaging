@@ -11,7 +11,7 @@ const comparisonRows = [
   {
     point: "Material Guidance",
     printy:
-      "SBS, art card, kraft, rigid board, corrugated, butter paper and food-grade options are explained.",
+      "SBS, art card, kraft, rigid board, corrugated, butter paper and greaseproof options are explained.",
     common:
       "Customer may need to select material without proper packaging support.",
   },

@@ -8,43 +8,73 @@ const industries = [
   {
     type: "cosmetic" as const,
     title: "Cosmetic Packaging",
+    href: "/categories/cosmetic-packaging",
     text: "Rigid boxes, folding cartons, sleeves and premium finishes for beauty and fragrance brands.",
-    choices: ["Rigid boxes", "Folding cartons", "Foil finishes"],
+    choices: [
+      { label: "Rigid boxes", href: "/products/rigid-boxes" },
+      { label: "Folding cartons", href: "/products/folding-cartons" },
+      { label: "Foil finishes", href: "/finishing-options" },
+    ],
     tone: "bg-[#E6F9FC] text-[#007C91]",
   },
   {
     type: "food" as const,
     title: "Food Packaging",
+    href: "/categories/food-packaging",
     text: "Bakery boxes, butter paper, bags and branded wraps for restaurants, bakeries and cafes.",
-    choices: ["Bakery boxes", "Butter paper", "Paper bags"],
+    choices: [
+      { label: "Bakery boxes", href: "/products/bakery-boxes" },
+      { label: "Butter paper", href: "/products/butter-paper" },
+      { label: "Paper bags", href: "/products/paper-bags" },
+    ],
     tone: "bg-[#FFF0E4] text-[#C94F00]",
   },
   {
     type: "ecommerce" as const,
     title: "Ecommerce Packaging",
+    href: "/categories/ecommerce-packaging",
     text: "Mailer, shipping and subscription boxes designed for protection and a better unboxing experience.",
-    choices: ["Mailer boxes", "Shipping boxes", "Inserts"],
+    choices: [
+      { label: "Mailer boxes", href: "/products/mailer-boxes" },
+      { label: "Shipping boxes", href: "/products/shipping-boxes" },
+      { label: "Thank you cards", href: "/products/thank-you-cards" },
+    ],
     tone: "bg-[#07111F] text-white",
   },
   {
     type: "retail" as const,
     title: "Retail Packaging",
+    href: "/categories/retail-packaging",
     text: "Shelf-ready cartons, paper bags, labels and display packaging for physical retail products.",
-    choices: ["Product boxes", "Paper bags", "Labels"],
+    choices: [
+      { label: "Tuck end boxes", href: "/products/tuck-end-boxes" },
+      { label: "Paper bags", href: "/products/paper-bags" },
+      { label: "Labels", href: "/products/labels-stickers" },
+    ],
     tone: "bg-[#E6F9FC] text-[#007C91]",
   },
   {
     type: "gift" as const,
     title: "Gift Packaging",
+    href: "/categories/gift-packaging",
     text: "Luxury rigid and magnetic closure boxes that make premium products feel more valuable.",
-    choices: ["Rigid boxes", "Magnetic boxes", "Custom inserts"],
+    choices: [
+      { label: "Rigid boxes", href: "/products/rigid-boxes" },
+      { label: "Magnetic boxes", href: "/products/magnetic-boxes" },
+      { label: "Gift boxes", href: "/products/gift-boxes" },
+    ],
     tone: "bg-[#FFF0E4] text-[#C94F00]",
   },
   {
     type: "apparel" as const,
     title: "Apparel Packaging",
+    href: "/categories/apparel-packaging",
     text: "Mailer boxes, branded bags, tags, stickers and inserts for clothing and fashion businesses.",
-    choices: ["Mailer boxes", "Custom bags", "Tags & stickers"],
+    choices: [
+      { label: "Apparel boxes", href: "/products/apparel-boxes" },
+      { label: "Paper bags", href: "/products/paper-bags" },
+      { label: "Hang tags", href: "/products/hang-tags" },
+    ],
     tone: "bg-[#07111F] text-white",
   },
 ];
@@ -142,7 +172,9 @@ export default function IndustryBuyerSection() {
               </div>
 
               <h3 className="mt-5 text-xl font-black text-[#07111F]">
-                {industry.title}
+                <Link href={industry.href} className="transition hover:text-[#C94F00]">
+                  {industry.title}
+                </Link>
               </h3>
               <p className="mt-3 text-[15px] leading-7 text-slate-600">
                 {industry.text}
@@ -150,20 +182,21 @@ export default function IndustryBuyerSection() {
 
               <div className="mt-5 flex flex-wrap gap-2">
                 {industry.choices.map((choice) => (
-                  <span
-                    key={choice}
-                    className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600"
+                  <Link
+                    key={choice.href}
+                    href={choice.href}
+                    className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600 transition hover:bg-[#FFF0E4] hover:text-[#C94F00]"
                   >
-                    {choice}
-                  </span>
+                    {choice.label}
+                  </Link>
                 ))}
               </div>
 
               <Link
-                href="/#quote"
+                href={industry.href}
                 className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#C94F00] transition group-hover:gap-3 group-hover:text-[#007C91]"
               >
-                Request industry quote <span aria-hidden="true">→</span>
+                View {industry.title.toLowerCase()} <span aria-hidden="true">→</span>
               </Link>
             </article>
           ))}

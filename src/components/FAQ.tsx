@@ -58,7 +58,7 @@ export default function FAQ() {
 
           <p className="mt-5 text-base leading-7 text-slate-600 md:text-lg md:leading-8">
             Quick answers for customers planning custom packaging, printed
-            boxes, luxury finishes and food-safe wrapping solutions.
+            boxes, luxury finishes and food wrapping paper.
           </p>
 
           <div className="mt-7 rounded-3xl bg-[#F7FAFC] p-5 shadow-sm">
