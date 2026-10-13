@@ -1346,6 +1346,32 @@
           "title": "Tri-fold pizza menu with hours and price list"
         }
       ]
+    },
+    {
+      "slug": "letterheads",
+      "name": "Letterheads",
+      "images": [
+        {
+          "src": "/images/products/letterheads/letterheads-1-brand.webp",
+          "alt": "Branded letterheads with matching envelope and business cards in a stationery set",
+          "title": "Letterhead stationery set"
+        },
+        {
+          "src": "/images/products/letterheads/letterheads-2-brand.webp",
+          "alt": "Printed letterhead with a matching envelope and pen",
+          "title": "Letterhead with envelope"
+        },
+        {
+          "src": "/images/products/letterheads/letterheads-3-brand.webp",
+          "alt": "Company letterhead on a dark desk with a pencil and glasses",
+          "title": "Letterhead on a desk"
+        },
+        {
+          "src": "/images/products/letterheads/letterheads-4-brand.webp",
+          "alt": "Stack of printed letterheads with an orange and black design",
+          "title": "Stack of letterheads"
+        }
+      ]
     }
   ]
 }
