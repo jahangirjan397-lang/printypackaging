@@ -19,7 +19,7 @@ export type StartingPrice = {
   size: string;
 };
 
-// Boxes are priced at our 100-piece minimum order
+// Boxes are priced at 100 pieces, the usual first order (the minimum is 50)
 const box = (cost: number, size: string, quantity = 100): StartingPrice => ({
   cost,
   quantity,
