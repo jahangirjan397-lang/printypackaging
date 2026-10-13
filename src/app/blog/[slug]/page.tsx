@@ -320,7 +320,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Need a price for your boxes?
               </p>
               <p className="mt-3 text-sm leading-6 text-slate-300">
-                Send size and quantity. Free quote within 1 hour, from 50
+                Send size and quantity. Free quote within 1 hour, from 100
                 pcs.
               </p>
               <a

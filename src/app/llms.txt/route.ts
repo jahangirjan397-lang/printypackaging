@@ -47,7 +47,7 @@ export function GET() {
 
 ## Key facts
 
-- Minimum order: ${businessPromises.minimumOrder}
+- Minimum order: ${businessPromises.minimumOrder} (smaller test runs on request)
 - Production time: ${businessPromises.productionTime} after proof approval
 - Quote reply: ${businessPromises.quoteResponse}
 - Design: ${businessPromises.designSupport}; a free digital proof is sent before production

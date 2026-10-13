@@ -23,7 +23,7 @@ const strengths = [
   },
   {
     title: "Small Runs Welcome",
-    text: `Minimum orders start at ${businessPromises.minimumOrder}, so a new brand can test a design without filling a warehouse.`,
+    text: `Minimum orders start at ${businessPromises.minimumOrder}, and smaller test runs are possible on request, so a new brand can try a design without filling a warehouse.`,
   },
   {
     title: "We Fix Our Mistakes",

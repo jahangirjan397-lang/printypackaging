@@ -361,7 +361,7 @@ export const categories: Category[] = [
       },
       {
         question: "What is the minimum order for bakery boxes?",
-        answer: "Bakery boxes start from just 50 pieces, so a small bakery can order branded boxes without storing thousands.",
+        answer: "Most bakery boxes start from 100 pieces (smaller test runs on request), so a small bakery can order branded boxes without storing thousands.",
       },
     ],
   },

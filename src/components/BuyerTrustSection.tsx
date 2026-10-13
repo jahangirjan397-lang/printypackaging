@@ -5,7 +5,7 @@ import { businessPromises } from "@/data/businessInfo";
 const trustItems = [
   {
     title: "Minimum order",
-    text: `Orders start from ${businessPromises.minimumOrder} for most styles, so you can test a design before ordering in bulk.`,
+    text: `Orders start from ${businessPromises.minimumOrder} for most styles, and smaller test runs are possible on request, so you can try a design before ordering in bulk.`,
   },
   {
     title: "Proof before printing",
