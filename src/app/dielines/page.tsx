@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { dielineCategories, dielineCount, dielines } from "@/data/dielines";
+import { dielineCategories, dielineCount, dielineImage, dielines } from "@/data/dielines";
 
 const url = "https://printypackaging.com/dielines";
 
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default function DielinesPage() {
+  const latest = dielines.filter((d) => d.addedAt).slice(0, 8);
   const schema = [
     {
       "@context": "https://schema.org",
@@ -93,6 +94,23 @@ export default function DielinesPage() {
       </nav>
 
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+        {latest.length > 0 && (
+          <section id="new" className="scroll-mt-32 pb-12">
+            <h2 className="text-2xl font-black sm:text-3xl">Newly added</h2>
+            <p className="mt-2 text-slate-600">Fresh structures from our design team.</p>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {latest.map((d) => (
+                <Link key={d.slug} href={`/dielines/${d.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg">
+                  <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-slate-50 p-3">
+                    <Image src={dielineImage(d)} alt={`${d.name} dieline template`} width={d.image.w} height={d.image.h} sizes="(max-width: 640px) 90vw, 280px" className="max-h-full w-auto object-contain" />
+                  </div>
+                  <h3 className="mt-4 font-black leading-tight group-hover:text-[#FF6A00]">{d.name}</h3>
+                  <p className="mt-2 inline-block rounded-full bg-cyan-50 px-2.5 py-0.5 text-xs font-black text-[#007C91]">New</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
         {dielineCategories.map((c) => {
           const items = dielines.filter((d) => d.category === c.id);
           if (!items.length) return null;
@@ -104,7 +122,7 @@ export default function DielinesPage() {
                 {items.map((d) => (
                   <Link key={d.slug} href={`/dielines/${d.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg">
                     <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-slate-50 p-3">
-                      <Image src={`/images/dielines/${d.slug}.webp`} alt={`${d.name} dieline template`} width={d.image.w} height={d.image.h} sizes="(max-width: 640px) 90vw, 280px" className="max-h-full w-auto object-contain" />
+                      <Image src={dielineImage(d)} alt={`${d.name} dieline template`} width={d.image.w} height={d.image.h} sizes="(max-width: 640px) 90vw, 280px" className="max-h-full w-auto object-contain" />
                     </div>
                     <h3 className="mt-4 font-black leading-tight group-hover:text-[#FF6A00]">{d.name}</h3>
                     <p className="mt-1 text-sm text-slate-600">{d.bestFor.slice(0, 2).join(" · ")}</p>

@@ -1,14 +1,11 @@
 "use client";
 
-import type { FormEvent } from "react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { sendGAEvent } from "@next/third-parties/google";
 import type { GeneratorStyle } from "@/data/dielines";
 import { buildDieline, dielineToPdf, dielineToSvg, generatorStyles } from "@/lib/dielineGeometry";
-import { isLiveHostname, readAnalyticsConsent } from "@/lib/analyticsConsent";
-import { readLeadSource } from "@/lib/leadSource";
+import DielineLeadGate, { readDielineLead, trackDieline } from "@/components/DielineLeadGate";
 
 type Unit = "mm" | "cm" | "in";
 const toMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -17,24 +14,12 @@ const boards = [
   { id: "e-flute", name: "E-flute corrugated (1.5 mm)", t: 1.5 },
   { id: "b-flute", name: "B-flute corrugated (3 mm)", t: 3 },
 ];
-const LEAD_KEY = "printy_dieline_lead";
-
-function readLead() {
-  try { return window.localStorage.getItem(LEAD_KEY) || ""; } catch { return ""; }
-}
-function saveLead(email: string) {
-  try { window.localStorage.setItem(LEAD_KEY, email); } catch { /* private mode */ }
-}
 function download(name: string, data: BlobPart, type: string) {
   const url = URL.createObjectURL(new Blob([data], { type }));
   const a = document.createElement("a");
   a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
-function track(event: string, params: Record<string, string>) {
-  if (isLiveHostname(window.location.hostname) && readAnalyticsConsent() === "granted") sendGAEvent("event", event, params);
-}
-
 // Rendered on the client only (inside <Suspense>, because of useSearchParams),
 // so reading the URL and localStorage in the initial state is safe.
 export default function DielineGenerator() {
@@ -46,9 +31,7 @@ export default function DielineGenerator() {
   const [dims, setDims] = useState(flute ? { L: "250", W: "180", H: "80" } : { L: "60", W: "40", H: "120" });
   const [board, setBoard] = useState(flute ? "e-flute" : "card");
   const [pending, setPending] = useState<"svg" | "pdf" | null>(null);
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
-  const [registered, setRegistered] = useState(() => Boolean(readLead()));
+  const [registered, setRegistered] = useState(() => Boolean(readDielineLead()));
 
   const meta = generatorStyles.find((s) => s.id === style)!;
   const nums = { L: Number(dims.L) * toMm[unit], W: Number(dims.W) * toMm[unit], H: Number(dims.H) * toMm[unit] };
@@ -71,52 +54,12 @@ export default function DielineGenerator() {
     if (!result) return;
     if (kind === "svg") download(`${fileBase}.svg`, dielineToSvg(result.dl, title), "image/svg+xml");
     else download(`${fileBase}.pdf`, dielineToPdf(result.dl, title) as BlobPart, "application/pdf");
-    track("dieline_download", { style, format: kind });
+    trackDieline("dieline_download", { style, format: kind });
   }
 
   function askDownload(kind: "svg" | "pdf") {
     if (registered) doDownload(kind);
-    else { setPending(kind); setError(""); }
-  }
-
-  async function submitLead(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const f = new FormData(event.currentTarget);
-    if (String(f.get("website") || "")) return;
-    setSending(true); setError("");
-    const wantsQuote = f.get("wantsQuote") === "on";
-    try {
-      const res = await fetch("/api/quote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: String(f.get("name") || ""),
-          email: String(f.get("email") || ""),
-          country: String(f.get("country") || ""),
-          product: `Free dieline: ${meta.name}`,
-          size: sizeText,
-          quantity: wantsQuote ? String(f.get("quantity") || "") : "",
-          material: boards.find((b) => b.id === board)!.name,
-          message: wantsQuote
-            ? `Downloaded a free ${meta.name} dieline (${sizeText}) and would like a printing price.`
-            : `Downloaded a free ${meta.name} dieline (${sizeText}) from the dieline generator. No price requested yet.`,
-          leadSource: `dieline-generator | ${readLeadSource()}`.slice(0, 200),
-        }),
-      });
-      let out: { success?: boolean; message?: string } = {};
-      try { out = await res.json(); } catch { /* handled below */ }
-      if (!res.ok || !out.success) throw new Error(out.message || "Could not send right now. Please try again.");
-      saveLead(String(f.get("email")));
-      setRegistered(true);
-      track("generate_lead", { form_name: "dieline_generator", product: style });
-      const kind = pending;
-      setPending(null);
-      if (kind) doDownload(kind);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
-    } finally {
-      setSending(false);
-    }
+    else setPending(kind);
   }
 
   const fmt = (mm: number) => (unit === "mm" ? `${Math.round(mm)} mm` : unit === "cm" ? `${(mm / 10).toFixed(1)} cm` : `${(mm / 25.4).toFixed(2)} in`);
@@ -217,37 +160,15 @@ export default function DielineGenerator() {
       </div>
 
       {pending && (
-        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-[#07111F]/60 p-4" role="dialog" aria-modal="true" aria-labelledby="dl-gate-title">
-          <form onSubmit={submitLead} className="w-full max-w-md rounded-[1.5rem] border-t-4 border-[#FF6A00] bg-white p-6 text-[#07111F] shadow-2xl">
-            <div aria-hidden="true" className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden">
-              <input name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
-            </div>
-            <h2 id="dl-gate-title" className="text-xl font-black">Where should we send updates?</h2>
-            <p className="mt-1 text-sm font-bold text-slate-600">Your {pending.toUpperCase()} downloads right after. One time only, all future downloads are instant.</p>
-            <div className="mt-4 space-y-2.5">
-              <input name="name" required minLength={2} autoComplete="name" placeholder="Your name *" className="field-input field-compact" />
-              <input name="email" type="email" required autoComplete="email" placeholder="you@company.com *" className="field-input field-compact" />
-              <select name="country" className="field-input field-compact" defaultValue="USA">
-                {["USA", "UK", "Canada", "Europe", "Australia", "UAE", "Other"].map((c) => <option key={c}>{c}</option>)}
-              </select>
-              <label className="flex items-start gap-2 text-sm font-bold text-slate-700">
-                <input name="wantsQuote" type="checkbox" className="mt-1" defaultChecked />
-                Also send me a price to print this box
-              </label>
-              <select name="quantity" className="field-input field-compact" defaultValue="500">
-                {["100", "250", "500", "1,000", "2,500", "5,000+"].map((q) => <option key={q} value={q}>{q} boxes</option>)}
-              </select>
-            </div>
-            {error && <p role="alert" className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm font-bold text-red-700">{error}</p>}
-            <div className="mt-5 flex items-center justify-between gap-3">
-              <button type="button" onClick={() => setPending(null)} className="text-sm font-black text-slate-500 hover:text-[#07111F]">Cancel</button>
-              <button type="submit" disabled={sending} className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:bg-[#007C91] disabled:opacity-70">
-                {sending ? "Sending…" : `Get my ${pending.toUpperCase()} →`}
-              </button>
-            </div>
-            <p className="mt-3 text-[11px] font-bold text-slate-400">We only use your email to reply about packaging. See our <Link href="/privacy-policy" className="underline">privacy policy</Link>.</p>
-          </form>
-        </div>
+        <DielineLeadGate
+          what={pending.toUpperCase()}
+          styleName={meta.name}
+          sizeText={sizeText}
+          material={boards.find((b) => b.id === board)!.name}
+          source="dieline-generator"
+          onClose={() => setPending(null)}
+          onDone={() => { setRegistered(true); const kind = pending; setPending(null); doDownload(kind); }}
+        />
       )}
     </div>
   );

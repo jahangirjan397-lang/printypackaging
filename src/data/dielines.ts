@@ -1,5 +1,10 @@
+import fs from "node:fs";
+import path from "node:path";
+
 // Dieline library: the box and print structures Printy Packaging draws in
-// house. Images are crops of our own dieline sheets (public/images/dielines).
+// house. The first 52 are crops of our own dieline sheets
+// (public/images/dielines). More are added from /admin (Decap CMS) as
+// content/dielines/<slug>.json and merged in below.
 // `product` links to the matching product page; `generator` to the free
 // dieline generator style when that structure can be drawn to any size.
 
@@ -35,6 +40,10 @@ export type Dieline = {
   product?: string;
   generator?: GeneratorStyle;
   image: { w: number; h: number };
+  // Set for dielines added from the admin panel
+  src?: string;
+  file?: string;
+  addedAt?: string;
 };
 
 export const dielineCategories: { id: DielineCategory; name: string; text: string }[] = [
@@ -48,7 +57,7 @@ export const dielineCategories: { id: DielineCategory; name: string; text: strin
   { id: "print-folders", name: "Folders, cards & hangers", text: "Presentation folders, disc sleeves, header cards and door hangers." },
 ];
 
-export const dielines: Dieline[] = [
+const builtInDielines: Dieline[] = [
   // ---------- folding cartons ----------
   { slug: "reverse-tuck-end", name: "Reverse Tuck End Box", category: "folding-cartons",
     summary: "The most common folding carton. The top tuck closes from the back and the bottom tuck from the front, so the box opens cleanly and runs fast on gluing lines.",
@@ -378,7 +387,50 @@ export const dielines: Dieline[] = [
     product: "invitation-cards", image: { w: 906, h: 335 } },
 ];
 
+// ---------- dielines added from the admin panel ----------
+type CmsDieline = {
+  name?: string; slug?: string; category?: string; image?: string; file?: string; summary?: string;
+  bestFor?: string[]; closure?: string; material?: string; tip?: string; product?: string;
+  draft?: boolean; addedAt?: string;
+};
+
+function readCmsDielines(): Dieline[] {
+  const dir = path.join(process.cwd(), "content", "dielines");
+  if (!fs.existsSync(dir)) return [];
+  const known = new Set(builtInDielines.map((d) => d.slug));
+  const ids = new Set(dielineCategories.map((c) => c.id));
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => {
+      try { return JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as CmsDieline; } catch { return null; }
+    })
+    .filter((d): d is CmsDieline => Boolean(d && !d.draft && d.slug && d.name && d.image && d.summary && !known.has(d.slug)))
+    .sort((a, b) => String(b.addedAt || "").localeCompare(String(a.addedAt || "")))
+    .map((d) => ({
+      slug: d.slug!,
+      name: d.name!,
+      category: (ids.has(d.category as DielineCategory) ? d.category : "folding-cartons") as DielineCategory,
+      summary: d.summary!,
+      bestFor: (d.bestFor || []).filter(Boolean).slice(0, 6),
+      closure: d.closure || "See dieline",
+      material: d.material || "Card or corrugated, chosen for your product",
+      tip: d.tip || "Send us your product size and we draw this dieline to fit, free with your quote.",
+      product: d.product || undefined,
+      image: { w: 1000, h: 1000 },
+      src: d.image,
+      file: d.file || undefined,
+      addedAt: d.addedAt,
+    }));
+}
+
+export const dielines: Dieline[] = [...builtInDielines, ...readCmsDielines()];
+
 export const dielineCount = dielines.length;
+
+export function dielineImage(d: Dieline) {
+  return d.src || `/images/dielines/${d.slug}.webp`;
+}
 
 export function getDielineBySlug(slug: string) {
   return dielines.find((d) => d.slug === slug);

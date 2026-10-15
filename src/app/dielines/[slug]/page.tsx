@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import DielineFileDownload from "@/components/DielineFileDownload";
 import ProductQuickQuote from "@/components/ProductQuickQuote";
-import { dielines, getCategoryName, getDielineBySlug } from "@/data/dielines";
+import { dielineImage, dielines, getCategoryName, getDielineBySlug } from "@/data/dielines";
 import { getProductBySlug } from "@/data/products";
 import { metaDescription, metaTitle } from "@/lib/seo";
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const url = `${siteUrl}/dielines/${d.slug}`;
   const title = metaTitle(`${d.name} Dieline Template (Free) | Printy Packaging`, `${d.name} Dieline Template | Printy`);
   const description = metaDescription(`${d.name} dieline: ${d.summary}`, 155, "Get it free in your size.");
-  const image = { url: `${siteUrl}/images/dielines/${d.slug}.webp`, width: d.image.w, height: d.image.h, alt: `${d.name} dieline` };
+  const image = { url: `${siteUrl}${dielineImage(d)}`, width: d.image.w, height: d.image.h, alt: `${d.name} dieline` };
   return {
     title: { absolute: title },
     description,
@@ -50,7 +51,7 @@ export default async function DielinePage({ params }: PageProps) {
       "@type": "ImageObject",
       name: `${d.name} dieline template`,
       description: d.summary,
-      contentUrl: `${siteUrl}/images/dielines/${d.slug}.webp`,
+      contentUrl: `${siteUrl}${dielineImage(d)}`,
       width: d.image.w,
       height: d.image.h,
       creator: { "@type": "Organization", name: "Printy Packaging" },
@@ -93,7 +94,7 @@ export default async function DielinePage({ params }: PageProps) {
         <div>
           <figure className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60">
             <div className="flex items-center justify-center rounded-2xl bg-[repeating-linear-gradient(0deg,#f8fafc,#f8fafc_19px,#eef2f6_20px),repeating-linear-gradient(90deg,transparent,transparent_19px,#eef2f6_20px)] p-4">
-              <Image src={`/images/dielines/${d.slug}.webp`} alt={`${d.name} dieline template showing cut and fold lines`} width={d.image.w} height={d.image.h} priority sizes="(max-width: 1024px) 92vw, 640px" className="h-auto max-h-[34rem] w-auto" />
+              <Image src={dielineImage(d)} alt={`${d.name} dieline template showing cut and fold lines`} width={d.image.w} height={d.image.h} priority sizes="(max-width: 1024px) 92vw, 640px" className="h-auto max-h-[34rem] w-auto" />
             </div>
             <figcaption className="mt-3 text-sm font-bold text-slate-500">{d.name} flat layout. Panels, flaps and glue areas shown in standard proportions.</figcaption>
           </figure>
@@ -139,6 +140,7 @@ export default async function DielinePage({ params }: PageProps) {
               <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">Free with every quote</p>
               <h2 className="mt-2 text-2xl font-black">Get this dieline in your size</h2>
               <p className="mt-2 text-slate-300">Tell us your product size below. Our designer draws the {d.name.toLowerCase()} dieline to fit and sends it with your price.</p>
+              {d.file && <DielineFileDownload file={d.file} styleName={d.name} />}
             </div>
           )}
           <ProductQuickQuote
@@ -157,7 +159,7 @@ export default async function DielinePage({ params }: PageProps) {
             {related.map((r) => (
               <Link key={r.slug} href={`/dielines/${r.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 transition hover:-translate-y-1 hover:border-[#FF6A00]">
                 <div className="flex aspect-[4/3] items-center justify-center rounded-2xl bg-slate-50 p-3">
-                  <Image src={`/images/dielines/${r.slug}.webp`} alt={`${r.name} dieline`} width={r.image.w} height={r.image.h} sizes="280px" className="max-h-full w-auto object-contain" />
+                  <Image src={dielineImage(r)} alt={`${r.name} dieline`} width={r.image.w} height={r.image.h} sizes="280px" className="max-h-full w-auto object-contain" />
                 </div>
                 <h3 className="mt-3 font-black group-hover:text-[#FF6A00]">{r.name}</h3>
               </Link>

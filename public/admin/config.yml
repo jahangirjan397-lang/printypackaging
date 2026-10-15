@@ -28,6 +28,101 @@ media_folder: public/images/uploads
 public_folder: /images/uploads
 
 collections:
+  # --------------------------------------------------------------- DIELINES
+  - name: dielines
+    label: Dielines
+    label_singular: Dieline
+    description: >-
+      Nayi dieline daalne ke liye "+ Dieline" dabayein. Dieline ki saaf
+      tasveer (PNG ya JPG, white background, bina naam ke label) aur chahein
+      to asal file (PDF ya SVG) upload karein. Publish ke 2-3 minute baad
+      printypackaging.com/dielines par apna page ban jata hai.
+    folder: content/dielines
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: name
+    summary: "{{addedAt}} — {{name}}"
+    sortable_fields: [addedAt, name, category]
+    media_folder: /public/images/dielines/uploads
+    public_folder: /images/dielines/uploads
+    fields:
+      - label: Box style name
+        name: name
+        widget: string
+        hint: "English mein box ka naam. Jaise: Double Lock Tray, Cosmetic Box with Hanger"
+      - label: URL slug
+        name: slug
+        widget: string
+        pattern: ["^[a-z0-9]+(-[a-z0-9]+)*$", "Sirf chhote English huroof, numbers aur dash (-). Space nahi."]
+        hint: "Page ka link: printypackaging.com/dielines/YE-SLUG. Jaise: double-lock-tray. Publish ke baad na badlein."
+      - label: Date added
+        name: addedAt
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        hint: "Aaj ki tareekh. Nayi dielines library mein 'Newly added' mein sab se upar dikhti hain."
+      - label: Hide from website (draft)
+        name: draft
+        widget: boolean
+        default: false
+        required: false
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: "Folding cartons & tuck ends", value: "folding-cartons" }
+          - { label: "Mailers & shipping boxes", value: "mailers-shipping" }
+          - { label: "Trays & sleeves", value: "trays-sleeves" }
+          - { label: "Food packaging", value: "food" }
+          - { label: "Displays & retail", value: "displays" }
+          - { label: "Rigid, magnetic & gift boxes", value: "rigid-gift" }
+          - { label: "Inserts & partitions", value: "inserts" }
+          - { label: "Folders, cards & hangers", value: "print-folders" }
+      - label: Dieline image
+        name: image
+        widget: image
+        hint: "Dieline ki saaf tasveer (PNG/JPG/WEBP), white background, kam az kam 1000 px. Is par apna naam ya kisi aur brand ka logo na ho."
+      - label: Downloadable file (optional)
+        name: file
+        widget: file
+        required: false
+        media_folder: /public/dielines/files
+        public_folder: /dielines/files
+        hint: "Asal dieline file jo client download kar sake: PDF ya SVG behtar (AI/CDR har kisi ke paas nahi khulti). Khaali chhor sakte hain."
+      - label: Short description
+        name: summary
+        widget: text
+        hint: "2 jumle: yeh box kya hai aur kyun acha hai. Jaise: A tray with a locking lid that folds without glue. Strong enough for bakery and gift sets."
+      - label: Best for
+        name: bestFor
+        widget: list
+        required: false
+        hint: "3-4 cheezein jin ke liye yeh box behtar hai. Har line alag. Jaise: Cosmetics, Candles, Gift sets"
+      - label: How it closes
+        name: closure
+        widget: string
+        required: false
+        hint: "Jaise: Tuck top, auto-lock bottom"
+      - label: Typical material
+        name: material
+        widget: string
+        required: false
+        hint: "Jaise: SBS card 300-350 gsm, ya E-flute corrugated"
+      - label: Packaging tip
+        name: tip
+        widget: text
+        required: false
+        hint: "Ek kaam ki baat client ke liye. Khaali ho to aam tip lag jayegi."
+      - label: Matching product page (optional)
+        name: product
+        widget: string
+        required: false
+        hint: "Product ka slug, jaise: mailer-boxes, tuck-end-boxes, rigid-boxes. Is se 'See printed ...' link lagta hai."
+
   # ------------------------------------------------------------------ BLOGS
   - name: blogs
     label: Blogs
