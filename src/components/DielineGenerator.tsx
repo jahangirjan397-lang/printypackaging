@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import type { GeneratorStyle } from "@/data/dielines";
 import { buildDieline, dielineToPdf, dielineToSvg, formatLength, generatorStyles, loadBrandLogo, unitToMm, type Unit } from "@/lib/dielineGeometry";
 import DielineLeadGate, { readDielineLead, trackDieline } from "@/components/DielineLeadGate";
-import Box3D from "@/components/Box3D";
+import Box3DStudio from "@/components/Box3DStudio";
 
 const boards = [
   { id: "card", name: "Card / SBS", sub: "0.5 mm", t: 0.5 },
@@ -262,7 +262,7 @@ export default function DielineGenerator() {
         </div>
         <div className="relative max-h-[44rem] flex-1 overflow-auto bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] p-4">
           {result && view === "3d" ? (
-            <Box3D L={nums.L} W={nums.W} H={nums.H} label={`${meta.name} ${sizeText}`} />
+            <Box3DStudio L={nums.L} W={nums.W} H={nums.H} t={boardInfo.t} title={`${meta.name} ${sizeText}`} />
           ) : result ? (
             <div
               className="mx-auto [&>svg]:h-auto [&>svg]:w-full"
