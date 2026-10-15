@@ -190,7 +190,7 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
       out = out.filter((p) => !(p.kind === "cut" && p.segs.length === 2 && p.segs[0].M && p.segs[1].L &&
         Math.abs(p.segs[0].M[1] - f.y) < 0.01 && Math.abs(p.segs[1].L[1] - f.y) < 0.01 &&
         Math.min(p.segs[0].M[0], p.segs[1].L[0]) >= f.a - 0.01 && Math.max(p.segs[0].M[0], p.segs[1].L[0]) <= f.b + 0.01));
-      const sN = Math.min(1.5, (f.b - f.a) * 0.06), R = Math.min(10, dust * 0.5, (f.b - f.a) / 2 - sN);
+      const sN = Math.min(2, (f.b - f.a) * 0.07), R = Math.min(10, dust * 0.5, (f.b - f.a) / 2 - sN);
       const Y = (v: number) => f.y + f.dir * v;
       const segs: Seg[] = [{ M: [f.a, f.y] }, { L: [f.a + sN, Y(sN)] }];
       if (f.roundLeft) segs.push({ L: [f.a + sN, Y(dust - R)] }, { C: [[f.a + sN, Y(dust - R + R * K)], [f.a + sN + R - R * K, Y(dust)], [f.a + sN + R, Y(dust)]] });
@@ -495,7 +495,7 @@ export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boole
     opts.preview ? "" : `<g id="printy-packaging" transform="translate(${f2(m)} ${f2(h - foot - 2)})">` +
       (opts.brand ? `<image href="${opts.brand.dataUri}" x="0" y="2" width="${f2(9 * opts.brand.pw / opts.brand.ph)}" height="9"/>` : `<text x="0" y="9" font-size="6" font-weight="700" fill="${th.cut}">Printy Packaging</text>`) +
       `<text x="${f2(opts.brand ? 9 * opts.brand.pw / opts.brand.ph + 5 : 52)}" y="6.5" font-size="3.6" font-weight="700" fill="${th.cut}">Free dieline from ${SITE}</text>` +
-      `<text x="${f2(opts.brand ? 9 * opts.brand.pw / opts.brand.ph + 5 : 52)}" y="11" font-size="3" fill="${th.dim}">Custom printed boxes from 100 pcs · free design help · ${SITE}/dieline-generator</text></g>`,
+      `<text x="${f2(opts.brand ? 9 * opts.brand.pw / opts.brand.ph + 5 : 52)}" y="11" font-size="3" fill="${th.dim}">Custom printed boxes from 100 pcs · free design help</text></g>`,
     `</svg>`,
   ];
   return parts.join("");
@@ -542,7 +542,7 @@ export function dielineToPdf(dl: Dieline, title: string, unit: Unit = "mm", bran
       return [
         brand ? `q ${lw.toFixed(2)} 0 0 ${lh.toFixed(2)} ${bx.toFixed(2)} ${by.toFixed(2)} cm /Im1 Do Q` : "",
         `0 0 0 1 k BT /F1 10 Tf ${tx} ${(by + lh * 0.55).toFixed(2)} Td (${brand ? "" : "Printy Packaging - "}Free dieline from ${SITE}) Tj ET`,
-        `1 0.2 0.3 0.2 k BT /F1 8 Tf ${tx} ${(by + lh * 0.12).toFixed(2)} Td (Custom printed boxes from 100 pcs - free design help - ${SITE}/dieline-generator) Tj ET`,
+        `1 0.2 0.3 0.2 k BT /F1 8 Tf ${tx} ${(by + lh * 0.12).toFixed(2)} Td (Custom printed boxes from 100 pcs - free design help) Tj ET`,
       ];
     })(),
   ].join("\n");
