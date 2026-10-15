@@ -13,6 +13,16 @@ export const metadata: Metadata = {
 
 const resources = [
   {
+    title: "Free Dieline Generator",
+    href: "/dieline-generator",
+    text: "Enter your box size and download a 1:1 dieline as PDF or SVG: tuck end, mailer, shipping box, tray, sleeve and pillow box.",
+  },
+  {
+    title: "Box Dieline Library",
+    href: "/dielines",
+    text: "50+ packaging structures with dieline drawings, from tuck ends and mailers to rigid, magnetic and display boxes.",
+  },
+  {
     title: "Packaging Materials Guide",
     href: "/packaging-materials",
     text: "Learn about paperboard, kraft, corrugated stock, rigid board, greaseproof papers and label stock.",

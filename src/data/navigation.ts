@@ -159,6 +159,8 @@ export const navMenus: NavMenu[] = [
       { name: "Packaging Gallery", href: "/portfolio", icon: "gallery", text: "Box ideas and real styles" },
       { name: "Materials Guide", href: "/packaging-materials", icon: "materials", text: "Kraft, corrugated, rigid board" },
       { name: "Finishing Options", href: "/finishing-options", icon: "finishes", text: "Foil, spot UV, lamination" },
+      { name: "Dieline Library", href: "/dielines", icon: "artwork", text: "50+ box styles, free in your size" },
+      { name: "Dieline Generator", href: "/dieline-generator", icon: "process", text: "Free PDF/SVG template in seconds" },
       { name: "Artwork & Dielines", href: "/artwork-guide", icon: "artwork", text: "Get your files print-ready" },
       { name: "Sample Kit", href: "/sample-kit", icon: "sample-kit", text: "Feel materials before ordering" },
       { name: "How Ordering Works", href: "/custom-packaging", icon: "process", text: "From quote to delivery" },

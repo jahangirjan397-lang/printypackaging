@@ -5,6 +5,7 @@ import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { markets } from "@/data/markets";
 import { isDraftPolicy } from "@/data/policyStatus";
+import { dielines } from "@/data/dielines";
 
 const siteUrl = "https://printypackaging.com";
 
@@ -121,6 +122,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.78,
   }));
 
+  const dielineRoutes: MetadataRoute.Sitemap = [
+    { url: `${siteUrl}/dieline-generator`, changeFrequency: "monthly", priority: 0.84 },
+    { url: `${siteUrl}/dielines`, changeFrequency: "monthly", priority: 0.8 },
+    ...dielines.map((d) => ({
+      url: `${siteUrl}/dielines/${d.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.66,
+    })),
+  ];
+
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
     // Tells Google when a post last changed, so updates get recrawled
@@ -136,6 +147,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...categoryRoutes,
     ...marketRoutes,
     ...blogRoutes,
+    ...dielineRoutes,
   ];
 
   return allRoutes.filter(
