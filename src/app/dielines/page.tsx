@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { dielineCategories, dielineCount, dielineImage, dielines, showsPdf } from "@/data/dielines";
+import { buildDieline, dielineToSvg } from "@/lib/dielineGeometry";
 import DielinePdfPreview from "@/components/DielinePdfPreview";
 
 const url = "https://printypackaging.com/dielines";
@@ -106,7 +107,7 @@ export default function DielinesPage() {
               {latest.map((d) => (
                 <Link key={d.slug} href={`/dielines/${d.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg">
                   <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-slate-50 p-3">
-                    {showsPdf(d) && d.file ? <DielinePdfPreview file={d.file} compact /> : <Image src={dielineImage(d)} alt={`${d.name} dieline template`} width={d.image.w} height={d.image.h} sizes="(max-width: 640px) 90vw, 280px" className="max-h-full w-auto object-contain" />}
+                    {d.gen ? <div className="w-full [&>svg]:h-auto [&>svg]:max-h-48 [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: dielineToSvg(buildDieline(d.gen.style, { L: d.gen.L, W: d.gen.W, H: d.gen.H, t: 0.5, slitLock: d.gen.slitLock }), d.name, { preview: true, dims: false }) }} /> : showsPdf(d) && d.file ? <DielinePdfPreview file={d.file} compact /> : <Image src={dielineImage(d)} alt={`${d.name} dieline template`} width={d.image.w} height={d.image.h} sizes="(max-width: 640px) 90vw, 280px" className="max-h-full w-auto object-contain" />}
                   </div>
                   <h3 className="mt-4 font-black leading-tight group-hover:text-[#FF6A00]">{d.name}</h3>
                   <p className="mt-2 inline-block rounded-full bg-cyan-50 px-2.5 py-0.5 text-xs font-black text-[#007C91]">New</p>
@@ -126,7 +127,7 @@ export default function DielinesPage() {
                 {items.map((d) => (
                   <Link key={d.slug} href={`/dielines/${d.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg">
                     <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-slate-50 p-3">
-                      {showsPdf(d) && d.file ? <DielinePdfPreview file={d.file} compact /> : <Image src={dielineImage(d)} alt={`${d.name} dieline template`} width={d.image.w} height={d.image.h} sizes="(max-width: 640px) 90vw, 280px" className="max-h-full w-auto object-contain" />}
+                      {d.gen ? <div className="w-full [&>svg]:h-auto [&>svg]:max-h-48 [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: dielineToSvg(buildDieline(d.gen.style, { L: d.gen.L, W: d.gen.W, H: d.gen.H, t: 0.5, slitLock: d.gen.slitLock }), d.name, { preview: true, dims: false }) }} /> : showsPdf(d) && d.file ? <DielinePdfPreview file={d.file} compact /> : <Image src={dielineImage(d)} alt={`${d.name} dieline template`} width={d.image.w} height={d.image.h} sizes="(max-width: 640px) 90vw, 280px" className="max-h-full w-auto object-contain" />}
                     </div>
                     <h3 className="mt-4 font-black leading-tight group-hover:text-[#FF6A00]">{d.name}</h3>
                     <p className="mt-1 text-sm text-slate-600">{d.bestFor.slice(0, 2).join(" · ")}</p>

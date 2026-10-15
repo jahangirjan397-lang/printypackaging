@@ -13,7 +13,7 @@ export type DLabel = { at: Pt; text: string; size?: number };
 // A measured distance from a to b (horizontal or vertical), drawn with arrows
 export type DDim = { a: Pt; b: Pt };
 export type Dieline = { paths: DPath[]; labels: DLabel[]; dims: DDim[]; bbox: [number, number, number, number]; notes?: string[]; areas?: Rect[] };
-export type DielineInput = { L: number; W: number; H: number; t: number };
+export type DielineInput = { L: number; W: number; H: number; t: number; slitLock?: boolean };
 export type Unit = "mm" | "cm" | "in";
 
 export const generatorStyles: {
@@ -162,11 +162,16 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   ];
   const yd = Math.min(12, H * 0.15);
   const dims: DDim[] = [hd(xA, xB, yd), hd(xB, xC, yd), hd(xC, xD, yd), hd(xD, xE, yd), vd(0, H, xA + Math.min(10, L * 0.18)), vd(-lid, 0, xA + Math.min(10, L * 0.18))];
+  // slit locks: short cuts at both ends of the tuck fold, as on our dielines
+  const slits: DPath[] = [];
+  const slit = (x: number, y: number, dir: number) => slits.push({ kind: "cut", segs: [{ M: [x, y] }, { L: [x, y + dir * 2.5] }] });
   const topLid = (x0: number, x1: number) => {
+    if (d.slitLock) { slit(x0 + 2, -lid, 1); slit(x1 - 2, -lid, 1); }
     rects.push({ x0, y0: -lid, x1, y1: 0 });
     rects.push({ x0: x0 + 0.5, y0: -lid - tuck, x1: x1 - 0.5, y1: -lid, r: { tl: tuckR(x1 - x0, tuck), tr: tuckR(x1 - x0, tuck) } });
   };
   const botLid = (x0: number, x1: number) => {
+    if (d.slitLock) { slit(x0 + 2, H + lid, -1); slit(x1 - 2, H + lid, -1); }
     rects.push({ x0, y0: H, x1, y1: H + lid });
     rects.push({ x0: x0 + 0.5, y0: H + lid, x1: x1 - 0.5, y1: H + lid + tuck, r: { bl: tuckR(x1 - x0, tuck), br: tuckR(x1 - x0, tuck) } });
     labels.push({ at: [(x0 + x1) / 2, H + lid / 2], text: "BOTTOM" });
@@ -193,7 +198,8 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   else botLid(xA, xB);
   rects.push({ x0: xB + 0.5, y0: H, x1: xC - 1, y1: H + dust, r: { bl: Math.min(10, dust * 0.5) } });
   rects.push({ x0: xD + 1, y0: H, x1: xE - 0.5, y1: H + dust, r: { br: Math.min(10, dust * 0.5) } });
-  const paths = rectsToPaths(rects);
+  const paths = [...rectsToPaths(rects), ...slits];
+  if (d.slitLock) notes.push("Slit locks on both tucks");
   return { paths, labels, dims, bbox: bboxOf(paths), notes };
 }
 

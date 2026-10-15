@@ -1,0 +1,18 @@
+{
+  "name": "Small Tuck End Box",
+  "slug": "small-tuck-end-box",
+  "addedAt": "2026-10-16",
+  "draft": false,
+  "category": "tuck-end",
+  "genStyle": "reverse-tuck-end",
+  "sizeL": 27.5,
+  "sizeW": 27.5,
+  "sizeH": 58,
+  "slitLock": false,
+  "summary": "A small reverse tuck end carton, 27.5 x 27.5 x 58 mm inside, with rounded tucks and a 9.5 mm glue flap. Made for lip balms, serums and sample bottles in 300 gsm card.",
+  "bestFor": ["Lip balm and lipstick", "Serum and sample vials", "Essential oil bottles", "Small cosmetic items"],
+  "closure": "Reverse tuck top and bottom",
+  "material": "300 gsm card stock",
+  "tip": "For boxes this small, keep text and logos at least 3 mm away from every fold so they stay readable after folding.",
+  "product": "tuck-end-boxes"
+}

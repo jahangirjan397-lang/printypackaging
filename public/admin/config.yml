@@ -74,7 +74,8 @@ collections:
         name: category
         widget: select
         options:
-          - { label: "Folding cartons & tuck ends", value: "folding-cartons" }
+          - { label: "Tuck end boxes", value: "tuck-end" }
+          - { label: "Folding cartons", value: "folding-cartons" }
           - { label: "Mailers & shipping boxes", value: "mailers-shipping" }
           - { label: "Trays & sleeves", value: "trays-sleeves" }
           - { label: "Food packaging", value: "food" }
@@ -82,13 +83,31 @@ collections:
           - { label: "Rigid, magnetic & gift boxes", value: "rigid-gift" }
           - { label: "Inserts & partitions", value: "inserts" }
           - { label: "Folders, cards & hangers", value: "print-folders" }
+      - label: Draw with our generator (style)
+        name: genStyle
+        widget: select
+        required: false
+        options:
+          - { label: "Reverse Tuck End", value: "reverse-tuck-end" }
+          - { label: "Straight Tuck End", value: "straight-tuck-end" }
+          - { label: "Tuck Top Auto Bottom", value: "auto-bottom" }
+          - { label: "Mailer Box (double wall tuck top)", value: "mailer" }
+          - { label: "Shipping Box", value: "shipping-box" }
+          - { label: "Tray", value: "tray" }
+          - { label: "Sleeve", value: "sleeve" }
+          - { label: "Pillow Box", value: "pillow" }
+        hint: "Sab se behtar: style chunein aur neeche andar ka size (mm) likhein. Website khud hamare style mein dieline banati hai: naap ke teer, panels ke naam, Printy theme aur logo. PDF ya tasveer ki zaroorat nahi."
+      - { label: "Length (mm)", name: sizeL, widget: number, value_type: float, required: false }
+      - { label: "Width (mm)", name: sizeW, widget: number, value_type: float, required: false }
+      - { label: "Height (mm)", name: sizeH, widget: number, value_type: float, required: false }
+      - { label: "Slit lock on tucks", name: slitLock, widget: boolean, default: false, required: false, hint: "Tuck ki fold line ke dono kinaron par chhote cut, taake lid band rahe" }
       - label: Dieline PDF (1:1)
         name: file
         widget: file
         required: false
         media_folder: /public/dielines/files
         public_folder: /dielines/files
-        hint: "Sab se asaan: CorelDRAW se dieline ki PDF (1:1 scale) yahan daalein. Website khud is se preview banati hai, asal naap dikhati hai aur client yahi file download karta hai. Tasveer ki zaroorat nahi."
+        hint: "Sirf un styles ke liye jo generator mein nahi (jaise four corner, display): dieline ki PDF 1:1. Website is ki preview dikhati hai aur client yahi file download karta hai."
       - label: Dieline image (optional)
         name: image
         widget: image

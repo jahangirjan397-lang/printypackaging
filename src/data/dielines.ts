@@ -9,6 +9,7 @@ import path from "node:path";
 // dieline generator style when that structure can be drawn to any size.
 
 export type DielineCategory =
+  | "tuck-end"
   | "folding-cartons"
   | "mailers-shipping"
   | "trays-sleeves"
@@ -44,10 +45,13 @@ export type Dieline = {
   src?: string;
   file?: string;
   addedAt?: string;
+  // Drawn by our generator in Printy style (sizes in mm)
+  gen?: { style: GeneratorStyle; L: number; W: number; H: number; slitLock?: boolean };
 };
 
 export const dielineCategories: { id: DielineCategory; name: string; text: string }[] = [
-  { id: "folding-cartons", name: "Folding cartons & tuck ends", text: "Everyday retail cartons for cosmetics, supplements, candles and small products." },
+  { id: "tuck-end", name: "Tuck end boxes", text: "Reverse, straight, auto bottom and 1-2-3 bottom tuck ends: the most popular retail carton." },
+  { id: "folding-cartons", name: "Folding cartons", text: "Sealend, book end, triangle, hexagon and other retail cartons." },
   { id: "mailers-shipping", name: "Mailers & shipping boxes", text: "Self-locking mailers and corrugated boxes for e-commerce and subscriptions." },
   { id: "trays-sleeves", name: "Trays & sleeves", text: "Open trays, sleeves and corner-glued trays for presentation and bakery." },
   { id: "food", name: "Food packaging", text: "Takeaway, bakery and snack structures that fold fast at the counter." },
@@ -59,31 +63,31 @@ export const dielineCategories: { id: DielineCategory; name: string; text: strin
 
 const builtInDielines: Dieline[] = [
   // ---------- folding cartons ----------
-  { slug: "reverse-tuck-end", name: "Reverse Tuck End Box", category: "folding-cartons",
+  { slug: "reverse-tuck-end", name: "Reverse Tuck End Box", category: "tuck-end",
     summary: "The most common folding carton. The top tuck closes from the back and the bottom tuck from the front, so the box opens cleanly and runs fast on gluing lines.",
     bestFor: ["Cosmetics and skincare", "Supplements", "Candles and small gifts", "Retail products up to about 1 kg"],
     closure: "Tuck flaps at top and bottom, closing on opposite panels", material: "SBS / bleach card or kraft, 300–400 gsm",
     tip: "Ideal for light products. For heavier items, switch the bottom to an auto (crash-lock) bottom.",
     product: "tuck-end-boxes", generator: "reverse-tuck-end", image: { w: 523, h: 531 } },
-  { slug: "straight-tuck-end", name: "Straight Tuck End Box", category: "folding-cartons",
+  { slug: "straight-tuck-end", name: "Straight Tuck End Box", category: "tuck-end",
     summary: "Both tuck flaps close on the same panel, giving an uninterrupted front panel for artwork and a neat look when the box is opened from the top.",
     bestFor: ["Premium cosmetics", "Perfume and serum cartons", "Window boxes", "Products shown front-on"],
     closure: "Top and bottom tucks on the same (back) panel", material: "SBS / bleach card, 300–400 gsm",
     tip: "Choose it when a clean front matters more than the slightly higher board use.",
     product: "tuck-end-boxes", generator: "straight-tuck-end", image: { w: 684, h: 696 } },
-  { slug: "tuck-end-auto-bottom", name: "Tuck Top Auto Bottom Box", category: "folding-cartons",
+  { slug: "tuck-end-auto-bottom", name: "Tuck Top Auto Bottom Box", category: "tuck-end",
     summary: "A tuck top with a pre-glued crash-lock bottom that pops into place when the box is opened, so it packs quickly and carries more weight.",
     bestFor: ["Heavier jars and bottles", "Fast packing lines", "Food and beverage cartons", "Gift sets"],
     closure: "Tuck top, auto-lock glued bottom", material: "SBS, kraft or E-flute laminated board",
     tip: "Saves packing time on runs of 1,000+ boxes and gives a stronger base.",
     product: "folding-cartons", generator: "auto-bottom", image: { w: 780, h: 711 } },
-  { slug: "tuck-end-123-bottom", name: "Tuck End 1-2-3 Bottom Box", category: "folding-cartons",
+  { slug: "tuck-end-123-bottom", name: "Tuck End 1-2-3 Bottom Box", category: "tuck-end",
     summary: "A tuck top with a snap-lock (1-2-3) bottom that is folded by hand in three steps. Stronger than a tuck bottom without the extra gluing of an auto bottom.",
     bestFor: ["Medium-weight products", "Short runs", "Hand-packed retail items"],
     closure: "Tuck top, 1-2-3 snap-lock bottom", material: "SBS or kraft, 300–400 gsm",
     tip: "A good middle ground when an auto bottom is not worth the gluing cost.",
     product: "folding-cartons", image: { w: 711, h: 653 } },
-  { slug: "reverse-tuck-end-locking-tab", name: "Reverse Tuck End with Locking Tab", category: "folding-cartons",
+  { slug: "reverse-tuck-end-locking-tab", name: "Reverse Tuck End with Locking Tab", category: "tuck-end",
     summary: "A reverse tuck end with small locking tabs on the tuck flaps, so the box stays shut on the shelf and in transit.",
     bestFor: ["Products that must not open by accident", "Tamper-aware retail", "Pharma and wellness cartons"],
     closure: "Tucks with locking slits", material: "SBS / bleach card, 300–400 gsm",
@@ -392,7 +396,16 @@ type CmsDieline = {
   name?: string; slug?: string; category?: string; image?: string; file?: string; summary?: string;
   bestFor?: string[]; closure?: string; material?: string; tip?: string; product?: string;
   draft?: boolean; addedAt?: string;
+  genStyle?: string; sizeL?: number; sizeW?: number; sizeH?: number; slitLock?: boolean;
 };
+
+const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "mailer", "shipping-box", "tray", "sleeve", "pillow"];
+function cmsGen(d: CmsDieline): Dieline["gen"] {
+  const style = genStyles.find((g) => g === d.genStyle);
+  const [L, W, H] = [d.sizeL, d.sizeW, d.sizeH].map(Number);
+  if (!style || ![L, W, H].every((n) => n >= 10 && n <= 1500)) return undefined;
+  return { style, L, W, H, slitLock: Boolean(d.slitLock) };
+}
 
 function readCmsDielines(): Dieline[] {
   const dir = path.join(process.cwd(), "content", "dielines");
@@ -405,12 +418,12 @@ function readCmsDielines(): Dieline[] {
     .map((f) => {
       try { return JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as CmsDieline; } catch { return null; }
     })
-    .filter((d): d is CmsDieline => Boolean(d && !d.draft && d.slug && d.name && (d.image || /\.pdf$/i.test(d.file || "")) && d.summary && !known.has(d.slug)))
+    .filter((d): d is CmsDieline => Boolean(d && !d.draft && d.slug && d.name && (cmsGen(d) || d.image || /\.pdf$/i.test(d.file || "")) && d.summary && !known.has(d.slug)))
     .sort((a, b) => String(b.addedAt || "").localeCompare(String(a.addedAt || "")))
     .map((d) => ({
       slug: d.slug!,
       name: d.name!,
-      category: (ids.has(d.category as DielineCategory) ? d.category : "folding-cartons") as DielineCategory,
+      category: (ids.has(d.category as DielineCategory) ? d.category : "tuck-end") as DielineCategory,
       summary: d.summary!,
       bestFor: (d.bestFor || []).filter(Boolean).slice(0, 6),
       closure: d.closure || "See dieline",
@@ -421,6 +434,8 @@ function readCmsDielines(): Dieline[] {
       src: d.image || undefined,
       file: d.file || undefined,
       addedAt: d.addedAt,
+      gen: cmsGen(d),
+      generator: cmsGen(d)?.style,
     }));
 }
 
@@ -436,7 +451,14 @@ export function dielineImage(d: Dieline) {
 
 // Admin entry with a PDF but no picture: show the PDF itself
 export function showsPdf(d: Dieline) {
-  return !d.src && Boolean(d.addedAt) && /\.pdf$/i.test(d.file || "");
+  return !d.gen && !d.src && Boolean(d.addedAt) && /\.pdf$/i.test(d.file || "");
+}
+
+// Generator link that opens this exact dieline
+export function genLink(d: Dieline) {
+  if (!d.gen) return d.generator ? `/dieline-generator?style=${d.generator}` : "";
+  const g = d.gen;
+  return `/dieline-generator?style=${g.style}&L=${g.L}&W=${g.W}&H=${g.H}${g.slitLock ? "&slit=1" : ""}`;
 }
 
 export function getDielineBySlug(slug: string) {

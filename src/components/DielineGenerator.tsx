@@ -57,9 +57,13 @@ export default function DielineGenerator() {
   const [style, setStyle] = useState<GeneratorStyle>(linked?.id ?? "reverse-tuck-end");
   const [unit, setUnit] = useState<Unit>("mm");
   const [dims, setDims] = useState(() => {
+    // a library page can open the generator at an exact size (mm)
+    const q = ["L", "W", "H"].map((k) => Number(params.get(k)));
+    if (q.every((n) => n >= 10 && n <= 1500)) return { L: String(q[0]), W: String(q[1]), H: String(q[2]) };
     const p = presets[startFlute ? "flute" : "card"][startFlute ? 0 : 1].mm;
     return { L: String(p[0]), W: String(p[1]), H: String(p[2]) };
   });
+  const [slitLock, setSlitLock] = useState(params.get("slit") === "1");
   const [board, setBoard] = useState(startFlute ? "e-flute" : "card");
   const [showDims, setShowDims] = useState(true);
   const [zoom, setZoom] = useState(1);
@@ -73,11 +77,11 @@ export default function DielineGenerator() {
 
   const result = useMemo(() => {
     if (!valid) return null;
-    const dl = buildDieline(style, { ...nums, t: boardInfo.t });
+    const dl = buildDieline(style, { ...nums, t: boardInfo.t, slitLock });
     const [x0, y0, x1, y1] = dl.bbox;
     return { dl, flat: [x1 - x0, y1 - y0] as [number, number] };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [style, dims.L, dims.W, dims.H, unit, boardInfo.t, valid]);
+  }, [style, dims.L, dims.W, dims.H, unit, boardInfo.t, valid, slitLock]);
 
   const sizeText = `${dims.L} x ${dims.W} x ${dims.H} ${unit}`;
   const title = `${meta.name} ${sizeText}`;
@@ -177,6 +181,13 @@ export default function DielineGenerator() {
             ))}
           </div>
         </section>
+
+        {(style === "reverse-tuck-end" || style === "straight-tuck-end") && (
+          <label className="-mt-2 flex items-center gap-2 text-xs font-black text-slate-700">
+            <input type="checkbox" checked={slitLock} onChange={(e) => setSlitLock(e.target.checked)} />
+            Slit lock on the tucks (keeps the lid shut)
+          </label>
+        )}
 
         <section>
           <Step n={3}>Board</Step>
