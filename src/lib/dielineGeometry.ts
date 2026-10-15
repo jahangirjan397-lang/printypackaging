@@ -16,7 +16,7 @@ export type Dieline = { paths: DPath[]; labels: DLabel[]; dims: DDim[]; bbox: [n
 export type DielineInput = { L: number; W: number; H: number; t: number; slitLock?: boolean };
 export type Unit = "mm" | "cm" | "in";
 
-export const generatorStyles: {
+const allGeneratorStyles: {
   id: GeneratorStyle;
   name: string;
   hint: string;
@@ -33,6 +33,13 @@ export const generatorStyles: {
   { id: "sleeve", name: "Sleeve", hint: "Slides over a tray", dims: ["Length", "Width", "Height"], board: "card", library: "sleeve-and-tray" },
   { id: "pillow", name: "Pillow Box", hint: "Curved press-in ends", dims: ["Width", "Depth", "Length"], board: "card", library: "pillow-box" },
 ];
+
+// Only styles checked line by line against our own production dielines are
+// offered on the site. Others stay in the code until they are matched to our
+// CorelDRAW files and approved (auto bottom, mailer, shipping box, tray,
+// sleeve, pillow).
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end"];
+export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
 

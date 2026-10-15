@@ -15,7 +15,7 @@ const resources = [
   {
     title: "Free Dieline Generator",
     href: "/dieline-generator",
-    text: "Enter your box size and download a 1:1 dieline as PDF or SVG: tuck end, mailer, shipping box, tray, sleeve and pillow box.",
+    text: "Enter your box size and download a 1:1 tuck end box dieline as PDF or SVG, with every dimension marked and a 3D preview.",
   },
   {
     title: "Free Artwork Checker",

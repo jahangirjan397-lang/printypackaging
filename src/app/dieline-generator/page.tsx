@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import DielineGenerator from "@/components/DielineGenerator";
-import { generatorStyles } from "@/lib/dielineGeometry";
 
 const url = "https://printypackaging.com/dieline-generator";
 
 export const metadata: Metadata = {
   title: { absolute: "Free Box Dieline Generator (PDF & SVG) | Printy Packaging" },
   description:
-    "Make a free box dieline in your exact size. Tuck end, mailer, shipping box, tray, sleeve and pillow box templates as 1:1 PDF or SVG in seconds.",
+    "Make a free tuck end box dieline in your exact size: reverse or straight tuck end, slit lock option, 1:1 PDF or SVG with all dimensions and a 3D preview.",
   alternates: { canonical: url },
   openGraph: {
     title: "Free Box Dieline Generator | Printy Packaging",
@@ -73,7 +72,7 @@ export default function DielineGeneratorPage() {
             Free box dieline generator
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-            Choose a style, enter your inside size and download a 1:1 dieline as PDF or SVG. {generatorStyles.length} popular box styles, ready for your artwork in seconds.
+            Choose a style, enter your inside size and download a 1:1 dieline as PDF or SVG. Tuck end boxes drawn to the same rules as our production dielines, ready for your artwork in seconds.
           </p>
         </div>
       </section>

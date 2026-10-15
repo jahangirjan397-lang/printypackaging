@@ -399,7 +399,8 @@ type CmsDieline = {
   genStyle?: string; sizeL?: number; sizeW?: number; sizeH?: number; slitLock?: boolean;
 };
 
-const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "mailer", "shipping-box", "tray", "sleeve", "pillow"];
+// keep in step with VERIFIED_STYLES in src/lib/dielineGeometry.ts
+const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end"];
 function cmsGen(d: CmsDieline): Dieline["gen"] {
   const style = genStyles.find((g) => g === d.genStyle);
   const [L, W, H] = [d.sizeL, d.sizeW, d.sizeH].map(Number);
@@ -439,7 +440,10 @@ function readCmsDielines(): Dieline[] {
     }));
 }
 
-export const dielines: Dieline[] = [...builtInDielines, ...readCmsDielines()];
+// Built-in styles only link to the generator once their style is verified
+const liveBuiltIns = builtInDielines.map((d) => (d.generator && !genStyles.includes(d.generator) ? { ...d, generator: undefined } : d));
+
+export const dielines: Dieline[] = [...liveBuiltIns, ...readCmsDielines()];
 
 export const dielineCount = dielines.length;
 
