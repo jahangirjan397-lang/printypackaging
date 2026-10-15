@@ -125,6 +125,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const dielineRoutes: MetadataRoute.Sitemap = [
     { url: `${siteUrl}/dieline-generator`, changeFrequency: "monthly", priority: 0.84 },
     { url: `${siteUrl}/dielines`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/dieline-checker`, changeFrequency: "monthly", priority: 0.78 },
     ...dielines.map((d) => ({
       url: `${siteUrl}/dielines/${d.slug}`,
       changeFrequency: "monthly" as const,

@@ -121,6 +121,11 @@ export default function DielineGenerator() {
         {result && (
           <div className="rounded-xl bg-slate-50 p-3 text-sm font-bold text-slate-700">
             Flat size: <span className="text-[#07111F]">{fmt(result.flat[0])} × {fmt(result.flat[1])}</span>
+            {result.dl.notes && (
+              <ul className="mt-2 space-y-1 text-xs font-bold text-slate-500">
+                {result.dl.notes.map((n) => <li key={n}>· {n}</li>)}
+              </ul>
+            )}
           </div>
         )}
 

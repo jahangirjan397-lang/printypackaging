@@ -68,6 +68,9 @@ export default function DielinesPage() {
               <Link href="/dieline-generator" className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 hover:bg-[#007C91]">
                 Open the free dieline generator
               </Link>
+              <Link href="/dieline-checker" className="rounded-full border border-white/20 px-7 py-3 text-center text-sm font-black hover:border-cyan-300 hover:text-cyan-300">
+                Check my artwork
+              </Link>
               <Link href="/#quote" className="rounded-full border border-white/20 px-7 py-3 text-center text-sm font-black hover:border-cyan-300 hover:text-cyan-300">
                 Get a printing price
               </Link>

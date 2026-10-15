@@ -18,6 +18,11 @@ const resources = [
     text: "Enter your box size and download a 1:1 dieline as PDF or SVG: tuck end, mailer, shipping box, tray, sleeve and pillow box.",
   },
   {
+    title: "Free Artwork Checker",
+    href: "/dieline-checker",
+    text: "Upload your box artwork PDF and see bleed, dieline, RGB, font and image resolution problems before printing.",
+  },
+  {
     title: "Box Dieline Library",
     href: "/dielines",
     text: "50+ packaging structures with dieline drawings, from tuck ends and mailers to rigid, magnetic and display boxes.",

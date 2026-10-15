@@ -8,7 +8,7 @@ export type Pt = [number, number];
 export type Seg = { M?: Pt; L?: Pt; C?: [Pt, Pt, Pt] };
 export type DPath = { kind: "cut" | "fold" | "glue"; segs: Seg[]; closed?: boolean };
 export type DLabel = { at: Pt; text: string; size?: number };
-export type Dieline = { paths: DPath[]; labels: DLabel[]; bbox: [number, number, number, number] };
+export type Dieline = { paths: DPath[]; labels: DLabel[]; bbox: [number, number, number, number]; notes?: string[] };
 export type DielineInput = { L: number; W: number; H: number; t: number };
 
 export const generatorStyles: {
@@ -109,10 +109,19 @@ const r1 = (n: number) => Math.round(n * 10) / 10;
 
 // ---------- styles ----------
 function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dieline {
-  const { L, W, H, t } = d;
-  const g = Math.min(15, Math.max(10, W * 0.6)); // glue flap
+  // Folding-carton allowances (ECMA-style): length and width panels gain one
+  // board thickness, the panel opposite the glue flap is one thickness
+  // narrower, the depth gains two, the tuck is set in by one thickness.
+  const { L, W, t } = d;
+  const H = d.H + 2 * t;
+  const g = Math.min(15, Math.max(12, W * 0.6)); // glue flap
   const xA = g, xB = g + L + t, xC = xB + W + t, xD = xC + L + t, xE = xD + W;
   const lid = W + t, tuck = Math.min(Math.max(12, W * 0.5), 25), dust = Math.min(W * 0.6, H * 0.6, 40);
+  const notes = [
+    `Panels: ${r1(L + t)} / ${r1(W + t)} / ${r1(L + t)} / ${r1(W)} mm, depth ${r1(H)} mm (inside size + board ${t} mm)`,
+    `Glue flap ${r1(g)} mm, closing panel ${r1(lid)} mm, tuck ${r1(tuck)} mm set in ${r1(t + 0.5)} mm each side`,
+    `Dust flaps ${r1(dust)} mm deep`,
+  ];
   const rects: Rect[] = [
     { x0: 0, y0: 3, x1: g, y1: H - 3, r: { tl: 2, bl: 2 } },
     { x0: xA, y0: 0, x1: xB, y1: H }, { x0: xB, y0: 0, x1: xC, y1: H },
@@ -121,11 +130,11 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   const labels: DLabel[] = [];
   const topLid = (x0: number, x1: number) => {
     rects.push({ x0, y0: -lid, x1, y1: 0 });
-    rects.push({ x0: x0 + 1, y0: -lid - tuck, x1: x1 - 1, y1: -lid, r: { tl: Math.min(8, tuck * 0.6), tr: Math.min(8, tuck * 0.6) } });
+    rects.push({ x0: x0 + t + 0.5, y0: -lid - tuck, x1: x1 - t - 0.5, y1: -lid, r: { tl: Math.min(8, tuck * 0.6), tr: Math.min(8, tuck * 0.6) } });
   };
   const botLid = (x0: number, x1: number) => {
     rects.push({ x0, y0: H, x1, y1: H + lid });
-    rects.push({ x0: x0 + 1, y0: H + lid, x1: x1 - 1, y1: H + lid + tuck, r: { bl: Math.min(8, tuck * 0.6), br: Math.min(8, tuck * 0.6) } });
+    rects.push({ x0: x0 + t + 0.5, y0: H + lid, x1: x1 - t - 0.5, y1: H + lid + tuck, r: { bl: Math.min(8, tuck * 0.6), br: Math.min(8, tuck * 0.6) } });
   };
   // top: lid on the third panel, dust flaps on the side panels
   topLid(xC, xD);
@@ -142,9 +151,10 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
     const glue = (x0: number, w: number): DPath => ({ kind: "glue", closed: true, segs: [{ M: [x0, H] }, { L: [x0 + Math.min(w, W / 2), H + Math.min(w, W / 2)] }, { L: [x0, H + W / 2] }] });
     const extra = [diag(xB + 0.5, W), diag(xD + 0.5, W), glue(xB + 0.5, W), glue(xD + 0.5, W)];
     const paths = [...rectsToPaths(rects), ...extra];
+    notes.push(`Auto bottom: glue the shaded areas; lock flaps ${r1(W / 2 + Math.min(10, W * 0.25))} mm`);
     labels.push({ at: [xA + L / 2, H / 2], text: `L ${r1(L)}` }, { at: [xB + W / 2, H / 2], text: `W ${r1(W)}` },
-      { at: [xD + W / 2, H / 2], text: `H ${r1(H)}` }, { at: [g / 2, H / 2], text: "glue", size: 3 });
-    return { paths, labels, bbox: bboxOf(paths) };
+      { at: [xD + W / 2, H / 2], text: `H ${r1(d.H)}` }, { at: [g / 2, H / 2], text: "glue", size: 3 });
+    return { paths, labels, bbox: bboxOf(paths), notes };
   }
   if (mode === "reverse") botLid(xA, xB);
   else botLid(xC, xD);
@@ -152,13 +162,16 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   rects.push({ x0: xD + 1, y0: H, x1: xE - 0.5, y1: H + dust, r: { br: Math.min(10, dust * 0.5) } });
   const paths = rectsToPaths(rects);
   labels.push({ at: [xA + L / 2, H / 2], text: `L ${r1(L)}` }, { at: [xB + W / 2, H / 2], text: `W ${r1(W)}` },
-    { at: [xD + W / 2, H / 2], text: `H ${r1(H)}` }, { at: [g / 2, H / 2], text: "glue", size: 3 });
-  return { paths, labels, bbox: bboxOf(paths) };
+    { at: [xD + W / 2, H / 2], text: `H ${r1(d.H)}` }, { at: [g / 2, H / 2], text: "glue", size: 3 });
+  return { paths, labels, bbox: bboxOf(paths), notes };
 }
 
 function shippingBox(d: DielineInput): Dieline {
-  const { L, W, H, t } = d;
-  const g = 35, s = 4; // glue flap, slot width
+  // FEFCO 0201 style: panels gain one board thickness, depth two, flaps meet
+  // in the middle (half the width plus one thickness).
+  const { L, W, t } = d;
+  const H = d.H + 2 * t;
+  const g = 35, s = Math.max(4, 2 * t); // glue flap, slot width
   const xs = [g, g + L + t, g + L + W + 2 * t, g + 2 * L + W + 3 * t, g + 2 * L + 2 * W + 4 * t];
   const fh = W / 2 + t;
   const rects: Rect[] = [{ x0: 0, y0: 4, x1: g, y1: H - 4, r: { tl: 3, bl: 3 } }];
@@ -170,9 +183,9 @@ function shippingBox(d: DielineInput): Dieline {
   const paths = rectsToPaths(rects);
   const labels: DLabel[] = [
     { at: [(xs[0] + xs[1]) / 2, H / 2], text: `L ${r1(L)}` }, { at: [(xs[1] + xs[2]) / 2, H / 2], text: `W ${r1(W)}` },
-    { at: [(xs[2] + xs[3]) / 2, H / 2], text: `H ${r1(H)}` }, { at: [g / 2, H / 2], text: "glue", size: 4 },
+    { at: [(xs[2] + xs[3]) / 2, H / 2], text: `H ${r1(d.H)}` }, { at: [g / 2, H / 2], text: "glue", size: 4 },
   ];
-  return { paths, labels, bbox: bboxOf(paths) };
+  return { paths, labels, bbox: bboxOf(paths), notes: [`Panels ${r1(L + t)} / ${r1(W + t)} / ${r1(L + t)} / ${r1(W + t)} mm, depth ${r1(H)} mm (board ${t} mm)`, `Flaps ${r1(fh)} mm, slots ${r1(s)} mm, glue flap ${g} mm`] };
 }
 
 function sleeve(d: DielineInput): Dieline {
@@ -227,7 +240,7 @@ function mailer(d: DielineInput): Dieline {
     { x0: xB0 + 2, y0: yFr, x1: xB1 - 2, y1: yTk, r: { bl: 8, br: 8 } }, // tuck
   ];
   const paths = rectsToPaths(rects);
-  return { paths, labels: [{ at: [xB0 + L / 2, yB0 + W / 2], text: `base ${r1(L)} x ${r1(W)}` }, { at: [xB0 + L / 2, yK + W / 2], text: "lid" }, { at: [xB0 + L / 2, yF1 + H / 2], text: `H ${r1(H)}` }], bbox: bboxOf(paths) };
+  return { paths, labels: [{ at: [xB0 + L / 2, yB0 + W / 2], text: `base ${r1(L)} x ${r1(W)}` }, { at: [xB0 + L / 2, yK + W / 2], text: "lid" }, { at: [xB0 + L / 2, yF1 + H / 2], text: `H ${r1(H)}` }], bbox: bboxOf(paths), notes: [`Roll end tuck front (FEFCO 0427 style), board ${T} mm`, `Inner walls set in ${T} mm, lid ${r1(W + T)} mm, front tuck ${r1(yTk - yFr)} mm`] };
 }
 
 function pillow(d: DielineInput): Dieline {
