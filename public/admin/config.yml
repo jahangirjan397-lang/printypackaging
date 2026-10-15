@@ -82,17 +82,18 @@ collections:
           - { label: "Rigid, magnetic & gift boxes", value: "rigid-gift" }
           - { label: "Inserts & partitions", value: "inserts" }
           - { label: "Folders, cards & hangers", value: "print-folders" }
-      - label: Dieline image
-        name: image
-        widget: image
-        hint: "Dieline ki saaf tasveer (PNG/JPG/WEBP), white background, kam az kam 1000 px. Is par apna naam ya kisi aur brand ka logo na ho."
-      - label: Downloadable file (optional)
+      - label: Dieline PDF (1:1)
         name: file
         widget: file
         required: false
         media_folder: /public/dielines/files
         public_folder: /dielines/files
-        hint: "Asal dieline file jo client download kar sake: PDF ya SVG behtar (AI/CDR har kisi ke paas nahi khulti). Khaali chhor sakte hain."
+        hint: "Sab se asaan: CorelDRAW se dieline ki PDF (1:1 scale) yahan daalein. Website khud is se preview banati hai, asal naap dikhati hai aur client yahi file download karta hai. Tasveer ki zaroorat nahi."
+      - label: Dieline image (optional)
+        name: image
+        widget: image
+        required: false
+        hint: "Sirf agar PDF nahi hai: dieline ki saaf tasveer (PNG/JPG), white background, kam az kam 1000 px. Is par kisi aur brand ka logo na ho."
       - label: Short description
         name: summary
         widget: text

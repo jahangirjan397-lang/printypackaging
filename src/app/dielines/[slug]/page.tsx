@@ -4,7 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import DielineFileDownload from "@/components/DielineFileDownload";
 import ProductQuickQuote from "@/components/ProductQuickQuote";
-import { dielineImage, dielines, getCategoryName, getDielineBySlug } from "@/data/dielines";
+import { dielineImage, dielines, getCategoryName, getDielineBySlug, showsPdf } from "@/data/dielines";
+import DielinePdfPreview from "@/components/DielinePdfPreview";
 import { getProductBySlug } from "@/data/products";
 import { metaDescription, metaTitle } from "@/lib/seo";
 
@@ -94,7 +95,11 @@ export default async function DielinePage({ params }: PageProps) {
         <div>
           <figure className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60">
             <div className="flex items-center justify-center rounded-2xl bg-[repeating-linear-gradient(0deg,#f8fafc,#f8fafc_19px,#eef2f6_20px),repeating-linear-gradient(90deg,transparent,transparent_19px,#eef2f6_20px)] p-4">
-              <Image src={dielineImage(d)} alt={`${d.name} dieline template showing cut and fold lines`} width={d.image.w} height={d.image.h} priority sizes="(max-width: 1024px) 92vw, 640px" className="h-auto max-h-[34rem] w-auto" />
+              {showsPdf(d) && d.file ? (
+                <DielinePdfPreview file={d.file} />
+              ) : (
+                <Image src={dielineImage(d)} alt={`${d.name} dieline template showing cut and fold lines`} width={d.image.w} height={d.image.h} priority sizes="(max-width: 1024px) 92vw, 640px" className="h-auto max-h-[34rem] w-auto" />
+              )}
             </div>
             <figcaption className="mt-3 text-sm font-bold text-slate-500">{d.name} flat layout. Panels, flaps and glue areas shown in standard proportions.</figcaption>
           </figure>
@@ -159,7 +164,7 @@ export default async function DielinePage({ params }: PageProps) {
             {related.map((r) => (
               <Link key={r.slug} href={`/dielines/${r.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 transition hover:-translate-y-1 hover:border-[#FF6A00]">
                 <div className="flex aspect-[4/3] items-center justify-center rounded-2xl bg-slate-50 p-3">
-                  <Image src={dielineImage(r)} alt={`${r.name} dieline`} width={r.image.w} height={r.image.h} sizes="280px" className="max-h-full w-auto object-contain" />
+                  {showsPdf(r) && r.file ? <DielinePdfPreview file={r.file} compact /> : <Image src={dielineImage(r)} alt={`${r.name} dieline`} width={r.image.w} height={r.image.h} sizes="280px" className="max-h-full w-auto object-contain" />}
                 </div>
                 <h3 className="mt-3 font-black group-hover:text-[#FF6A00]">{r.name}</h3>
               </Link>

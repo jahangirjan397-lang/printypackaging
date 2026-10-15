@@ -405,7 +405,7 @@ function readCmsDielines(): Dieline[] {
     .map((f) => {
       try { return JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")) as CmsDieline; } catch { return null; }
     })
-    .filter((d): d is CmsDieline => Boolean(d && !d.draft && d.slug && d.name && d.image && d.summary && !known.has(d.slug)))
+    .filter((d): d is CmsDieline => Boolean(d && !d.draft && d.slug && d.name && (d.image || /\.pdf$/i.test(d.file || "")) && d.summary && !known.has(d.slug)))
     .sort((a, b) => String(b.addedAt || "").localeCompare(String(a.addedAt || "")))
     .map((d) => ({
       slug: d.slug!,
@@ -418,7 +418,7 @@ function readCmsDielines(): Dieline[] {
       tip: d.tip || "Send us your product size and we draw this dieline to fit, free with your quote.",
       product: d.product || undefined,
       image: { w: 1000, h: 1000 },
-      src: d.image,
+      src: d.image || undefined,
       file: d.file || undefined,
       addedAt: d.addedAt,
     }));
@@ -429,7 +429,14 @@ export const dielines: Dieline[] = [...builtInDielines, ...readCmsDielines()];
 export const dielineCount = dielines.length;
 
 export function dielineImage(d: Dieline) {
-  return d.src || `/images/dielines/${d.slug}.webp`;
+  if (d.src) return d.src;
+  // admin entries with only a PDF are drawn in the browser; this is the share image
+  return d.addedAt ? "/images/dielines/reverse-tuck-end.webp" : `/images/dielines/${d.slug}.webp`;
+}
+
+// Admin entry with a PDF but no picture: show the PDF itself
+export function showsPdf(d: Dieline) {
+  return !d.src && Boolean(d.addedAt) && /\.pdf$/i.test(d.file || "");
 }
 
 export function getDielineBySlug(slug: string) {

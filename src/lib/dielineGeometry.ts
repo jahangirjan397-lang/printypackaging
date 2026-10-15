@@ -12,7 +12,7 @@ export type DPath = { kind: "cut" | "fold" | "glue"; segs: Seg[]; closed?: boole
 export type DLabel = { at: Pt; text: string; size?: number };
 // A measured distance from a to b (horizontal or vertical), drawn with arrows
 export type DDim = { a: Pt; b: Pt };
-export type Dieline = { paths: DPath[]; labels: DLabel[]; dims: DDim[]; bbox: [number, number, number, number]; notes?: string[] };
+export type Dieline = { paths: DPath[]; labels: DLabel[]; dims: DDim[]; bbox: [number, number, number, number]; notes?: string[]; areas?: Rect[] };
 export type DielineInput = { L: number; W: number; H: number; t: number };
 export type Unit = "mm" | "cm" | "in";
 
@@ -69,7 +69,11 @@ function overlap(a: number, b: number, c: number, d: number): [number, number] |
 
 const K = 0.5523; // circle-to-bezier constant
 
+// panels of the last layout, used to fill the box shape in themed previews
+let lastAreas: Rect[] = [];
+
 function rectsToPaths(rects: Rect[]): DPath[] {
+  lastAreas = rects;
   const cuts: DPath[] = [], folds: DPath[] = [];
   const line = (kind: "cut" | "fold", a: Pt, b: Pt) => (kind === "cut" ? cuts : folds).push({ kind, segs: [{ M: a }, { L: b }] });
   rects.forEach((r, i) => {
@@ -120,24 +124,31 @@ function bboxOf(paths: DPath[]): [number, number, number, number] {
 }
 
 const r1 = (n: number) => Math.round(n * 10) / 10;
+const IN = 25.4;
+// Small tucks are fully rounded (a half circle), larger ones get round corners
+const tuckR = (w: number, tuck: number) => (w <= 41 ? Math.min(tuck, (w - 1.01) / 2) : Math.min(8, tuck * 0.6));
+// Glue flap and tuck size used on our tuck-end dielines
+const flapSize = (L: number, W: number) => (W >= 4 * IN ? 0.75 * IN : L > 4 * IN ? 0.625 * IN : L <= 1.5 * IN ? 0.375 * IN : 0.5 * IN);
 const hd = (x0: number, x1: number, y: number): DDim => ({ a: [x0, y], b: [x1, y] });
 const vd = (y0: number, y1: number, x: number): DDim => ({ a: [x, y0], b: [x, y1] });
 
 // ---------- styles ----------
 function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dieline {
-  // Folding-carton allowances (ECMA-style): length and width panels gain one
-  // board thickness, the panel opposite the glue flap is one thickness
-  // narrower, the depth gains two, the tuck is set in by one thickness.
+  // Printy factory rules (measured from our own production dielines):
+  // panels are drawn at the inside size, the closing panel equals the width,
+  // glue flap and tuck are 1/2", 5/8" or 3/4" by box size, dust flaps are
+  // the width less 1".
   const { L, W, t } = d;
-  const H = d.H + 2 * t;
-  const g = Math.min(15, Math.max(12, W * 0.6)); // glue flap
-  const xA = g, xB = g + L + t, xC = xB + W + t, xD = xC + L + t, xE = xD + W;
-  const lid = W + t, tuck = Math.min(Math.max(12, W * 0.5), 25), dust = Math.min(W * 0.6, H * 0.6, 40);
+  const H = d.H;
+  const g = flapSize(L, W); // glue flap
+  const xA = g, xB = g + L, xC = xB + W, xD = xC + L, xE = xD + W;
+  const lid = W, tuck = flapSize(L, W), dust = W >= 63.5 ? W - IN : W / 2;
+  void t;
   const notes = [
-    `Panels ${r1(L + t)} / ${r1(W + t)} / ${r1(L + t)} / ${r1(W)} mm, depth ${r1(H)} mm (inside size + board ${t} mm)`,
-    `Glue flap ${r1(g)} mm · closing panel ${r1(lid)} mm · tuck ${r1(tuck)} mm, set in ${r1(t + 0.5)} mm`,
-    `Dust flaps ${r1(dust)} mm`,
+    `Panels ${r1(L)} / ${r1(W)} / ${r1(L)} / ${r1(W)} mm, height ${r1(H)} mm (Printy factory rules)`,
+    `Glue flap ${r1(g)} mm · closing panel ${r1(lid)} mm · tuck ${r1(tuck)} mm · dust flaps ${r1(dust)} mm`,
   ];
+  if (mode === "auto" && Math.min(L, W) < 1.5 * IN) notes.push("Auto bottom needs length and width of at least 1.5 in (38 mm)");
   const rects: Rect[] = [
     { x0: 0, y0: 3, x1: g, y1: H - 3, r: { tl: 2, bl: 2 } },
     { x0: xA, y0: 0, x1: xB, y1: H }, { x0: xB, y0: 0, x1: xC, y1: H },
@@ -147,27 +158,28 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
     { at: [xA + L / 2, H * 0.55], text: "FRONT" }, { at: [xB + W / 2, H * 0.55], text: "SIDE" },
     { at: [xC + L / 2, H * 0.55], text: "BACK" }, { at: [xD + W / 2, H * 0.55], text: "SIDE" },
     { at: [g / 2, H * 0.55], text: "GLUE", size: 0.6 },
-    { at: [xC + L / 2, -lid / 2], text: "LID" },
+    { at: [xA + L / 2, -lid / 2], text: "LID" },
   ];
   const yd = Math.min(12, H * 0.15);
-  const dims: DDim[] = [hd(xA, xB, yd), hd(xB, xC, yd), hd(xC, xD, yd), hd(xD, xE, yd), vd(0, H, xA + Math.min(10, L * 0.18)), vd(-lid, 0, xC + Math.min(10, L * 0.18))];
+  const dims: DDim[] = [hd(xA, xB, yd), hd(xB, xC, yd), hd(xC, xD, yd), hd(xD, xE, yd), vd(0, H, xA + Math.min(10, L * 0.18)), vd(-lid, 0, xA + Math.min(10, L * 0.18))];
   const topLid = (x0: number, x1: number) => {
     rects.push({ x0, y0: -lid, x1, y1: 0 });
-    rects.push({ x0: x0 + t + 0.5, y0: -lid - tuck, x1: x1 - t - 0.5, y1: -lid, r: { tl: Math.min(8, tuck * 0.6), tr: Math.min(8, tuck * 0.6) } });
+    rects.push({ x0: x0 + 0.5, y0: -lid - tuck, x1: x1 - 0.5, y1: -lid, r: { tl: tuckR(x1 - x0, tuck), tr: tuckR(x1 - x0, tuck) } });
   };
   const botLid = (x0: number, x1: number) => {
     rects.push({ x0, y0: H, x1, y1: H + lid });
-    rects.push({ x0: x0 + t + 0.5, y0: H + lid, x1: x1 - t - 0.5, y1: H + lid + tuck, r: { bl: Math.min(8, tuck * 0.6), br: Math.min(8, tuck * 0.6) } });
+    rects.push({ x0: x0 + 0.5, y0: H + lid, x1: x1 - 0.5, y1: H + lid + tuck, r: { bl: tuckR(x1 - x0, tuck), br: tuckR(x1 - x0, tuck) } });
     labels.push({ at: [(x0 + x1) / 2, H + lid / 2], text: "BOTTOM" });
   };
-  topLid(xC, xD);
+  topLid(xA, xB); // our dielines put the lid on the first panel
   rects.push({ x0: xB + 0.5, y0: -dust, x1: xC - 1, y1: 0, r: { tl: Math.min(10, dust * 0.5) } });
   rects.push({ x0: xD + 1, y0: -dust, x1: xE - 0.5, y1: 0, r: { tr: Math.min(10, dust * 0.5) } });
   if (mode === "auto") {
     // crash-lock base: hooked flaps on the long panels, glued diagonal flaps on the short panels
-    const f = W / 2 + Math.min(10, W * 0.25);
-    rects.push({ x0: xA + 1, y0: H, x1: xB - 1, y1: H + f, r: { bl: 4, br: 4 } });
-    rects.push({ x0: xC + 1, y0: H, x1: xD - 1, y1: H + f, r: { bl: 4, br: 4 } });
+    // lock flaps are half the width plus a 1/8" relief, as on our auto-lock dielines
+    const rel = 0.125 * IN, f = W / 2 + rel;
+    rects.push({ x0: xA + rel, y0: H, x1: xB - rel, y1: H + f, r: { bl: 4, br: 4 } });
+    rects.push({ x0: xC + rel, y0: H, x1: xD - rel, y1: H + f, r: { bl: 4, br: 4 } });
     rects.push({ x0: xB + 0.5, y0: H, x1: xC - 0.5, y1: H + W / 2 });
     rects.push({ x0: xD + 0.5, y0: H, x1: xE - 0.5, y1: H + W / 2 });
     const diag = (x0: number): DPath => ({ kind: "fold", segs: [{ M: [x0, H] }, { L: [x0 + W / 2, H + W / 2] }] });
@@ -177,8 +189,8 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
     labels.push({ at: [xA + L / 2, H + f / 2], text: "LOCK" }, { at: [xC + L / 2, H + f / 2], text: "LOCK" });
     return { paths, labels, dims, bbox: bboxOf(paths), notes };
   }
-  if (mode === "reverse") botLid(xA, xB);
-  else botLid(xC, xD);
+  if (mode === "reverse") botLid(xC, xD);
+  else botLid(xA, xB);
   rects.push({ x0: xB + 0.5, y0: H, x1: xC - 1, y1: H + dust, r: { bl: Math.min(10, dust * 0.5) } });
   rects.push({ x0: xD + 1, y0: H, x1: xE - 0.5, y1: H + dust, r: { br: Math.min(10, dust * 0.5) } });
   const paths = rectsToPaths(rects);
@@ -250,33 +262,43 @@ function tray(d: DielineInput): Dieline {
 }
 
 function mailer(d: DielineInput): Dieline {
-  // Roll end tuck front (FEFCO 0427 style, standard proportions)
+  // Double wall tuck top mailer, laid out like our own production dielines:
+  // tuck (H) / lid (W) / back wall (H) / base (W) / front wall (H) down the
+  // middle; double side walls (inner H + outer H) beside the base; square
+  // dust flaps on the front and back walls; a double score of one board
+  // thickness at the lid hinge and between the side walls.
   const { L, W, H, t } = d;
-  const T = Math.max(t, 1.5);
-  const xL1 = H - T, xB0 = 2 * H - T, xB1 = xB0 + L, xR1 = xB1 + H, xR2 = xR1 + H - T;
-  const yF1 = H - T, yB0 = 2 * H - T, yB1 = yB0 + W, yK = yB1 + H + T, yLid = yK + W + T, yFr = yLid + H, yTk = yFr + Math.min(H * 0.8, 30);
-  const ear = Math.min(H * 0.9, W * 0.45);
+  const c = t >= 1 ? Math.max(1.6, t * 1.1) : 0.8; // double-score gap
+  const x0 = 2 * H, x1 = x0 + L; // base columns
+  const yT = 0, yL = H, yG = H + W, yK = yG + c, yB = 2 * H + W, yF = yB + W, yE = yF + H - c;
+  const ear = H * 0.92, nick = 0.5;
   const rects: Rect[] = [
-    { x0: xB0, y0: yB0, x1: xB1, y1: yB1 }, // base
-    { x0: xB0, y0: yF1, x1: xB1, y1: yB0 }, { x0: xB0 + T, y0: 0, x1: xB1 - T, y1: yF1, r: { tl: 3, tr: 3 } }, // front outer + inner wall
-    { x0: xL1, y0: yB0, x1: xB0, y1: yB1 }, { x0: 0, y0: yB0 + T, x1: xL1, y1: yB1 - T }, // left outer + inner
-    { x0: xB1, y0: yB0, x1: xR1, y1: yB1 }, { x0: xR1, y0: yB0 + T, x1: xR2, y1: yB1 - T }, // right outer + inner
-    { x0: xL1 + 1, y0: yF1 + 1, x1: xB0, y1: yB0 - 1, r: { tl: 4 } }, { x0: xB1, y0: yF1 + 1, x1: xR1 - 1, y1: yB0 - 1, r: { tr: 4 } }, // front dust flaps
-    { x0: xB0, y0: yB1, x1: xB1, y1: yK }, // back wall
-    { x0: xB0 - ear, y0: yB1 + 1, x1: xB0, y1: yK - 1, r: { tl: 4, bl: 4 } }, { x0: xB1, y0: yB1 + 1, x1: xB1 + ear, y1: yK - 1, r: { tr: 4, br: 4 } }, // back dust flaps
-    { x0: xB0, y0: yK, x1: xB1, y1: yLid }, // lid
-    { x0: xB0 - ear, y0: yK + 2, x1: xB0, y1: yLid - 2, r: { tl: 6, bl: 6 } }, { x0: xB1, y0: yK + 2, x1: xB1 + ear, y1: yLid - 2, r: { tr: 6, br: 6 } }, // lid ears
-    { x0: xB0, y0: yLid, x1: xB1, y1: yFr }, // lid front
-    { x0: xB0 + 2, y0: yFr, x1: xB1 - 2, y1: yTk, r: { bl: 8, br: 8 } }, // tuck
+    { x0, y0: yT, x1, y1: yL, r: { tl: Math.min(10, H * 0.25), tr: Math.min(10, H * 0.25) } }, // tuck
+    { x0: x0 - ear, y0: yT + H * 0.05, x1: x0, y1: yL - 1, r: { tl: H * 0.45, bl: H * 0.25 } }, { x0: x1, y0: yT + H * 0.05, x1: x1 + ear, y1: yL - 1, r: { tr: H * 0.45, br: H * 0.25 } }, // tuck ears
+    { x0, y0: yL, x1, y1: yG }, // lid
+    { x0: x0 - ear * 0.7, y0: yL + W * 0.08, x1: x0, y1: yG - W * 0.08, r: { tl: 8, bl: 8 } }, { x0: x1, y0: yL + W * 0.08, x1: x1 + ear * 0.7, y1: yG - W * 0.08, r: { tr: 8, br: 8 } }, // lid ears
+    { x0, y0: yG, x1, y1: yK }, // hinge double score
+    { x0, y0: yK, x1, y1: yB }, // back wall
+    { x0: H + c, y0: yK, x1: x0, y1: yB - nick }, { x0: x1, y0: yK, x1: x1 + H - c, y1: yB - nick }, // back dust flaps
+    { x0, y0: yB, x1, y1: yF }, // base
+    { x0: H + c, y0: yB, x1: x0, y1: yF }, { x0: H, y0: yB, x1: H + c, y1: yF }, { x0: 0, y0: yB, x1: H, y1: yF }, // left outer, score, inner
+    { x0: x1, y0: yB, x1: x1 + H - c, y1: yF }, { x0: x1 + H - c, y0: yB, x1: x1 + H, y1: yF }, { x0: x1 + H, y0: yB, x1: x1 + 2 * H, y1: yF }, // right
+    { x0, y0: yF, x1, y1: yE }, // front wall
+    { x0: H + c, y0: yF + nick, x1: x0, y1: yE }, { x0: x1, y0: yF + nick, x1: x1 + H - c, y1: yE }, // front dust flaps
   ];
+  // locking tabs on the inner side walls
+  const tab = Math.min(8, H * 0.12), tl = Math.min(25, W * 0.15);
+  for (const yy of [yB + W * 0.25 - tl / 2, yB + W * 0.75 - tl / 2]) {
+    rects.push({ x0: -tab, y0: yy, x1: 0, y1: yy + tl, r: { tl: 2, bl: 2 } }, { x0: x1 + 2 * H, y0: yy, x1: x1 + 2 * H + tab, y1: yy + tl, r: { tr: 2, br: 2 } });
+  }
   const paths = rectsToPaths(rects);
-  const cx = xB0 + L / 2;
+  const cx = x0 + L / 2;
   return {
     paths,
-    labels: [{ at: [cx, yB0 + W * 0.6], text: "BASE" }, { at: [cx, yK + W * 0.6], text: "LID" }, { at: [cx, yF1 + H * 0.6], text: "FRONT" }, { at: [cx, yB1 + (yK - yB1) * 0.6], text: "BACK" }, { at: [cx, yFr + (yTk - yFr) * 0.55], text: "TUCK" }, { at: [xL1 + H / 2, yB0 + W * 0.6], text: "SIDE" }],
-    dims: [hd(xB0, xB1, yB0 + Math.min(14, W * 0.2)), vd(yB0, yB1, xB0 + Math.min(14, L * 0.15)), vd(yF1, yB0, xB0 + L * 0.8), vd(yK, yLid, xB0 + Math.min(14, L * 0.15))],
+    labels: [{ at: [cx, yT + H * 0.55], text: "TUCK" }, { at: [cx, yL + W * 0.55], text: "LID" }, { at: [cx, yK + (yB - yK) * 0.55], text: "BACK" }, { at: [cx, yB + W * 0.55], text: "BASE" }, { at: [cx, yF + H * 0.55], text: "FRONT" }, { at: [H * 0.5, yB + W * 0.55], text: "SIDE" }, { at: [x1 + 1.5 * H, yB + W * 0.55], text: "SIDE" }],
+    dims: [hd(x0, x1, yB + Math.min(14, W * 0.2)), vd(yB, yF, x0 + Math.min(14, L * 0.15)), vd(yF, yE, x0 + L * 0.8), vd(yL, yG, x0 + Math.min(14, L * 0.15)), hd(0, H, yB + W * 0.85)],
     bbox: bboxOf(paths),
-    notes: [`Roll end tuck front (FEFCO 0427 style) · board ${T} mm`, `Inner walls set in ${T} mm · lid ${r1(W + T)} mm · front tuck ${r1(yTk - yFr)} mm`],
+    notes: [`Double wall tuck top (Printy layout) · base ${r1(L)} × ${r1(W)} mm · walls ${r1(H)} mm`, `Double score ${r1(c)} mm at the lid hinge and side walls · locking tabs on the inner walls`],
   };
 }
 
@@ -308,6 +330,12 @@ function pillow(d: DielineInput): Dieline {
 }
 
 export function buildDieline(style: GeneratorStyle, input: DielineInput): Dieline {
+  lastAreas = [];
+  const dl = buildRaw(style, input);
+  return { ...dl, areas: lastAreas.length ? lastAreas : undefined };
+}
+
+function buildRaw(style: GeneratorStyle, input: DielineInput): Dieline {
   switch (style) {
     case "reverse-tuck-end": return tuckEnd(input, "reverse");
     case "straight-tuck-end": return tuckEnd(input, "straight");
@@ -364,14 +392,29 @@ function svgD(p: DPath) {
   return p.segs.map((s) => (s.M ? `M${f2(s.M[0])} ${f2(s.M[1])}` : s.L ? `L${f2(s.L[0])} ${f2(s.L[1])}` : s.C ? `C${s.C.map((q) => `${f2(q[0])} ${f2(q[1])}`).join(" ")}` : "")).join(" ") + (p.closed ? " Z" : "");
 }
 
-const COLORS = { cut: "#07111F", fold: "#FF6A00", glue: "#00C2E8", dim: "#007C91", label: "#94A3B8" };
+// Panel outline with its rounded corners, for the board fill
+function roundRectD(r: Rect) {
+  const q = r.r || {};
+  const tl = q.tl || 0, tr = q.tr || 0, br = q.br || 0, bl = q.bl || 0;
+  return `M${f2(r.x0 + tl)} ${f2(r.y0)}H${f2(r.x1 - tr)}${tr ? `A${f2(tr)} ${f2(tr)} 0 0 1 ${f2(r.x1)} ${f2(r.y0 + tr)}` : ""}V${f2(r.y1 - br)}${br ? `A${f2(br)} ${f2(br)} 0 0 1 ${f2(r.x1 - br)} ${f2(r.y1)}` : ""}H${f2(r.x0 + bl)}${bl ? `A${f2(bl)} ${f2(bl)} 0 0 1 ${f2(r.x0)} ${f2(r.y1 - bl)}` : ""}V${f2(r.y0 + tl)}${tl ? `A${f2(tl)} ${f2(tl)} 0 0 1 ${f2(r.x0 + tl)} ${f2(r.y0)}` : ""}Z`;
+}
+
+
+// Looks for the on-screen dieline (downloads stay clean for production)
+export type ThemeId = "printy" | "kraft" | "blueprint";
+export const THEMES: Record<ThemeId, { name: string; bg: string; fill: string; cut: string; fold: string; glue: string; dim: string; label: string }> = {
+  printy: { name: "Printy Clean", bg: "#ffffff", fill: "#EEF6FA", cut: "#07111F", fold: "#FF6A00", glue: "#00C2E8", dim: "#007C91", label: "#7C93A8" },
+  kraft: { name: "Kraft Board", bg: "#FBF7F1", fill: "#D8B888", cut: "#4A2E14", fold: "#FFFFFF", glue: "#FFFFFF", dim: "#07111F", label: "#7A5530" },
+  blueprint: { name: "Night Blueprint", bg: "#07111F", fill: "#0E2740", cut: "#FFFFFF", fold: "#FF8A3D", glue: "#00C2E8", dim: "#00C2E8", label: "#6E8CA8" },
+};
 
 // Printy logo for the footer of downloaded files: a PNG data URI for SVG and
 // CMYK pixels (hex) for the PDF. Made in the browser by loadBrandLogo().
 export type Brand = { dataUri: string; hex: string; pw: number; ph: number };
 const SITE = "printypackaging.com";
 
-export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boolean; unit?: Unit; dims?: boolean; brand?: Brand } = {}) {
+export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boolean; unit?: Unit; dims?: boolean; brand?: Brand; theme?: ThemeId } = {}) {
+  const th = THEMES[opts.theme ?? "printy"];
   const unit = opts.unit ?? "mm";
   const [x0, y0, x1, y1] = dl.bbox;
   const span = Math.max(x1 - x0, y1 - y0);
@@ -385,23 +428,24 @@ export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boole
   const parts = [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${f2(w)}mm" height="${f2(h)}mm" viewBox="0 0 ${f2(w)} ${f2(h)}" font-family="Arial, Helvetica, sans-serif">`,
     `<title>${xmlEsc(title)}</title>`,
-    `<rect width="100%" height="100%" fill="#ffffff"/>`,
-    opts.preview ? "" : `<text x="${m}" y="${m * 0.5 + 6}" font-size="4.5" fill="${COLORS.cut}">${xmlEsc(title)} · Printy Packaging free dieline · solid = cut, dashed = fold · 1:1</text>`,
+    `<rect width="100%" height="100%" fill="${th.bg}"/>`,
+    opts.preview ? "" : `<text x="${m}" y="${m * 0.5 + 6}" font-size="4.5" fill="${th.cut}">${xmlEsc(title)} · Printy Packaging free dieline · solid = cut, dashed = fold · 1:1</text>`,
     `<g transform="translate(${f2(tx)} ${f2(ty)})">`,
-    `<g id="glue">${dl.paths.filter((p) => p.kind === "glue").map((p) => `<path d="${svgD(p)}" fill="${COLORS.glue}" fill-opacity="0.18"/>`).join("")}</g>`,
-    `<g id="labels" fill="${COLORS.label}" font-weight="700" text-anchor="middle" dominant-baseline="middle">${dl.labels.map((l) => `<text x="${f2(l.at[0])}" y="${f2(l.at[1])}" font-size="${f2(labelSize(l))}" letter-spacing="${f2(labelSize(l) * 0.08)}">${xmlEsc(l.text)}</text>`).join("")}</g>`,
-    `<g id="dieline-cut" fill="none" stroke="${COLORS.cut}" stroke-width="${f2(sw)}" stroke-linecap="round" stroke-linejoin="round">${dl.paths.filter((p) => p.kind === "cut").map((p) => `<path d="${svgD(p)}"/>`).join("")}</g>`,
-    `<g id="dieline-crease" fill="none" stroke="${COLORS.fold}" stroke-width="${f2(sw)}" stroke-dasharray="${f2(sw * 7)} ${f2(sw * 4)}">${dl.paths.filter((p) => p.kind === "fold").map((p) => `<path d="${svgD(p)}"/>`).join("")}</g>`,
-    `<g id="dimensions" stroke="${COLORS.dim}" fill="${COLORS.dim}" stroke-width="${f2(sw * 0.7)}">`,
+    opts.preview && th.fill && dl.areas ? `<g id="board" fill="${th.fill}">${dl.areas.map((a) => `<path d="${roundRectD(a)}"/>`).join("")}</g>` : "",
+    `<g id="glue">${dl.paths.filter((p) => p.kind === "glue").map((p) => `<path d="${svgD(p)}" fill="${th.glue}" fill-opacity="0.35"/>`).join("")}</g>`,
+    `<g id="labels" fill="${th.label}" font-weight="700" text-anchor="middle" dominant-baseline="middle">${dl.labels.map((l) => `<text x="${f2(l.at[0])}" y="${f2(l.at[1])}" font-size="${f2(labelSize(l))}" letter-spacing="${f2(labelSize(l) * 0.08)}">${xmlEsc(l.text)}</text>`).join("")}</g>`,
+    `<g id="dieline-cut" fill="none" stroke="${th.cut}" stroke-width="${f2(sw)}" stroke-linecap="round" stroke-linejoin="round">${dl.paths.filter((p) => p.kind === "cut").map((p) => `<path d="${svgD(p)}"/>`).join("")}</g>`,
+    `<g id="dieline-crease" fill="none" stroke="${th.fold}" stroke-width="${f2(sw)}" stroke-dasharray="${f2(sw * 7)} ${f2(sw * 4)}">${dl.paths.filter((p) => p.kind === "fold").map((p) => `<path d="${svgD(p)}"/>`).join("")}</g>`,
+    `<g id="dimensions" stroke="${th.dim}" fill="${th.dim}" stroke-width="${f2(sw * 0.7)}">`,
     ...prims.map((p) =>
       "line" in p ? `<path d="M${f2(p.line[0][0])} ${f2(p.line[0][1])}L${f2(p.line[1][0])} ${f2(p.line[1][1])}"/>`
         : "tri" in p ? `<path stroke="none" d="M${p.tri.map((q) => `${f2(q[0])} ${f2(q[1])}`).join("L")}Z"/>`
-          : `<text stroke="#ffffff" stroke-width="${f2(p.text.size * 0.35)}" paint-order="stroke" font-size="${f2(p.text.size)}" font-weight="700" text-anchor="middle" dominant-baseline="middle" x="${f2(p.text.at[0])}" y="${f2(p.text.at[1])}"${p.text.rot ? ` transform="rotate(-90 ${f2(p.text.at[0])} ${f2(p.text.at[1])})"` : ""}>${xmlEsc(p.text.str)}</text>`),
+          : `<text stroke="${th.bg}" stroke-width="${f2(p.text.size * 0.35)}" paint-order="stroke" font-size="${f2(p.text.size)}" font-weight="700" text-anchor="middle" dominant-baseline="middle" x="${f2(p.text.at[0])}" y="${f2(p.text.at[1])}"${p.text.rot ? ` transform="rotate(-90 ${f2(p.text.at[0])} ${f2(p.text.at[1])})"` : ""}>${xmlEsc(p.text.str)}</text>`),
     `</g></g>`,
     opts.preview ? "" : `<g id="printy-packaging" transform="translate(${f2(m)} ${f2(h - foot - 2)})">` +
-      (opts.brand ? `<image href="${opts.brand.dataUri}" x="0" y="2" width="${f2(9 * opts.brand.pw / opts.brand.ph)}" height="9"/>` : `<text x="0" y="9" font-size="6" font-weight="700" fill="${COLORS.cut}">Printy Packaging</text>`) +
-      `<text x="${f2(opts.brand ? 9 * opts.brand.pw / opts.brand.ph + 5 : 52)}" y="6.5" font-size="3.6" font-weight="700" fill="${COLORS.cut}">Free dieline from ${SITE}</text>` +
-      `<text x="${f2(opts.brand ? 9 * opts.brand.pw / opts.brand.ph + 5 : 52)}" y="11" font-size="3" fill="${COLORS.dim}">Custom printed boxes from 100 pcs · free design help · ${SITE}/dieline-generator</text></g>`,
+      (opts.brand ? `<image href="${opts.brand.dataUri}" x="0" y="2" width="${f2(9 * opts.brand.pw / opts.brand.ph)}" height="9"/>` : `<text x="0" y="9" font-size="6" font-weight="700" fill="${th.cut}">Printy Packaging</text>`) +
+      `<text x="${f2(opts.brand ? 9 * opts.brand.pw / opts.brand.ph + 5 : 52)}" y="6.5" font-size="3.6" font-weight="700" fill="${th.cut}">Free dieline from ${SITE}</text>` +
+      `<text x="${f2(opts.brand ? 9 * opts.brand.pw / opts.brand.ph + 5 : 52)}" y="11" font-size="3" fill="${th.dim}">Custom printed boxes from 100 pcs · free design help · ${SITE}/dieline-generator</text></g>`,
     `</svg>`,
   ];
   return parts.join("");
