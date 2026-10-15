@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import type { GeneratorStyle } from "@/data/dielines";
 import { buildDieline, dielineToPdf, dielineToSvg, formatLength, generatorStyles, loadBrandLogo, unitToMm, type Unit } from "@/lib/dielineGeometry";
 import DielineLeadGate, { readDielineLead, trackDieline } from "@/components/DielineLeadGate";
+import Box3D from "@/components/Box3D";
 
 const boards = [
   { id: "card", name: "Card / SBS", sub: "0.5 mm", t: 0.5 },
@@ -67,6 +68,7 @@ export default function DielineGenerator() {
   const [board, setBoard] = useState(startFlute ? "e-flute" : "card");
   const [showDims, setShowDims] = useState(true);
   const [zoom, setZoom] = useState(1);
+  const [view, setView] = useState<"2d" | "3d">("2d");
   const [pending, setPending] = useState<"svg" | "pdf" | null>(null);
   const [registered, setRegistered] = useState(() => Boolean(readDielineLead()));
 
@@ -237,6 +239,14 @@ export default function DielineGenerator() {
             <p className="text-xs font-bold text-slate-500">{sizeText} inside · {boardInfo.name} {boardInfo.sub}</p>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-[11px] font-black">
+            <span role="tablist" aria-label="View" className="flex rounded-full bg-slate-100 p-0.5">
+              {(["2d", "3d"] as const).map((v) => (
+                <button key={v} type="button" role="tab" aria-selected={view === v} onClick={() => setView(v)}
+                  className={`rounded-full px-3 py-1 ${view === v ? "bg-[#FF6A00] text-white shadow" : "text-slate-600"}`}>
+                  {v === "2d" ? "Dieline" : "3D box"}
+                </button>
+              ))}
+            </span>
             <span className="flex items-center gap-1.5 rounded-full bg-slate-50 px-2.5 py-1 text-slate-600"><i className="h-0.5 w-4 bg-[#07111F]" /> Cut</span>
             <span className="flex items-center gap-1.5 rounded-full bg-slate-50 px-2.5 py-1 text-slate-600"><i className="h-0 w-4 border-t-2 border-dashed border-[#FF6A00]" /> Fold</span>
             <button type="button" onClick={() => setShowDims((v) => !v)} aria-pressed={showDims}
@@ -251,7 +261,9 @@ export default function DielineGenerator() {
           </div>
         </div>
         <div className="relative max-h-[44rem] flex-1 overflow-auto bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] p-4">
-          {result ? (
+          {result && view === "3d" ? (
+            <Box3D L={nums.L} W={nums.W} H={nums.H} label={`${meta.name} ${sizeText}`} />
+          ) : result ? (
             <div
               className="mx-auto [&>svg]:h-auto [&>svg]:w-full"
               style={{ width: `${Math.round(zoom * 100)}%`, maxWidth: `${Math.round(zoom * 48)}rem` }}

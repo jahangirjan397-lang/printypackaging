@@ -150,7 +150,6 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   ];
   if (mode === "auto" && Math.min(L, W) < 1.5 * IN) notes.push("Auto bottom needs length and width of at least 1.5 in (38 mm)");
   const rects: Rect[] = [
-    { x0: 0, y0: 3, x1: g, y1: H - 3, r: { tl: 2, bl: 2 } },
     { x0: xA, y0: 0, x1: xB, y1: H }, { x0: xB, y0: 0, x1: xC, y1: H },
     { x0: xC, y0: 0, x1: xD, y1: H }, { x0: xD, y0: 0, x1: xE, y1: H },
   ];
@@ -176,9 +175,36 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
     rects.push({ x0: x0 + 0.5, y0: H + lid, x1: x1 - 0.5, y1: H + lid + tuck, r: { bl: tuckR(x1 - x0, tuck), br: tuckR(x1 - x0, tuck) } });
     labels.push({ at: [(x0 + x1) / 2, H + lid / 2], text: "BOTTOM" });
   };
+  // Dust flaps as on our dielines: a small relief nick at both ends of the
+  // fold, and the rounded corner on the side away from the lid.
+  const dustFlaps: { a: number; b: number; y: number; dir: number; roundLeft: boolean }[] = [];
+  const finish = (base: DPath[]) => {
+    // tapered glue flap, like our files
+    const tg = Math.min(g * 0.3, H * 0.1);
+    let out = base.filter((p) => !(p.kind === "cut" && p.segs.length === 2 && p.segs[0].M && p.segs[1].L &&
+      Math.abs(p.segs[0].M[0] - xA) < 0.01 && Math.abs(p.segs[1].L[0] - xA) < 0.01));
+    out.push({ kind: "cut", segs: [{ M: [xA, 0] }, { L: [0, tg] }, { L: [0, H - tg] }, { L: [xA, H] }] }, { kind: "fold", segs: [{ M: [xA, 0] }, { L: [xA, H] }] });
+    lastAreas = [...lastAreas, { x0: 0, y0: tg, x1: xA, y1: H - tg }];
+    for (const f of dustFlaps) {
+      // the panel edge under the flap becomes a fold instead of a cut
+      out = out.filter((p) => !(p.kind === "cut" && p.segs.length === 2 && p.segs[0].M && p.segs[1].L &&
+        Math.abs(p.segs[0].M[1] - f.y) < 0.01 && Math.abs(p.segs[1].L[1] - f.y) < 0.01 &&
+        Math.min(p.segs[0].M[0], p.segs[1].L[0]) >= f.a - 0.01 && Math.max(p.segs[0].M[0], p.segs[1].L[0]) <= f.b + 0.01));
+      const sN = Math.min(1.5, (f.b - f.a) * 0.06), R = Math.min(10, dust * 0.5, (f.b - f.a) / 2 - sN);
+      const Y = (v: number) => f.y + f.dir * v;
+      const segs: Seg[] = [{ M: [f.a, f.y] }, { L: [f.a + sN, Y(sN)] }];
+      if (f.roundLeft) segs.push({ L: [f.a + sN, Y(dust - R)] }, { C: [[f.a + sN, Y(dust - R + R * K)], [f.a + sN + R - R * K, Y(dust)], [f.a + sN + R, Y(dust)]] });
+      else segs.push({ L: [f.a + sN, Y(dust)] });
+      if (!f.roundLeft) segs.push({ L: [f.b - sN - R, Y(dust)] }, { C: [[f.b - sN - R + R * K, Y(dust)], [f.b - sN, Y(dust - R + R * K)], [f.b - sN, Y(dust - R)]] });
+      else segs.push({ L: [f.b - sN, Y(dust)] });
+      segs.push({ L: [f.b - sN, Y(sN)] }, { L: [f.b, f.y] });
+      out.push({ kind: "cut", segs }, { kind: "fold", segs: [{ M: [f.a, f.y] }, { L: [f.b, f.y] }] });
+      lastAreas = [...lastAreas, { x0: f.a + sN, x1: f.b - sN, y0: Math.min(f.y, Y(dust)), y1: Math.max(f.y, Y(dust)), r: f.dir < 0 ? (f.roundLeft ? { tl: R } : { tr: R }) : (f.roundLeft ? { bl: R } : { br: R }) }];
+    }
+    return out;
+  };
   topLid(xA, xB); // our dielines put the lid on the first panel
-  rects.push({ x0: xB + 0.5, y0: -dust, x1: xC - 1, y1: 0, r: { tl: Math.min(10, dust * 0.5) } });
-  rects.push({ x0: xD + 1, y0: -dust, x1: xE - 0.5, y1: 0, r: { tr: Math.min(10, dust * 0.5) } });
+  dustFlaps.push({ a: xB, b: xC, y: 0, dir: -1, roundLeft: false }, { a: xD, b: xE, y: 0, dir: -1, roundLeft: true });
   if (mode === "auto") {
     // crash-lock base: hooked flaps on the long panels, glued diagonal flaps on the short panels
     // lock flaps are half the width plus a 1/8" relief, as on our auto-lock dielines
@@ -189,16 +215,16 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
     rects.push({ x0: xD + 0.5, y0: H, x1: xE - 0.5, y1: H + W / 2 });
     const diag = (x0: number): DPath => ({ kind: "fold", segs: [{ M: [x0, H] }, { L: [x0 + W / 2, H + W / 2] }] });
     const glue = (x0: number): DPath => ({ kind: "glue", closed: true, segs: [{ M: [x0, H] }, { L: [x0 + W / 2, H + W / 2] }, { L: [x0, H + W / 2] }] });
-    const paths = [...rectsToPaths(rects), diag(xB + 0.5), diag(xD + 0.5), glue(xB + 0.5), glue(xD + 0.5)];
+    const paths = [...finish(rectsToPaths(rects)), diag(xB + 0.5), diag(xD + 0.5), glue(xB + 0.5), glue(xD + 0.5)];
     notes.push(`Auto bottom: glue the shaded areas · lock flaps ${r1(f)} mm`);
     labels.push({ at: [xA + L / 2, H + f / 2], text: "LOCK" }, { at: [xC + L / 2, H + f / 2], text: "LOCK" });
     return { paths, labels, dims, bbox: bboxOf(paths), notes };
   }
   if (mode === "reverse") botLid(xC, xD);
   else botLid(xA, xB);
-  rects.push({ x0: xB + 0.5, y0: H, x1: xC - 1, y1: H + dust, r: { bl: Math.min(10, dust * 0.5) } });
-  rects.push({ x0: xD + 1, y0: H, x1: xE - 0.5, y1: H + dust, r: { br: Math.min(10, dust * 0.5) } });
-  const paths = [...rectsToPaths(rects), ...slits];
+  // bottom lid on the third panel (reverse) or the first (straight): round away from it
+  dustFlaps.push({ a: xB, b: xC, y: H, dir: 1, roundLeft: mode === "reverse" }, { a: xD, b: xE, y: H, dir: 1, roundLeft: mode !== "reverse" });
+  const paths = [...finish(rectsToPaths(rects)), ...slits];
   if (d.slitLock) notes.push("Slit locks on both tucks");
   return { paths, labels, dims, bbox: bboxOf(paths), notes };
 }
@@ -406,6 +432,24 @@ function roundRectD(r: Rect) {
 }
 
 
+// Same rounded panel as roundRectD, as PDF path operators
+function roundRectOps(r: Rect, X: (x: number) => string, Y: (y: number) => string) {
+  const q = r.r || {};
+  const tl = q.tl || 0, tr = q.tr || 0, br = q.br || 0, bl = q.bl || 0;
+  const c = (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number) => `${X(x1)} ${Y(y1)} ${X(x2)} ${Y(y2)} ${X(x3)} ${Y(y3)} c`;
+  return [
+    `${X(r.x0 + tl)} ${Y(r.y0)} m`, `${X(r.x1 - tr)} ${Y(r.y0)} l`,
+    tr ? c(r.x1 - tr + tr * K, r.y0, r.x1, r.y0 + tr - tr * K, r.x1, r.y0 + tr) : "",
+    `${X(r.x1)} ${Y(r.y1 - br)} l`,
+    br ? c(r.x1, r.y1 - br + br * K, r.x1 - br + br * K, r.y1, r.x1 - br, r.y1) : "",
+    `${X(r.x0 + bl)} ${Y(r.y1)} l`,
+    bl ? c(r.x0 + bl - bl * K, r.y1, r.x0, r.y1 - bl + bl * K, r.x0, r.y1 - bl) : "",
+    `${X(r.x0)} ${Y(r.y0 + tl)} l`,
+    tl ? c(r.x0, r.y0 + tl - tl * K, r.x0 + tl - tl * K, r.y0, r.x0 + tl, r.y0) : "",
+    "h",
+  ].filter(Boolean).join(" ");
+}
+
 // Looks for the on-screen dieline (downloads stay clean for production)
 export type ThemeId = "printy" | "kraft" | "blueprint";
 export const THEMES: Record<ThemeId, { name: string; bg: string; fill: string; cut: string; fold: string; glue: string; dim: string; label: string }> = {
@@ -437,7 +481,7 @@ export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boole
     `<rect width="100%" height="100%" fill="${th.bg}"/>`,
     opts.preview ? "" : `<text x="${m}" y="${m * 0.5 + 6}" font-size="4.5" fill="${th.cut}">${xmlEsc(title)} · Printy Packaging free dieline · solid = cut, dashed = fold · 1:1</text>`,
     `<g transform="translate(${f2(tx)} ${f2(ty)})">`,
-    opts.preview && th.fill && dl.areas ? `<g id="board" fill="${th.fill}">${dl.areas.map((a) => `<path d="${roundRectD(a)}"/>`).join("")}</g>` : "",
+    th.fill && dl.areas ? `<g id="board" fill="${th.fill}">${dl.areas.map((a) => `<path d="${roundRectD(a)}"/>`).join("")}</g>` : "",
     `<g id="glue">${dl.paths.filter((p) => p.kind === "glue").map((p) => `<path d="${svgD(p)}" fill="${th.glue}" fill-opacity="0.35"/>`).join("")}</g>`,
     `<g id="labels" fill="${th.label}" font-weight="700" text-anchor="middle" dominant-baseline="middle">${dl.labels.map((l) => `<text x="${f2(l.at[0])}" y="${f2(l.at[1])}" font-size="${f2(labelSize(l))}" letter-spacing="${f2(labelSize(l) * 0.08)}">${xmlEsc(l.text)}</text>`).join("")}</g>`,
     `<g id="dieline-cut" fill="none" stroke="${th.cut}" stroke-width="${f2(sw)}" stroke-linecap="round" stroke-linejoin="round">${dl.paths.filter((p) => p.kind === "cut").map((p) => `<path d="${svgD(p)}"/>`).join("")}</g>`,
@@ -474,6 +518,9 @@ export function dielineToPdf(dl: Dieline, title: string, unit: Unit = "mm", bran
   };
   const prims = dimPrims(dl, unit, 1);
   const body = [
+    // board colour on its own non-printing spot, so the file looks like the preview
+    "/CSb cs 1 scn",
+    ...(dl.areas || []).map((a) => roundRectOps(a, X, Y) + " f"),
     "/CSg cs 1 scn",
     ...dl.paths.filter((p) => p.kind === "glue").map((p) => ops(p) + "\nh f"),
     "/CSi cs 0.6 scn",
@@ -507,7 +554,7 @@ export function dielineToPdf(dl: Dieline, title: string, unit: Unit = "mm", bran
       `/CSd [/Separation /Dieline /DeviceCMYK ${tint([0.95, 0.8, 0.45, 0.6])}] ` +
       `/CSc [/Separation /Crease /DeviceCMYK ${tint([0, 0.6, 1, 0])}] ` +
       `/CSi [/Separation /Info /DeviceCMYK ${tint([1, 0.2, 0.3, 0.2])}] ` +
-      `/CSg [/Separation /Glue /DeviceCMYK ${tint([0.15, 0, 0, 0])}] >> >> /Contents 4 0 R >>`,
+      `/CSg [/Separation /Glue /DeviceCMYK ${tint([0.15, 0, 0, 0])}] /CSb [/Separation /Board /DeviceCMYK ${tint([0.06, 0.02, 0, 0])}] >> >> /Contents 4 0 R >>`,
     `<< /Length ${body.length} >>\nstream\n${body}\nendstream`,
     "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
     ...(brand ? [`<< /Type /XObject /Subtype /Image /Width ${brand.pw} /Height ${brand.ph} /ColorSpace /DeviceCMYK /BitsPerComponent 8 /Filter /ASCIIHexDecode /Length ${brand.hex.length + 1} >>\nstream\n${brand.hex}>\nendstream`] : []),
