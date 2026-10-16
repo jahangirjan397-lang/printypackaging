@@ -461,6 +461,7 @@ const raw: Record<string, string[]> = {
   "folding-cartons": cartonClosed(),
   "shipping-boxes": shippingBox(),
   "mailer-boxes": mailer(),
+  "four-corner": mirror(mailer()),
   "kraft-mailer-boxes": mirror(mailer()),
   "white-mailer-boxes": mailerClosed("none"),
   "black-mailer-boxes": mirror(mailerClosed("tape")),

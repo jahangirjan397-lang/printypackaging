@@ -23,6 +23,7 @@ export type GeneratorStyle =
   | "reverse-tuck-end"
   | "straight-tuck-end"
   | "auto-bottom"
+  | "four-corner"
   | "mailer"
   | "shipping-box"
   | "tray"
@@ -174,7 +175,7 @@ const builtInDielines: Dieline[] = [
     bestFor: ["Bakery and pastries", "Fruit and produce", "Display trays"],
     closure: "Glued corners, optional hinged lid", material: "SBS, kraft or E-flute",
     tip: "Ships flat and pops open, saving storage space.",
-    product: "bakery-boxes", image: { w: 860, h: 1018 } },
+    product: "bakery-boxes", generator: "four-corner", image: { w: 860, h: 1018 } },
   { slug: "six-corner-tray", name: "Six Corner Tray", category: "trays-sleeves",
     summary: "A tray with a hinged lid glued at six corners, so lid and base erect together in one movement.",
     bestFor: ["Bakery and cake boxes", "Takeaway food", "Gift trays"],
@@ -400,7 +401,7 @@ type CmsDieline = {
 };
 
 // keep in step with VERIFIED_STYLES in src/lib/dielineGeometry.ts
-const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom"];
+const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner"];
 function cmsGen(d: CmsDieline): Dieline["gen"] {
   const style = genStyles.find((g) => g === d.genStyle);
   const [L, W, H] = [d.sizeL, d.sizeW, d.sizeH].map(Number);
@@ -447,6 +448,7 @@ const sampleSize: Partial<Record<GeneratorStyle, [number, number, number]>> = {
   "reverse-tuck-end": [55, 45, 120],
   "straight-tuck-end": [60, 40, 150],
   "auto-bottom": [101.6, 101.6, 152.4],
+  "four-corner": [203.2, 177.8, 76.2],
 };
 const liveBuiltIns = builtInDielines.map((d) => {
   if (d.generator && !genStyles.includes(d.generator)) return { ...d, generator: undefined };

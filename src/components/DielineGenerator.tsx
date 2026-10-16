@@ -135,6 +135,9 @@ export default function DielineGenerator() {
   const nums = { L: Number(dims.L) * unitToMm[unit] - less, W: Number(dims.W) * unitToMm[unit] - less, H: Number(dims.H) * unitToMm[unit] - less };
   const valid = [nums.L, nums.W, nums.H].every((n) => Number.isFinite(n) && n >= 10 && n <= 1500);
   const tuckStyle = style === "reverse-tuck-end" || style === "straight-tuck-end";
+  // the 3D model is a tuck end carton; other styles show the flat dieline only
+  const has3d = tuckStyle || style === "auto-bottom";
+  const shown = has3d ? view : "2d";
 
   const result = useMemo(() => {
     if (!valid) return null;
@@ -218,7 +221,7 @@ export default function DielineGenerator() {
         <div className="space-y-7 border-b border-slate-100 p-5 sm:p-6 lg:border-b-0 lg:border-r">
           <section>
             <Step n={1} title="Box style" />
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 gap-2">
               {generatorStyles.map((s) => (
                 <button key={s.id} type="button" onClick={() => pickStyle(s.id)} aria-pressed={style === s.id}
                   className={`rounded-2xl border p-2 text-center transition ${style === s.id ? "border-[#FF6A00] bg-orange-50/60 ring-2 ring-[#FF6A00]/15" : "border-slate-200 hover:border-slate-400"}`}>
@@ -310,8 +313,8 @@ export default function DielineGenerator() {
         {/* ---------- preview ---------- */}
         <div className="flex min-w-0 flex-col bg-slate-50/60">
           <div className="flex flex-wrap items-center justify-between gap-2 px-4 pt-4 sm:px-5">
-            <Segmented label="View" value={view} onChange={setView} options={[{ id: "2d", text: "Dieline" }, { id: "3d", text: "3D box" }]} />
-            {view === "2d" && (
+            <Segmented label="View" value={shown} onChange={setView} options={has3d ? [{ id: "2d", text: "Dieline" }, { id: "3d", text: "3D box" }] : [{ id: "2d", text: "Dieline" }]} />
+            {shown === "2d" && (
               <div className="flex items-center gap-2 text-[11px] font-black">
                 <button type="button" onClick={() => setShowDims((v) => !v)} aria-pressed={showDims}
                   className={`rounded-full border px-3 py-1.5 transition ${showDims ? "border-[#007C91]/30 bg-cyan-50 text-[#007C91]" : "border-slate-200 bg-white text-slate-500"}`}>
@@ -331,7 +334,7 @@ export default function DielineGenerator() {
           </div>
 
           <div className="relative m-4 min-h-[26rem] flex-1 overflow-auto rounded-2xl border border-slate-200 bg-white bg-[linear-gradient(#f1f5f9_1px,transparent_1px),linear-gradient(90deg,#f1f5f9_1px,transparent_1px)] [background-size:20px_20px] p-4 sm:m-5 lg:max-h-[42rem]">
-            {result && view === "3d" ? (
+            {result && shown === "3d" ? (
               <Box3DStudio L={nums.L} W={nums.W} H={nums.H} t={boardInfo.t} title={`${meta.name} ${sizeText}`} base={style === "auto-bottom" ? "crash" : style === "straight-tuck-end" ? "straight" : "reverse"} />
             ) : result ? (
               <div
@@ -383,12 +386,12 @@ export default function DielineGenerator() {
           </p>
           {/* what to do next */}
           <div className="grid gap-2 border-t border-slate-100 bg-white px-5 py-4 sm:grid-cols-2 sm:px-6">
-            <button type="button" onClick={() => setView("3d")} className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 text-left transition hover:border-[#007C91]">
+            {has3d && <button type="button" onClick={() => setView("3d")} className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 text-left transition hover:border-[#007C91]">
               <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-cyan-50 text-[#007C91]">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9Z" /><path d="M4 7.5 12 12l8-4.5M12 12v9" /></svg>
               </span>
               <span><span className="block text-sm font-black text-[#07111F]">See it in 3D</span><span className="block text-[11px] font-bold text-slate-500">Board, colour and your logo, open and close</span></span>
-            </button>
+            </button>}
             <Link href="/#quote" className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 transition hover:border-[#FF6A00]">
               <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-orange-50 text-[#FF6A00]">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h2l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.4-1l1.8-6.4H7" /><circle cx="10" cy="19.5" r="1.3" /><circle cx="17" cy="19.5" r="1.3" /></svg>

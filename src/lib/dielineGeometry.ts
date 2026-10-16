@@ -29,6 +29,7 @@ const allGeneratorStyles: {
   { id: "auto-bottom", name: "Tuck Top Auto Bottom", hint: "Crash-lock base", dims: ["Length", "Width", "Height"], board: "card", library: "tuck-end-auto-bottom" },
   { id: "mailer", name: "Mailer Box", hint: "Roll end tuck front", dims: ["Length", "Width", "Height"], board: "flute", library: "roll-end-mailer-box" },
   { id: "shipping-box", name: "Shipping Box", hint: "Regular slotted carton", dims: ["Length", "Width", "Height"], board: "flute", library: "full-flap-shipping-box" },
+  { id: "four-corner", name: "Four Corner Box", hint: "Tray with a tuck lid", dims: ["Length", "Width", "Height"], board: "card", library: "four-corner-tray" },
   { id: "tray", name: "Tray", hint: "Glued-corner tray", dims: ["Length", "Width", "Height"], board: "card", library: "four-corner-tray" },
   { id: "sleeve", name: "Sleeve", hint: "Slides over a tray", dims: ["Length", "Width", "Height"], board: "card", library: "sleeve-and-tray" },
   { id: "pillow", name: "Pillow Box", hint: "Curved press-in ends", dims: ["Width", "Depth", "Length"], board: "card", library: "pillow-box" },
@@ -38,7 +39,7 @@ const allGeneratorStyles: {
 // offered on the site. Others stay in the code until they are matched to our
 // CorelDRAW files and approved (auto bottom, mailer, shipping box, tray,
 // sleeve, pillow).
-export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom"];
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner"];
 export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -384,6 +385,111 @@ function mailer(d: DielineInput): Dieline {
   };
 }
 
+// Four corner box with a tuck lid, measured from our own production dielines
+// ("Four corner box" 15 x 12 x 7 in and 4 x 4 x 2.5 in, "FOUR CORNER" 8 x 7 x 3 in):
+// tuck / lid (W) / back wall (H) / base (W) / front wall (H) down the middle;
+// side walls (H) beside the base; corner wings (H) beside the back and front
+// walls, 1/16" shorter at their free edge with a small 45° cut at the hinge;
+// dust flaps beside the lid; a half-round finger notch in the front wall.
+function fourCorner(d: DielineInput): Dieline {
+  const { L, W, H } = d;
+  const e = IN / 16;
+  const band = W <= 4 * IN ? 0 : W <= 8 * IN ? 1 : 2;
+  const tk = [0.75, 1, 1.5][band] * IN; // tuck depth
+  const D = Math.max(6, Math.min(H, W / 2 - [0.375, 0.5, 1][band] * IN)); // lid dust flap depth
+  const notch = (L <= 8 * IN ? 0.75 : 0.875) * IN;
+  const x0 = H, x1 = H + L;
+  const yL = tk, yK = yL + W, yB = yK + H, yF = yB + W, yE = yF + H;
+  const rects: Rect[] = [
+    { x0, y0: 0, x1, y1: yL }, // tuck (outline replaced below)
+    { x0: x0 - D, y0: yL, x1: x0, y1: yK }, { x0: x1, y0: yL, x1: x1 + D, y1: yK }, // lid dust flaps (outline replaced)
+    { x0, y0: yL, x1, y1: yK }, // lid
+    { x0, y0: yK, x1, y1: yB }, // back wall
+    { x0: 0, y0: yK + e, x1: x0, y1: yB }, { x0: x1, y0: yK + e, x1: x1 + H, y1: yB }, // back corner wings
+    { x0, y0: yB, x1, y1: yF }, // base
+    { x0: 0, y0: yB, x1: x0, y1: yF }, { x0: x1, y0: yB, x1: x1 + H, y1: yF }, // side walls
+    { x0, y0: yF, x1, y1: yE }, // front wall
+    { x0: 0, y0: yF, x1: x0, y1: yE - e }, { x0: x1, y0: yF, x1: x1 + H, y1: yE - e }, // front corner wings
+  ];
+  const same = (a: number, b: number) => Math.abs(a - b) < 0.01;
+  const seg = (p: DPath) => ({ a: p.segs[0].M!, b: (p.segs[1].L ?? p.segs[1].C?.[2])! });
+  const on = (p: DPath, fx: (x: number, y: number) => boolean) => { const { a, b } = seg(p); return fx(a[0], a[1]) && fx(b[0], b[1]); };
+  let paths = rectsToPaths(rects).filter((p) => {
+    if (p.kind !== "cut") return true;
+    // the tuck and dust flaps get their own shapes
+    if (on(p, (x, y) => y <= yL + 0.01 && x >= x0 - 0.01 && x <= x1 + 0.01) && !on(p, (_, y) => same(y, yL))) return false;
+    if (on(p, (x, y) => y >= yL - 0.01 && y <= yK + 0.01 && (x <= x0 + 0.01 || x >= x1 - 0.01)) && !on(p, (x) => same(x, x0) || same(x, x1))) return false;
+    // the wings' 1/16" step at the hinge becomes a small 45° cut
+    const { a, b } = seg(p);
+    if (same(a[0], b[0]) && on(p, (x, y) => (same(x, x0) || same(x, x1)) && ((y >= yK - 0.01 && y <= yK + e + 0.01) || (y >= yE - e - 0.01 && y <= yE + 0.01)))) return false;
+    return true;
+  }).map((p) => {
+    // wings and side walls are separate pieces: the line between them is cut, not folded
+    const { a, b } = seg(p);
+    const between = p.kind === "fold" && same(a[1], b[1]) && (same(a[1], yB) || same(a[1], yF)) && (Math.max(a[0], b[0]) <= x0 + 0.01 || Math.min(a[0], b[0]) >= x1 - 0.01);
+    return between ? { ...p, kind: "cut" as const } : p;
+  });
+  // trim the wing edges back by e where the 45° cut takes over, and open the notch
+  paths = paths.flatMap((p) => {
+    if (p.kind !== "cut") return [p];
+    const { a, b } = seg(p);
+    const trim = (y: number) => same(a[1], y) && same(b[1], y);
+    if (trim(yK + e) || trim(yE - e)) {
+      const fix = (pt: Pt): Pt => (same(pt[0], x0) ? [x0 - e, pt[1]] : same(pt[0], x1) ? [x1 + e, pt[1]] : pt);
+      return [{ kind: "cut", segs: [{ M: fix(a) }, { L: fix(b) }] } as DPath];
+    }
+    if (trim(yE) && Math.min(a[0], b[0]) <= x0 + 0.01 && Math.max(a[0], b[0]) >= x1 - 0.01) {
+      const cx = (x0 + x1) / 2, r = notch / 2;
+      return [
+        { kind: "cut", segs: [{ M: [x0, yE] }, { L: [cx - r, yE] }] },
+        { kind: "cut", segs: [{ M: [cx - r, yE] }, { C: [[cx - r, yE - r * K], [cx - r * K, yE - r], [cx, yE - r]] }, { C: [[cx + r * K, yE - r], [cx + r, yE - r * K], [cx + r, yE]] }] },
+        { kind: "cut", segs: [{ M: [cx + r, yE] }, { L: [x1, yE] }] },
+      ] as DPath[];
+    }
+    return [p];
+  });
+  const cut = (segs: Seg[]) => paths.push({ kind: "cut", segs });
+  for (const [x, s] of [[x0, -1], [x1, 1]] as const) {
+    cut([{ M: [x, yK] }, { L: [x + s * e, yK + e] }]);
+    cut([{ M: [x, yE] }, { L: [x + s * e, yE - e] }]);
+  }
+  // tuck: sides lean in 1/8" over half the depth, then round into the top edge
+  const inset = IN / 8, c = tk / 2;
+  cut([
+    { M: [x0, yL] }, { L: [x0 + inset, tk / 2] },
+    { C: [[x0 + inset, tk / 2 - (tk / 2) * K], [x0 + inset + c - c * K, 0], [x0 + inset + c, 0]] },
+    { L: [x1 - inset - c, 0] },
+    { C: [[x1 - inset - c + c * K, 0], [x1 - inset, tk / 2 - (tk / 2) * K], [x1 - inset, tk / 2]] },
+    { L: [x1, yL] },
+  ]);
+  // lid dust flaps: a shallow slant out from each hinge corner, rounding into the outer edge
+  for (const s of [-1, 1] as const) {
+    const hx = s < 0 ? x0 : x1, ox = hx + s * D, sx = hx + s * D * 0.6, sy = D * 0.15, cy = D * 0.6;
+    cut([
+      { M: [hx, yL] }, { L: [sx, yL + sy] },
+      { C: [[sx + s * D * 0.4 * K, yL + sy + cy * (1 - K) * 0.3], [ox, yL + sy + cy - cy * K], [ox, yL + sy + cy]] },
+      { L: [ox, yK - sy - cy] },
+      { C: [[ox, yK - sy - cy + cy * K], [sx + s * D * 0.4 * K, yK - sy - cy * (1 - K) * 0.3], [sx, yK - sy]] },
+      { L: [hx, yK] },
+    ]);
+  }
+  const cx = x0 + L / 2;
+  return {
+    paths,
+    labels: [
+      { at: [cx, yL / 2], text: "TUCK", size: 0.7 }, { at: [cx, yL + W * 0.55], text: "LID" }, { at: [cx, yK + H * 0.55], text: "BACK" },
+      { at: [cx, yB + W * 0.55], text: "BASE" }, { at: [cx, yF + H * 0.45], text: "FRONT" },
+      { at: [H / 2, yB + W * 0.55], text: "SIDE" }, { at: [x1 + H / 2, yB + W * 0.55], text: "SIDE" },
+    ],
+    dims: [hd(x0, x1, yB + Math.min(14, W * 0.2)), vd(yB, yF, x0 + Math.min(14, L * 0.15)), vd(yK, yB, x0 + L * 0.8), vd(yL, yK, x0 + Math.min(14, L * 0.15)), hd(0, H, yB + W * 0.8), vd(0, yL, x1 - Math.min(14, L * 0.15))],
+    bbox: bboxOf(paths),
+    notes: [
+      `Four corner box (Printy layout) · base ${r1(L)} × ${r1(W)} mm · walls ${r1(H)} mm`,
+      `Tuck ${r1(tk)} mm · lid dust flaps ${r1(D)} mm · corner wings ${r1(H)} mm, 1/16″ short · finger notch ${r1(notch)} mm`,
+    ],
+  };
+}
+
 function pillow(d: DielineInput): Dieline {
   // L = width of the box face, W = depth (bulge), H = length
   const { L, W, H } = d;
@@ -427,6 +533,7 @@ function buildRaw(style: GeneratorStyle, input: DielineInput): Dieline {
     case "tray": return tray(input);
     case "mailer": return mailer(input);
     case "pillow": return pillow(input);
+    case "four-corner": return fourCorner(input);
   }
 }
 
