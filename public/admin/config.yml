@@ -346,7 +346,7 @@ collections:
           - label: Minimum order
             name: minimumOrder
             widget: string
-            hint: "Jaise: 25 boxes. Har product page aur quote form par dikhta hai."
+            hint: "Jaise: 100 boxes. Har product page aur quote form par dikhta hai."
           - label: Production time
             name: productionTime
             widget: string

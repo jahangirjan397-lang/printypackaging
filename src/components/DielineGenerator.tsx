@@ -409,7 +409,7 @@ export default function DielineGenerator() {
           ))}
         </div>
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-orange-200 bg-orange-50 px-4 py-3">
-          <p className="text-sm font-bold text-[#07111F]">Want it printed? Custom boxes from 25 pcs, price within 1 hour.</p>
+          <p className="text-sm font-bold text-[#07111F]">Want it printed? Custom boxes from 100 pcs, price within 1 hour.</p>
           <Link href="/#quote" className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black hover:bg-[#e65f00]">Get a printing price</Link>
         </div>
       </section>

@@ -272,8 +272,6 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                       product.category === printCategory
                         ? businessPromises.minimumOrder.replace(/boxes?/i, "pieces")
                         : businessPromises.minimumOrder,
-                    // Runs under 100 are made as a sample run (priced higher)
-                    note: "under 100 = sample run",
                   },
                   { label: "Production", value: `${businessPromises.productionTime} · rush ${businessPromises.rushTime}` },
                   { label: "Quote reply", value: businessPromises.quoteResponse },
@@ -288,9 +286,6 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                     </dt>
                     <dd className="mt-1 text-sm font-black text-white">
                       {item.value}
-                      {"note" in item && item.note ? (
-                        <span className="block text-xs font-bold text-slate-300">{item.note}</span>
-                      ) : null}
                     </dd>
                   </div>
                 ))}

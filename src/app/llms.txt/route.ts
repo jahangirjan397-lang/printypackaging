@@ -47,7 +47,7 @@ export function GET() {
 
 ## Key facts
 
-- Minimum order: ${businessPromises.minimumOrder} (the price per box drops quickly from 100)
+- Minimum order: ${businessPromises.minimumOrder}
 - Production time: ${businessPromises.productionTime} after proof approval (rush: ${businessPromises.rushTime})
 - Quote reply: ${businessPromises.quoteResponse}
 - Design: ${businessPromises.designSupport}; a free digital proof is sent before production
