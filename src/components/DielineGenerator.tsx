@@ -350,7 +350,7 @@ export default function DielineGenerator() {
                   // at 100% the whole dieline fits the canvas height; zoom grows from there
                   style={{ width: `${Math.round(zoom * 100)}%`, maxWidth: `calc(${(zoom * 33).toFixed(1)}rem * ${(result.flat[0] / result.flat[1]).toFixed(3)})` }}
                   // our own generated SVG string, no user HTML
-                  dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims, labels: showNames }) }}
+                  dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims, labels: showNames, theme: "plain" }) }}
                 />
               ) : (
                 <p className="py-24 text-center font-bold text-slate-500">Enter a size to see your dieline.</p>

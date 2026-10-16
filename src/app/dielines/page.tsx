@@ -113,24 +113,41 @@ export default function DielinesPage() {
           </section>
         )}
         {dielineCategories.map((c) => {
-          const items = dielines.filter((d) => d.category === c.id);
-          if (!items.length) return null;
+          const all = dielines.filter((d) => d.category === c.id);
+          if (!all.length) return null;
+          // real dielines in the grid; styles not drawn yet are listed below it
+          const items = all.filter((d) => d.gen || d.file || d.src);
+          const later = all.filter((d) => !(d.gen || d.file || d.src));
           return (
             <section key={c.id} id={c.id} className="scroll-mt-32 pb-12">
               <h2 className="text-2xl font-black sm:text-3xl">{c.name}</h2>
               <p className="mt-2 text-slate-600">{c.text}</p>
-              <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {items.map((d) => (
-                  <Link key={d.slug} href={`/dielines/${d.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#FF6A00] hover:shadow-lg">
-                    <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-slate-50 p-3">
-                      <DielineVisual d={d} />
-                    </div>
-                    <h3 className="mt-4 font-black leading-tight group-hover:text-[#FF6A00]">{d.name}</h3>
-                    <p className="mt-1 text-sm text-slate-600">{d.bestFor.slice(0, 2).join(" · ")}</p>
-                    {d.generator && <p className="mt-2 inline-block rounded-full bg-orange-50 px-2.5 py-0.5 text-xs font-black text-[#D95500]">Instant generator</p>}
-                  </Link>
-                ))}
-              </div>
+              {items.length > 0 && (
+                <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                  {items.map((d) => (
+                    <Link key={d.slug} href={`/dielines/${d.slug}`} className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:border-[#07111F] hover:shadow-lg">
+                      <div className="flex aspect-[4/3] items-center justify-center border-b border-slate-100 bg-white p-5">
+                        <DielineVisual d={d} />
+                      </div>
+                      <div className="flex flex-1 flex-col p-4">
+                        <h3 className="font-black leading-tight group-hover:text-[#FF6A00]">{d.name}</h3>
+                        {d.gen && <p className="mt-1 font-mono text-xs text-slate-500">{d.gen.L} × {d.gen.W} × {d.gen.H} mm · any size</p>}
+                        <p className="mt-auto pt-3 text-[11px] font-black uppercase tracking-wider text-[#007C91]">{d.gen ? "PDF · SVG · DXF" : d.file ? "PDF" : "Dieline"}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+              {later.length > 0 && (
+                <div className="mt-5 rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3">
+                  <p className="text-xs font-black uppercase tracking-wider text-slate-500">Also drawn to your size, free with your quote</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {later.map((d) => (
+                      <Link key={d.slug} href={`/dielines/${d.slug}`} className="rounded-full border border-slate-200 px-3 py-1 text-sm font-bold text-slate-700 hover:border-[#FF6A00] hover:text-[#FF6A00]">{d.name}</Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </section>
           );
         })}

@@ -608,10 +608,12 @@ function roundRectOps(r: Rect, X: (x: number) => string, Y: (y: number) => strin
 }
 
 // Looks for the on-screen dieline (downloads stay clean for production)
-export type ThemeId = "printy" | "kraft" | "blueprint";
+export type ThemeId = "printy" | "kraft" | "blueprint" | "plain";
 export const THEMES: Record<ThemeId, { name: string; bg: string; fill: string; cut: string; fold: string; glue: string; dim: string; label: string }> = {
   printy: { name: "Printy Clean", bg: "#ffffff", fill: "#EEF6FA", cut: "#07111F", fold: "#FF6A00", glue: "#00C2E8", dim: "#007C91", label: "#7C93A8" },
   kraft: { name: "Kraft Board", bg: "#FBF7F1", fill: "#D8B888", cut: "#4A2E14", fold: "#FFFFFF", glue: "#FFFFFF", dim: "#07111F", label: "#7A5530" },
+  // a clean CAD-style drawing: white sheet, black cut, dashed fold, no fills
+  plain: { name: "Plain", bg: "#ffffff", fill: "", cut: "#111827", fold: "#FF6A00", glue: "#00C2E8", dim: "#0E7490", label: "#94A3B8" },
   blueprint: { name: "Night Blueprint", bg: "#07111F", fill: "#0E2740", cut: "#FFFFFF", fold: "#FF8A3D", glue: "#00C2E8", dim: "#00C2E8", label: "#6E8CA8" },
 };
 

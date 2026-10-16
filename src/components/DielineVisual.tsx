@@ -12,7 +12,8 @@ import NavIcon from "@/components/NavIcon";
 //   we draw the exact dieline in the buyer's size (until we add the style)
 export default function DielineVisual({ d, size = "card" }: { d: Dieline; size?: "card" | "page" }) {
   if (d.gen) {
-    const svg = dielineToSvg(buildDieline(d.gen.style, { L: d.gen.L, W: d.gen.W, H: d.gen.H, t: 0.5, slitLock: d.gen.slitLock }), d.name, { preview: true, unit: "mm" });
+    // clean line drawing with every size; panel names only on the full page
+    const svg = dielineToSvg(buildDieline(d.gen.style, { L: d.gen.L, W: d.gen.W, H: d.gen.H, t: 0.5, slitLock: d.gen.slitLock }), d.name, { preview: true, unit: "mm", theme: "plain", labels: size === "page" });
     // our own generated SVG string, no user HTML
     return <div className={`w-full [&>svg]:h-auto [&>svg]:w-full ${size === "page" ? "max-w-2xl [&>svg]:max-h-[34rem]" : "[&>svg]:max-h-48"}`} dangerouslySetInnerHTML={{ __html: svg }} />;
   }
