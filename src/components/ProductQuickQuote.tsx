@@ -176,7 +176,7 @@ export default function ProductQuickQuote({
         <button
           type="submit"
           disabled={isSending}
-          className="rounded-full bg-[#FF6A00] px-7 py-3.5 font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-wait disabled:opacity-70"
+          className="rounded-full bg-[#CC4E00] px-7 py-3.5 font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-wait disabled:opacity-70"
         >
           {isSending ? "Sending…" : "Get My Free Quote →"}
         </button>

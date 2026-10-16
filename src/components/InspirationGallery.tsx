@@ -163,7 +163,7 @@ export default function InspirationGallery({ groups }: { groups: Group[] }) {
                 </Link>
                 <Link
                   href={`/?product=${current.product}#quote`}
-                  className="rounded-full bg-[#FF6A00] px-5 py-2.5 text-sm font-black text-white hover:bg-[#007C91]"
+                  className="rounded-full bg-[#CC4E00] px-5 py-2.5 text-sm font-black text-white hover:bg-[#007C91]"
                 >
                   Get a quote
                 </Link>

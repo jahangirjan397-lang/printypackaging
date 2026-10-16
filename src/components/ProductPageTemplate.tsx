@@ -249,7 +249,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 />
                 <a
                   href={productQuoteLink}
-                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#CC4E00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
                 >
                   Get Free Quote
                 </a>
@@ -263,7 +263,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 </Link>
               </div>
 
-              <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+              <dl className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 {[
                   {
                     label: "Minimum order",
@@ -272,9 +272,12 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                       product.category === printCategory
                         ? businessPromises.minimumOrder.replace(/boxes?/i, "pieces")
                         : businessPromises.minimumOrder,
+                    // Runs under 100 are made as a sample run (priced higher)
+                    note: "under 100 = sample run",
                   },
                   { label: "Production", value: `${businessPromises.productionTime} · rush ${businessPromises.rushTime}` },
                   { label: "Quote reply", value: businessPromises.quoteResponse },
+                  { label: "Shipping", value: "Included to USA, UK & Australia" },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -285,6 +288,9 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                     </dt>
                     <dd className="mt-1 text-sm font-black text-white">
                       {item.value}
+                      {"note" in item && item.note ? (
+                        <span className="block text-xs font-bold text-slate-300">{item.note}</span>
+                      ) : null}
                     </dd>
                   </div>
                 ))}

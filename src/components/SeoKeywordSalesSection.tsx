@@ -70,7 +70,7 @@ export default function SeoKeywordSalesSection() {
 
             <Link
               href="/#quote"
-              className="mt-7 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
+              className="mt-7 inline-flex rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
             >
               Get Custom Packaging Quote
             </Link>

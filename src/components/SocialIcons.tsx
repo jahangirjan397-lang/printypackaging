@@ -103,8 +103,7 @@ export default function SocialIcons({
               </a>
             ) : (
               <span
-                title={`${link.label} – coming soon`}
-                aria-label={`${link.label} coming soon`}
+                title={link.label}
                 className={`flex h-10 w-10 cursor-default items-center justify-center rounded-full border shadow-sm ${style}`}
                 style={{ background: brandBackground[link.platform] }}
               >

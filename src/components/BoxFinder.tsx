@@ -168,7 +168,7 @@ export default function BoxFinder() {
               <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link
                   href={`/?product=${main.slug}#quote`}
-                  className="rounded-full bg-[#FF6A00] px-7 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91]"
+                  className="rounded-full bg-[#CC4E00] px-7 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91]"
                 >
                   Get a quote for {main.name}
                 </Link>

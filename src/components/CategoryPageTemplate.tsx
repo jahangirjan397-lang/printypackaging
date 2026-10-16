@@ -206,7 +206,7 @@ export default function CategoryPageTemplate({
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
                   href="#category-products"
-                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#CC4E00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
                 >
                   View Products
                 </a>
@@ -240,7 +240,7 @@ export default function CategoryPageTemplate({
                     src={heroImage.src}
                     alt={heroImage.alt}
                     fill
-                    priority
+                    preload
                     sizes="(max-width: 1024px) 100vw, 48vw"
                     className="object-cover object-center"
                   />
@@ -347,7 +347,7 @@ export default function CategoryPageTemplate({
                     <Link
                       href={`/?product=${product.slug}#quote`}
                       prefetch={false}
-                      className="rounded-full bg-[#FF6A00] px-5 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
+                      className="rounded-full bg-[#CC4E00] px-5 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
                     >
                       Quote
                     </Link>
@@ -393,7 +393,7 @@ export default function CategoryPageTemplate({
                 key={benefit}
                 className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-[#F7FAFC] p-5"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] font-black text-white">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#CC4E00] font-black text-white">
                   ✓
                 </div>
                 <p className="font-black leading-7 text-[#07111F]">
@@ -434,7 +434,7 @@ export default function CategoryPageTemplate({
               >
                 <div
                   aria-hidden="true"
-                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#CC4E00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
                 >
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
                 </div>
@@ -515,7 +515,7 @@ export default function CategoryPageTemplate({
                   key={step}
                   className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] font-black text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#CC4E00] font-black text-white">
                     ✓
                   </div>
                   <p className="font-black text-[#07111F]">{step}</p>

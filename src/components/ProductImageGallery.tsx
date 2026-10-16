@@ -42,7 +42,7 @@ export default function ProductImageGallery({
             </p>
           </div>
 
-          <div className="absolute bottom-5 right-5 rounded-full bg-[#FF6A00] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white">
+          <div className="absolute bottom-5 right-5 rounded-full bg-[#CC4E00] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white">
             Made To Specification
           </div>
         </div>
@@ -59,12 +59,12 @@ export default function ProductImageGallery({
           src={activeImage.src}
           alt={activeImage.alt}
           fill
-          priority={safeIndex === 0}
+          preload={safeIndex === 0}
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover object-center brightness-[1.025] contrast-[1.015]"
         />
 
-        <div className="absolute right-4 top-4 rounded-full bg-[#FF6A00] px-3 py-2 text-xs font-black text-white">
+        <div className="absolute right-4 top-4 rounded-full bg-[#CC4E00] px-3 py-2 text-xs font-black text-white">
           {safeIndex + 1} / {galleryImages.length}
         </div>
       </div>

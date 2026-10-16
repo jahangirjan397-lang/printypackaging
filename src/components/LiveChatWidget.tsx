@@ -122,14 +122,30 @@ export default function LiveChatWidget() {
       }, 10000);
     };
 
-    const script = document.createElement("script");
-    script.id = "tawk-live-chat-script";
-    script.async = true;
-    script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
-    script.charset = "UTF-8";
-    script.crossOrigin = "anonymous";
+    // The chat script is heavy (~240 KB), so it loads after the page is up:
+    // on the visitor's first scroll, tap, mouse move or key press, or after
+    // 6 seconds, whichever comes first.
+    const events = ["scroll", "pointerdown", "pointermove", "keydown", "touchstart"] as const;
+    let timer = 0;
+    const load = () => {
+      window.clearTimeout(timer);
+      events.forEach((name) => window.removeEventListener(name, load));
+      if (document.getElementById("tawk-live-chat-script")) return;
+      const script = document.createElement("script");
+      script.id = "tawk-live-chat-script";
+      script.async = true;
+      script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
+      script.charset = "UTF-8";
+      script.crossOrigin = "anonymous";
+      document.body.appendChild(script);
+    };
+    events.forEach((name) => window.addEventListener(name, load, { once: true, passive: true }));
+    timer = window.setTimeout(load, 6000);
 
-    document.body.appendChild(script);
+    return () => {
+      window.clearTimeout(timer);
+      events.forEach((name) => window.removeEventListener(name, load));
+    };
   }, []);
 
   return null;

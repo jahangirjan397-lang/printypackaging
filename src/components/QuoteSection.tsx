@@ -833,7 +833,7 @@ export default function QuoteSection() {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-3 w-full rounded-full bg-[#FF6A00] px-8 py-3 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-3 w-full rounded-full bg-[#CC4E00] px-8 py-3 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSending ? "Sending..." : "Get My Free Quote"}
             </button>

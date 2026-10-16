@@ -112,7 +112,7 @@ export default function FinishingOptionsPage() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Finish Quote
               </Link>
@@ -132,7 +132,7 @@ export default function FinishingOptionsPage() {
                 src="/images/finishes/finish-overview-v3.webp"
                 alt="Four boxes showing spot UV, foil stamping, embossing and debossing finishes"
                 fill
-                priority
+                preload
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
               />
@@ -246,7 +246,7 @@ export default function FinishingOptionsPage() {
 
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Request Quote
               </Link>

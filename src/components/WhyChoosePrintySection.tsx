@@ -47,7 +47,7 @@ export default function WhyChoosePrintySection() {
               <div className="flex items-start gap-3">
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#FF6A00] text-xs font-black text-white"
+                  className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#CC4E00] text-xs font-black text-white"
                 >
                   ✓
                 </span>

@@ -141,7 +141,7 @@ export default function MarketsPage() {
                 <Link
                   href="/#quote"
                   prefetch={false}
-                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#CC4E00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
                 >
                   Get Global Quote
                 </Link>
@@ -162,7 +162,7 @@ export default function MarketsPage() {
                   src="/images/home/home-hero-mailer-v3.webp"
                   alt="Custom packaging prepared for international buyers and ecommerce brands"
                   fill
-                  priority
+                  preload
                   sizes="(max-width: 1024px) 100vw, 48vw"
                   className="object-cover object-center"
                 />

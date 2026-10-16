@@ -110,7 +110,7 @@ export default function AnalyticsConsent() {
               <button
                 type="button"
                 onClick={() => saveConsent("granted")}
-                className="rounded-full bg-[#FF6A00] px-3 py-2 text-xs font-black text-white shadow-md shadow-orange-500/20 transition hover:bg-[#007C91] sm:px-4"
+                className="rounded-full bg-[#CC4E00] px-3 py-2 text-xs font-black text-white shadow-md shadow-orange-500/20 transition hover:bg-[#007C91] sm:px-4"
               >
                 Accept
               </button>

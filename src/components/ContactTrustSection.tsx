@@ -45,7 +45,7 @@ export default function ContactTrustSection() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="#quote"
-                  className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91]"
                 >
                   Start Quote Request
                 </a>

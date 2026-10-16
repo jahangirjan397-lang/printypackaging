@@ -260,7 +260,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#product-quote"
-                  className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                  className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
                 >
                   Get Free Quote
                 </a>
@@ -280,7 +280,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   src={articleVisual.src}
                   alt={articleVisual.alt}
                   fill
-                  priority
+                  preload
                   sizes="(max-width: 1024px) 100vw, 48vw"
                   className="object-cover object-center"
                 />
@@ -325,7 +325,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
               <a
                 href="#product-quote"
-                className="mt-5 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
+                className="mt-5 inline-flex rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
               >
                 Get Free Quote
               </a>
@@ -422,7 +422,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       </p>
                       <a
                         href="#product-quote"
-                        className="shrink-0 self-start rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#007C91] sm:self-auto"
+                        className="shrink-0 self-start rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#007C91] sm:self-auto"
                       >
                         Get Free Quote
                       </a>

@@ -18,7 +18,7 @@ export default function Newsletter() {
                 className="flex-1 rounded-2xl border border-slate-300 p-4 text-[#07111F] outline-none"
                 placeholder="Enter your email"
               />
-              <button className="rounded-2xl bg-[#FF6A00] px-6 py-4 font-black text-white">
+              <button className="rounded-2xl bg-[#CC4E00] px-6 py-4 font-black text-white">
                 Subscribe
               </button>
             </div>

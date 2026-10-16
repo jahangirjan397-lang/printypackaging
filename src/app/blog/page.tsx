@@ -78,7 +78,7 @@ export default function BlogPage() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/contact#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Free Quote
               </Link>
@@ -105,7 +105,7 @@ export default function BlogPage() {
                 src={getBlogVisual(featuredPost.slug).src}
                 alt={getBlogVisual(featuredPost.slug).alt}
                 fill
-                priority
+                preload
                 sizes="(max-width: 1024px) 100vw, 48vw"
                 className="object-cover object-center"
               />
@@ -130,7 +130,7 @@ export default function BlogPage() {
                 <span>{formatBlogDate(featuredPost.publishedAt)}</span>
               </div>
 
-              <span className="mt-8 inline-flex self-start rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#007C91]">
+              <span className="mt-8 inline-flex self-start rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#007C91]">
                 Read Article
               </span>
             </div>
@@ -158,7 +158,7 @@ export default function BlogPage() {
           </div>
           <Link
             href="/contact#quote"
-            className="shrink-0 rounded-full bg-[#FF6A00] px-8 py-4 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+            className="shrink-0 rounded-full bg-[#CC4E00] px-8 py-4 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
           >
             Get Free Quote
           </Link>

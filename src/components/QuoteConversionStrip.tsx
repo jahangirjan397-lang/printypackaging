@@ -60,7 +60,7 @@ export default function QuoteConversionStrip() {
                     className="rounded-3xl border border-white/10 bg-white/[0.06] p-6"
                   >
                     <div className="flex gap-4">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-white">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#CC4E00] text-sm font-black text-white">
                         {index + 1}
                       </span>
 

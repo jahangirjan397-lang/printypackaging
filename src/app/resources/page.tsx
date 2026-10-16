@@ -82,7 +82,7 @@ export default function ResourcesPage() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Get Quote
               </Link>
@@ -102,7 +102,7 @@ export default function ResourcesPage() {
                 src="/images/home/home-sample-kit-v3.webp"
                 alt="Packaging sample kit materials finishes and buyer resources"
                 fill
-                priority
+                preload
                 sizes="(max-width: 1024px) 100vw, 48vw"
                 className="object-cover object-center"
               />
@@ -130,7 +130,7 @@ export default function ResourcesPage() {
               >
                 <div
                   aria-hidden="true"
-                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#CC4E00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
                 >
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
                 </div>
@@ -180,7 +180,7 @@ export default function ResourcesPage() {
 
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
               >
                 Request Quote
               </Link>

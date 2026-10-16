@@ -109,7 +109,7 @@ export default function PackagingGuidePage() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/#quote"
-                className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#E85F00]"
+                className="inline-flex items-center justify-center rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#E85F00]"
               >
                 Start Quote
               </Link>
@@ -129,7 +129,7 @@ export default function PackagingGuidePage() {
                 src="/images/home/home-materials-finishes-v3.webp"
                 alt="Packaging materials printing and finishing options"
                 fill
-                priority
+                preload
                 sizes="(max-width: 1024px) 100vw, 48vw"
                 className="object-cover object-center"
               />

@@ -75,7 +75,7 @@ export default function BoxStyles() {
                   {item.label}
                 </div>
 
-                <div className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
+                <div className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#CC4E00] text-xs font-black text-white">
                   {index + 1}
                 </div>
               </div>
