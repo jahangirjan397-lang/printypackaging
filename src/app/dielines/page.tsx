@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { dielineCategories, dielineCount, dielines } from "@/data/dielines";
 import DielineVisual from "@/components/DielineVisual";
-import NavIcon from "@/components/NavIcon";
 
 const url = "https://printypackaging.com/dielines";
+
+// real dielines (drawn by our generator) for the top of the page
+const heroDielines = dielines.filter((d) => d.gen && !d.addedAt).slice(0, 4);
 
 export const metadata: Metadata = {
   title: { absolute: `Box Dieline Library: ${dielineCount} Free Templates | Printy Packaging` },
@@ -74,11 +76,12 @@ export default function DielinesPage() {
               </Link>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-3">
-            {["tuck-end-boxes", "mailer-boxes", "gable-boxes", "pillow-boxes", "display-boxes", "magnetic-boxes"].map((s) => (
-              <div key={s} className="flex aspect-square items-center justify-center rounded-2xl bg-white p-3">
-                <NavIcon name={s} className="h-3/4 w-3/4 text-[#007C91]" />
-              </div>
+          <div className="grid grid-cols-2 gap-3">
+            {heroDielines.map((d) => (
+              <Link key={d.slug} href={`/dielines/${d.slug}`} className="flex aspect-square flex-col rounded-2xl bg-white p-3 transition hover:ring-2 hover:ring-[#FF6A00]">
+                <div className="flex flex-1 items-center justify-center overflow-hidden"><DielineVisual d={d} /></div>
+                <p className="mt-1 truncate text-center text-[11px] font-black text-[#07111F]">{d.name}</p>
+              </Link>
             ))}
           </div>
         </div>

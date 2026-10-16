@@ -193,8 +193,10 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   const finish = (base: DPath[]) => {
     // tapered glue flap, like our files
     const tg = mode === "auto" ? 0.125 * IN : Math.min(g * 0.3, H * 0.1);
+    // only the body edge beside the glue flap is replaced; the lid edges above and below stay cut
     let out = base.filter((p) => !(p.kind === "cut" && p.segs.length === 2 && p.segs[0].M && p.segs[1].L &&
-      Math.abs(p.segs[0].M[0] - xA) < 0.01 && Math.abs(p.segs[1].L[0] - xA) < 0.01));
+      Math.abs(p.segs[0].M[0] - xA) < 0.01 && Math.abs(p.segs[1].L[0] - xA) < 0.01 &&
+      Math.min(p.segs[0].M[1], p.segs[1].L[1]) >= -0.01 && Math.max(p.segs[0].M[1], p.segs[1].L[1]) <= H + 0.01));
     out.push({ kind: "cut", segs: [{ M: [xA, 0] }, { L: [0, tg] }, { L: [0, H - tg] }, { L: [xA, H] }] }, { kind: "fold", segs: [{ M: [xA, 0] }, { L: [xA, H] }] });
     lastAreas = [...lastAreas, { x0: 0, y0: tg, x1: xA, y1: H - tg }];
     for (const f of dustFlaps) {
