@@ -346,11 +346,16 @@ collections:
           - label: Minimum order
             name: minimumOrder
             widget: string
-            hint: "Jaise: 100 boxes. Har product page aur quote form par dikhta hai."
+            hint: "Jaise: 25 boxes. Har product page aur quote form par dikhta hai."
           - label: Production time
             name: productionTime
             widget: string
             hint: "Jaise: 12–15 business days"
+          - label: Rush production time
+            name: rushTime
+            widget: string
+            required: false
+            hint: "Rush order kitne din mein (zyada rate). Jaise: 8 business days"
           - label: Quote reply time
             name: quoteResponse
             widget: string

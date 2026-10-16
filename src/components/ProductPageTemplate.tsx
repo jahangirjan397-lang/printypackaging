@@ -273,7 +273,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                         ? businessPromises.minimumOrder.replace(/boxes?/i, "pieces")
                         : businessPromises.minimumOrder,
                   },
-                  { label: "Production", value: businessPromises.productionTime },
+                  { label: "Production", value: `${businessPromises.productionTime} · rush ${businessPromises.rushTime}` },
                   { label: "Quote reply", value: businessPromises.quoteResponse },
                 ].map((item) => (
                   <div

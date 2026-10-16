@@ -33,6 +33,7 @@ type QuoteRequest = {
   finishing?: string;
   artworkStatus?: string;
   message?: string;
+  turnaround?: string;
   leadSource?: string;
   website?: string;
 };
@@ -159,7 +160,8 @@ function buildLead(body: QuoteRequest): LeadData {
     printing: clean(body.printing),
     finishing: clean(body.finishing),
     artworkStatus: clean(body.artworkStatus),
-    message: clean(body.message),
+    // a rush request travels at the front of the message so the ERP can price it as rush
+    message: [/^rush/i.test(clean(body.turnaround)) ? `RUSH ORDER (${clean(body.turnaround)})` : "", clean(body.message)].filter(Boolean).join(" — "),
     // Optional: where the buyer came from (utm_source / referrer)
     leadSource: clean(body.leadSource).slice(0, 200),
   };
@@ -691,6 +693,7 @@ export async function POST(request: Request) {
         gsm: formValue(formData, "gsm"), printing: formValue(formData, "printing"),
         finishing: formValue(formData, "finishing"), artworkStatus: formValue(formData, "artworkStatus"),
         message: formValue(formData, "message"), website: formValue(formData, "website"),
+        turnaround: formValue(formData, "turnaround"),
         leadSource: formValue(formData, "leadSource"),
       };
 

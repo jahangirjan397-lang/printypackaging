@@ -5,7 +5,7 @@ import { businessPromises } from "@/data/businessInfo";
 const trustItems = [
   {
     title: "Minimum order",
-    text: `Orders start from ${businessPromises.minimumOrder} for most styles, and smaller test runs are possible on request, so you can try a design before ordering in bulk.`,
+    text: `Orders start from ${businessPromises.minimumOrder} for most styles, so you can try a design with a small run before ordering in bulk.`,
   },
   {
     title: "Proof before printing",
@@ -13,7 +13,7 @@ const trustItems = [
   },
   {
     title: "Production time",
-    text: `Standard production is ${businessPromises.productionTime} after proof approval, plus shipping to your country.`,
+    text: `Standard production is ${businessPromises.productionTime} after proof approval, or ${businessPromises.rushTime} on a rush order, plus shipping to your country.`,
   },
   {
     title: "Material & finish advice",

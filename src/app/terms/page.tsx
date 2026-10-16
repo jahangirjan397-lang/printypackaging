@@ -73,7 +73,7 @@ const sections: PolicySection[] = [
     id: "production",
     title: "Production time",
     paragraphs: [
-      `Standard production is ${businessPromises.productionTime} after proof approval and payment, plus shipping time. Rush production is available on many items for an extra charge; rush orders are non-refundable and cannot be cancelled once confirmed. Production dates are estimates and are not guaranteed, but we tell the customer straight away if an order is running late.`,
+      `Standard production is ${businessPromises.productionTime} after proof approval and payment, plus shipping time. Rush production in ${businessPromises.rushTime} is available on many items for an extra charge; rush orders are non-refundable and cannot be cancelled once confirmed. Production dates are estimates and are not guaranteed, but we tell the customer straight away if an order is running late.`,
     ],
   },
   {

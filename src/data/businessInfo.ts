@@ -25,6 +25,8 @@ export const businessPromises = {
   minimumOrder: business.minimumOrder,
   // Production time after the buyer approves the proof
   productionTime: business.productionTime,
+  // Rush production after approval (priced higher on the quote)
+  rushTime: (business as { rushTime?: string }).rushTime || "8 business days",
   // How quickly the sales team replies to a quote request
   quoteResponse: business.quoteResponse,
   // Design / dieline help

@@ -47,8 +47,8 @@ export function GET() {
 
 ## Key facts
 
-- Minimum order: ${businessPromises.minimumOrder} (smaller test runs on request)
-- Production time: ${businessPromises.productionTime} after proof approval
+- Minimum order: ${businessPromises.minimumOrder} (the price per box drops quickly from 100)
+- Production time: ${businessPromises.productionTime} after proof approval (rush: ${businessPromises.rushTime})
 - Quote reply: ${businessPromises.quoteResponse}
 - Design: ${businessPromises.designSupport}; a free digital proof is sent before production
 - Shipping: worldwide, including the USA, UK, Canada, Europe, UAE and Australia; standard shipping to one address is included in the quoted price unless the quote lists it separately

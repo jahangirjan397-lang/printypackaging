@@ -722,6 +722,13 @@ export default function QuoteSection() {
                   ))}
                 </select>
               </FormField>
+
+              <FormField label="Turnaround">
+                <select name="turnaround" className="field-input field-compact" defaultValue={`Standard: ${businessPromises.productionTime}`}>
+                  <option value={`Standard: ${businessPromises.productionTime}`}>Standard ({businessPromises.productionTime})</option>
+                  <option value={`Rush: ${businessPromises.rushTime}`}>Rush ({businessPromises.rushTime}, higher price)</option>
+                </select>
+              </FormField>
             </div>
 
             <div className="mt-2.5">
@@ -833,7 +840,7 @@ export default function QuoteSection() {
 
             <ul className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[0.7rem] font-bold text-slate-500">
               <li>✓ Reply {businessPromises.quoteResponse}</li>
-              <li>✓ MOQ from {businessPromises.minimumOrder} (smaller runs on request)</li>
+              <li>✓ MOQ from {businessPromises.minimumOrder} (lower price per box from 100)</li>
               <li>✓ Free dieline</li>
             </ul>
           </form>
