@@ -141,7 +141,6 @@ export default function DielineGenerator() {
   const [mode, setMode] = useState<"inside" | "outside">(saved?.mode ?? "inside");
   const [showDims, setShowDims] = useState(true);
   const [showNames, setShowNames] = useState(true);
-  const [dark, setDark] = useState(true);
   const [copied, setCopied] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [view, setView] = useState<"2d" | "3d">("2d");
@@ -318,7 +317,6 @@ export default function DielineGenerator() {
                 <Check checked={showDims} onChange={setShowDims}>Dimension lines</Check>
                 <Check checked={showNames} onChange={setShowNames}>Panel names</Check>
                 {tuckStyle && <Check checked={slitLock} onChange={setSlitLock}>Slit lock on the tucks</Check>}
-                <Check checked={dark} onChange={setDark}>Dark canvas</Check>
               </div>
             </section>
           </div>
@@ -343,7 +341,7 @@ export default function DielineGenerator() {
               )}
             </div>
 
-            <div className={`relative min-h-[28rem] flex-1 overflow-auto p-4 lg:max-h-[40rem] ${shown === "2d" && dark ? "bg-[#07111F]" : "bg-[#F7F6F3] bg-[linear-gradient(#e7e5e0_1px,transparent_1px),linear-gradient(90deg,#e7e5e0_1px,transparent_1px)] [background-size:22px_22px]"}`}>
+            <div className="relative min-h-[28rem] flex-1 overflow-auto bg-white p-4 lg:max-h-[40rem]">
               {result && shown === "3d" ? (
                 <Box3DStudio L={nums.L} W={nums.W} H={nums.H} t={boardInfo.t} title={`${meta.name} ${sizeText}`} base={style === "auto-bottom" ? "crash" : style === "straight-tuck-end" ? "straight" : "reverse"} />
               ) : result ? (
@@ -352,10 +350,10 @@ export default function DielineGenerator() {
                   // at 100% the whole dieline fits the canvas height; zoom grows from there
                   style={{ width: `${Math.round(zoom * 100)}%`, maxWidth: `calc(${(zoom * 33).toFixed(1)}rem * ${(result.flat[0] / result.flat[1]).toFixed(3)})` }}
                   // our own generated SVG string, no user HTML
-                  dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims, labels: showNames, theme: dark ? "blueprint" : "printy" }) }}
+                  dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims, labels: showNames }) }}
                 />
               ) : (
-                <p className={`py-24 text-center font-bold ${dark ? "text-slate-400" : "text-slate-500"}`}>Enter a size to see your dieline.</p>
+                <p className="py-24 text-center font-bold text-slate-500">Enter a size to see your dieline.</p>
               )}
             </div>
 
@@ -410,8 +408,8 @@ export default function DielineGenerator() {
             </button>
           ))}
         </div>
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#07111F] px-4 py-3 text-white">
-          <p className="text-sm font-bold">Want it printed? Custom boxes from 100 pcs, price within 1 hour.</p>
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-orange-200 bg-orange-50 px-4 py-3">
+          <p className="text-sm font-bold text-[#07111F]">Want it printed? Custom boxes from 100 pcs, price within 1 hour.</p>
           <Link href="/#quote" className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black hover:bg-[#e65f00]">Get a printing price</Link>
         </div>
       </section>
