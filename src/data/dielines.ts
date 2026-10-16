@@ -441,7 +441,18 @@ function readCmsDielines(): Dieline[] {
 }
 
 // Built-in styles only link to the generator once their style is verified
-const liveBuiltIns = builtInDielines.map((d) => (d.generator && !genStyles.includes(d.generator) ? { ...d, generator: undefined } : d));
+// Verified styles are drawn as a real vector dieline at a sample size (sizes
+// taken from our own production dielines) instead of a picture.
+const sampleSize: Partial<Record<GeneratorStyle, [number, number, number]>> = {
+  "reverse-tuck-end": [55, 45, 120],
+  "straight-tuck-end": [60, 40, 150],
+  "auto-bottom": [101.6, 101.6, 152.4],
+};
+const liveBuiltIns = builtInDielines.map((d) => {
+  if (d.generator && !genStyles.includes(d.generator)) return { ...d, generator: undefined };
+  const s = d.generator && sampleSize[d.generator];
+  return s && !d.gen ? { ...d, gen: { style: d.generator!, L: s[0], W: s[1], H: s[2] } } : d;
+});
 
 export const dielines: Dieline[] = [...liveBuiltIns, ...readCmsDielines()];
 

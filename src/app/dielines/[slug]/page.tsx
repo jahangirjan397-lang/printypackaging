@@ -1,23 +1,15 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DielineFileDownload from "@/components/DielineFileDownload";
+import DielineDirectDownload from "@/components/DielineDirectDownload";
 import ProductQuickQuote from "@/components/ProductQuickQuote";
-import { dielineImage, dielines, genLink, getCategoryName, getDielineBySlug, showsPdf, type Dieline } from "@/data/dielines";
-import { buildDieline, dielineToSvg } from "@/lib/dielineGeometry";
-import DielinePdfPreview from "@/components/DielinePdfPreview";
+import { dielineImage, dielines, genLink, getCategoryName, getDielineBySlug } from "@/data/dielines";
+import DielineVisual from "@/components/DielineVisual";
 import { getProductBySlug } from "@/data/products";
 import { metaDescription, metaTitle } from "@/lib/seo";
 
 const siteUrl = "https://printypackaging.com";
-
-// Admin entries with a style + size are drawn here in Printy style
-function genSvg(d: Dieline, dims = true) {
-  if (!d.gen) return "";
-  const g = d.gen;
-  return dielineToSvg(buildDieline(g.style, { L: g.L, W: g.W, H: g.H, t: 0.5, slitLock: g.slitLock }), d.name, { preview: true, unit: "mm", dims });
-}
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -103,15 +95,9 @@ export default async function DielinePage({ params }: PageProps) {
         <div>
           <figure className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60">
             <div className="flex items-center justify-center rounded-2xl bg-[repeating-linear-gradient(0deg,#f8fafc,#f8fafc_19px,#eef2f6_20px),repeating-linear-gradient(90deg,transparent,transparent_19px,#eef2f6_20px)] p-4">
-              {d.gen ? (
-                <div className="w-full max-w-2xl [&>svg]:h-auto [&>svg]:max-h-[34rem] [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: genSvg(d) }} />
-              ) : showsPdf(d) && d.file ? (
-                <DielinePdfPreview file={d.file} />
-              ) : (
-                <Image src={dielineImage(d)} alt={`${d.name} dieline template showing cut and fold lines`} width={d.image.w} height={d.image.h} priority sizes="(max-width: 1024px) 92vw, 640px" className="h-auto max-h-[34rem] w-auto" />
-              )}
+              <DielineVisual d={d} size="page" />
             </div>
-            <figcaption className="mt-3 text-sm font-bold text-slate-500">{d.name} flat layout. Panels, flaps and glue areas shown in standard proportions.</figcaption>
+            <figcaption className="mt-3 text-sm font-bold text-slate-500">{d.gen ? `${d.name} at ${d.gen.L} × ${d.gen.W} × ${d.gen.H} mm (inside). Solid lines cut, dashed lines fold. Drawn to our production rules.` : `${d.name} flat layout. Panels, flaps and glue areas shown in standard proportions.`}</figcaption>
           </figure>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -145,10 +131,17 @@ export default async function DielinePage({ params }: PageProps) {
             <div className="rounded-[1.5rem] bg-[#07111F] p-6 text-white shadow-xl">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">Instant · Free</p>
               <h2 className="mt-2 text-2xl font-black">{d.gen ? "Download this dieline" : "Make this dieline in your size"}</h2>
-              <p className="mt-2 text-slate-300">{d.gen ? `1:1 PDF or SVG at ${d.gen.L} × ${d.gen.W} × ${d.gen.H} mm with all dimensions, or change the size to fit your product.` : "Enter length, width and height and download a 1:1 PDF or SVG in seconds."}</p>
-              <Link href={genLink(d)} className="mt-5 inline-block rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 hover:bg-[#007C91]">
-                {d.gen ? "Download PDF / SVG →" : "Open generator →"}
-              </Link>
+              <p className="mt-2 text-slate-300">{d.gen ? `The dieline on this page, 1:1 at ${d.gen.L} × ${d.gen.W} × ${d.gen.H} mm with every size and arrow. PDF and SVG for Illustrator and CorelDRAW, DXF for CAD.` : "Enter length, width and height and download a 1:1 PDF or SVG in seconds."}</p>
+              {d.gen ? (
+                <>
+                  <DielineDirectDownload gen={d.gen} name={d.name} />
+                  <Link href={genLink(d)} className="mt-4 inline-block text-sm font-black text-cyan-300 hover:text-white">Need another size? Change it here →</Link>
+                </>
+              ) : (
+                <Link href={genLink(d)} className="mt-5 inline-block rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 hover:bg-[#007C91]">
+                  Open generator →
+                </Link>
+              )}
             </div>
           ) : (
             <div className="rounded-[1.5rem] bg-[#07111F] p-6 text-white shadow-xl">
@@ -174,7 +167,7 @@ export default async function DielinePage({ params }: PageProps) {
             {related.map((r) => (
               <Link key={r.slug} href={`/dielines/${r.slug}`} className="group rounded-3xl border border-slate-200 bg-white p-4 transition hover:-translate-y-1 hover:border-[#FF6A00]">
                 <div className="flex aspect-[4/3] items-center justify-center rounded-2xl bg-slate-50 p-3">
-                  {r.gen ? <div className="w-full [&>svg]:h-auto [&>svg]:max-h-40 [&>svg]:w-full" dangerouslySetInnerHTML={{ __html: genSvg(r, false) }} /> : showsPdf(r) && r.file ? <DielinePdfPreview file={r.file} compact /> : <Image src={dielineImage(r)} alt={`${r.name} dieline`} width={r.image.w} height={r.image.h} sizes="280px" className="max-h-full w-auto object-contain" />}
+                  <DielineVisual d={r} />
                 </div>
                 <h3 className="mt-3 font-black group-hover:text-[#FF6A00]">{r.name}</h3>
               </Link>
