@@ -10,9 +10,10 @@ import Box3DStudio from "@/components/Box3DStudio";
 import NavIcon from "@/components/NavIcon";
 
 const boards = [
-  { id: "card", name: "Card / SBS", sub: "0.5 mm", t: 0.5 },
-  { id: "e-flute", name: "E-flute", sub: "1.5 mm", t: 1.5 },
-  { id: "b-flute", name: "B-flute", sub: "3 mm", t: 3 },
+  { id: "card", name: "SBS card 350 gsm", t: 0.5 },
+  { id: "kraft", name: "Kraft card 350 gsm", t: 0.5 },
+  { id: "e-flute", name: "E-flute corrugated", t: 1.5 },
+  { id: "b-flute", name: "B-flute corrugated", t: 3 },
 ];
 
 // Common starting sizes in mm (L, W, H)
@@ -34,9 +35,15 @@ const presets: Record<"card" | "flute", { name: string; mm: [number, number, num
 const decimals: Record<Unit, number> = { mm: 0, cm: 1, in: 2 };
 const show = (mm: number, unit: Unit) => String(Number((mm / unitToMm[unit]).toFixed(decimals[unit])));
 
-
 type Format = "pdf" | "svg" | "dxf" | "png";
 const SAVE_KEY = "printy-dieline-settings";
+
+const formats: { id: Format; name: string; text: string }[] = [
+  { id: "pdf", name: "PDF", text: "1:1 vector, cut & crease spot colours" },
+  { id: "svg", name: "SVG", text: "Named vector layers" },
+  { id: "dxf", name: "DXF", text: "CAD layers · mm" },
+  { id: "png", name: "PNG", text: "300 dpi preview" },
+];
 
 // PNG at 300 dpi (capped at 8000 px) from the same 1:1 SVG
 async function svgToPng(svg: string): Promise<Blob | null> {
@@ -67,25 +74,37 @@ function download(name: string, data: BlobPart, type: string) {
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
-function Step({ n, title }: { n: number; title: string }) {
+function Step({ n, title, aside }: { n: number; title: string; aside?: React.ReactNode }) {
   return (
-    <h2 className="mb-3 flex items-center gap-2.5 text-[15px] font-black text-[#07111F]">
-      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#07111F] text-[11px] text-white">{n}</span>
-      {title}
-    </h2>
+    <div className="mb-3 flex items-end justify-between gap-2">
+      <div>
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#07111F] text-[11px] font-black text-white">{n}</span>
+        <h2 className="mt-1.5 text-[15px] font-black text-[#07111F]">{title}</h2>
+      </div>
+      {aside}
+    </div>
   );
 }
 
-function Segmented<T extends string>({ value, options, onChange, label }: { value: T; options: { id: T; text: string }[]; onChange: (v: T) => void; label: string }) {
+function Toggle<T extends string>({ value, options, onChange, label }: { value: T; options: { id: T; text: string }[]; onChange: (v: T) => void; label: string }) {
   return (
-    <div role="radiogroup" aria-label={label} className="flex rounded-full bg-slate-100 p-1 text-xs font-black">
+    <div role="radiogroup" aria-label={label} className="flex rounded-lg bg-slate-100 p-1 text-xs font-black">
       {options.map((o) => (
         <button key={o.id} type="button" role="radio" aria-checked={value === o.id} onClick={() => onChange(o.id)}
-          className={`rounded-full px-3.5 py-1.5 transition ${value === o.id ? "bg-white text-[#07111F] shadow-sm" : "text-slate-500 hover:text-[#07111F]"}`}>
+          className={`flex-1 rounded-md px-3 py-1.5 transition ${value === o.id ? "bg-white text-[#07111F] shadow-sm" : "text-slate-500 hover:text-[#07111F]"}`}>
           {o.text}
         </button>
       ))}
     </div>
+  );
+}
+
+function Check({ checked, onChange, children }: { checked: boolean; onChange: (v: boolean) => void; children: React.ReactNode }) {
+  return (
+    <label className="flex cursor-pointer items-center gap-2.5 py-1 text-[13px] font-bold text-slate-700">
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="h-4 w-4 accent-[#FF6A00]" />
+      {children}
+    </label>
   );
 }
 
@@ -122,6 +141,7 @@ export default function DielineGenerator() {
   const [mode, setMode] = useState<"inside" | "outside">(saved?.mode ?? "inside");
   const [showDims, setShowDims] = useState(true);
   const [showNames, setShowNames] = useState(true);
+  const [dark, setDark] = useState(true);
   const [copied, setCopied] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [view, setView] = useState<"2d" | "3d">("2d");
@@ -156,6 +176,7 @@ export default function DielineGenerator() {
   const sizeText = `${dims.L} x ${dims.W} x ${dims.H} ${unit}${mode === "outside" ? " outside" : ""}`;
   const title = `${meta.name} ${sizeText}`;
   const fileBase = `printy-dieline-${style}-${dims.L}x${dims.W}x${dims.H}${unit}`.replace(/[^a-z0-9.x-]/gi, "-");
+  const fmt = (mm: number) => formatLength(mm, unit);
 
   // switching unit converts the numbers, so the box keeps its real size
   function changeUnit(next: Unit) {
@@ -188,6 +209,7 @@ export default function DielineGenerator() {
   }
 
   const askDownload = (kind: Format) => (registered ? doDownload(kind) : setPending(kind));
+  const zoomBy = (d: number) => setZoom((z) => Math.min(3, Math.max(0.6, Math.round((z + d) * 10) / 10)));
 
   // a link that opens this exact box (sizes in mm)
   async function share() {
@@ -203,211 +225,203 @@ export default function DielineGenerator() {
     setTimeout(() => setCopied(false), 2200);
     trackDieline("dieline_share", { style });
   }
-  const zoomBy = (d: number) => setZoom((z) => Math.min(3, Math.max(0.6, Math.round((z + d) * 10) / 10)));
+
+  const summary: [string, string][] = result ? [
+    ["Structure", meta.name],
+    ["Inside size", `${fmt(nums.L)} × ${fmt(nums.W)} × ${fmt(nums.H)}`],
+    ["Outside size", `${fmt(nums.L + 2 * boardInfo.t)} × ${fmt(nums.W + 2 * boardInfo.t)} × ${fmt(nums.H + 2 * boardInfo.t)}`],
+    ["Flat size", `${fmt(result.flat[0])} × ${fmt(result.flat[1])}`],
+    ["Material", `${boardInfo.name} · ${boardInfo.t} mm`],
+  ] : [];
 
   return (
-    <div className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-2xl shadow-slate-300/40">
-      {/* ---------- top bar ---------- */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-4 sm:px-6">
-        <div>
-          <p className="text-lg font-black text-[#07111F]">Make your dieline</p>
-          <p className="text-xs font-bold text-slate-500">Drawn to the same rules as our production dielines</p>
-        </div>
-        <Segmented label="Units" value={unit} onChange={changeUnit} options={[{ id: "mm", text: "mm" }, { id: "cm", text: "cm" }, { id: "in", text: "inch" }]} />
-      </div>
-
-      <div className="grid lg:grid-cols-[22rem_1fr]">
-        {/* ---------- steps ---------- */}
-        <div className="space-y-7 border-b border-slate-100 p-5 sm:p-6 lg:border-b-0 lg:border-r">
-          <section>
-            <Step n={1} title="Box style" />
-            <div className="grid grid-cols-2 gap-2">
-              {generatorStyles.map((s) => (
-                <button key={s.id} type="button" onClick={() => pickStyle(s.id)} aria-pressed={style === s.id}
-                  className={`rounded-2xl border p-2 text-center transition ${style === s.id ? "border-[#FF6A00] bg-orange-50/60 ring-2 ring-[#FF6A00]/15" : "border-slate-200 hover:border-slate-400"}`}>
-                  <NavIcon name={s.id} className={`mx-auto h-14 w-14 ${style === s.id ? "text-[#FF6A00]" : "text-[#007C91]"}`} />
-                  <span className="mt-1.5 block text-[11.5px] font-black leading-tight text-[#07111F]">{s.name}</span>
-                </button>
-              ))}
-            </div>
-            <p className="mt-2 text-xs font-bold text-slate-500">{meta.hint}</p>
-          </section>
-
-          <section>
-            <div className="flex items-start justify-between gap-2">
-              <Step n={2} title="Box size" />
-              <Segmented label="Size measured" value={mode} onChange={setMode} options={[{ id: "inside", text: "Inside" }, { id: "outside", text: "Outside" }]} />
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              {(["L", "W", "H"] as const).map((k, i) => (
-                <label key={k} className="block">
-                  <span className="mb-1 block text-[11px] font-black uppercase tracking-wide text-slate-500">{meta.dims[i]}</span>
-                  <span className="relative block">
-                    <input
-                      inputMode="decimal"
-                      value={dims[k]}
-                      onChange={(e) => setDims((d) => ({ ...d, [k]: e.target.value.replace(/[^0-9.]/g, "") }))}
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-3 pr-8 text-base font-black text-[#07111F] outline-none transition focus:border-[#007C91] focus:bg-white focus:ring-2 focus:ring-[#007C91]/15"
-                      aria-label={`${meta.dims[i]} in ${unit}`}
-                    />
-                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-slate-400">{unit}</span>
-                  </span>
-                </label>
-              ))}
-            </div>
-            <p className="mt-2 text-[11px] font-bold leading-4 text-slate-500">
-              {mode === "inside" ? "Inside = the space your product needs. Length is the front face." : `Outside size of the folded box; we take off ${boardInfo.t} mm of board each side.`}
-            </p>
-            {!valid && <p className="mt-2 text-xs font-bold text-red-600">Enter sizes between {formatLength(10, unit)} and {formatLength(1500, unit)}.</p>}
-            <div className="mt-3 flex flex-wrap items-center gap-1.5">
-              <span className="text-[11px] font-bold text-slate-400">Try:</span>
-              {presets[meta.board].map((p) => (
-                <button key={p.name} type="button" onClick={() => setDims({ L: show(p.mm[0], unit), W: show(p.mm[1], unit), H: show(p.mm[2], unit) })}
-                  className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-black text-slate-600 transition hover:bg-orange-50 hover:text-[#FF6A00]">
-                  {p.name}
-                </button>
-              ))}
-            </div>
-          </section>
-
-          <section>
-            <Step n={3} title="Board" />
-            <div className="grid grid-cols-3 gap-2">
-              {boards.map((b) => (
-                <button key={b.id} type="button" onClick={() => setBoard(b.id)} aria-pressed={board === b.id}
-                  className={`rounded-xl border px-2 py-2 text-center text-xs font-black transition ${board === b.id ? "border-[#007C91] bg-cyan-50 text-[#07111F]" : "border-slate-200 text-slate-600 hover:border-slate-400"}`}>
-                  {b.name}<span className="block text-[10px] font-bold text-slate-500">{b.sub}</span>
-                </button>
-              ))}
-            </div>
-            {tuckStyle && (
-              <label className="mt-3 flex cursor-pointer items-center justify-between gap-3 rounded-xl bg-slate-50 px-3 py-2.5 text-xs font-black text-slate-700">
-                Slit lock on the tucks
-                <input type="checkbox" checked={slitLock} onChange={(e) => setSlitLock(e.target.checked)} className="h-4 w-4 accent-[#FF6A00]" />
-              </label>
-            )}
-          </section>
-
-          {result && (
-            <section className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">Your box</p>
-              <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-xs">
-                {[
-                  ["Style", meta.name],
-                  ["Inside", `${formatLength(nums.L, unit)} × ${formatLength(nums.W, unit)} × ${formatLength(nums.H, unit)}`],
-                  ["Outside", `${formatLength(nums.L + 2 * boardInfo.t, unit)} × ${formatLength(nums.W + 2 * boardInfo.t, unit)} × ${formatLength(nums.H + 2 * boardInfo.t, unit)}`],
-                  ["Flat sheet", `${formatLength(result.flat[0], unit)} × ${formatLength(result.flat[1], unit)}`],
-                  ["Board", `${boardInfo.name} ${boardInfo.sub}`],
-                ].map(([k, v]) => (
-                  <div key={k} className="contents">
-                    <dt className="font-bold text-slate-500">{k}</dt>
-                    <dd className="font-black text-[#07111F]">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              {result.dl.notes && <p className="mt-3 border-t border-slate-200 pt-2 text-[11px] font-bold leading-4 text-slate-500">{result.dl.notes[1] ?? result.dl.notes[0]}</p>}
-            </section>
-          )}
+    <div id="generator" className="scroll-mt-24">
+      <div className="overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-xl shadow-slate-300/30">
+        {/* ---------- top bar ---------- */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-[#FBFAF7] px-4 py-3 sm:px-5">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <p className="font-black text-[#07111F]">Create your box dieline</p>
+            <p className="text-xs font-bold text-emerald-700">✓ Settings saved in this browser</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-40"><Toggle label="Units" value={unit} onChange={changeUnit} options={[{ id: "mm", text: "mm" }, { id: "cm", text: "cm" }, { id: "in", text: "in" }]} /></div>
+            <button type="button" onClick={share} disabled={!result}
+              className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-black text-[#07111F] transition hover:border-[#07111F] disabled:opacity-50">
+              {copied ? "✓ Copied" : "Share"}
+            </button>
+          </div>
         </div>
 
-        {/* ---------- preview ---------- */}
-        <div className="flex min-w-0 flex-col bg-slate-50/60">
-          <div className="flex flex-wrap items-center justify-between gap-2 px-4 pt-4 sm:px-5">
-            <Segmented label="View" value={shown} onChange={setView} options={has3d ? [{ id: "2d", text: "Dieline" }, { id: "3d", text: "3D box" }] : [{ id: "2d", text: "Dieline" }]} />
-            {shown === "2d" && (
-              <div className="flex items-center gap-2 text-[11px] font-black">
-                <button type="button" onClick={() => setShowDims((v) => !v)} aria-pressed={showDims}
-                  className={`rounded-full border px-3 py-1.5 transition ${showDims ? "border-[#007C91]/30 bg-cyan-50 text-[#007C91]" : "border-slate-200 bg-white text-slate-500"}`}>
-                  ↔ Sizes
-                </button>
-                <button type="button" onClick={() => setShowNames((v) => !v)} aria-pressed={showNames}
-                  className={`rounded-full border px-3 py-1.5 transition ${showNames ? "border-[#007C91]/30 bg-cyan-50 text-[#007C91]" : "border-slate-200 bg-white text-slate-500"}`}>
-                  Aa Names
-                </button>
-                <span className="flex overflow-hidden rounded-full border border-slate-200 bg-white">
-                  <button type="button" aria-label="Zoom out" onClick={() => zoomBy(-0.2)} className="px-3 py-1.5 hover:bg-slate-50">−</button>
-                  <button type="button" aria-label="Reset zoom" onClick={() => setZoom(1)} className="w-12 border-x border-slate-200 py-1.5 hover:bg-slate-50">{Math.round(zoom * 100)}%</button>
-                  <button type="button" aria-label="Zoom in" onClick={() => zoomBy(0.2)} className="px-3 py-1.5 hover:bg-slate-50">+</button>
-                </span>
-              </div>
-            )}
-          </div>
-
-          <div className="relative m-4 min-h-[26rem] flex-1 overflow-auto rounded-2xl border border-slate-200 bg-white bg-[linear-gradient(#f1f5f9_1px,transparent_1px),linear-gradient(90deg,#f1f5f9_1px,transparent_1px)] [background-size:20px_20px] p-4 sm:m-5 lg:max-h-[42rem]">
-            {result && shown === "3d" ? (
-              <Box3DStudio L={nums.L} W={nums.W} H={nums.H} t={boardInfo.t} title={`${meta.name} ${sizeText}`} base={style === "auto-bottom" ? "crash" : style === "straight-tuck-end" ? "straight" : "reverse"} />
-            ) : result ? (
-              <div
-                className="mx-auto [&>svg]:h-auto [&>svg]:w-full"
-                // at 100% the whole dieline fits the canvas height; zoom grows from there
-                style={{ width: `${Math.round(zoom * 100)}%`, maxWidth: `calc(${(zoom * 32).toFixed(1)}rem * ${(result.flat[0] / result.flat[1]).toFixed(3)})` }}
-                // our own generated SVG string, no user HTML
-                dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims, labels: showNames }) }}
-              />
-            ) : (
-              <p className="py-24 text-center font-bold text-slate-500">Enter a size to see your dieline.</p>
-            )}
-          </div>
-
-          {/* ---------- action bar ---------- */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-slate-200 bg-white px-5 pt-4 sm:px-6">
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">Flat size</p>
-                <p className="text-lg font-black text-[#07111F]">{result ? `${formatLength(result.flat[0], unit)} × ${formatLength(result.flat[1], unit)}` : "–"}</p>
-              </div>
-              <div className="flex gap-3 text-[11px] font-bold text-slate-500">
-                <span className="flex items-center gap-1.5"><i className="h-0.5 w-4 bg-[#07111F]" /> Cut</span>
-                <span className="flex items-center gap-1.5"><i className="h-0 w-4 border-t-2 border-dashed border-[#FF6A00]" /> Fold</span>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <button type="button" onClick={share} disabled={!result}
-                className="rounded-full px-3 py-3 text-xs font-black text-[#007C91] transition hover:bg-cyan-50 disabled:opacity-50">
-                {copied ? "✓ Link copied" : "Share link"}
-              </button>
-              <span className="flex overflow-hidden rounded-full border border-slate-300 text-xs font-black text-[#07111F]">
-                {(["svg", "dxf", "png"] as const).map((f, i) => (
-                  <button key={f} type="button" disabled={!result} onClick={() => askDownload(f)}
-                    className={`px-3.5 py-3 uppercase transition hover:bg-slate-50 disabled:opacity-50 ${i ? "border-l border-slate-300" : ""}`}>
-                    {f}
+        <div className="grid lg:grid-cols-[19rem_1fr]">
+          {/* ---------- settings ---------- */}
+          <div className="space-y-7 border-b border-slate-200 p-4 sm:p-5 lg:border-b-0 lg:border-r">
+            <section>
+              <Step n={1} title="Choose the structure" aside={<span className="font-mono text-[11px] text-slate-400">{generatorStyles.length} styles</span>} />
+              <div className="space-y-1.5">
+                {generatorStyles.map((s) => (
+                  <button key={s.id} type="button" onClick={() => pickStyle(s.id)} aria-pressed={style === s.id}
+                    className={`flex w-full items-center gap-3 rounded-lg border px-3 py-2 text-left transition ${style === s.id ? "border-[#FF6A00] bg-orange-50/70" : "border-slate-200 hover:border-slate-400"}`}>
+                    <NavIcon name={s.id} className={`h-9 w-9 ${style === s.id ? "text-[#FF6A00]" : "text-[#007C91]"}`} />
+                    <span className="min-w-0">
+                      <span className="block text-[13px] font-black leading-tight text-[#07111F]">{s.name}</span>
+                      <span className="block text-[11px] font-bold text-slate-500">{s.hint}</span>
+                    </span>
                   </button>
                 ))}
-              </span>
-              <button type="button" disabled={!result} onClick={() => askDownload("pdf")}
-                className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:bg-[#e65f00] disabled:opacity-50">
-                Download PDF
-              </button>
-            </div>
+              </div>
+            </section>
+
+            <section>
+              <Step n={2} title="Enter the size" />
+              <Toggle label="Size measured" value={mode} onChange={setMode} options={[{ id: "inside", text: "Inside size" }, { id: "outside", text: "Outside size" }]} />
+              <div className="mt-3 space-y-2">
+                {(["L", "W", "H"] as const).map((k, i) => (
+                  <label key={k} className="flex items-center gap-2">
+                    <span className="w-20 text-xs font-black text-slate-600"><span className="text-[#FF6A00]">{"ABC"[i]}</span> · {meta.dims[i]}</span>
+                    <span className="relative flex-1">
+                      <input
+                        inputMode="decimal"
+                        value={dims[k]}
+                        onChange={(e) => setDims((d) => ({ ...d, [k]: e.target.value.replace(/[^0-9.]/g, "") }))}
+                        className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-3 pr-10 text-right text-sm font-black text-[#07111F] outline-none transition focus:border-[#007C91] focus:ring-2 focus:ring-[#007C91]/15"
+                        aria-label={`${meta.dims[i]} in ${unit}`}
+                      />
+                      <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-slate-400">{unit}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <p className="mt-2 rounded-lg bg-cyan-50 px-3 py-2 text-[11px] font-bold leading-4 text-[#006273]">
+                {mode === "inside" ? "Length is the front face, width front to back, height bottom to top." : `Outside size of the folded box; we take ${boardInfo.t} mm of board off each side.`}
+              </p>
+              {!valid && <p className="mt-2 text-xs font-bold text-red-600">Enter sizes between {fmt(10)} and {fmt(1500)}.</p>}
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {presets[meta.board].map((p) => (
+                  <button key={p.name} type="button" onClick={() => setDims({ L: show(p.mm[0], unit), W: show(p.mm[1], unit), H: show(p.mm[2], unit) })}
+                    className="rounded-md bg-slate-100 px-2 py-1 text-[11px] font-black text-slate-600 transition hover:bg-orange-50 hover:text-[#FF6A00]">
+                    {p.name}
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <Step n={3} title="Production settings" />
+              <label className="block">
+                <span className="mb-1 block text-xs font-black text-slate-600">Material</span>
+                <select value={board} onChange={(e) => setBoard(e.target.value)}
+                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-[#07111F] outline-none focus:border-[#007C91]">
+                  {boards.map((b) => <option key={b.id} value={b.id}>{b.name} ({b.t} mm)</option>)}
+                </select>
+              </label>
+              <div className="mt-3">
+                <Check checked={showDims} onChange={setShowDims}>Dimension lines</Check>
+                <Check checked={showNames} onChange={setShowNames}>Panel names</Check>
+                {tuckStyle && <Check checked={slitLock} onChange={setSlitLock}>Slit lock on the tucks</Check>}
+                <Check checked={dark} onChange={setDark}>Dark canvas</Check>
+              </div>
+            </section>
           </div>
-          <p className="bg-white px-5 pb-4 pt-3 text-[11px] font-bold leading-5 text-slate-500 sm:px-6">
-            1:1 scale. PDF and SVG open in Illustrator, CorelDRAW and Inkscape; DXF opens in CAD and cutting-table software. Our prepress team checks every dieline free before production.{" "}
-            <Link href={`/dielines/${meta.library}`} className="text-[#007C91] underline-offset-2 hover:underline">About this style</Link>
-          </p>
-          {/* what to do next */}
-          <div className="grid gap-2 border-t border-slate-100 bg-white px-5 py-4 sm:grid-cols-2 sm:px-6">
-            {has3d && <button type="button" onClick={() => setView("3d")} className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 text-left transition hover:border-[#007C91]">
-              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-cyan-50 text-[#007C91]">
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9Z" /><path d="M4 7.5 12 12l8-4.5M12 12v9" /></svg>
-              </span>
-              <span><span className="block text-sm font-black text-[#07111F]">See it in 3D</span><span className="block text-[11px] font-bold text-slate-500">Board, colour and your logo, open and close</span></span>
-            </button>}
-            <Link href="/#quote" className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 transition hover:border-[#FF6A00]">
-              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-orange-50 text-[#FF6A00]">
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h2l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.4-1l1.8-6.4H7" /><circle cx="10" cy="19.5" r="1.3" /><circle cx="17" cy="19.5" r="1.3" /></svg>
-              </span>
-              <span><span className="block text-sm font-black text-[#07111F]">Get a printing price</span><span className="block text-[11px] font-bold text-slate-500">Printed boxes from 100 pcs, reply within 1 hour</span></span>
-            </Link>
+
+          {/* ---------- canvas ---------- */}
+          <div className="flex min-w-0 flex-col">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 bg-[#F4F2EE] px-3 py-2">
+              <div role="tablist" aria-label="View" className="flex gap-1 text-xs font-black">
+                {([["2d", "2D dieline"], ...(has3d ? [["3d", "3D mockup"]] : [])] as ["2d" | "3d", string][]).map(([id, text]) => (
+                  <button key={id} type="button" role="tab" aria-selected={shown === id} onClick={() => setView(id)}
+                    className={`rounded-md px-3 py-1.5 transition ${shown === id ? "bg-white text-[#07111F] shadow-sm" : "text-slate-500 hover:text-[#07111F]"}`}>
+                    {text}
+                  </button>
+                ))}
+              </div>
+              {shown === "2d" && (
+                <div className="flex items-center gap-1 text-xs font-black text-slate-600">
+                  <button type="button" aria-label="Zoom out" onClick={() => zoomBy(-0.2)} className="h-7 w-7 rounded-md hover:bg-white">−</button>
+                  <button type="button" aria-label="Reset zoom" onClick={() => setZoom(1)} className="w-12 rounded-md py-1 font-mono hover:bg-white">{Math.round(zoom * 100)}%</button>
+                  <button type="button" aria-label="Zoom in" onClick={() => zoomBy(0.2)} className="h-7 w-7 rounded-md hover:bg-white">+</button>
+                </div>
+              )}
+            </div>
+
+            <div className={`relative min-h-[28rem] flex-1 overflow-auto p-4 lg:max-h-[40rem] ${shown === "2d" && dark ? "bg-[#07111F]" : "bg-[#F7F6F3] bg-[linear-gradient(#e7e5e0_1px,transparent_1px),linear-gradient(90deg,#e7e5e0_1px,transparent_1px)] [background-size:22px_22px]"}`}>
+              {result && shown === "3d" ? (
+                <Box3DStudio L={nums.L} W={nums.W} H={nums.H} t={boardInfo.t} title={`${meta.name} ${sizeText}`} base={style === "auto-bottom" ? "crash" : style === "straight-tuck-end" ? "straight" : "reverse"} />
+              ) : result ? (
+                <div
+                  className="mx-auto [&>svg]:h-auto [&>svg]:w-full"
+                  // at 100% the whole dieline fits the canvas height; zoom grows from there
+                  style={{ width: `${Math.round(zoom * 100)}%`, maxWidth: `calc(${(zoom * 33).toFixed(1)}rem * ${(result.flat[0] / result.flat[1]).toFixed(3)})` }}
+                  // our own generated SVG string, no user HTML
+                  dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims, labels: showNames, theme: dark ? "blueprint" : "printy" }) }}
+                />
+              ) : (
+                <p className={`py-24 text-center font-bold ${dark ? "text-slate-400" : "text-slate-500"}`}>Enter a size to see your dieline.</p>
+              )}
+            </div>
+
+            {/* legend */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 px-4 py-2.5 text-[11px] font-bold text-slate-500">
+              <div className="flex flex-wrap items-center gap-4">
+                <span className="flex items-center gap-1.5"><i className="h-0.5 w-5 bg-[#07111F]" /> Cut</span>
+                <span className="flex items-center gap-1.5"><i className="h-0 w-5 border-t-2 border-dashed border-[#FF6A00]" /> Fold</span>
+                <span className="flex items-center gap-1.5"><i className="h-0.5 w-5 bg-[#00A3C4]" /> Dimensions</span>
+              </div>
+              {result && <span className="font-mono text-slate-600">{fmt(result.flat[0])} × {fmt(result.flat[1])} flat</span>}
+            </div>
+
+            {/* geometry summary */}
+            {result && (
+              <div className="border-t border-slate-200 bg-[#FBFAF7] px-4 py-4">
+                <p className="text-xs font-black text-emerald-700">✓ Geometry generated · scale 1:1 · {unit === "in" ? "inches" : unit === "cm" ? "centimetres" : "millimetres"}</p>
+                <dl className="mt-3 grid gap-x-6 gap-y-2 text-xs sm:grid-cols-2 xl:grid-cols-3">
+                  {summary.map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-3 border-b border-slate-200 pb-1.5">
+                      <dt className="font-bold text-slate-500">{k}</dt>
+                      <dd className="text-right font-black text-[#07111F]">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                {result.dl.notes && <p className="mt-3 text-[11px] font-bold leading-4 text-slate-500">{result.dl.notes[1] ?? result.dl.notes[0]}. Our prepress team checks every dieline against your board before production, free.</p>}
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* ---------- step 4: download ---------- */}
+      <section className="mt-6 rounded-2xl border border-slate-300 bg-white p-5 sm:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#07111F] text-[11px] font-black text-white">4</span>
+            <h2 className="mt-1.5 text-lg font-black text-[#07111F]">Download your dieline</h2>
+            <p className="mt-1 max-w-xl text-sm text-slate-600">A clean template to put your artwork on, with the Printy footer. Add your email once and every format stays unlocked in this browser.</p>
+          </div>
+          <Link href={`/dielines/${meta.library}`} className="text-sm font-black text-[#007C91] hover:text-[#FF6A00]">About this style →</Link>
+        </div>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {formats.map((f) => (
+            <button key={f.id} type="button" disabled={!result} onClick={() => askDownload(f.id)}
+              className={`group rounded-xl border p-4 text-left transition disabled:opacity-50 ${f.id === "pdf" ? "border-[#FF6A00] bg-orange-50/60 hover:bg-orange-50" : "border-slate-200 hover:border-[#07111F]"}`}>
+              <span className="flex items-center justify-between">
+                <span className="text-lg font-black text-[#07111F]">{f.name}</span>
+                <span className={`text-lg ${f.id === "pdf" ? "text-[#FF6A00]" : "text-slate-400 group-hover:text-[#07111F]"}`}>↓</span>
+              </span>
+              <span className="mt-1 block text-xs font-bold text-slate-500">{f.text}</span>
+            </button>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#07111F] px-4 py-3 text-white">
+          <p className="text-sm font-bold">Want it printed? Custom boxes from 100 pcs, price within 1 hour.</p>
+          <Link href="/#quote" className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black hover:bg-[#e65f00]">Get a printing price</Link>
+        </div>
+      </section>
 
       {pending && (
         <DielineLeadGate
           what={pending.toUpperCase()}
           styleName={meta.name}
           sizeText={sizeText}
-          material={`${boardInfo.name} ${boardInfo.sub}`}
+          material={`${boardInfo.name} ${boardInfo.t} mm`}
           source="dieline-generator"
           onClose={() => setPending(null)}
           onDone={() => { setRegistered(true); const kind = pending; setPending(null); void doDownload(kind); }}
