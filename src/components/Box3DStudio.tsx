@@ -17,6 +17,7 @@ const swatches = [
 type SceneApi = {
   build: (d: { L: number; W: number; H: number; t: number }, look: BoxLook) => void;
   setOpen: (o: boolean) => void;
+  view: (kind: "top" | "bottom") => void;
   snapshot: () => string;
   dispose: () => void;
   autoRotate: boolean;
@@ -24,7 +25,7 @@ type SceneApi = {
 
 // Realistic 3D preview: bleach card or kraft board, matte or gloss, any print
 // colour and the buyer's own logo (kept in the browser, never uploaded).
-export default function Box3DStudio({ L, W, H, t, title }: { L: number; W: number; H: number; t: number; title: string }) {
+export default function Box3DStudio({ L, W, H, t, title, base = "tuck" }: { L: number; W: number; H: number; t: number; title: string; base?: "tuck" | "crash" }) {
   const host = useRef<HTMLDivElement>(null);
   const scene = useRef<SceneApi | null>(null);
   const [ready, setReady] = useState(false);
@@ -38,6 +39,7 @@ export default function Box3DStudio({ L, W, H, t, title }: { L: number; W: numbe
   const [printAll, setPrintAll] = useState(false);
   const [open, setOpen] = useState(false);
   const [spin, setSpin] = useState(true);
+  const [angle, setAngle] = useState<"top" | "bottom">("top");
 
   // load three.js and the default logo once
   useEffect(() => {
@@ -60,8 +62,8 @@ export default function Box3DStudio({ L, W, H, t, title }: { L: number; W: numbe
 
   useEffect(() => {
     if (!ready || !scene.current) return;
-    scene.current.build({ L, W, H, t }, { board, finish, printColor, logo, logoSize, printAll });
-  }, [ready, L, W, H, t, board, finish, printColor, logo, logoSize, printAll]);
+    scene.current.build({ L, W, H, t }, { board, finish, printColor, logo, logoSize, printAll, base });
+  }, [ready, L, W, H, t, board, finish, printColor, logo, logoSize, printAll, base]);
 
   useEffect(() => { scene.current?.setOpen(open); }, [open, ready]);
   useEffect(() => { if (scene.current) scene.current.autoRotate = spin; }, [spin, ready]);
@@ -99,6 +101,9 @@ export default function Box3DStudio({ L, W, H, t, title }: { L: number; W: numbe
           </button>
           <button type="button" onClick={() => setSpin((s) => !s)} className="rounded-full bg-white/90 px-4 py-2 text-xs font-black text-[#07111F] shadow">
             {spin ? "Stop turning" : "Turn"}
+          </button>
+          <button type="button" onClick={() => { const next = angle === "top" ? "bottom" : "top"; setAngle(next); setSpin(false); scene.current?.view(next); }} className="rounded-full bg-white/90 px-4 py-2 text-xs font-black text-[#07111F] shadow">
+            {angle === "top" ? "See the bottom" : "See the top"}
           </button>
           <button type="button" onClick={saveImage} className="rounded-full bg-white/90 px-4 py-2 text-xs font-black text-[#07111F] shadow">Save image</button>
         </div>

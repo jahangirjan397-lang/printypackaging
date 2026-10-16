@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/dieline-checker",
+        destination: "/dieline-generator",
+        permanent: true,
+      },
+      {
         source: "/shop",
         destination: "/products",
         permanent: true,

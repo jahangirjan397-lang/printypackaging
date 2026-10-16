@@ -400,7 +400,7 @@ type CmsDieline = {
 };
 
 // keep in step with VERIFIED_STYLES in src/lib/dielineGeometry.ts
-const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end"];
+const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom"];
 function cmsGen(d: CmsDieline): Dieline["gen"] {
   const style = genStyles.find((g) => g === d.genStyle);
   const [L, W, H] = [d.sizeL, d.sizeW, d.sizeH].map(Number);

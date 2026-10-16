@@ -95,7 +95,6 @@ export default function DielineGeneratorPage() {
             </ol>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/dielines" className="rounded-full border-2 border-[#07111F] px-6 py-3 text-sm font-black hover:border-[#007C91] hover:text-[#007C91]">See all 50+ box styles</Link>
-              <Link href="/dieline-checker" className="rounded-full border-2 border-[#07111F] px-6 py-3 text-sm font-black hover:border-[#007C91] hover:text-[#007C91]">Check your artwork PDF</Link>
               <Link href="/#quote" className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 hover:bg-[#007C91]">Get a printing price</Link>
             </div>
           </div>

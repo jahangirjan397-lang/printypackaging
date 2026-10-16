@@ -38,7 +38,7 @@ const allGeneratorStyles: {
 // offered on the site. Others stay in the code until they are matched to our
 // CorelDRAW files and approved (auto bottom, mailer, shipping box, tray,
 // sleeve, pillow).
-export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end"];
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom"];
 export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -147,9 +147,10 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   // the width less 1".
   const { L, W, t } = d;
   const H = d.H;
-  const g = flapSize(L, W); // glue flap
+  // our auto-lock dielines use a 1/2" glue flap and tuck at every size
+  const g = mode === "auto" ? 0.5 * IN : flapSize(L, W); // glue flap
   const xA = g, xB = g + L, xC = xB + W, xD = xC + L, xE = xD + W;
-  const lid = W, tuck = flapSize(L, W), dust = W >= 63.5 ? W - IN : W / 2;
+  const lid = W, tuck = mode === "auto" ? 0.5 * IN : flapSize(L, W), dust = W >= 63.5 ? W - IN : W / 2;
   void t;
   const notes = [
     `Panels ${r1(L)} / ${r1(W)} / ${r1(L)} / ${r1(W)} mm, height ${r1(H)} mm (Printy factory rules)`,
@@ -170,11 +171,14 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   const dims: DDim[] = [hd(xA, xB, yd), hd(xB, xC, yd), hd(xC, xD, yd), hd(xD, xE, yd), vd(0, H, xA + Math.min(10, L * 0.18)), vd(-lid, 0, xA + Math.min(10, L * 0.18))];
   // slit locks: short cuts at both ends of the tuck fold, as on our dielines
   const slits: DPath[] = [];
-  const slit = (x: number, y: number, dir: number) => slits.push({ kind: "cut", segs: [{ M: [x, y] }, { L: [x, y + dir * 2.5] }] });
+  // on our auto-lock dielines: slits 1/8" in and 1/16" deep, tuck corners = half the tuck
+  const slitIn = mode === "auto" ? 0.125 * IN : 2, slitLen = mode === "auto" ? IN / 16 : 2.5;
+  const slit = (x: number, y: number, dir: number) => slits.push({ kind: "cut", segs: [{ M: [x, y] }, { L: [x, y + dir * slitLen] }] });
   const topLid = (x0: number, x1: number) => {
-    if (d.slitLock) { slit(x0 + 2, -lid, 1); slit(x1 - 2, -lid, 1); }
+    if (d.slitLock || mode === "auto") { slit(x0 + slitIn, -lid, 1); slit(x1 - slitIn, -lid, 1); }
     rects.push({ x0, y0: -lid, x1, y1: 0 });
-    rects.push({ x0: x0 + 0.5, y0: -lid - tuck, x1: x1 - 0.5, y1: -lid, r: { tl: tuckR(x1 - x0, tuck), tr: tuckR(x1 - x0, tuck) } });
+    const tr = mode === "auto" ? tuck / 2 : tuckR(x1 - x0, tuck);
+    rects.push({ x0: x0 + 0.5, y0: -lid - tuck, x1: x1 - 0.5, y1: -lid, r: { tl: tr, tr } });
   };
   const botLid = (x0: number, x1: number) => {
     if (d.slitLock) { slit(x0 + 2, H + lid, -1); slit(x1 - 2, H + lid, -1); }
@@ -184,10 +188,10 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
   };
   // Dust flaps as on our dielines: a small relief nick at both ends of the
   // fold, and the rounded corner on the side away from the lid.
-  const dustFlaps: { a: number; b: number; y: number; dir: number; roundLeft: boolean }[] = [];
+  const dustFlaps: { a: number; b: number; y: number; dir: number; roundLeft: boolean; depth?: number; taper?: "left" | "right" }[] = [];
   const finish = (base: DPath[]) => {
     // tapered glue flap, like our files
-    const tg = Math.min(g * 0.3, H * 0.1);
+    const tg = mode === "auto" ? 0.125 * IN : Math.min(g * 0.3, H * 0.1);
     let out = base.filter((p) => !(p.kind === "cut" && p.segs.length === 2 && p.segs[0].M && p.segs[1].L &&
       Math.abs(p.segs[0].M[0] - xA) < 0.01 && Math.abs(p.segs[1].L[0] - xA) < 0.01));
     out.push({ kind: "cut", segs: [{ M: [xA, 0] }, { L: [0, tg] }, { L: [0, H - tg] }, { L: [xA, H] }] }, { kind: "fold", segs: [{ M: [xA, 0] }, { L: [xA, H] }] });
@@ -197,8 +201,25 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
       out = out.filter((p) => !(p.kind === "cut" && p.segs.length === 2 && p.segs[0].M && p.segs[1].L &&
         Math.abs(p.segs[0].M[1] - f.y) < 0.01 && Math.abs(p.segs[1].L[1] - f.y) < 0.01 &&
         Math.min(p.segs[0].M[0], p.segs[1].L[0]) >= f.a - 0.01 && Math.max(p.segs[0].M[0], p.segs[1].L[0]) <= f.b + 0.01));
-      const sN = Math.min(2, (f.b - f.a) * 0.07), R = Math.min(10, dust * 0.5, (f.b - f.a) / 2 - sN);
       const Y = (v: number) => f.y + f.dir * v;
+      if (f.taper) {
+        // tapered flap from our auto-lock dielines: straight side with a 1/8" relief,
+        // other side rounded (W/8) into a slant ending 1 mm short of the fold
+        const D = f.depth ?? dust, w = f.b - f.a, rel = 0.125 * IN, Rr = w / 8, inX = 0.17 * w;
+        const right = f.taper === "right";
+        const e = right ? f.b : f.a, s0 = right ? f.a : f.b, sg = right ? 1 : -1; // sg points from straight side to taper side
+        const segsT: Seg[] = [
+          { M: [s0, f.y] }, { L: [s0 + sg * rel, Y(rel)] }, { L: [s0 + sg * rel, Y(D)] },
+          { L: [e - sg * (inX + Rr), Y(D)] },
+          { C: [[e - sg * (inX + Rr - Rr * K), Y(D)], [e - sg * inX, Y(D - Rr + Rr * K)], [e - sg * inX, Y(D - Rr)]] },
+          { L: [e - sg * 4.17, Y(6.35)] }, { L: [e - sg * 1, Y(rel)] }, { L: [e - sg * 1, f.y] },
+        ];
+        out.push({ kind: "cut", segs: segsT }, { kind: "cut", segs: [{ M: [e - sg * 1, f.y] }, { L: [e, f.y] }] },
+          { kind: "fold", segs: [{ M: [s0, f.y] }, { L: [e - sg * 1, f.y] }] });
+        lastAreas = [...lastAreas, { x0: Math.min(s0 + sg * rel, e - sg * inX), x1: Math.max(s0 + sg * rel, e - sg * inX), y0: Math.min(f.y, Y(D)), y1: Math.max(f.y, Y(D)), r: f.dir < 0 ? (right ? { tr: Rr } : { tl: Rr }) : (right ? { br: Rr } : { bl: Rr }) }];
+        continue;
+      }
+      const sN = Math.min(2, (f.b - f.a) * 0.07), R = Math.min(10, dust * 0.5, (f.b - f.a) / 2 - sN);
       const segs: Seg[] = [{ M: [f.a, f.y] }, { L: [f.a + sN, Y(sN)] }];
       if (f.roundLeft) segs.push({ L: [f.a + sN, Y(dust - R)] }, { C: [[f.a + sN, Y(dust - R + R * K)], [f.a + sN + R - R * K, Y(dust)], [f.a + sN + R, Y(dust)]] });
       else segs.push({ L: [f.a + sN, Y(dust)] });
@@ -211,20 +232,42 @@ function tuckEnd(d: DielineInput, mode: "reverse" | "straight" | "auto"): Dielin
     return out;
   };
   topLid(xA, xB); // our dielines put the lid on the first panel
-  dustFlaps.push({ a: xB, b: xC, y: 0, dir: -1, roundLeft: false }, { a: xD, b: xE, y: 0, dir: -1, roundLeft: true });
   if (mode === "auto") {
-    // crash-lock base: hooked flaps on the long panels, glued diagonal flaps on the short panels
-    // lock flaps are half the width plus a 1/8" relief, as on our auto-lock dielines
-    const rel = 0.125 * IN, f = W / 2 + rel;
-    rects.push({ x0: xA + rel, y0: H, x1: xB - rel, y1: H + f, r: { bl: 4, br: 4 } });
-    rects.push({ x0: xC + rel, y0: H, x1: xD - rel, y1: H + f, r: { bl: 4, br: 4 } });
-    rects.push({ x0: xB + 0.5, y0: H, x1: xC - 0.5, y1: H + W / 2 });
-    rects.push({ x0: xD + 0.5, y0: H, x1: xE - 0.5, y1: H + W / 2 });
-    const diag = (x0: number): DPath => ({ kind: "fold", segs: [{ M: [x0, H] }, { L: [x0 + W / 2, H + W / 2] }] });
-    const glue = (x0: number): DPath => ({ kind: "glue", closed: true, segs: [{ M: [x0, H] }, { L: [x0 + W / 2, H + W / 2] }, { L: [x0, H + W / 2] }] });
-    const paths = [...finish(rectsToPaths(rects)), diag(xB + 0.5), diag(xD + 0.5), glue(xB + 0.5), glue(xD + 0.5)];
-    notes.push(`Auto bottom: glue the shaded areas · lock flaps ${r1(f)} mm`);
-    labels.push({ at: [xA + L / 2, H + f / 2], text: "LOCK" }, { at: [xC + L / 2, H + f / 2], text: "LOCK" });
+    // our auto-lock layout: top dust flaps L/2 deep, tapering towards the back panel
+    dustFlaps.push({ a: xB, b: xC, y: 0, dir: -1, roundLeft: false, depth: L / 2, taper: "right" }, { a: xD, b: xE, y: 0, dir: -1, roundLeft: true, depth: L / 2, taper: "left" });
+  } else {
+    dustFlaps.push({ a: xB, b: xC, y: 0, dir: -1, roundLeft: false }, { a: xD, b: xE, y: 0, dir: -1, roundLeft: true });
+  }
+  if (mode === "auto") {
+    // Crash-lock base measured from our auto-lock dielines:
+    // hook flaps (front, back): 3/4 W deep, 1/8" relief each side, 45 deg fold from
+    // the corner to a point W/2 in and W/2 down, a ledge of (L - W)/2, 45 deg cuts;
+    // glue flaps (sides): W/2 deep with a 45 deg edge.
+    const rel = 0.125 * IN, dep = 0.75 * W, drop = dep - W / 2;
+    const extra: DPath[] = [];
+    const hook = (x0: number, x1: number) => {
+      const P: Pt = [x1 - W / 2, H + W / 2];
+      const Q: Pt = [P[0] - Math.max(0, (x1 - x0 - W) / 2), P[1]];
+      const lb = Math.max(x0 + rel, Q[0] - drop), rb = Math.min(x1 - rel, P[0] + drop);
+      const segs: Seg[] = [{ M: [x0, H] }, { L: [x0 + rel, H + rel] }, { L: [x0 + rel, H + dep] }, { L: [lb, H + dep] }, { L: Q }];
+      if (Q[0] < P[0] - 0.01) segs.push({ L: P });
+      segs.push({ L: [rb, H + dep] }, { L: [x1 - rel, H + dep] }, { L: [x1 - rel, H + rel] }, { L: [x1, H] });
+      extra.push({ kind: "cut", segs }, { kind: "fold", segs: [{ M: [x1, H] }, { L: P }] });
+      lastAreas = [...lastAreas, { x0: x0 + rel, y0: H, x1: x1 - rel, y1: H + dep }];
+      labels.push({ at: [x0 + (x1 - x0) * 0.32, H + dep * 0.45], text: "LOCK", size: 0.7 });
+    };
+    const side = (x0: number, x1: number) => {
+      extra.push({ kind: "cut", segs: [{ M: [x0, H] }, { L: [x0, H + W / 2] }, { L: [x0 + (x1 - x0) / 2, H + W / 2] }, { L: [x1, H] }] });
+      lastAreas = [...lastAreas, { x0, y0: H, x1: x0 + (x1 - x0) / 2, y1: H + W / 2 }];
+    };
+    hook(xA, xB); side(xB, xC); hook(xC, xD); side(xD, xE);
+    // the whole bottom edge of the body folds
+    const base = finish(rectsToPaths(rects)).filter((p) => !(p.kind === "cut" && p.segs.length === 2 && p.segs[0].M && p.segs[1].L &&
+      Math.abs(p.segs[0].M[1] - H) < 0.01 && Math.abs(p.segs[1].L[1] - H) < 0.01 &&
+      Math.min(p.segs[0].M[0], p.segs[1].L[0]) >= xA - 0.01));
+    const paths = [...base, { kind: "fold" as const, segs: [{ M: [xA, H] as Pt }, { L: [xE, H] as Pt }] }, ...extra, ...slits];
+    notes.push(`Crash-lock bottom (Printy auto-lock layout) · hook flaps ${r1(dep)} mm · side flaps ${r1(W / 2)} mm · slit lock on the tuck`);
+    dims.push(vd(H, H + dep, xA + rel + Math.min(8, L * 0.1)));
     return { paths, labels, dims, bbox: bboxOf(paths), notes };
   }
   if (mode === "reverse") botLid(xC, xD);
