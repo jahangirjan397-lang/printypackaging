@@ -513,7 +513,7 @@ export const THEMES: Record<ThemeId, { name: string; bg: string; fill: string; c
 export type Brand = { dataUri: string; hex: string; pw: number; ph: number };
 const SITE = "printypackaging.com";
 
-export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boolean; unit?: Unit; dims?: boolean; brand?: Brand; theme?: ThemeId } = {}) {
+export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boolean; unit?: Unit; dims?: boolean; labels?: boolean; brand?: Brand; theme?: ThemeId } = {}) {
   const th = THEMES[opts.theme ?? "printy"];
   const unit = opts.unit ?? "mm";
   const [x0, y0, x1, y1] = dl.bbox;
@@ -533,7 +533,7 @@ export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boole
     `<g transform="translate(${f2(tx)} ${f2(ty)})">`,
     th.fill && dl.areas ? `<g id="board" fill="${th.fill}">${dl.areas.map((a) => `<path d="${roundRectD(a)}"/>`).join("")}</g>` : "",
     `<g id="glue">${dl.paths.filter((p) => p.kind === "glue").map((p) => `<path d="${svgD(p)}" fill="${th.glue}" fill-opacity="0.35"/>`).join("")}</g>`,
-    `<g id="labels" fill="${th.label}" font-weight="700" text-anchor="middle" dominant-baseline="middle">${dl.labels.map((l) => `<text x="${f2(l.at[0])}" y="${f2(l.at[1])}" font-size="${f2(labelSize(l))}" letter-spacing="${f2(labelSize(l) * 0.08)}">${xmlEsc(l.text)}</text>`).join("")}</g>`,
+    `<g id="labels" fill="${th.label}" font-weight="700" text-anchor="middle" dominant-baseline="middle">${(opts.labels === false ? [] : dl.labels).map((l) => `<text x="${f2(l.at[0])}" y="${f2(l.at[1])}" font-size="${f2(labelSize(l))}" letter-spacing="${f2(labelSize(l) * 0.08)}">${xmlEsc(l.text)}</text>`).join("")}</g>`,
     `<g id="dieline-cut" fill="none" stroke="${th.cut}" stroke-width="${f2(sw)}" stroke-linecap="round" stroke-linejoin="round">${dl.paths.filter((p) => p.kind === "cut").map((p) => `<path d="${svgD(p)}"/>`).join("")}</g>`,
     `<g id="dieline-crease" fill="none" stroke="${th.fold}" stroke-width="${f2(sw)}" stroke-dasharray="${f2(sw * 7)} ${f2(sw * 4)}">${dl.paths.filter((p) => p.kind === "fold").map((p) => `<path d="${svgD(p)}"/>`).join("")}</g>`,
     `<g id="dimensions" stroke="${th.dim}" fill="${th.dim}" stroke-width="${f2(sw * 0.7)}">`,
@@ -549,6 +549,38 @@ export function dielineToSvg(dl: Dieline, title: string, opts: { preview?: boole
     `</svg>`,
   ];
   return parts.join("");
+}
+
+// DXF (AutoCAD R12, millimetres) for CAD and cutting tables: cut lines on
+// layer CUT, creases on CREASE, glue areas on GLUE. Curves become short lines.
+export function dielineToDxf(dl: Dieline): string {
+  const [, , , y1] = dl.bbox;
+  const out: string[] = ["0", "SECTION", "2", "HEADER", "9", "$INSUNITS", "70", "4", "0", "ENDSEC",
+    "0", "SECTION", "2", "TABLES", "0", "TABLE", "2", "LAYER", "70", "3"];
+  for (const [name, color] of [["CUT", 7], ["CREASE", 1], ["GLUE", 4]] as const) out.push("0", "LAYER", "2", name, "70", "0", "62", String(color), "6", "CONTINUOUS");
+  out.push("0", "ENDTAB", "0", "ENDSEC", "0", "SECTION", "2", "ENTITIES");
+  const layer = { cut: "CUT", fold: "CREASE", glue: "GLUE" } as const;
+  const line = (lay: string, a: Pt, b: Pt) => out.push("0", "LINE", "8", lay, "10", a[0].toFixed(3), "20", (y1 - a[1]).toFixed(3), "30", "0", "11", b[0].toFixed(3), "21", (y1 - b[1]).toFixed(3), "31", "0");
+  for (const p of dl.paths) {
+    let cur: Pt | null = null, start: Pt | null = null;
+    for (const sg of p.segs) {
+      if (sg.M) { cur = sg.M; start = sg.M; }
+      else if (sg.L && cur) { line(layer[p.kind], cur, sg.L); cur = sg.L; }
+      else if (sg.C && cur) {
+        const [c1, c2, e] = sg.C, a = cur;
+        let prev = a;
+        for (let i = 1; i <= 12; i++) {
+          const t = i / 12, u = 1 - t;
+          const q: Pt = [u * u * u * a[0] + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * e[0], u * u * u * a[1] + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * e[1]];
+          line(layer[p.kind], prev, q); prev = q;
+        }
+        cur = e;
+      }
+    }
+    if (p.closed && cur && start && (cur[0] !== start[0] || cur[1] !== start[1])) line(layer[p.kind], cur, start);
+  }
+  out.push("0", "ENDSEC", "0", "EOF");
+  return out.join("\r\n");
 }
 
 // 1:1 vector PDF. Cut and crease lines use the spot colours "Dieline" and

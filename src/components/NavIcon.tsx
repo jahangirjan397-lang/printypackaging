@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { isoIcons } from "@/components/isoIcons";
 
 // Line icons for the header menus, drawn on a 64x64 grid in the same
 // outline style as CategoryIcon. Colour comes from the text colour.
@@ -622,7 +623,7 @@ const aliases: Record<string, string> = {
 };
 
 export function hasNavIcon(name: string) {
-  return Boolean(icons[aliases[name] ?? name]);
+  return Boolean(isoIcons[aliases[name] ?? name] || icons[aliases[name] ?? name]);
 }
 
 export default function NavIcon({
@@ -632,7 +633,10 @@ export default function NavIcon({
   name: string;
   className?: string;
 }) {
-  const icon = icons[aliases[name] ?? name] ?? icons["kraft-boxes"];
+  const key = aliases[name] ?? name;
+  // box styles use the isometric set; everything else the flat line icons
+  const iso = isoIcons[key];
+  const icon = iso ? iso.map((d, i) => <path key={i} d={d} />) : icons[key] ?? icons["kraft-boxes"];
 
   return (
     <svg
@@ -640,7 +644,7 @@ export default function NavIcon({
       viewBox="0 0 64 64"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2.6}
+      strokeWidth={iso ? 1.9 : 2.2}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={`shrink-0 ${className}`}

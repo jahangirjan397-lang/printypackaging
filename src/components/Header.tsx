@@ -203,7 +203,7 @@ export default function Header() {
                             onClick={closeMobile}
                             className="flex items-center gap-2 rounded-xl px-2 py-2 text-[13px] font-bold text-slate-700 transition hover:bg-white hover:text-[#FF6A00]"
                           >
-                            <NavIcon name={item.icon} className="h-6 w-6 text-[#FF6A00]" />
+                            <NavIcon name={item.icon} className="h-7 w-7 text-[#007C91]" />
                             {item.name}
                           </Link>
                         ))}
@@ -306,7 +306,7 @@ function DesktopMenu({ menu }: { menu: NavMenu }) {
                 {opened ? (
                   <NavIcon
                     name={item.icon}
-                    className="h-7 w-7 text-[#FF6A00] transition group-hover/item:scale-110"
+                    className="h-8 w-8 text-[#007C91] transition group-hover/item:scale-110 group-hover/item:text-[#FF6A00]"
                   />
                 ) : (
                   <span aria-hidden="true" className="h-7 w-7 shrink-0" />

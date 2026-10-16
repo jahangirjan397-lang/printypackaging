@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { GeneratorStyle } from "@/data/dielines";
-import { buildDieline, dielineToPdf, dielineToSvg, formatLength, generatorStyles, loadBrandLogo, unitToMm, type Unit } from "@/lib/dielineGeometry";
+import { buildDieline, dielineToDxf, dielineToPdf, dielineToSvg, formatLength, generatorStyles, loadBrandLogo, unitToMm, type Unit } from "@/lib/dielineGeometry";
 import DielineLeadGate, { readDielineLead, trackDieline } from "@/components/DielineLeadGate";
 import Box3DStudio from "@/components/Box3DStudio";
+import NavIcon from "@/components/NavIcon";
 
 const boards = [
   { id: "card", name: "Card / SBS", sub: "0.5 mm", t: 0.5 },
@@ -33,10 +34,31 @@ const presets: Record<"card" | "flute", { name: string; mm: [number, number, num
 const decimals: Record<Unit, number> = { mm: 0, cm: 1, in: 2 };
 const show = (mm: number, unit: Unit) => String(Number((mm / unitToMm[unit]).toFixed(decimals[unit])));
 
-// small line drawing of each style, drawn by the same generator at a sample size
-const thumbs: Record<string, string> = Object.fromEntries(
-  generatorStyles.map((s) => [s.id, dielineToSvg(buildDieline(s.id, { L: 60, W: 40, H: 90, t: 0.5 }), s.name, { preview: true, dims: false })]),
-);
+
+type Format = "pdf" | "svg" | "dxf" | "png";
+const SAVE_KEY = "printy-dieline-settings";
+
+// PNG at 300 dpi (capped at 8000 px) from the same 1:1 SVG
+async function svgToPng(svg: string): Promise<Blob | null> {
+  const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+  try {
+    const img = new Image();
+    img.src = url;
+    await img.decode();
+    const doc = new DOMParser().parseFromString(svg, "image/svg+xml").documentElement;
+    const wmm = parseFloat(doc.getAttribute("width") || "0"), hmm = parseFloat(doc.getAttribute("height") || "0");
+    const k = Math.min(300 / 25.4, 8000 / Math.max(wmm, hmm));
+    const c = document.createElement("canvas");
+    c.width = Math.round(wmm * k);
+    c.height = Math.round(hmm * k);
+    c.getContext("2d")!.drawImage(img, 0, 0, c.width, c.height);
+    return await new Promise((r) => c.toBlob(r, "image/png"));
+  } catch {
+    return null;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
 
 function download(name: string, data: BlobPart, type: string) {
   const url = URL.createObjectURL(new Blob([data], { type }));
@@ -71,29 +93,47 @@ function Segmented<T extends string>({ value, options, onChange, label }: { valu
 // so reading the URL and localStorage in the initial state is safe.
 export default function DielineGenerator() {
   const params = useSearchParams();
-  const linked = generatorStyles.find((s) => s.id === params.get("style"));
+  // a shared link wins; otherwise come back to the last box made in this browser
+  const [saved] = useState(() => {
+    if (params.get("L")) return null;
+    try {
+      return JSON.parse(localStorage.getItem(SAVE_KEY) || "null") as { style: GeneratorStyle; unit: Unit; dims: { L: string; W: string; H: string }; board: string; slit: boolean; mode: "inside" | "outside" } | null;
+    } catch {
+      return null;
+    }
+  });
+  const linked = generatorStyles.find((s) => s.id === (params.get("style") ?? saved?.style));
   const startFlute = linked?.board === "flute";
   const [style, setStyle] = useState<GeneratorStyle>(linked?.id ?? "reverse-tuck-end");
-  const [unit, setUnit] = useState<Unit>("mm");
+  const [unit, setUnit] = useState<Unit>(saved?.unit ?? "mm");
   const [dims, setDims] = useState(() => {
+    if (saved?.dims) return saved.dims;
     // a library page can open the generator at an exact size (mm)
     const q = ["L", "W", "H"].map((k) => Number(params.get(k)));
     if (q.every((n) => n >= 10 && n <= 1500)) return { L: String(q[0]), W: String(q[1]), H: String(q[2]) };
     const p = presets[startFlute ? "flute" : "card"][startFlute ? 0 : 1].mm;
     return { L: String(p[0]), W: String(p[1]), H: String(p[2]) };
   });
-  const [slitLock, setSlitLock] = useState(params.get("slit") === "1");
-  const [board, setBoard] = useState(startFlute ? "e-flute" : "card");
+  const [slitLock, setSlitLock] = useState(params.get("slit") === "1" || Boolean(saved?.slit));
+  const [board, setBoard] = useState(() => {
+    const b = params.get("board") ?? saved?.board;
+    return b && boards.some((x) => x.id === b) ? b : startFlute ? "e-flute" : "card";
+  });
+  const [mode, setMode] = useState<"inside" | "outside">(saved?.mode ?? "inside");
   const [showDims, setShowDims] = useState(true);
+  const [showNames, setShowNames] = useState(true);
+  const [copied, setCopied] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [view, setView] = useState<"2d" | "3d">("2d");
-  const [pending, setPending] = useState<"svg" | "pdf" | null>(null);
+  const [pending, setPending] = useState<Format | null>(null);
   const [registered, setRegistered] = useState(() => Boolean(readDielineLead()));
 
   const meta = generatorStyles.find((s) => s.id === style)!;
-  const nums = { L: Number(dims.L) * unitToMm[unit], W: Number(dims.W) * unitToMm[unit], H: Number(dims.H) * unitToMm[unit] };
-  const valid = [nums.L, nums.W, nums.H].every((n) => Number.isFinite(n) && n >= 10 && n <= 1500);
   const boardInfo = boards.find((b) => b.id === board)!;
+  // the dieline is drawn from the inside size; an outside size loses one board thickness each side
+  const less = mode === "outside" ? 2 * boardInfo.t : 0;
+  const nums = { L: Number(dims.L) * unitToMm[unit] - less, W: Number(dims.W) * unitToMm[unit] - less, H: Number(dims.H) * unitToMm[unit] - less };
+  const valid = [nums.L, nums.W, nums.H].every((n) => Number.isFinite(n) && n >= 10 && n <= 1500);
   const tuckStyle = style === "reverse-tuck-end" || style === "straight-tuck-end";
 
   const result = useMemo(() => {
@@ -102,9 +142,15 @@ export default function DielineGenerator() {
     const [x0, y0, x1, y1] = dl.bbox;
     return { dl, flat: [x1 - x0, y1 - y0] as [number, number] };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [style, dims.L, dims.W, dims.H, unit, boardInfo.t, valid, slitLock]);
+  }, [style, dims.L, dims.W, dims.H, unit, boardInfo.t, valid, slitLock, mode]);
 
-  const sizeText = `${dims.L} x ${dims.W} x ${dims.H} ${unit}`;
+  useEffect(() => {
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify({ style, unit, dims, board, slit: slitLock, mode }));
+    } catch { /* private mode */ }
+  }, [style, unit, dims, board, slitLock, mode]);
+
+  const sizeText = `${dims.L} x ${dims.W} x ${dims.H} ${unit}${mode === "outside" ? " outside" : ""}`;
   const title = `${meta.name} ${sizeText}`;
   const fileBase = `printy-dieline-${style}-${dims.L}x${dims.W}x${dims.H}${unit}`.replace(/[^a-z0-9.x-]/gi, "-");
 
@@ -126,15 +172,34 @@ export default function DielineGenerator() {
     setStyle(id);
   }
 
-  async function doDownload(kind: "svg" | "pdf") {
+  async function doDownload(kind: Format) {
     if (!result) return;
     const brand = await loadBrandLogo();
-    if (kind === "svg") download(`${fileBase}.svg`, dielineToSvg(result.dl, title, { unit, dims: showDims, brand }), "image/svg+xml");
-    else download(`${fileBase}.pdf`, dielineToPdf(result.dl, title, unit, brand) as BlobPart, "application/pdf");
+    if (kind === "svg") download(`${fileBase}.svg`, dielineToSvg(result.dl, title, { unit, dims: showDims, labels: showNames, brand }), "image/svg+xml");
+    else if (kind === "dxf") download(`${fileBase}.dxf`, dielineToDxf(result.dl), "application/dxf");
+    else if (kind === "png") {
+      const png = await svgToPng(dielineToSvg(result.dl, title, { unit, dims: showDims, labels: showNames, brand }));
+      if (png) download(`${fileBase}.png`, png, "image/png");
+    } else download(`${fileBase}.pdf`, dielineToPdf(result.dl, title, unit, brand) as BlobPart, "application/pdf");
     trackDieline("dieline_download", { style, format: kind });
   }
 
-  const askDownload = (kind: "svg" | "pdf") => (registered ? doDownload(kind) : setPending(kind));
+  const askDownload = (kind: Format) => (registered ? doDownload(kind) : setPending(kind));
+
+  // a link that opens this exact box (sizes in mm)
+  async function share() {
+    const q = new URLSearchParams({ style, L: String(+nums.L.toFixed(2)), W: String(+nums.W.toFixed(2)), H: String(+nums.H.toFixed(2)), board });
+    if (tuckStyle && slitLock) q.set("slit", "1");
+    const url = `${location.origin}/dieline-generator?${q}`;
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      window.prompt("Copy this link", url);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2200);
+    trackDieline("dieline_share", { style });
+  }
   const zoomBy = (d: number) => setZoom((z) => Math.min(3, Math.max(0.6, Math.round((z + d) * 10) / 10)));
 
   return (
@@ -157,8 +222,7 @@ export default function DielineGenerator() {
               {generatorStyles.map((s) => (
                 <button key={s.id} type="button" onClick={() => pickStyle(s.id)} aria-pressed={style === s.id}
                   className={`rounded-2xl border p-2 text-center transition ${style === s.id ? "border-[#FF6A00] bg-orange-50/60 ring-2 ring-[#FF6A00]/15" : "border-slate-200 hover:border-slate-400"}`}>
-                  {/* our own generated SVG string, no user HTML */}
-                  <span className="mx-auto flex h-16 items-center justify-center [&>svg]:h-full [&>svg]:w-auto" dangerouslySetInnerHTML={{ __html: thumbs[s.id] }} />
+                  <NavIcon name={s.id} className={`mx-auto h-14 w-14 ${style === s.id ? "text-[#FF6A00]" : "text-[#007C91]"}`} />
                   <span className="mt-1.5 block text-[11.5px] font-black leading-tight text-[#07111F]">{s.name}</span>
                 </button>
               ))}
@@ -167,7 +231,10 @@ export default function DielineGenerator() {
           </section>
 
           <section>
-            <Step n={2} title="Inside size" />
+            <div className="flex items-start justify-between gap-2">
+              <Step n={2} title="Box size" />
+              <Segmented label="Size measured" value={mode} onChange={setMode} options={[{ id: "inside", text: "Inside" }, { id: "outside", text: "Outside" }]} />
+            </div>
             <div className="grid grid-cols-3 gap-2">
               {(["L", "W", "H"] as const).map((k, i) => (
                 <label key={k} className="block">
@@ -185,6 +252,9 @@ export default function DielineGenerator() {
                 </label>
               ))}
             </div>
+            <p className="mt-2 text-[11px] font-bold leading-4 text-slate-500">
+              {mode === "inside" ? "Inside = the space your product needs. Length is the front face." : `Outside size of the folded box; we take off ${boardInfo.t} mm of board each side.`}
+            </p>
             {!valid && <p className="mt-2 text-xs font-bold text-red-600">Enter sizes between {formatLength(10, unit)} and {formatLength(1500, unit)}.</p>}
             <div className="mt-3 flex flex-wrap items-center gap-1.5">
               <span className="text-[11px] font-bold text-slate-400">Try:</span>
@@ -214,6 +284,27 @@ export default function DielineGenerator() {
               </label>
             )}
           </section>
+
+          {result && (
+            <section className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400">Your box</p>
+              <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-xs">
+                {[
+                  ["Style", meta.name],
+                  ["Inside", `${formatLength(nums.L, unit)} × ${formatLength(nums.W, unit)} × ${formatLength(nums.H, unit)}`],
+                  ["Outside", `${formatLength(nums.L + 2 * boardInfo.t, unit)} × ${formatLength(nums.W + 2 * boardInfo.t, unit)} × ${formatLength(nums.H + 2 * boardInfo.t, unit)}`],
+                  ["Flat sheet", `${formatLength(result.flat[0], unit)} × ${formatLength(result.flat[1], unit)}`],
+                  ["Board", `${boardInfo.name} ${boardInfo.sub}`],
+                ].map(([k, v]) => (
+                  <div key={k} className="contents">
+                    <dt className="font-bold text-slate-500">{k}</dt>
+                    <dd className="font-black text-[#07111F]">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+              {result.dl.notes && <p className="mt-3 border-t border-slate-200 pt-2 text-[11px] font-bold leading-4 text-slate-500">{result.dl.notes[1] ?? result.dl.notes[0]}</p>}
+            </section>
+          )}
         </div>
 
         {/* ---------- preview ---------- */}
@@ -225,6 +316,10 @@ export default function DielineGenerator() {
                 <button type="button" onClick={() => setShowDims((v) => !v)} aria-pressed={showDims}
                   className={`rounded-full border px-3 py-1.5 transition ${showDims ? "border-[#007C91]/30 bg-cyan-50 text-[#007C91]" : "border-slate-200 bg-white text-slate-500"}`}>
                   ↔ Sizes
+                </button>
+                <button type="button" onClick={() => setShowNames((v) => !v)} aria-pressed={showNames}
+                  className={`rounded-full border px-3 py-1.5 transition ${showNames ? "border-[#007C91]/30 bg-cyan-50 text-[#007C91]" : "border-slate-200 bg-white text-slate-500"}`}>
+                  Aa Names
                 </button>
                 <span className="flex overflow-hidden rounded-full border border-slate-200 bg-white">
                   <button type="button" aria-label="Zoom out" onClick={() => zoomBy(-0.2)} className="px-3 py-1.5 hover:bg-slate-50">−</button>
@@ -244,7 +339,7 @@ export default function DielineGenerator() {
                 // at 100% the whole dieline fits the canvas height; zoom grows from there
                 style={{ width: `${Math.round(zoom * 100)}%`, maxWidth: `calc(${(zoom * 32).toFixed(1)}rem * ${(result.flat[0] / result.flat[1]).toFixed(3)})` }}
                 // our own generated SVG string, no user HTML
-                dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims }) }}
+                dangerouslySetInnerHTML={{ __html: dielineToSvg(result.dl, title, { preview: true, unit, dims: showDims, labels: showNames }) }}
               />
             ) : (
               <p className="py-24 text-center font-bold text-slate-500">Enter a size to see your dieline.</p>
@@ -263,11 +358,19 @@ export default function DielineGenerator() {
                 <span className="flex items-center gap-1.5"><i className="h-0 w-4 border-t-2 border-dashed border-[#FF6A00]" /> Fold</span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button type="button" disabled={!result} onClick={() => askDownload("svg")}
-                className="rounded-full border border-slate-300 px-5 py-3 text-sm font-black text-[#07111F] transition hover:border-[#07111F] disabled:opacity-50">
-                SVG
+            <div className="flex flex-wrap items-center gap-2">
+              <button type="button" onClick={share} disabled={!result}
+                className="rounded-full px-3 py-3 text-xs font-black text-[#007C91] transition hover:bg-cyan-50 disabled:opacity-50">
+                {copied ? "✓ Link copied" : "Share link"}
               </button>
+              <span className="flex overflow-hidden rounded-full border border-slate-300 text-xs font-black text-[#07111F]">
+                {(["svg", "dxf", "png"] as const).map((f, i) => (
+                  <button key={f} type="button" disabled={!result} onClick={() => askDownload(f)}
+                    className={`px-3.5 py-3 uppercase transition hover:bg-slate-50 disabled:opacity-50 ${i ? "border-l border-slate-300" : ""}`}>
+                    {f}
+                  </button>
+                ))}
+              </span>
               <button type="button" disabled={!result} onClick={() => askDownload("pdf")}
                 className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:bg-[#e65f00] disabled:opacity-50">
                 Download PDF
@@ -275,9 +378,24 @@ export default function DielineGenerator() {
             </div>
           </div>
           <p className="bg-white px-5 pb-4 pt-3 text-[11px] font-bold leading-5 text-slate-500 sm:px-6">
-            1:1 scale, opens in Illustrator, CorelDRAW and Inkscape. Our prepress team checks every dieline free before production.{" "}
+            1:1 scale. PDF and SVG open in Illustrator, CorelDRAW and Inkscape; DXF opens in CAD and cutting-table software. Our prepress team checks every dieline free before production.{" "}
             <Link href={`/dielines/${meta.library}`} className="text-[#007C91] underline-offset-2 hover:underline">About this style</Link>
           </p>
+          {/* what to do next */}
+          <div className="grid gap-2 border-t border-slate-100 bg-white px-5 py-4 sm:grid-cols-2 sm:px-6">
+            <button type="button" onClick={() => setView("3d")} className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 text-left transition hover:border-[#007C91]">
+              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-cyan-50 text-[#007C91]">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9Z" /><path d="M4 7.5 12 12l8-4.5M12 12v9" /></svg>
+              </span>
+              <span><span className="block text-sm font-black text-[#07111F]">See it in 3D</span><span className="block text-[11px] font-bold text-slate-500">Board, colour and your logo, open and close</span></span>
+            </button>
+            <Link href="/#quote" className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 transition hover:border-[#FF6A00]">
+              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-orange-50 text-[#FF6A00]">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h2l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.4-1l1.8-6.4H7" /><circle cx="10" cy="19.5" r="1.3" /><circle cx="17" cy="19.5" r="1.3" /></svg>
+              </span>
+              <span><span className="block text-sm font-black text-[#07111F]">Get a printing price</span><span className="block text-[11px] font-bold text-slate-500">Printed boxes from 100 pcs, reply within 1 hour</span></span>
+            </Link>
+          </div>
         </div>
       </div>
 

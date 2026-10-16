@@ -8,7 +8,7 @@ const url = "https://printypackaging.com/dieline-generator";
 export const metadata: Metadata = {
   title: { absolute: "Free Box Dieline Generator (PDF & SVG) | Printy Packaging" },
   description:
-    "Make a free tuck end box dieline in your exact size: reverse or straight tuck end, slit lock option, 1:1 PDF or SVG with all dimensions and a 3D preview.",
+    "Make a free box dieline in your exact size: reverse tuck end, straight tuck end or auto bottom, slit lock option, 1:1 PDF, SVG, DXF or PNG with all dimensions and a 3D preview.",
   alternates: { canonical: url },
   openGraph: {
     title: "Free Box Dieline Generator | Printy Packaging",
@@ -26,7 +26,16 @@ const faqs = [
   { q: "Which size should I enter?", a: "Enter the inside size of the box (the space your product needs): length, width and height. The generator adds board thickness, glue flaps and tuck flaps for you." },
   { q: "Can I print from this dieline?", a: "It is a production-style starting template with standard proportions. Before printing, our prepress team checks every dieline against your product, board and print method for free when you order with us." },
   { q: "What do the lines mean?", a: "Solid lines are cut lines and red dashed lines are fold (crease) lines. The light blue area shows where glue goes on auto-bottom boxes." },
-  { q: "Which software opens the files?", a: "The PDF and SVG open in Adobe Illustrator, CorelDRAW, Affinity Designer and the free Inkscape. Place your artwork on a layer above the dieline." },
+  { q: "Which software opens the files?", a: "The PDF and SVG open in Adobe Illustrator, CorelDRAW, Affinity Designer and the free Inkscape. The DXF opens in CAD and cutting-table software, and the PNG is a 300 dpi picture for quick sharing. Place your artwork on a layer above the dieline." },
+  { q: "Inside or outside size?", a: "Inside size is the space your product needs, and is what we draw the dieline from. If you only know the outside size of a box, switch to Outside and we take off the board thickness for you." },
+];
+
+// the four steps, with small line icons of our own
+const steps = [
+  { title: "Choose style & size", icon: <><path d="M10 9 17 5l7 4v9l-7 4-7-4Z" /><path d="M10 9l7 4 7-4M17 13v9" /><path d="M5 12v13M3.5 13.5 5 12l1.5 1.5M3.5 23.5 5 25l1.5-1.5" /></> },
+  { title: "Download the dieline", icon: <><path d="M4 11h7V5h10v6h7v10h-7v6H11v-6H4Z" strokeDasharray="0" /><path d="M16 12v9M12.5 17.5 16 21l3.5-3.5" /></> },
+  { title: "See it in 3D", icon: <><path d="M16 4 26 9.5v11L16 26 6 20.5v-11Z" /><path d="M6 9.5 16 15l10-5.5M16 15v11" /><path d="M11 18.5l3 1.6" /></> },
+  { title: "Get a printing price", icon: <><path d="M4 6h3l2.6 12.4a1.6 1.6 0 0 0 1.6 1.3h10a1.6 1.6 0 0 0 1.5-1.1L25 10H9" /><circle cx="12" cy="25" r="1.6" /><circle cx="21" cy="25" r="1.6" /></> },
 ];
 
 export default function DielineGeneratorPage() {
@@ -72,8 +81,21 @@ export default function DielineGeneratorPage() {
             Free box dieline generator
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-            Choose a style, enter your inside size and download a 1:1 dieline as PDF or SVG. Tuck end boxes drawn to the same rules as our production dielines, ready for your artwork in seconds.
+            Choose a style, enter your size and download a 1:1 dieline as PDF, SVG, DXF or PNG. Tuck end and auto bottom boxes drawn to the same rules as our production dielines, ready for your artwork in seconds.
           </p>
+          <ol className="mt-8 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4">
+            {steps.map((st, i) => (
+              <li key={st.title} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3">
+                <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white text-[#007C91]">
+                  <svg viewBox="0 0 32 32" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{st.icon}</svg>
+                </span>
+                <span className="text-sm font-black leading-tight">
+                  <span className="block text-[10px] uppercase tracking-[0.16em] text-cyan-300">Step {i + 1}</span>
+                  {st.title}
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
