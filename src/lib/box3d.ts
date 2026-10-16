@@ -15,7 +15,7 @@ export type BoxLook = {
   logo: ImageBitmap | HTMLImageElement | null;
   logoSize: number; // 0.2 - 0.9 of the panel width
   printAll: boolean; // logo on all four walls + lid
-  base?: "tuck" | "crash"; // how the bottom closes: reverse tuck or crash-lock auto bottom
+  base?: "reverse" | "straight" | "crash"; // how the bottom closes
 };
 export type BoxDims = { L: number; W: number; H: number; t: number };
 
@@ -79,6 +79,9 @@ function plainTexture(w: number, h: number, board: Board) {
   return t;
 }
 
+// one tuck closure: lid on a hinge, tuck on the lid, two dust flaps
+type Rig = { lid: THREE.Group; tuck: THREE.Group; dustL: THREE.Group; dustR: THREE.Group; reach: number; len: number };
+
 // ---------- scene ----------
 export class Box3DScene {
   private renderer: THREE.WebGLRenderer;
@@ -86,10 +89,11 @@ export class Box3DScene {
   private camera = new THREE.PerspectiveCamera(32, 1, 1, 100000);
   private controls: OrbitControls;
   private root = new THREE.Group();
-  private lidPivot = new THREE.Group();
-  private tuckPivot = new THREE.Group();
-  private dustL = new THREE.Group();
-  private dustR = new THREE.Group();
+  private top: Rig | null = null;
+  private bottom: Rig | null = null;
+  private crash: { side: THREE.Group[]; long: THREE.Group[] } | null = null;
+  private lift = 0;
+  private baseY = 0;
   private disposables: { dispose: () => void }[] = [];
   private raf = 0;
   private progress = 0; // 0 closed, 1 open
@@ -141,7 +145,7 @@ export class Box3DScene {
     const loop = () => {
       this.raf = requestAnimationFrame(loop);
       // ease the open / close animation
-      this.progress += (this.target - this.progress) * 0.08;
+      this.progress += (this.target - this.progress) * 0.06;
       if (Math.abs(this.target - this.progress) < 0.001) this.progress = this.target;
       this.pose();
       if (this.autoRotate) this.root.rotation.y += 0.004;
@@ -161,27 +165,47 @@ export class Box3DScene {
   setOpen(open: boolean) { this.target = open ? 1 : 0; }
   get isOpen() { return this.target === 1; }
 
-  // Open / close like a real carton. progress 0 = closed, 1 = open.
-  // Closing: dust flaps fold in first (1 -> 0.7), then the lid swings down
-  // (0.55 -> 0) while the tuck hangs straight down and slides inside the front
-  // wall, never through it. Opening plays the same steps backwards.
+  // Open / close like a real carton, one end at a time. progress 0 = closed,
+  // 1 = open: the top opens first (0 -> 0.5), then the box lifts and the
+  // bottom opens (0.5 -> 1). Closing runs backwards, so the bottom shuts first.
   private pose() {
-    const s = (a: number, b: number) => { const x = Math.min(1, Math.max(0, (this.progress - a) / (b - a))); return x * x * (3 - 2 * x); };
+    const pt = Math.min(1, this.progress * 2), pb0 = Math.max(0, this.progress * 2 - 1);
+    // lift the box clear of the table first, then open the bottom
+    const up = Math.min(1, pb0 / 0.3), pb = Math.max(0, (pb0 - 0.3) / 0.7);
+    if (this.top) Box3DScene.poseRig(this.top, pt);
+    if (this.bottom) Box3DScene.poseRig(this.bottom, pb);
+    if (this.crash) {
+      // side flaps fold in first, then the two long flaps lock under them
+      const sm = (a: number, b: number) => { const x = Math.min(1, Math.max(0, (pb - a) / (b - a))); return x * x * (3 - 2 * x); };
+      // closed = folded in flat (90°); open = hanging down and splayed out 30°,
+      // so the corners of neighbouring flaps never cross
+      const fl = Math.PI / 2 - (Math.PI * 2 / 3) * sm(0, 0.6), fs = Math.PI / 2 - (Math.PI * 2 / 3) * sm(0.4, 1);
+      this.crash.long[0].rotation.x = fl;
+      this.crash.long[1].rotation.x = -fl;
+      this.crash.side[0].rotation.z = -fs;
+      this.crash.side[1].rotation.z = fs;
+    }
+    // the closed bottom panel sits one board below the walls, so stand on it
+    this.root.position.y = this.baseY + this.lift * up * up * (3 - 2 * up);
+  }
+
+  // Closing: dust flaps fold in first (1 -> 0.7), then the lid swings down
+  // (0.55 -> 0) while the tuck hangs straight down and slides inside the wall,
+  // never through it. Opening plays the same steps backwards.
+  private static poseRig(r: Rig, p: number) {
+    const s = (a: number, b: number) => { const x = Math.min(1, Math.max(0, (p - a) / (b - a))); return x * x * (3 - 2 * x); };
     const a = Math.PI * 0.62 * s(0, 0.55); // lid opening angle
-    this.lidPivot.rotation.x = -a;
+    r.lid.rotation.x = -a;
     // while the lid is low, keep the tuck hanging down with its face on the
-    // inside of the front wall; once the lid is high, let it flatten out
-    const reach = this.tuckReach, len = this.tuckLen || 1;
-    const lean = Math.asin(Math.min(1, Math.max(0, (reach - reach * Math.cos(Math.min(a, Math.PI / 2))) / len)));
+    // inside of the wall; once the lid is high, let it flatten out
+    const lean = Math.asin(Math.min(1, Math.max(0, (r.reach - r.reach * Math.cos(Math.min(a, Math.PI / 2))) / (r.len || 1))));
     const hold = a - lean, flat = -Math.PI / 2 * 0.98;
     const u = s(0.42, 0.75);
-    this.tuckPivot.rotation.x = hold * (1 - u) + flat * u;
+    r.tuck.rotation.x = hold * (1 - u) + flat * u;
     const d = Math.PI / 2 * (1 - s(0.7, 1));
-    this.dustR.rotation.z = d;
-    this.dustL.rotation.z = -d;
+    r.dustR.rotation.z = d;
+    r.dustL.rotation.z = -d;
   }
-  private tuckReach = 0;
-  private tuckLen = 0;
 
   // camera presets: a 3/4 view from above, or from below to see the base
   view(kind: "top" | "bottom") {
@@ -196,10 +220,8 @@ export class Box3DScene {
     for (const d of this.disposables) d.dispose();
     this.disposables = [];
     this.root.clear();
-    this.lidPivot = new THREE.Group();
-    this.tuckPivot = new THREE.Group();
-    this.dustL = new THREE.Group();
-    this.dustR = new THREE.Group();
+    this.top = this.bottom = null;
+    this.crash = null;
   }
 
   // a panel w x h with thickness T: +z face printed (outside), -z plain (inside)
@@ -231,50 +253,62 @@ export class Box3DScene {
     add(this.panel(L, H, T, look, look.printAll), 0, H / 2, -W / 2 + T / 2, Math.PI);
     add(this.panel(W - 2 * T, H, T, look, look.printAll), L / 2 - T / 2, H / 2, 0, Math.PI / 2);
     add(this.panel(W - 2 * T, H, T, look, look.printAll), -L / 2 + T / 2, H / 2, 0, -Math.PI / 2);
-    // base seen from below: the closed bottom tuck, or the crash-lock flaps
-    const bw = L - 2 * T, bd = W - 2 * T;
-    const seams = (g: CanvasRenderingContext2D, k: number) => {
-      g.strokeStyle = look.board === "kraft" ? "rgba(70,45,20,0.55)" : "rgba(40,50,60,0.38)";
-      g.lineWidth = Math.max(1.5, 0.45 * k);
-      g.lineJoin = "round";
-      g.beginPath();
-      if (look.base === "crash") {
-        // two side flaps with 45° edges, two hook flaps meeting in a stepped seam
-        const d = Math.min(bd / 2, bw / 2), step = Math.min(bd * 0.12, 6);
-        g.moveTo(0, 0); g.lineTo(d * k, (bd / 2) * k); g.lineTo(0, bd * k);
-        g.moveTo(bw * k, 0); g.lineTo((bw - d) * k, (bd / 2) * k); g.lineTo(bw * k, bd * k);
-        g.moveTo(d * k, (bd / 2) * k); g.lineTo((bw / 2) * k, (bd / 2) * k); g.lineTo((bw / 2) * k, (bd / 2 + step) * k); g.lineTo((bw - d) * k, (bd / 2 + step) * k);
-      } else {
-        // reverse tuck: the closing panel's free edge runs along the front
-        g.moveTo(0, (bd - 0.8) * k); g.lineTo(bw * k, (bd - 0.8) * k);
-      }
-      g.stroke();
+    // A tuck closure built in the top frame; the bottom one is the same rig
+    // turned over: about x for a reverse tuck (hinge at the front), about z
+    // for a straight tuck (hinge stays at the back).
+    const closure = (parent: THREE.Object3D, tuck: number, logo: boolean): Rig => {
+      const rig: Rig = { lid: new THREE.Group(), tuck: new THREE.Group(), dustL: new THREE.Group(), dustR: new THREE.Group(), reach: W - T - 0.3, len: tuck };
+      // hinge on the outer top corner of the back wall, so the lid folds round it
+      rig.lid.position.set(0, H, -W / 2);
+      parent.add(rig.lid);
+      add(this.panel(L, W, T, look, logo), 0, T / 2, W / 2, 0, -Math.PI / 2, rig.lid);
+      // tuck hinge sits just inside the front wall, so the closed tuck slides in behind it
+      rig.tuck.position.set(0, 0, rig.reach);
+      rig.lid.add(rig.tuck);
+      add(this.panel(L - 2 * T - 1, tuck, T, look, false), 0, -tuck / 2, -T / 2, Math.PI, 0, rig.tuck);
+      rig.dustR.position.set(L / 2 - T, H, 0);
+      rig.dustL.position.set(-L / 2 + T, H, 0);
+      parent.add(rig.dustR, rig.dustL);
+      // dust flaps run from the back wall to 1 mm behind the tuck
+      const dw = W - 3 * T - 1.3, dz = -(T + 1.3) / 2;
+      add(this.panel(dw, dust, T, look, false), -T / 2, dust / 2, dz, -Math.PI / 2, 0, rig.dustR);
+      add(this.panel(dw, dust, T, look, false), T / 2, dust / 2, dz, Math.PI / 2, 0, rig.dustL);
+      return rig;
     };
-    add(this.panel(bw, bd, T, look, false, seams), 0, T / 2, 0, 0, Math.PI / 2);
+    this.top = closure(r, tuck, look.printAll);
+    this.baseY = look.base === "crash" ? 0 : T;
 
-    // lid hinged on the back wall, tuck hinged on the lid, dust flaps on the side walls
-    // hinge on the outer top corner of the back wall, so the lid folds round it
-    this.lidPivot.position.set(0, H, -W / 2);
-    r.add(this.lidPivot);
-    add(this.panel(L, W, T, look, look.printAll), 0, T / 2, W / 2, 0, -Math.PI / 2, this.lidPivot);
-    // tuck hinge sits just inside the front wall, so the closed tuck slides in behind it
-    this.tuckReach = W - T - 0.3;
-    this.tuckLen = tuck;
-    this.tuckPivot.position.set(0, 0, this.tuckReach);
-    this.lidPivot.add(this.tuckPivot);
-    add(this.panel(L - 2 * T - 1, tuck, T, look, false), 0, -tuck / 2, -T / 2, Math.PI, 0, this.tuckPivot);
-    this.dustR.position.set(L / 2 - T, H, 0);
-    this.dustL.position.set(-L / 2 + T, H, 0);
-    r.add(this.dustR, this.dustL);
-    // dust flaps stop short of the front wall, leaving room for the tuck to pass
-    // from the back wall to 1 mm behind the tuck
-    const dw = W - 3 * T - 1.3, dz = -(T + 1.3) / 2;
-    add(this.panel(dw, dust, T, look, false), -T / 2, dust / 2, dz, -Math.PI / 2, 0, this.dustR);
-    add(this.panel(dw, dust, T, look, false), T / 2, dust / 2, dz, Math.PI / 2, 0, this.dustL);
+    if (look.base === "crash") {
+      // crash-lock base: two side flaps fold in, then the two long flaps lock under them
+      const fd = (W - 2 * T) / 2 - 0.3, sd = Math.min((L - 2 * T) / 2 - 1, W / 2);
+      const front = new THREE.Group(), back = new THREE.Group(), right = new THREE.Group(), left = new THREE.Group();
+      front.position.set(0, 0, W / 2 - T);
+      back.position.set(0, 0, -W / 2 + T);
+      right.position.set(L / 2 - T, 0, 0);
+      left.position.set(-L / 2 + T, 0, 0);
+      r.add(front, back, right, left);
+      add(this.panel(L - 2 * T - 1, fd, T, look, false), 0, -fd / 2, -T / 2, 0, 0, front);
+      add(this.panel(L - 2 * T - 1, fd, T, look, false), 0, -fd / 2, T / 2, Math.PI, 0, back);
+      // side flaps stop short of the long flaps' hinges, so the corners stay clear
+      add(this.panel(W - 4 * T - 1, sd, T, look, false), -1.5 * T, -sd / 2, 0, Math.PI / 2, 0, right);
+      add(this.panel(W - 4 * T - 1, sd, T, look, false), 1.5 * T, -sd / 2, 0, -Math.PI / 2, 0, left);
+      this.crash = { long: [front, back], side: [right, left] };
+      this.lift = Math.max(fd, sd) + 2;
+    } else {
+      const btuck = look.base === "straight" ? Math.min(tuck, (H - 4) / 2) : tuck;
+      const turn = new THREE.Group(), frame = new THREE.Group();
+      turn.position.set(0, H / 2, 0);
+      if (look.base === "straight") turn.rotation.z = Math.PI; else turn.rotation.x = Math.PI;
+      frame.position.set(0, -H / 2, 0);
+      turn.add(frame);
+      r.add(turn);
+      this.bottom = closure(frame, btuck, false);
+      this.lift = W + btuck + 2;
+    }
     this.pose();
 
     // frame the camera, lights and ground around the box
-    const span = Math.max(L, W, H + W * 0.7); // room for the open lid
+    const span = Math.max(L, W, H + W * 0.7 + this.lift * 0.6); // room for the open lid and the lifted box
     const ground = this.scene.getObjectByName("ground")!;
     ground.scale.set(span * 8, span * 8, 1);
     const key = (this as unknown as { key: THREE.DirectionalLight }).key;
@@ -283,7 +317,7 @@ export class Box3DScene {
     cam.left = cam.bottom = -span * 1.6; cam.right = cam.top = span * 1.6; cam.near = 1; cam.far = span * 8;
     cam.updateProjectionMatrix();
     (this as unknown as { fill: THREE.DirectionalLight }).fill.position.set(-span * 1.5, span, -span);
-    this.controls.target.set(0, (H + W * 0.35) * 0.55, 0);
+    this.controls.target.set(0, (H + W * 0.35) * 0.55 + this.lift * 0.4, 0);
     this.controls.minDistance = span * 1.2;
     this.controls.maxDistance = span * 6;
     if (!this.camera.position.lengthSq() || this.lastSpan !== span) {

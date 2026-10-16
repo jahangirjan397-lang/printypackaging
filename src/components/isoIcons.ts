@@ -188,6 +188,44 @@ function lockBottom() {
   ];
 }
 
+// flip left to right, so two related icons do not look the same
+function mirror(paths: string[]): string[] {
+  return paths.map((d) => {
+    let i = 0;
+    return d.replace(/-?\d+(?:\.\d+)?/g, (n) => (i++ % 2 === 0 ? (64 - Number(n)).toFixed(1) : n));
+  });
+}
+
+// closed mailer: lid shut with the front tuck line; optional ribbon or tape on the lid
+function mailerClosed(mark: "none" | "ribbon" | "tape") {
+  const g = make(31, 36, 1);
+  const L = 28, W = 22, H = 9;
+  const out = [...g.box(0, -4, 0, L, H, W), g.line([0, H - 6, W], [L, H - 6, W])];
+  if (mark === "ribbon") out.push(g.line([L / 2, H - 4, 0], [L / 2, H - 4, W]), g.line([0, H - 4, W / 2], [L, H - 4, W / 2]), g.line([L / 2, H - 4, W], [L / 2, -4, W]));
+  if (mark === "tape") out.push(g.line([L / 2 - 2, H - 4, 0], [L / 2 - 2, H - 4, W]), g.line([L / 2 + 2, H - 4, 0], [L / 2 + 2, H - 4, W]));
+  return out;
+}
+
+// closed carton with the tuck line across the top
+function cartonClosed() {
+  const g = make(32, 32, 1);
+  const L = 16, W = 12, H = 28;
+  return [...g.box(0, -14, 0, L, H, W), g.line([0, H - 14, W - 3], [L, H - 14, W - 3])];
+}
+
+// lid on a base with a ribbon and bow
+function giftBox() {
+  const g = make(32, 40, 1);
+  const L = 24, W = 18;
+  return [
+    ...g.box(1, -8, 1, L - 2, 10, W - 2, false), ...g.box(0, 2, 0, L, 5, W),
+    g.line([L / 2, 7, 0], [L / 2, 7, W]), g.line([0, 7, W / 2], [L, 7, W / 2]),
+    g.line([L / 2, 7, W], [L / 2, -8, W]),
+    `M${g.P([L / 2, 7, W / 2])}C${g.P([L / 2 - 6, 13, W / 2 - 2])} ${g.P([L / 2 - 7, 9, W / 2 + 4])} ${g.P([L / 2, 7, W / 2])}`,
+    `M${g.P([L / 2, 7, W / 2])}C${g.P([L / 2 + 6, 13, W / 2 + 2])} ${g.P([L / 2 + 7, 9, W / 2 - 4])} ${g.P([L / 2, 7, W / 2])}`,
+  ];
+}
+
 function pillow() {
   return [
     "M10 22C20 14 44 14 54 22L54 42C44 50 20 50 10 42Z",
@@ -197,19 +235,33 @@ function pillow() {
   ];
 }
 
-export const isoIcons: Record<string, string[]> = {
+// scale and centre every icon inside the 64x64 grid with a 5 unit margin,
+// so no lid or flap is cut off at the edge
+function fit(paths: string[]): string[] {
+  const nums = paths.flatMap((d) => (d.match(/-?\d+(?:\.\d+)?/g) ?? []).map(Number));
+  const xs = nums.filter((_, i) => i % 2 === 0), ys = nums.filter((_, i) => i % 2 === 1);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const k = Math.min(54 / (x1 - x0), 54 / (y1 - y0), 1.25);
+  const dx = 32 - ((x0 + x1) / 2) * k, dy = 32 - ((y0 + y1) / 2) * k;
+  return paths.map((d) => {
+    let i = 0;
+    return d.replace(/-?\d+(?:\.\d+)?/g, (n) => (i++ % 2 === 0 ? Number(n) * k + dx : Number(n) * k + dy).toFixed(1));
+  });
+}
+
+const raw: Record<string, string[]> = {
   "tuck-end-boxes": tuckCarton(true),
   "reverse-tuck-end": tuckCarton(true),
   "straight-tuck-end": tuckCarton(false),
   "auto-bottom": lockBottom(),
-  "folding-cartons": tuckCarton(false),
+  "folding-cartons": cartonClosed(),
   "shipping-boxes": shippingBox(),
   "mailer-boxes": mailer(),
-  "kraft-mailer-boxes": mailer(),
-  "white-mailer-boxes": mailer(),
-  "black-mailer-boxes": mailer(),
-  "subscription-boxes": mailer(),
-  "ecommerce-packaging": shippingBox(),
+  "kraft-mailer-boxes": mirror(mailer()),
+  "white-mailer-boxes": mailerClosed("none"),
+  "black-mailer-boxes": mirror(mailerClosed("tape")),
+  "subscription-boxes": mailerClosed("ribbon"),
+  "ecommerce-packaging": mirror(shippingBox()),
   "rigid-boxes": rigid(),
   "two-piece-rigid-boxes": twoPiece(),
   "magnetic-boxes": magnetic(),
@@ -219,8 +271,10 @@ export const isoIcons: Record<string, string[]> = {
   "gable-boxes": gable(),
   "display-boxes": display(),
   "hang-tab-boxes": hangTab(),
-  "kraft-boxes": plainBox(true),
-  "gift-boxes": twoPiece(),
+  "kraft-boxes": mirror(plainBox(true)),
+  "gift-boxes": giftBox(),
   "pizza-boxes": pizza(),
   "pillow-boxes": pillow(),
 };
+
+export const isoIcons: Record<string, string[]> = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, fit(v)]));

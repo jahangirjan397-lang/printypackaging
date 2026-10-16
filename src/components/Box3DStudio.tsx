@@ -25,7 +25,7 @@ type SceneApi = {
 
 // Realistic 3D preview: bleach card or kraft board, matte or gloss, any print
 // colour and the buyer's own logo (kept in the browser, never uploaded).
-export default function Box3DStudio({ L, W, H, t, title, base = "tuck" }: { L: number; W: number; H: number; t: number; title: string; base?: "tuck" | "crash" }) {
+export default function Box3DStudio({ L, W, H, t, title, base = "reverse" }: { L: number; W: number; H: number; t: number; title: string; base?: "reverse" | "straight" | "crash" }) {
   const host = useRef<HTMLDivElement>(null);
   const scene = useRef<SceneApi | null>(null);
   const [ready, setReady] = useState(false);

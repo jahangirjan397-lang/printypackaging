@@ -332,7 +332,7 @@ export default function DielineGenerator() {
 
           <div className="relative m-4 min-h-[26rem] flex-1 overflow-auto rounded-2xl border border-slate-200 bg-white bg-[linear-gradient(#f1f5f9_1px,transparent_1px),linear-gradient(90deg,#f1f5f9_1px,transparent_1px)] [background-size:20px_20px] p-4 sm:m-5 lg:max-h-[42rem]">
             {result && view === "3d" ? (
-              <Box3DStudio L={nums.L} W={nums.W} H={nums.H} t={boardInfo.t} title={`${meta.name} ${sizeText}`} base={style === "auto-bottom" ? "crash" : "tuck"} />
+              <Box3DStudio L={nums.L} W={nums.W} H={nums.H} t={boardInfo.t} title={`${meta.name} ${sizeText}`} base={style === "auto-bottom" ? "crash" : style === "straight-tuck-end" ? "straight" : "reverse"} />
             ) : result ? (
               <div
                 className="mx-auto [&>svg]:h-auto [&>svg]:w-full"
