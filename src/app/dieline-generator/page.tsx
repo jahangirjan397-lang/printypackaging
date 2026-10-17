@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import DielineGenerator from "@/components/DielineGenerator";
+import { generatorStyles } from "@/lib/dielineGeometry";
 
 const url = "https://printypackaging.com/dieline-generator";
 
@@ -31,7 +32,7 @@ const faqs = [
 ];
 
 const stats = [
-  { k: "Structures", v: "4", t: "Tuck ends · auto bottom · four corner" },
+  { k: "Structures", v: String(generatorStyles.length), t: "Tuck ends · auto bottom · four corner · mailer" },
   { k: "Exports", v: "4", t: "PDF · SVG · DXF · PNG" },
   { k: "Geometry", v: "1:1", t: "mm, cm or inches, cut & crease layers" },
 ];

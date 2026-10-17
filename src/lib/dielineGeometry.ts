@@ -37,9 +37,8 @@ const allGeneratorStyles: {
 
 // Only styles checked line by line against our own production dielines are
 // offered on the site. Others stay in the code until they are matched to our
-// CorelDRAW files and approved (auto bottom, mailer, shipping box, tray,
-// sleeve, pillow).
-export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner"];
+// CorelDRAW files and approved (shipping box, tray, sleeve, pillow).
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer"];
 export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -346,44 +345,85 @@ function tray(d: DielineInput): Dieline {
   };
 }
 
+// Double wall tuck top mailer, measured from our own production dielines
+// ("Double wall tuck top corrugated stock" 9 x 6 x 5, 7 x 5 x 4, 6.14 x 4.73 x 3.52 in,
+// "double wall" 5.75 x 4.40 x 3.25 in): tuck (H, corners H/2) / lid (W) / back
+// wall (H) / base (W) / front wall (H) down the middle; side walls beside the
+// base as outer (H) + 1/16" double score + inner (H - 1/16"); dust flaps on
+// the back and front walls as wide as the inner wall, 1/16" short with a 45°
+// cut at the hinge; locking tabs 4 mm deep on the outer walls at 20-40 % and
+// 60-80 % of W (1/8" taper), matching 2.5 mm slots in the base.
 function mailer(d: DielineInput): Dieline {
-  // Double wall tuck top mailer, laid out like our own production dielines:
-  // tuck (H) / lid (W) / back wall (H) / base (W) / front wall (H) down the
-  // middle; double side walls (inner H + outer H) beside the base; square
-  // dust flaps on the front and back walls; a double score of one board
-  // thickness at the lid hinge and between the side walls.
-  const { L, W, H, t } = d;
-  const c = t >= 1 ? Math.max(1.6, t * 1.1) : 0.8; // double-score gap
-  const x0 = 2 * H, x1 = x0 + L; // base columns
-  const yT = 0, yL = H, yG = H + W, yK = yG + c, yB = 2 * H + W, yF = yB + W, yE = yF + H - c;
-  const ear = H * 0.92, nick = 0.5;
+  const { L, W, H } = d;
+  const c = IN / 16; // double score
+  const x0 = 2 * H, x1 = x0 + L; // base columns: outer 0..H, score H..H+c, inner H+c..2H
+  const yL = H, yK = yL + W, yB = yK + H, yF = yB + W, yE = yF + H;
+  const rT = Math.min(H / 2, L / 2);
   const rects: Rect[] = [
-    { x0, y0: yT, x1, y1: yL, r: { tl: Math.min(10, H * 0.25), tr: Math.min(10, H * 0.25) } }, // tuck
-    { x0: x0 - ear, y0: yT + H * 0.05, x1: x0, y1: yL - 1, r: { tl: H * 0.45, bl: H * 0.25 } }, { x0: x1, y0: yT + H * 0.05, x1: x1 + ear, y1: yL - 1, r: { tr: H * 0.45, br: H * 0.25 } }, // tuck ears
-    { x0, y0: yL, x1, y1: yG }, // lid
-    { x0: x0 - ear * 0.7, y0: yL + W * 0.08, x1: x0, y1: yG - W * 0.08, r: { tl: 8, bl: 8 } }, { x0: x1, y0: yL + W * 0.08, x1: x1 + ear * 0.7, y1: yG - W * 0.08, r: { tr: 8, br: 8 } }, // lid ears
-    { x0, y0: yG, x1, y1: yK }, // hinge double score
+    { x0, y0: 0, x1, y1: yL, r: { tl: rT, tr: rT } }, // tuck
+    { x0, y0: yL, x1, y1: yK }, // lid
     { x0, y0: yK, x1, y1: yB }, // back wall
-    { x0: H + c, y0: yK, x1: x0, y1: yB - nick }, { x0: x1, y0: yK, x1: x1 + H - c, y1: yB - nick }, // back dust flaps
+    { x0: H + c, y0: yK + c, x1: x0, y1: yB }, { x0: x1, y0: yK + c, x1: x1 + H - c, y1: yB }, // back dust flaps
     { x0, y0: yB, x1, y1: yF }, // base
-    { x0: H + c, y0: yB, x1: x0, y1: yF }, { x0: H, y0: yB, x1: H + c, y1: yF }, { x0: 0, y0: yB, x1: H, y1: yF }, // left outer, score, inner
-    { x0: x1, y0: yB, x1: x1 + H - c, y1: yF }, { x0: x1 + H - c, y0: yB, x1: x1 + H, y1: yF }, { x0: x1 + H, y0: yB, x1: x1 + 2 * H, y1: yF }, // right
+    { x0: 0, y0: yB, x1: H, y1: yF }, { x0: H, y0: yB, x1: H + c, y1: yF }, { x0: H + c, y0: yB, x1: x0, y1: yF }, // left: outer, score, inner
+    { x0: x1, y0: yB, x1: x1 + H - c, y1: yF }, { x0: x1 + H - c, y0: yB, x1: x1 + H, y1: yF }, { x0: x1 + H, y0: yB, x1: x1 + 2 * H, y1: yF }, // right: inner, score, outer
     { x0, y0: yF, x1, y1: yE }, // front wall
-    { x0: H + c, y0: yF + nick, x1: x0, y1: yE }, { x0: x1, y0: yF + nick, x1: x1 + H - c, y1: yE }, // front dust flaps
+    { x0: H + c, y0: yF, x1: x0, y1: yE - c }, { x0: x1, y0: yF, x1: x1 + H - c, y1: yE - c }, // front dust flaps
   ];
-  // locking tabs on the inner side walls
-  const tab = Math.min(8, H * 0.12), tl = Math.min(25, W * 0.15);
-  for (const yy of [yB + W * 0.25 - tl / 2, yB + W * 0.75 - tl / 2]) {
-    rects.push({ x0: -tab, y0: yy, x1: 0, y1: yy + tl, r: { tl: 2, bl: 2 } }, { x0: x1 + 2 * H, y0: yy, x1: x1 + 2 * H + tab, y1: yy + tl, r: { tr: 2, br: 2 } });
+  const same = (a: number, b: number) => Math.abs(a - b) < 0.01;
+  const xR = x1 + 2 * H;
+  const tabs = [[0.2, 0.4], [0.6, 0.8]].map(([a, b]) => [yB + a * W, yB + b * W]);
+  const tap = IN / 8, dep = 4, slotW = 2.5;
+  let paths = rectsToPaths(rects).filter((p) => {
+    if (p.kind !== "cut" || p.segs.length !== 2 || !p.segs[0].M || !p.segs[1].L) return true;
+    const a = p.segs[0].M, b = p.segs[1].L;
+    // the short wall edge beside each dust flap becomes a 45° cut
+    if (same(a[0], b[0]) && (same(a[0], x0) || same(a[0], x1)) && Math.max(a[1], b[1]) <= yK + c + 0.01 && Math.min(a[1], b[1]) >= yK - 0.01) return false;
+    if (same(a[0], b[0]) && (same(a[0], x0) || same(a[0], x1)) && Math.min(a[1], b[1]) >= yE - c - 0.01 && Math.max(a[1], b[1]) <= yE + 0.01) return false;
+    // outer wall edges are redrawn with the tabs
+    if (same(a[0], b[0]) && (same(a[0], 0) || same(a[0], xR))) return false;
+    return true;
+  });
+  // flap edges stop where the 45° cut starts; dust flaps and side walls are separate pieces
+  paths = paths.map((p) => {
+    if (p.segs.length !== 2 || !p.segs[0].M || !p.segs[1].L) return p;
+    const a = p.segs[0].M, b = p.segs[1].L;
+    if (p.kind === "fold" && same(a[1], b[1]) && (same(a[1], yB) || same(a[1], yF)) && (Math.max(a[0], b[0]) <= x0 + 0.01 || Math.min(a[0], b[0]) >= x1 - 0.01)) return { ...p, kind: "cut" as const };
+    if (p.kind !== "cut") return p;
+    if (same(a[1], b[1]) && (same(a[1], yK + c) || same(a[1], yE - c))) {
+      const fix = (pt: Pt): Pt => (same(pt[0], x0) ? [x0 - c, pt[1]] : same(pt[0], x1) ? [x1 + c, pt[1]] : pt);
+      return { kind: "cut", segs: [{ M: fix(a) }, { L: fix(b) }] } as DPath;
+    }
+    return p;
+  });
+  const cut = (segs: Seg[]) => paths.push({ kind: "cut", segs });
+  for (const [x, s] of [[x0, -1], [x1, 1]] as const) {
+    cut([{ M: [x, yK] }, { L: [x + s * c, yK + c] }]);
+    cut([{ M: [x, yE] }, { L: [x + s * c, yE - c] }]);
   }
-  const paths = rectsToPaths(rects);
+  // outer wall edges with locking tabs, and the slots in the base
+  for (const [x, s] of [[0, -1], [xR, 1]] as const) {
+    let y = yB;
+    for (const [a, b] of tabs) {
+      cut([{ M: [x, y] }, { L: [x, a] }]);
+      cut([{ M: [x, a] }, { L: [x + s * dep, a + tap] }, { L: [x + s * dep, b - tap] }, { L: [x, b] }]);
+      paths.push({ kind: "fold", segs: [{ M: [x, a] }, { L: [x, b] }] });
+      y = b;
+    }
+    cut([{ M: [x, y] }, { L: [x, yF] }]);
+  }
+  for (const [x, s] of [[x0, 1], [x1, -1]] as const) for (const [a, b] of tabs) {
+    const xa = Math.min(x, x + s * slotW), xb = Math.max(x, x + s * slotW);
+    cut([{ M: [xa, a - 0.15] }, { L: [xb, a - 0.15] }, { L: [xb, b + 0.15] }, { L: [xa, b + 0.15] }, { L: [xa, a - 0.15] }]);
+  }
+  lastAreas = [...lastAreas, { x0: -dep, y0: tabs[0][0], x1: 0, y1: tabs[1][1] }, { x0: xR, y0: tabs[0][0], x1: xR + dep, y1: tabs[1][1] }];
   const cx = x0 + L / 2;
   return {
     paths,
-    labels: [{ at: [cx, yT + H * 0.55], text: "TUCK" }, { at: [cx, yL + W * 0.55], text: "LID" }, { at: [cx, yK + (yB - yK) * 0.55], text: "BACK" }, { at: [cx, yB + W * 0.55], text: "BASE" }, { at: [cx, yF + H * 0.55], text: "FRONT" }, { at: [H * 0.5, yB + W * 0.55], text: "SIDE" }, { at: [x1 + 1.5 * H, yB + W * 0.55], text: "SIDE" }],
-    dims: [hd(x0, x1, yB + Math.min(14, W * 0.2)), vd(yB, yF, x0 + Math.min(14, L * 0.15)), vd(yF, yE, x0 + L * 0.8), vd(yL, yG, x0 + Math.min(14, L * 0.15)), hd(0, H, yB + W * 0.85)],
+    labels: [{ at: [cx, H * 0.55], text: "TUCK" }, { at: [cx, yL + W * 0.55], text: "LID" }, { at: [cx, yK + H * 0.55], text: "BACK" }, { at: [cx, yB + W * 0.55], text: "BASE" }, { at: [cx, yF + H * 0.55], text: "FRONT" }, { at: [H * 0.5, yB + W * 0.55], text: "SIDE" }, { at: [x1 + 1.5 * H, yB + W * 0.55], text: "SIDE" }],
+    dims: [hd(x0, x1, yB + Math.min(14, W * 0.12)), vd(yB, yF, x0 + Math.min(14, L * 0.15)), vd(yF, yE, x0 + L * 0.8), vd(yL, yK, x0 + Math.min(14, L * 0.15)), hd(0, H, yB + W * 0.9)],
     bbox: bboxOf(paths),
-    notes: [`Double wall tuck top (Printy layout) · base ${r1(L)} × ${r1(W)} mm · walls ${r1(H)} mm`, `Double score ${r1(c)} mm at the lid hinge and side walls · locking tabs on the inner walls`],
+    notes: [`Double wall tuck top (Printy layout) · base ${r1(L)} × ${r1(W)} mm · walls ${r1(H)} mm`, `Side walls ${r1(H)} + ${r1(c)} mm double score + ${r1(H - c)} mm · dust flaps ${r1(H - c)} mm · locking tabs ${dep} mm with base slots`],
   };
 }
 

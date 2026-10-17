@@ -129,7 +129,7 @@ const builtInDielines: Dieline[] = [
   { slug: "roll-end-mailer-box", name: "Roll End Tuck Front Mailer Box", category: "mailers-shipping",
     summary: "The classic e-commerce mailer. Double-wall sides fold in, and the lid tucks into the front for a strong, glue-free box with a great unboxing.",
     bestFor: ["E-commerce and subscriptions", "Apparel and accessories", "PR kits and gift boxes"],
-    closure: "Lid with front tuck and side ears", material: "E-flute or B-flute corrugated, or heavy card",
+    closure: "Lid with a front tuck and locking side walls", material: "E-flute or B-flute corrugated, or heavy card",
     tip: "Print inside the lid for a branded reveal.",
     product: "mailer-boxes", generator: "mailer", image: { w: 753, h: 975 } },
   { slug: "mailer-box-with-tear-strip", name: "Mailer Box with Tear Strip", category: "mailers-shipping",
@@ -401,7 +401,7 @@ type CmsDieline = {
 };
 
 // keep in step with VERIFIED_STYLES in src/lib/dielineGeometry.ts
-const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner"];
+const genStyles: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer"];
 function cmsGen(d: CmsDieline): Dieline["gen"] {
   const style = genStyles.find((g) => g === d.genStyle);
   const [L, W, H] = [d.sizeL, d.sizeW, d.sizeH].map(Number);
@@ -449,6 +449,7 @@ const sampleSize: Partial<Record<GeneratorStyle, [number, number, number]>> = {
   "straight-tuck-end": [60, 40, 150],
   "auto-bottom": [101.6, 101.6, 152.4],
   "four-corner": [203.2, 177.8, 76.2],
+  mailer: [228.6, 152.4, 127],
 };
 const liveBuiltIns = builtInDielines.map((d) => {
   if (d.generator && !genStyles.includes(d.generator)) return { ...d, generator: undefined };
