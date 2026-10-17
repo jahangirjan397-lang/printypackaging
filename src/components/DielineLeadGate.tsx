@@ -96,7 +96,7 @@ export default function DielineLeadGate({
         <div className="mt-4 space-y-2.5">
           <input name="name" required minLength={2} autoComplete="name" placeholder="Your name *" className="field-input field-compact" />
           <input name="email" type="email" required autoComplete="email" placeholder="you@company.com *" className="field-input field-compact" />
-          <input name="whatsapp" type="tel" required pattern="[+0-9 ()-]{7,}" title="Phone number with country code" autoComplete="tel" placeholder="WhatsApp / phone with country code *" className="field-input field-compact" />
+          <input name="whatsapp" type="tel" autoComplete="tel" placeholder="WhatsApp / phone (optional)" className="field-input field-compact" />
           <select name="country" className="field-input field-compact" defaultValue="USA">
             {["USA", "UK", "Canada", "Europe", "Australia", "UAE", "Other"].map((c) => <option key={c}>{c}</option>)}
           </select>
@@ -118,7 +118,7 @@ export default function DielineLeadGate({
             {sending ? "Sending…" : `Get my ${what} →`}
           </button>
         </div>
-        <p className="mt-3 text-[11px] font-bold text-slate-400">We only use your email and number to reply about packaging. See our <Link href="/privacy-policy" className="underline">privacy policy</Link>.</p>
+        <p className="mt-3 text-[11px] font-bold text-slate-400">We only use your email to reply about packaging. See our <Link href="/privacy-policy" className="underline">privacy policy</Link>.</p>
       </form>
     </div>
   );

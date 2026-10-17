@@ -630,13 +630,9 @@ export default function QuoteSection() {
                 />
               </FormField>
 
-              <FormField label="WhatsApp / Phone *">
+              <FormField label="WhatsApp / Phone">
                 <input
                   name="whatsapp"
-                  type="tel"
-                  required
-                  pattern="[+0-9 ()-]{7,}"
-                  title="Phone number with country code"
                   autoComplete="tel"
                   placeholder="+1 000 000 0000"
                   className="field-input field-compact"
