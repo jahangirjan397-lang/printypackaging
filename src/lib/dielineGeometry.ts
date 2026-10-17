@@ -27,6 +27,7 @@ const allGeneratorStyles: {
   { id: "reverse-tuck-end", name: "Reverse Tuck End", hint: "Everyday retail carton", dims: ["Length", "Width", "Height"], board: "card", library: "reverse-tuck-end" },
   { id: "straight-tuck-end", name: "Straight Tuck End", hint: "Clean front panel", dims: ["Length", "Width", "Height"], board: "card", library: "straight-tuck-end" },
   { id: "auto-bottom", name: "Tuck Top Auto Bottom", hint: "Crash-lock base", dims: ["Length", "Width", "Height"], board: "card", library: "tuck-end-auto-bottom" },
+  { id: "snap-lock", name: "Tuck Top Snap Lock", hint: "1-2-3 bottom", dims: ["Length", "Width", "Height"], board: "card", library: "tuck-end-123-bottom" },
   { id: "mailer", name: "Mailer Box", hint: "Roll end tuck front", dims: ["Length", "Width", "Height"], board: "flute", library: "roll-end-mailer-box" },
   { id: "shipping-box", name: "Shipping Box", hint: "Regular slotted carton", dims: ["Length", "Width", "Height"], board: "flute", library: "full-flap-shipping-box" },
   { id: "four-corner", name: "Four Corner Box", hint: "Tray with a tuck lid", dims: ["Length", "Width", "Height"], board: "card", library: "four-corner-tray" },
@@ -39,7 +40,7 @@ const allGeneratorStyles: {
 // Only styles checked line by line against our own production dielines are
 // offered on the site. Others stay in the code until they are matched to our
 // CorelDRAW files and approved (shipping box, tray, sleeve, pillow).
-export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer", "six-corner"];
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer", "six-corner", "snap-lock"];
 export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -563,6 +564,81 @@ function fourCorner(d: DielineInput): Dieline {
   };
 }
 
+// Snap lock (1-2-3) bottom with a tuck top, measured from our own production file
+// "snap lock" (4 x 3 x 7 and 6.14 x 4.38 x 8.89 in): top as our tuck ends (lid on
+// the front panel, tuck and glue flap 1/2" or 3/4" by size, 1/8" slits, dust flaps
+// W - 1"); bottom flaps 3/4 W deep: front flap steps in L/4 over W/2 into a tab
+// L/2 wide, back flap has a matching L/2 slot W/2 down, side flaps L/4 + W/4 deep
+// with a diagonal (W/2 across, L/4 down), a 1/8" step and a W/8 round; corners W/8.
+function snapLock(d: DielineInput): Dieline {
+  const { L, W, H } = d;
+  const g = flapSize(L, W), tuck = g, r8 = IN / 8, c = W / 8, D = 0.75 * W;
+  const xA = g, xB = g + L, xC = xB + W, xD = xC + L, xE = xD + W;
+  const yL = tuck, yK = yL + W, yB = yK + H;
+  const dust = W >= 63.5 ? W - IN : W / 2;
+  const rects: Rect[] = [
+    { x0: xA, y0: yK, x1: xB, y1: yB }, { x0: xB, y0: yK, x1: xC, y1: yB }, { x0: xC, y0: yK, x1: xD, y1: yB }, { x0: xD, y0: yK, x1: xE, y1: yB },
+    { x0: xA, y0: yL, x1: xB, y1: yK }, // lid
+    { x0: xA, y0: 0, x1: xB, y1: yL, r: { tl: tuck / 2, tr: tuck / 2 } }, // tuck
+    { x0: xB, y0: yK - dust, x1: xC, y1: yK }, { x0: xD, y0: yK - dust, x1: xE, y1: yK }, // dust flaps
+  ];
+  const same = (a: number, b: number) => Math.abs(a - b) < 0.01;
+  const paths = rectsToPaths(rects).filter((p) => {
+    if (p.kind !== "cut" || p.segs.length !== 2 || !p.segs[0].M || !p.segs[1].L) return true;
+    const a = p.segs[0].M, b = p.segs[1].L;
+    // body edge beside the glue flap and the whole bottom edge are redrawn below
+    if (same(a[0], b[0]) && same(a[0], xA) && Math.min(a[1], b[1]) >= yK - 0.01) return false;
+    if (same(a[1], b[1]) && same(a[1], yB)) return false;
+    return true;
+  });
+  const cut = (segs: Seg[]) => paths.push({ kind: "cut", segs });
+  const fold = (a: Pt, b: Pt) => paths.push({ kind: "fold", segs: [{ M: a }, { L: b }] });
+  const area = (shape: Seg[]) => { lastAreas = [...lastAreas, { x0: 0, y0: 0, x1: 0, y1: 0, shape }]; };
+  // glue flap, 1/8" taper at both ends
+  const glue: Seg[] = [{ M: [xA, yK] }, { L: [0, yK + r8] }, { L: [0, yB - r8] }, { L: [xA, yB] }];
+  cut(glue); fold([xA, yK], [xA, yB]); area(glue);
+  // slits at the tuck fold
+  cut([{ M: [xA + r8, yL] }, { L: [xA + r8, yL + IN / 16] }]); cut([{ M: [xB - r8, yL] }, { L: [xB - r8, yL + IN / 16] }]);
+  // bottom: one fold along the whole edge
+  fold([xA, yB], [xE, yB]);
+  const Y = (v: number) => yB + v;
+  const front: Seg[] = [
+    { M: [xA, yB] }, { L: [xA + L / 4, Y(W / 2)] }, { L: [xA + L / 4, Y(D - c)] },
+    { C: [[xA + L / 4, Y(D - c + c * K)], [xA + L / 4 + c - c * K, Y(D)], [xA + L / 4 + c, Y(D)]] },
+    { L: [xB - L / 4 - c, Y(D)] },
+    { C: [[xB - L / 4 - c + c * K, Y(D)], [xB - L / 4, Y(D - c + c * K)], [xB - L / 4, Y(D - c)]] },
+    { L: [xB - L / 4, Y(W / 2)] }, { L: [xB, yB] },
+  ];
+  const back: Seg[] = [
+    { M: [xC, yB] }, { L: [xC, Y(D)] }, { L: [xC + L / 4 - c, Y(D)] },
+    { C: [[xC + L / 4 - c + c * K, Y(D)], [xC + L / 4, Y(D - c + c * K)], [xC + L / 4, Y(D - c)]] },
+    { L: [xC + L / 4, Y(W / 2)] }, { L: [xD - L / 4, Y(W / 2)] }, { L: [xD - L / 4, Y(D - c)] },
+    { C: [[xD - L / 4, Y(D - c + c * K)], [xD - L / 4 + c - c * K, Y(D)], [xD - L / 4 + c, Y(D)]] },
+    { L: [xD, Y(D)] }, { L: [xD, yB] },
+  ];
+  // side flaps: straight edge on one side, diagonal on the other (s = direction from straight to diagonal side)
+  const side = (straight: number, diag: number, s: 1 | -1): Seg[] => {
+    const P: Pt = [diag - s * W / 2, Y(L / 4)], Q: Pt = [P[0] + s * r8, P[1] + c], R: Pt = [Q[0] - s * c, Q[1] + c];
+    return [
+      { M: [straight, yB] }, { L: [straight, R[1]] }, { L: R },
+      { C: [[R[0] + s * 0.55 * c, R[1]], [Q[0] + s * 0.14 * c, Q[1] + 0.53 * c], Q] },
+      { L: P }, { L: [diag, yB] },
+    ];
+  };
+  for (const sh of [front, back, side(xB, xC, 1), side(xE, xD, -1)]) { cut(sh); area(sh); }
+  const cx = xA + L / 2;
+  return {
+    paths,
+    labels: [
+      { at: [cx, yK + H * 0.55], text: "FRONT" }, { at: [xB + W / 2, yK + H * 0.55], text: "SIDE" }, { at: [xC + L / 2, yK + H * 0.55], text: "BACK" }, { at: [xD + W / 2, yK + H * 0.55], text: "SIDE" },
+      { at: [g / 2, yK + H * 0.55], text: "GLUE", size: 0.6 }, { at: [cx, yL + W / 2], text: "LID" }, { at: [cx, Y(W * 0.3)], text: "LOCK", size: 0.7 },
+    ],
+    dims: [hd(xA, xB, yK + Math.min(12, H * 0.1)), hd(xB, xC, yK + Math.min(12, H * 0.1)), vd(yK, yB, xA + Math.min(10, L * 0.18)), vd(yL, yK, xA + Math.min(10, L * 0.18)), vd(yB, Y(D), xC + 4)],
+    bbox: bboxOf(paths),
+    notes: [`Snap lock bottom, tuck top (Printy layout) · panels ${r1(L)} / ${r1(W)} / ${r1(L)} / ${r1(W)} mm, height ${r1(H)} mm`, `Glue flap and tuck ${r1(g)} mm · dust flaps ${r1(dust)} mm · bottom flaps ${r1(D)} mm with an ${r1(L / 2)} mm lock tab`],
+  };
+}
+
 // Six corner box, measured from our own production file "six corner" (10 x 10 x 7
 // and 12 x 7 x 4 in): front lip (H) / lid (W) / back wall (H) / base (W) / front
 // wall (H) down the middle; side panels H wide beside the lid (one diagonal
@@ -665,6 +741,7 @@ function buildRaw(style: GeneratorStyle, input: DielineInput): Dieline {
     case "pillow": return pillow(input);
     case "four-corner": return fourCorner(input);
     case "six-corner": return sixCorner(input);
+    case "snap-lock": return snapLock(input);
   }
 }
 
