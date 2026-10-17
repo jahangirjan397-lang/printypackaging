@@ -359,7 +359,7 @@ collections:
           - label: Quote reply time
             name: quoteResponse
             widget: string
-            hint: "Jaise: within 1 hour (business hours). Wahi likhein jo aap waqai kar sakte hain."
+            hint: "Jaise: within 10 minutes. Wahi likhein jo aap waqai kar sakte hain."
           - label: Design support
             name: designSupport
             widget: string
