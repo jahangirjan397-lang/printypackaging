@@ -30,6 +30,7 @@ const allGeneratorStyles: {
   { id: "mailer", name: "Mailer Box", hint: "Roll end tuck front", dims: ["Length", "Width", "Height"], board: "flute", library: "roll-end-mailer-box" },
   { id: "shipping-box", name: "Shipping Box", hint: "Regular slotted carton", dims: ["Length", "Width", "Height"], board: "flute", library: "full-flap-shipping-box" },
   { id: "four-corner", name: "Four Corner Box", hint: "Tray with a tuck lid", dims: ["Length", "Width", "Height"], board: "card", library: "four-corner-tray" },
+  { id: "six-corner", name: "Six Corner Box", hint: "Hinged lid, glued corners", dims: ["Length", "Width", "Height"], board: "card", library: "six-corner-tray" },
   { id: "tray", name: "Tray", hint: "Glued-corner tray", dims: ["Length", "Width", "Height"], board: "card", library: "four-corner-tray" },
   { id: "sleeve", name: "Sleeve", hint: "Slides over a tray", dims: ["Length", "Width", "Height"], board: "card", library: "sleeve-and-tray" },
   { id: "pillow", name: "Pillow Box", hint: "Curved press-in ends", dims: ["Width", "Depth", "Length"], board: "card", library: "pillow-box" },
@@ -38,7 +39,7 @@ const allGeneratorStyles: {
 // Only styles checked line by line against our own production dielines are
 // offered on the site. Others stay in the code until they are matched to our
 // CorelDRAW files and approved (shipping box, tray, sleeve, pillow).
-export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer"];
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer", "six-corner"];
 export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -562,6 +563,63 @@ function fourCorner(d: DielineInput): Dieline {
   };
 }
 
+// Six corner box, measured from our own production file "six corner" (10 x 10 x 7
+// and 12 x 7 x 4 in): front lip (H) / lid (W) / back wall (H) / base (W) / front
+// wall (H) down the middle; side panels H wide beside the lid (one diagonal
+// fold) and the base (two diagonal folds); corner gussets W/2 - 1/8" wide beside
+// every wall, 1/8" short at both ends with 45° cuts, each with a diagonal fold
+// from its free corner to the wall's corner on the lid or base side.
+function sixCorner(d: DielineInput): Dieline {
+  const { L, W, H } = d;
+  const r8 = IN / 8, G = W / 2 - r8, drop = W / 2 - H / 185;
+  const x0 = H, x1 = H + L;
+  const yL = H, yK = yL + W, yB = yK + H, yF = yB + W, yE = yF + H;
+  const rects: Rect[] = [
+    { x0, y0: 0, x1, y1: yL }, { x0, y0: yL, x1, y1: yK }, { x0, y0: yK, x1, y1: yB }, { x0, y0: yB, x1, y1: yF }, { x0, y0: yF, x1, y1: yE },
+    { x0: 0, y0: yL, x1: x0, y1: yK }, { x0: x1, y0: yL, x1: x1 + H, y1: yK }, // lid side panels
+    { x0: 0, y0: yB, x1: x0, y1: yF }, { x0: x1, y0: yB, x1: x1 + H, y1: yF }, // base side panels
+  ];
+  const same = (a: number, b: number) => Math.abs(a - b) < 0.01;
+  // lid and base side panels are separate from the wall gussets: their top/bottom edges are cut
+  const wallBand = (y0: number, y1: number) => [[0, yL], [yK, yB], [yF, yE]].some(([a, b]) => y0 >= a - 0.01 && y1 <= b + 0.01);
+  const paths = rectsToPaths(rects).filter((p) => {
+    // the wall edges where the gussets attach are redrawn as folds below
+    if (p.kind !== "cut" || p.segs.length !== 2 || !p.segs[0].M || !p.segs[1].L) return true;
+    const a = p.segs[0].M, b = p.segs[1].L;
+    return !(same(a[0], b[0]) && (same(a[0], x0) || same(a[0], x1)) && wallBand(Math.min(a[1], b[1]), Math.max(a[1], b[1])));
+  }).map((p) => {
+    if (p.kind !== "fold" || p.segs.length !== 2 || !p.segs[0].M || !p.segs[1].L) return p;
+    const a = p.segs[0].M, b = p.segs[1].L;
+    return same(a[1], b[1]) && (Math.max(a[0], b[0]) <= x0 + 0.01 || Math.min(a[0], b[0]) >= x1 - 0.01) ? { ...p, kind: "cut" as const } : p;
+  });
+  const cut = (segs: Seg[]) => paths.push({ kind: "cut", segs });
+  const fold = (a: Pt, b: Pt) => paths.push({ kind: "fold", segs: [{ M: a }, { L: b }] });
+  // gussets on the three walls; the diagonal runs to the wall corner nearest the lid / base
+  const walls: [number, number, "down" | "up"][] = [[0, yL, "down"], [yK, yB, "down"], [yF, yE, "up"]];
+  for (const [ya, yb, dir] of walls) for (const [x, s] of [[x0, -1], [x1, 1]] as const) {
+    const X = (v: number) => x + s * v;
+    const seg: Seg[] = [{ M: [x, ya] }, { L: [X(r8), ya + r8] }, { L: [X(G), ya + r8] }, { L: [X(G), yb - r8] }, { L: [X(r8), yb - r8] }, { L: [x, yb] }];
+    cut(seg);
+    fold([x, ya], [x, yb]);
+    if (dir === "down") fold([X(G), ya + r8], [x, yb]); else fold([X(G), yb - r8], [x, ya]);
+    lastAreas = [...lastAreas, { x0: 0, y0: 0, x1: 0, y1: 0, shape: seg }];
+  }
+  // diagonal folds on the side panels
+  for (const [x, s] of [[x0, -1], [x1, 1]] as const) {
+    fold([x, yL], [x + s * H, yL + drop]);
+    fold([x, yB], [x + s * H, yB + drop]);
+    fold([x, yF], [x + s * H, yF - drop]);
+  }
+  const cx = x0 + L / 2;
+  return {
+    paths,
+    labels: [{ at: [cx, H * 0.55], text: "LIP" }, { at: [cx, yL + W * 0.55], text: "LID" }, { at: [cx, yK + H * 0.55], text: "BACK" }, { at: [cx, yB + W * 0.55], text: "BASE" }, { at: [cx, yF + H * 0.55], text: "FRONT" }, { at: [H / 2, yB + W * 0.5], text: "SIDE" }, { at: [x1 + H / 2, yB + W * 0.5], text: "SIDE" }],
+    dims: [hd(x0, x1, yB + Math.min(14, W * 0.12)), vd(yB, yF, x0 + Math.min(14, L * 0.15)), vd(yF, yE, x0 + L * 0.8), vd(yL, yK, x0 + Math.min(14, L * 0.15)), hd(0, H, yB + W * 0.85)],
+    bbox: bboxOf(paths),
+    notes: [`Six corner box (Printy layout) · base and lid ${r1(L)} × ${r1(W)} mm · walls ${r1(H)} mm`, `Corner gussets ${r1(G)} mm with diagonal folds · front lip ${r1(H)} mm`],
+  };
+}
+
 function pillow(d: DielineInput): Dieline {
   // L = width of the box face, W = depth (bulge), H = length
   const { L, W, H } = d;
@@ -606,6 +664,7 @@ function buildRaw(style: GeneratorStyle, input: DielineInput): Dieline {
     case "mailer": return mailer(input);
     case "pillow": return pillow(input);
     case "four-corner": return fourCorner(input);
+    case "six-corner": return sixCorner(input);
   }
 }
 
