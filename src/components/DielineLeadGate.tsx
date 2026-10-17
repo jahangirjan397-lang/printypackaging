@@ -42,6 +42,8 @@ export default function DielineLeadGate({
 }) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  // Only people who tick the box are sent a price (owner 2026-10-17)
+  const [wantsPrice, setWantsPrice] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -97,12 +99,15 @@ export default function DielineLeadGate({
             {["USA", "UK", "Canada", "Europe", "Australia", "UAE", "Other"].map((c) => <option key={c}>{c}</option>)}
           </select>
           <label className="flex items-start gap-2 text-sm font-bold text-slate-700">
-            <input name="wantsQuote" type="checkbox" className="mt-1" defaultChecked />
+            <input name="wantsQuote" type="checkbox" className="mt-1" checked={wantsPrice} onChange={(e) => setWantsPrice(e.target.checked)} />
             Also send me a price to print this box
           </label>
-          <select name="quantity" className="field-input field-compact" defaultValue="500">
-            {["100", "250", "500", "1,000", "2,500", "5,000+"].map((q) => <option key={q} value={q}>{q} boxes</option>)}
-          </select>
+          {wantsPrice && (
+            <select name="quantity" required className="field-input field-compact" defaultValue="">
+              <option value="" disabled>How many boxes? *</option>
+              {["100", "250", "500", "1,000", "2,500", "5,000+"].map((q) => <option key={q} value={q}>{q} boxes</option>)}
+            </select>
+          )}
         </div>
         {error && <p role="alert" className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm font-bold text-red-700">{error}</p>}
         <div className="mt-5 flex items-center justify-between gap-3">
