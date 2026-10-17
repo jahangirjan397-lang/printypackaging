@@ -116,7 +116,7 @@ export default function DielineGenerator() {
   const [saved] = useState(() => {
     if (params.get("L")) return null;
     try {
-      return JSON.parse(localStorage.getItem(SAVE_KEY) || "null") as { style: GeneratorStyle; unit: Unit; dims: { L: string; W: string; H: string }; board: string; slit: boolean; mode: "inside" | "outside" } | null;
+      return JSON.parse(localStorage.getItem(SAVE_KEY) || "null") as { style: GeneratorStyle; unit: Unit; dims: { L: string; W: string; H: string }; board: string; slit: boolean; ears?: boolean; mode: "inside" | "outside" } | null;
     } catch {
       return null;
     }
@@ -134,6 +134,8 @@ export default function DielineGenerator() {
     return { L: String(p[0]), W: String(p[1]), H: String(p[2]) };
   });
   const [slitLock, setSlitLock] = useState(params.get("slit") === "1" || Boolean(saved?.slit));
+  // mailer: ear lock tuck and lid (as on our 7 x 5 x 4 in file)
+  const [ears, setEars] = useState(params.get("ears") === "1" || Boolean(saved?.ears));
   const [board, setBoard] = useState(() => {
     const b = params.get("board") ?? saved?.board;
     return b && boards.some((x) => x.id === b) ? b : startFlute ? "e-flute" : "card";
@@ -160,17 +162,17 @@ export default function DielineGenerator() {
 
   const result = useMemo(() => {
     if (!valid) return null;
-    const dl = buildDieline(style, { ...nums, t: boardInfo.t, slitLock: tuckStyle && slitLock });
+    const dl = buildDieline(style, { ...nums, t: boardInfo.t, slitLock: tuckStyle && slitLock, ears: style === "mailer" && ears });
     const [x0, y0, x1, y1] = dl.bbox;
     return { dl, flat: [x1 - x0, y1 - y0] as [number, number] };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [style, dims.L, dims.W, dims.H, unit, boardInfo.t, valid, slitLock, mode]);
+  }, [style, dims.L, dims.W, dims.H, unit, boardInfo.t, valid, slitLock, ears, mode]);
 
   useEffect(() => {
     try {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({ style, unit, dims, board, slit: slitLock, mode }));
+      localStorage.setItem(SAVE_KEY, JSON.stringify({ style, unit, dims, board, slit: slitLock, ears, mode }));
     } catch { /* private mode */ }
-  }, [style, unit, dims, board, slitLock, mode]);
+  }, [style, unit, dims, board, slitLock, ears, mode]);
 
   const sizeText = `${dims.L} x ${dims.W} x ${dims.H} ${unit}${mode === "outside" ? " outside" : ""}`;
   const title = `${meta.name} ${sizeText}`;
@@ -214,6 +216,7 @@ export default function DielineGenerator() {
   async function share() {
     const q = new URLSearchParams({ style, L: String(+nums.L.toFixed(2)), W: String(+nums.W.toFixed(2)), H: String(+nums.H.toFixed(2)), board });
     if (tuckStyle && slitLock) q.set("slit", "1");
+    if (style === "mailer" && ears) q.set("ears", "1");
     const url = `${location.origin}/dieline-generator?${q}`;
     try {
       await navigator.clipboard.writeText(url);
@@ -317,6 +320,7 @@ export default function DielineGenerator() {
                 <Check checked={showDims} onChange={setShowDims}>Dimension lines</Check>
                 <Check checked={showNames} onChange={setShowNames}>Panel names</Check>
                 {tuckStyle && <Check checked={slitLock} onChange={setSlitLock}>Slit lock on the tucks</Check>}
+                {style === "mailer" && <Check checked={ears} onChange={setEars}>Ear lock on the tuck and lid</Check>}
               </div>
             </section>
           </div>

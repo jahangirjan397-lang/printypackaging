@@ -13,7 +13,7 @@ export type DLabel = { at: Pt; text: string; size?: number };
 // A measured distance from a to b (horizontal or vertical), drawn with arrows
 export type DDim = { a: Pt; b: Pt };
 export type Dieline = { paths: DPath[]; labels: DLabel[]; dims: DDim[]; bbox: [number, number, number, number]; notes?: string[]; areas?: Rect[] };
-export type DielineInput = { L: number; W: number; H: number; t: number; slitLock?: boolean };
+export type DielineInput = { L: number; W: number; H: number; t: number; slitLock?: boolean; ears?: boolean };
 export type Unit = "mm" | "cm" | "in";
 
 const allGeneratorStyles: {
@@ -51,7 +51,7 @@ export function formatLength(mm: number, unit: Unit) {
 
 
 // ---------- rectangle panels -> cut / fold lines ----------
-type Rect = { x0: number; y0: number; x1: number; y1: number; r?: { tl?: number; tr?: number; bl?: number; br?: number } };
+type Rect = { x0: number; y0: number; x1: number; y1: number; r?: { tl?: number; tr?: number; bl?: number; br?: number }; shape?: Seg[] };
 const EPS = 0.01;
 
 function sub(intervals: [number, number][], a: number, b: number): [number, number][] {
@@ -349,24 +349,25 @@ function tray(d: DielineInput): Dieline {
 // ("Double wall tuck top corrugated stock" 9 x 6 x 5, 7 x 5 x 4, 6.14 x 4.73 x 3.52 in,
 // "double wall" 5.75 x 4.40 x 3.25 in): tuck (H, corners H/2) / lid (W) / back
 // wall (H) / base (W) / front wall (H) down the middle; side walls beside the
-// base as outer (H) + 1/16" double score + inner (H - 1/16"); dust flaps on
-// the back and front walls as wide as the inner wall, 1/16" short with a 45°
-// cut at the hinge; locking tabs 4 mm deep on the outer walls at 20-40 % and
+// base as outer (H) + inner (H) with one fold between; dust flaps on the
+// back and front walls H - 1/16" wide and 1/16" short with a 45° cut at the
+// hinge; locking tabs 4 mm deep on the outer walls at 20-40 % and
 // 60-80 % of W (1/8" taper), matching 2.5 mm slots in the base.
 function mailer(d: DielineInput): Dieline {
   const { L, W, H } = d;
-  const c = IN / 16; // double score
-  const x0 = 2 * H, x1 = x0 + L; // base columns: outer 0..H, score H..H+c, inner H+c..2H
+  const c = IN / 16; // dust flap relief
+  const x0 = 2 * H, x1 = x0 + L; // base columns: outer side wall 0..H, inner H..2H
   const yL = H, yK = yL + W, yB = yK + H, yF = yB + W, yE = yF + H;
-  const rT = Math.min(H / 2, L / 2);
+  const ears = Boolean(d.ears);
+  const rT = ears ? 0 : Math.min(H / 2, L / 2);
   const rects: Rect[] = [
-    { x0, y0: 0, x1, y1: yL, r: { tl: rT, tr: rT } }, // tuck
+    { x0, y0: 0, x1, y1: yL, r: ears ? undefined : { tl: rT, tr: rT } }, // tuck
     { x0, y0: yL, x1, y1: yK }, // lid
     { x0, y0: yK, x1, y1: yB }, // back wall
     { x0: H + c, y0: yK + c, x1: x0, y1: yB }, { x0: x1, y0: yK + c, x1: x1 + H - c, y1: yB }, // back dust flaps
     { x0, y0: yB, x1, y1: yF }, // base
-    { x0: 0, y0: yB, x1: H, y1: yF }, { x0: H, y0: yB, x1: H + c, y1: yF }, { x0: H + c, y0: yB, x1: x0, y1: yF }, // left: outer, score, inner
-    { x0: x1, y0: yB, x1: x1 + H - c, y1: yF }, { x0: x1 + H - c, y0: yB, x1: x1 + H, y1: yF }, { x0: x1 + H, y0: yB, x1: x1 + 2 * H, y1: yF }, // right: inner, score, outer
+    { x0: 0, y0: yB, x1: H, y1: yF }, { x0: H, y0: yB, x1: x0, y1: yF }, // left: outer, inner (one fold between)
+    { x0: x1, y0: yB, x1: x1 + H, y1: yF }, { x0: x1 + H, y0: yB, x1: x1 + 2 * H, y1: yF }, // right: inner, outer
     { x0, y0: yF, x1, y1: yE }, // front wall
     { x0: H + c, y0: yF, x1: x0, y1: yE - c }, { x0: x1, y0: yF, x1: x1 + H - c, y1: yE - c }, // front dust flaps
   ];
@@ -382,6 +383,8 @@ function mailer(d: DielineInput): Dieline {
     if (same(a[0], b[0]) && (same(a[0], x0) || same(a[0], x1)) && Math.min(a[1], b[1]) >= yE - c - 0.01 && Math.max(a[1], b[1]) <= yE + 0.01) return false;
     // outer wall edges are redrawn with the tabs
     if (same(a[0], b[0]) && (same(a[0], 0) || same(a[0], xR))) return false;
+    // with ears, the tuck and lid sides fold onto the ears
+    if (ears && same(a[0], b[0]) && (same(a[0], x0) || same(a[0], x1)) && Math.max(a[1], b[1]) <= yK + 0.01) return false;
     return true;
   });
   // flap edges stop where the 45° cut starts; dust flaps and side walls are separate pieces
@@ -400,6 +403,32 @@ function mailer(d: DielineInput): Dieline {
   for (const [x, s] of [[x0, -1], [x1, 1]] as const) {
     cut([{ M: [x, yK] }, { L: [x + s * c, yK + c] }]);
     cut([{ M: [x, yE] }, { L: [x + s * c, yE - c] }]);
+    // the wall's fold runs right up to the 45° cut, as on our files
+    paths.push({ kind: "fold", segs: [{ M: [x, yK] }, { L: [x, yK + c] }] }, { kind: "fold", segs: [{ M: [x, yE - c] }, { L: [x, yE] }] });
+  }
+  if (ears) {
+    // ear lock, from our 7 x 5 x 4 and 6.14 x 4.73 x 3.52 in files: tuck ears reach
+    // 13/16 H with a 1/8" 45° relief at the hinge; lid ears reach 9/16 H with a
+    // straight edge of W/5 centred on the lid
+    const E = 0.8125 * H, Rl = 0.5625 * H, r8 = IN / 8, ym = yL + W / 2, s5 = W / 10;
+    for (const [x, s] of [[x0, -1], [x1, 1]] as const) {
+      const X = (v: number) => x + s * v;
+      const tuckEar: Seg[] = [
+        { M: [x, yL] }, { L: [X(r8), yL - r8] }, { L: [X(Math.max(r8, 0.125 * H)), yL - r8] },
+        { C: [[X(0.4 * H), yL - r8], [X(E), 0.9312 * H], [X(E), 0.65625 * H]] },
+        { C: [[X(E), 0.38125 * H], [X(0.275 * H), 0], [x, 0]] },
+      ];
+      const lidEar: Seg[] = [
+        { M: [x, yL] }, { L: [X(Rl / 2), yL + IN / 4] },
+        { C: [[X(0.977 * Rl), yL + IN / 4 + 0.048 * W], [X(Rl), yL + 0.18 * W], [X(Rl), ym - s5]] },
+        { L: [X(Rl), ym + s5] },
+        { C: [[X(Rl), yK - 0.18 * W], [X(0.964 * Rl), yK - 0.1446 * W], [X(Rl / 2), yK - 0.375 * IN]] },
+        { L: [x, yK] },
+      ];
+      cut(tuckEar); cut(lidEar);
+      lastAreas = [...lastAreas, { x0: 0, y0: 0, x1: 0, y1: 0, shape: tuckEar }, { x0: 0, y0: 0, x1: 0, y1: 0, shape: lidEar }];
+      paths.push({ kind: "fold", segs: [{ M: [x, 0] }, { L: [x, yL] }] }, { kind: "fold", segs: [{ M: [x, yL] }, { L: [x, yK] }] });
+    }
   }
   // outer wall edges with locking tabs, and the slots in the base
   for (const [x, s] of [[0, -1], [xR, 1]] as const) {
@@ -416,14 +445,15 @@ function mailer(d: DielineInput): Dieline {
     const xa = Math.min(x, x + s * slotW), xb = Math.max(x, x + s * slotW);
     cut([{ M: [xa, a - 0.15] }, { L: [xb, a - 0.15] }, { L: [xb, b + 0.15] }, { L: [xa, b + 0.15] }, { L: [xa, a - 0.15] }]);
   }
-  lastAreas = [...lastAreas, { x0: -dep, y0: tabs[0][0], x1: 0, y1: tabs[1][1] }, { x0: xR, y0: tabs[0][0], x1: xR + dep, y1: tabs[1][1] }];
+  for (const [x, s] of [[0, -1], [xR, 1]] as const) for (const [a, b] of tabs)
+    lastAreas = [...lastAreas, { x0: 0, y0: 0, x1: 0, y1: 0, shape: [{ M: [x, a] }, { L: [x + s * dep, a + tap] }, { L: [x + s * dep, b - tap] }, { L: [x, b] }] }];
   const cx = x0 + L / 2;
   return {
     paths,
     labels: [{ at: [cx, H * 0.55], text: "TUCK" }, { at: [cx, yL + W * 0.55], text: "LID" }, { at: [cx, yK + H * 0.55], text: "BACK" }, { at: [cx, yB + W * 0.55], text: "BASE" }, { at: [cx, yF + H * 0.55], text: "FRONT" }, { at: [H * 0.5, yB + W * 0.55], text: "SIDE" }, { at: [x1 + 1.5 * H, yB + W * 0.55], text: "SIDE" }],
     dims: [hd(x0, x1, yB + Math.min(14, W * 0.12)), vd(yB, yF, x0 + Math.min(14, L * 0.15)), vd(yF, yE, x0 + L * 0.8), vd(yL, yK, x0 + Math.min(14, L * 0.15)), hd(0, H, yB + W * 0.9)],
     bbox: bboxOf(paths),
-    notes: [`Double wall tuck top (Printy layout) · base ${r1(L)} × ${r1(W)} mm · walls ${r1(H)} mm`, `Side walls ${r1(H)} + ${r1(c)} mm double score + ${r1(H - c)} mm · dust flaps ${r1(H - c)} mm · locking tabs ${dep} mm with base slots`],
+    notes: [`Double wall tuck top (Printy layout) · base ${r1(L)} × ${r1(W)} mm · walls ${r1(H)} mm`, `Side walls ${r1(H)} + ${r1(H)} mm · dust flaps ${r1(H - c)} mm · locking tabs ${dep} mm with base slots` + (ears ? " · ear lock" : "")],
   };
 }
 
@@ -625,6 +655,7 @@ function svgD(p: DPath) {
 
 // Panel outline with its rounded corners, for the board fill
 function roundRectD(r: Rect) {
+  if (r.shape) return svgD({ kind: "cut", segs: r.shape, closed: true });
   const q = r.r || {};
   const tl = q.tl || 0, tr = q.tr || 0, br = q.br || 0, bl = q.bl || 0;
   return `M${f2(r.x0 + tl)} ${f2(r.y0)}H${f2(r.x1 - tr)}${tr ? `A${f2(tr)} ${f2(tr)} 0 0 1 ${f2(r.x1)} ${f2(r.y0 + tr)}` : ""}V${f2(r.y1 - br)}${br ? `A${f2(br)} ${f2(br)} 0 0 1 ${f2(r.x1 - br)} ${f2(r.y1)}` : ""}H${f2(r.x0 + bl)}${bl ? `A${f2(bl)} ${f2(bl)} 0 0 1 ${f2(r.x0)} ${f2(r.y1 - bl)}` : ""}V${f2(r.y0 + tl)}${tl ? `A${f2(tl)} ${f2(tl)} 0 0 1 ${f2(r.x0 + tl)} ${f2(r.y0)}` : ""}Z`;
@@ -633,6 +664,7 @@ function roundRectD(r: Rect) {
 
 // Same rounded panel as roundRectD, as PDF path operators
 function roundRectOps(r: Rect, X: (x: number) => string, Y: (y: number) => string) {
+  if (r.shape) return r.shape.map((s) => (s.M ? `${X(s.M[0])} ${Y(s.M[1])} m` : s.L ? `${X(s.L[0])} ${Y(s.L[1])} l` : s.C ? `${s.C.map((q) => `${X(q[0])} ${Y(q[1])}`).join(" ")} c` : "")).join(" ") + " h";
   const q = r.r || {};
   const tl = q.tl || 0, tr = q.tr || 0, br = q.br || 0, bl = q.bl || 0;
   const c = (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number) => `${X(x1)} ${Y(y1)} ${X(x2)} ${Y(y2)} ${X(x3)} ${Y(y3)} c`;
