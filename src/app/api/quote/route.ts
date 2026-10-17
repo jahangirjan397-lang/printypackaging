@@ -179,6 +179,11 @@ function validateLead(lead: LeadData) {
     return "Please enter a valid email address.";
   }
 
+  // Every lead needs a phone / WhatsApp number (owner 2026-10-17)
+  if (lead.whatsapp.replace(/\D/g, "").length < 7) {
+    return "Please enter your phone or WhatsApp number.";
+  }
+
   const fieldLimits: Array<{
     label: string;
     value: string;

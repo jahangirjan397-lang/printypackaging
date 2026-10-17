@@ -112,9 +112,9 @@ export default function ProductQuickQuote({
         </label>
         <label className="col-span-2 block lg:col-span-1">
           <span className="mb-1 block text-xs font-black">
-            WhatsApp / Phone <span className="font-bold text-slate-400">(optional)</span>
+            WhatsApp / Phone *
           </span>
-          <input name="whatsapp" type="tel" autoComplete="tel" placeholder="+1 555 000 0000" className="field-input field-compact" />
+          <input name="whatsapp" type="tel" required pattern="[+0-9 ()-]{7,}" title="Phone number with country code" autoComplete="tel" placeholder="+1 555 000 0000" className="field-input field-compact" />
         </label>
         <label className="block">
           <span className="mb-1 block text-xs font-black">Quantity</span>
