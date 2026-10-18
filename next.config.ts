@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
         destination: "/products",
         permanent: true,
       },
+      // old or mistyped URLs Google found (Search Console 404 report, 2026-10-18)
+      { source: "/box", destination: "/products", permanent: true },
+      { source: "/sheet", destination: "/products/butter-paper", permanent: true },
+      { source: "/categories/corrugated-packaging", destination: "/categories/ecommerce-packaging", permanent: true },
       {
         source: "/shop/:path*",
         destination: "/products",
