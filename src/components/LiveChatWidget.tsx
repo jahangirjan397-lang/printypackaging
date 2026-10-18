@@ -17,6 +17,20 @@ type TawkWindow = Window &
     Tawk_LoadStart?: Date;
   };
 
+// The owner's own devices: open any page once with ?owner=1 (undo with
+// ?owner=0) and that browser no longer loads the chat or sends visitor
+// alerts, so the owner's visits are not counted as visitors
+function isOwnerDevice() {
+  try {
+    const flag = new URLSearchParams(window.location.search).get("owner");
+    if (flag === "1") localStorage.setItem("pp-owner", "1");
+    if (flag === "0") localStorage.removeItem("pp-owner");
+    return localStorage.getItem("pp-owner") === "1";
+  } catch {
+    return false;
+  }
+}
+
 // Tell the owner (Telegram, via /api/visitor-alert) about a real visitor:
 // once per visit after 10 seconds on the site, and when the chat is opened
 function sendVisitorAlert(type: "visit" | "chat") {
@@ -42,6 +56,7 @@ export default function LiveChatWidget() {
   useEffect(() => {
     const host = window.location.hostname;
     if (host !== "printypackaging.com" && host !== "www.printypackaging.com") return;
+    if (isOwnerDevice()) return;
     // Only count visitors who actually look at the page for 10 seconds
     const timer = window.setTimeout(() => {
       if (document.visibilityState === "visible") sendVisitorAlert("visit");
@@ -67,6 +82,10 @@ export default function LiveChatWidget() {
     const allowLocalTesting = tawkWindow.location.search.includes("showchat=1");
 
     if (!isLiveWebsite && !allowLocalTesting) {
+      return;
+    }
+
+    if (isOwnerDevice()) {
       return;
     }
 
