@@ -436,7 +436,7 @@ export default function QuoteSection() {
       setSize(fromUrl);
       if (note) setMessage(note);
     },
-    [],
+    [setSize, setMessage],
   );
 
   const materialOptions = useMemo(() => {
