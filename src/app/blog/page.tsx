@@ -152,7 +152,7 @@ export default function BlogPage() {
               Get your exact box price, free.
             </p>
             <p className="mt-3 max-w-xl leading-7 text-slate-300">
-              Tell us your box, size and quantity. Reply within 10 minutes, from
+              Tell us your box, size and quantity. Reply within 10-15 minutes, from
               just 100 pcs, with a free dieline and digital proof.
             </p>
           </div>

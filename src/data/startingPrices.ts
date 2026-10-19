@@ -131,4 +131,4 @@ export function formatStartingPrice({ cost, quantity, unit }: StartingPrice) {
 // Shown under starting prices: sets the expectation that size and quantity
 // change the price, while keeping the buyer interested in asking
 export const startingPriceNote =
-  "Size, material, finish and quantity set the final quote. Bigger orders cost less per unit. Send your details for a free, exact quote. We reply within 10 minutes.";
+  "Size, material, finish and quantity set the final quote. Bigger orders cost less per unit. Send your details for a free, exact quote. We reply within 10-15 minutes.";

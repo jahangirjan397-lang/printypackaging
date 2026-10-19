@@ -320,7 +320,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 Need a price for your boxes?
               </p>
               <p className="mt-3 text-sm leading-6 text-slate-300">
-                Send size and quantity. Reply within 10 minutes, from 100
+                Send size and quantity. Reply within 10-15 minutes, from 100
                 pcs.
               </p>
               <a
@@ -417,7 +417,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       <p className="font-black text-[#07111F]">
                         Already know your box?{" "}
                         <span className="font-bold text-slate-600">
-                          Free quote, we reply within 10 minutes.
+                          Free quote, we reply within 10-15 minutes.
                         </span>
                       </p>
                       <a

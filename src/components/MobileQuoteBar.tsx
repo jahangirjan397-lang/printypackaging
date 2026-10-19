@@ -32,7 +32,7 @@ export default function MobileQuoteBar({
               </>
             ) : (
               <p className="text-sm font-black leading-tight text-[#07111F]">
-                Reply in 10 minutes
+                Reply in 10-15 minutes
               </p>
             )}
           </div>

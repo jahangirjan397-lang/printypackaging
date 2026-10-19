@@ -97,7 +97,7 @@ export default function ProductQuickQuote({
             {heading ?? `Get your ${productName.toLowerCase()} price`}
           </h2>
           <p className="mt-1 text-sm font-bold text-slate-600">
-            Free quote · No commitment · Reply within 10 minutes
+            Free quote · No commitment · Reply within 10-15 minutes
           </p>
         </div>
       </div>
