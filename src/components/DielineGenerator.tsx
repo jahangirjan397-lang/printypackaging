@@ -176,6 +176,12 @@ export default function DielineGenerator() {
 
   const sizeText = `${dims.L} x ${dims.W} x ${dims.H} ${unit}${mode === "outside" ? " outside" : ""}`;
   const title = `${meta.name} ${sizeText}`;
+  // Quote form opened with this style and size already filled in
+  const printProduct = style === "mailer" ? "mailer-boxes" : /corner/.test(style) ? "folding-cartons" : "tuck-end-boxes";
+  const printQuoteHref = `/?${new URLSearchParams({
+    product: printProduct, L: String(dims.L), W: String(dims.W), H: String(dims.H), unit,
+    note: `Printing my ${meta.name} dieline (${sizeText})`,
+  })}#quote`;
   const fileBase = `printy-dieline-${style}-${dims.L}x${dims.W}x${dims.H}${unit}`.replace(/[^a-z0-9.x-]/gi, "-");
   const fmt = (mm: number) => formatLength(mm, unit);
 
@@ -413,8 +419,11 @@ export default function DielineGenerator() {
           ))}
         </div>
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-orange-200 bg-orange-50 px-4 py-3">
-          <p className="text-sm font-bold text-[#07111F]">Want it printed? Custom boxes from 100 pcs, reply within 10 minutes.</p>
-          <Link href="/#quote" className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black hover:bg-[#e65f00]">Get a printing price</Link>
+          <div className="max-w-xl">
+            <p className="text-sm font-black text-[#07111F]">Print this exact box: {meta.name}, {sizeText}</p>
+            <p className="mt-0.5 text-xs font-bold text-slate-600">Have your design? We fit your full artwork on this dieline and send a proof to approve. No design yet? Our team can create it with your order.</p>
+          </div>
+          <Link href={printQuoteHref} prefetch={false} className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black text-[#07111F] hover:bg-[#e65f00]">Print this box →</Link>
         </div>
       </section>
 

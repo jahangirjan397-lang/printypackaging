@@ -1,7 +1,7 @@
 "use client";
 
 import type { FormEvent, ReactNode } from "react";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { products } from "../data/products";
@@ -10,6 +10,7 @@ import {
   readAnalyticsConsent,
 } from "@/lib/analyticsConsent";
 import { readLeadSource } from "@/lib/leadSource";
+import { formatSize, isFlatProduct } from "@/lib/flatProduct";
 import { businessPromises } from "@/data/businessInfo";
 import HandNote from "@/components/HandNote";
 const quoteBenefits = [
@@ -423,12 +424,20 @@ export default function QuoteSection() {
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [size, setSize] = useState({ length: "", width: "", height: "", unit: "in" });
-  const sizeValue = [size.length, size.width, size.height].some(Boolean)
-    ? `${size.length || "?"} x ${size.width || "?"} x ${size.height || "?"} ${size.unit}`
-    : "";
   // Empty until the buyer picks a product or arrives from a product page
   // link (?product=slug), so generic "Get Quote" links preselect nothing
   const [selectedProduct, setSelectedProduct] = useState("");
+  const flat = isFlatProduct(selectedProduct);
+  const sizeSides = flat ? (["width", "height"] as const) : (["length", "width", "height"] as const);
+  const sizeValue = formatSize(size, flat);
+  const [message, setMessage] = useState("");
+  const prefillFromUrl = useCallback(
+    (fromUrl: { length: string; width: string; height: string; unit: string }, note: string) => {
+      setSize(fromUrl);
+      if (note) setMessage(note);
+    },
+    [],
+  );
 
   const materialOptions = useMemo(() => {
     const materialType = getMaterialType(selectedProduct);
@@ -534,7 +543,7 @@ export default function QuoteSection() {
   return (
     <section className="bg-[#F7FAFC] px-5 py-10 md:px-8 md:py-12">
       <Suspense fallback={null}>
-        <ProductFromUrl onProductMatch={setSelectedProduct} />
+        <ProductFromUrl onProductMatch={setSelectedProduct} onPrefill={prefillFromUrl} />
       </Suspense>
 
       <div className="mx-auto max-w-6xl">
@@ -681,15 +690,22 @@ export default function QuoteSection() {
             <div className="mt-2.5 grid gap-2.5 lg:grid-cols-3">
             <fieldset className="lg:col-span-2">
               <legend className="mb-1 text-xs font-black text-[#07111F]">
-                Size <span className="font-bold text-slate-400">(optional)</span>
+                Size{" "}
+                <span className="font-bold text-slate-400">
+                  ({flat ? "flat sheet, width × height, " : ""}optional)
+                </span>
               </legend>
               <input type="hidden" name="size" value={sizeValue} />
-              <div className="grid grid-cols-[1fr_1fr_1fr_4.5rem] gap-2">
-                {(["length", "width", "height"] as const).map((side) => (
+              <div
+                className={`grid gap-2 ${
+                  flat ? "grid-cols-[1fr_1fr_4.5rem]" : "grid-cols-[1fr_1fr_1fr_4.5rem]"
+                }`}
+              >
+                {sizeSides.map((side) => (
                   <input
                     key={side}
                     inputMode="decimal"
-                    aria-label={`Box ${side}`}
+                    aria-label={flat ? `Sheet ${side}` : `Box ${side}`}
                     placeholder={side[0].toUpperCase() + side.slice(1)}
                     value={size[side]}
                     onChange={(event) =>
@@ -735,6 +751,8 @@ export default function QuoteSection() {
               <FormField label="Anything else?">
                 <input
                   name="message"
+                  value={message}
+                  onChange={(event) => setMessage(event.target.value)}
                   placeholder="Box style, deadline or anything we should know (optional)"
                   className="field-input field-compact"
                 />
@@ -833,7 +851,7 @@ export default function QuoteSection() {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-3 w-full rounded-full bg-[#CC4E00] px-8 py-3 text-base font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-3 w-full rounded-full bg-[#FF6A00] px-8 py-3 text-base font-black text-[#07111F] shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSending ? "Sending..." : "Get My Free Quote"}
             </button>
@@ -873,11 +891,15 @@ function findProductFromParam(productParam: string | null) {
 // the quote form itself is still prerendered.
 function ProductFromUrl({
   onProductMatch,
+  onPrefill,
 }: {
   onProductMatch: (productName: string) => void;
+  // Size and note from the dieline generator's "Print this box" link
+  onPrefill: (size: { length: string; width: string; height: string; unit: string }, note: string) => void;
 }) {
   const searchParams = useSearchParams();
   const productParam = searchParams.get("product");
+  const query = searchParams.toString();
 
   useEffect(() => {
     const matchedProduct = findProductFromParam(productParam);
@@ -886,6 +908,17 @@ function ProductFromUrl({
       onProductMatch(matchedProduct.name);
     }
   }, [productParam, onProductMatch]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(query);
+    const num = (key: string) => (params.get(key) || "").replace(/[^0-9.]/g, "").slice(0, 8);
+    const unit = params.get("unit") || "";
+    if (!num("L") && !num("W") && !num("H")) return;
+    onPrefill(
+      { length: num("L"), width: num("W"), height: num("H"), unit: ["in", "cm", "mm"].includes(unit) ? unit : "in" },
+      (params.get("note") || "").slice(0, 200),
+    );
+  }, [query, onPrefill]);
 
   return null;
 }

@@ -53,7 +53,7 @@ export default function QualityControl() {
               className="rounded-[1.7rem] border border-white/10 bg-white/[0.05] p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#00C2E8]/30 hover:bg-white/[0.08] hover:shadow-xl md:p-7"
             >
               <div className="mb-5 flex items-center justify-between gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#CC4E00] text-sm font-black text-white shadow-lg shadow-orange-500/20">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20">
                   QC
                 </div>
 

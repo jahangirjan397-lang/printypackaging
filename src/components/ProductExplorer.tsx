@@ -72,7 +72,7 @@ export default function ProductExplorer() {
 
                   <div className="absolute bottom-5 left-5 h-20 w-24 rotate-[-7deg] rounded-2xl bg-white shadow-2xl transition duration-300 group-hover:rotate-[-3deg]" />
 
-                  <div className="absolute bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#CC4E00] text-sm font-black text-white shadow-xl">
+                  <div className="absolute bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-[#07111F] shadow-xl">
                     {index + 1}
                   </div>
                 </div>

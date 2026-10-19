@@ -44,7 +44,7 @@ export default function OrderProcessSection() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="/#quote"
-              className="inline-flex items-center justify-center rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-[0_16px_40px_rgba(255,106,0,0.25)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
+              className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-[0_16px_40px_rgba(255,106,0,0.25)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
             >
               Request a Custom Quote
             </Link>

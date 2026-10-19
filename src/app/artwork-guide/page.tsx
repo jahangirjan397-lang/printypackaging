@@ -82,7 +82,7 @@ export default function ArtworkGuidePage() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91] hover:text-white"
               >
                 Get Artwork Help
               </Link>
@@ -144,7 +144,7 @@ export default function ArtworkGuidePage() {
               >
                 <div
                   aria-hidden="true"
-                  className="mb-5 h-11 w-11 rounded-2xl bg-[#CC4E00] shadow-lg shadow-orange-500/20 flex items-center justify-center text-white"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 flex items-center justify-center text-[#07111F]"
                 >
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
                 </div>
@@ -181,7 +181,7 @@ export default function ArtworkGuidePage() {
 
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91] hover:text-white"
               >
                 Request Quote
               </Link>

@@ -249,7 +249,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                 />
                 <a
                   href={productQuoteLink}
-                  className="rounded-full bg-[#CC4E00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-[#07111F] transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
                 >
                   Get Free Quote
                 </a>

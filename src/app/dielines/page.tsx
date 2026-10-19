@@ -68,7 +68,7 @@ export default function DielinesPage() {
               Every structure our team draws: tuck ends, mailers, trays, displays, rigid and magnetic boxes, food packs and more. Pick a style, see how it folds, and get the dieline in your exact size.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/dieline-generator" className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 hover:bg-[#007C91]">
+              <Link href="/dieline-generator" className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 hover:bg-[#007C91] hover:text-white">
                 Open the free dieline generator
               </Link>
               <Link href="/#quote" className="rounded-full border border-white/20 px-7 py-3 text-center text-sm font-black hover:border-cyan-300 hover:text-cyan-300">
@@ -162,7 +162,7 @@ export default function DielinesPage() {
             <h2 className="text-3xl font-black">Need a style that is not here?</h2>
             <p className="mt-2 max-w-2xl text-slate-300">Send us a photo of the box or your product size. We draw a custom dieline for free with every quote.</p>
           </div>
-          <Link href="/#quote" className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 hover:bg-[#007C91]">
+          <Link href="/#quote" className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 hover:bg-[#007C91] hover:text-white">
             Request a custom dieline
           </Link>
         </div>

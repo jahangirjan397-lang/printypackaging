@@ -269,7 +269,7 @@ export default function PortfolioPage() {
             </p>
             <Link
               href="/#quote"
-              className="shrink-0 rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white hover:bg-[#007C91]"
+              className="shrink-0 rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] hover:bg-[#007C91] hover:text-white"
             >
               Get a quote
             </Link>
@@ -287,7 +287,7 @@ export default function PortfolioPage() {
           </div>
           <Link
             href="/#quote"
-            className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white hover:bg-[#007C91]"
+            className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-[#07111F] hover:bg-[#007C91] hover:text-white"
           >
             Request a quote
           </Link>

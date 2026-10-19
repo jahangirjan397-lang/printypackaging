@@ -116,7 +116,7 @@ export default function PackagingMaterialsPage() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91] hover:text-white"
               >
                 Get Material Quote
               </Link>
@@ -276,7 +276,7 @@ export default function PackagingMaterialsPage() {
 
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#CC4E00] px-7 py-3 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-3 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91] hover:text-white"
               >
                 Request Quote
               </Link>

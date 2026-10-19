@@ -42,7 +42,7 @@ export default function SalesSupportSection() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/#quote"
-                  className="inline-flex items-center justify-center rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
+                  className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
                 >
                   Request Quote
                 </Link>
@@ -67,7 +67,7 @@ export default function SalesSupportSection() {
                   className="rounded-3xl border border-white/10 bg-white/[0.06] p-6"
                 >
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#CC4E00] text-sm font-black text-white">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-[#07111F]">
                       0{index + 1}
                     </span>
 

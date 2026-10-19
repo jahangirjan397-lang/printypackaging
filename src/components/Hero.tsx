@@ -250,7 +250,7 @@ export default function Hero() {
             />
             <a
               href="#quote"
-              className="rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] md:px-7 md:py-4"
+              className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white md:px-7 md:py-4"
             >
               Request a Custom Quote
             </a>
@@ -409,7 +409,7 @@ export default function Hero() {
                 {activeSlide.href ? (
                   <Link
                     href={activeSlide.href}
-                    className="inline-flex rounded-full bg-[#CC4E00] px-5 py-1.5 text-xs font-black text-white shadow-lg transition hover:bg-[#007C91]"
+                    className="inline-flex rounded-full bg-[#FF6A00] px-5 py-1.5 text-xs font-black text-[#07111F] shadow-lg transition hover:bg-[#007C91] hover:text-white"
                   >
                     View Product
                   </Link>

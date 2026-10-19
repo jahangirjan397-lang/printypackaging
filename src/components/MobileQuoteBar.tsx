@@ -38,7 +38,7 @@ export default function MobileQuoteBar({
           </div>
           <a
             href={href}
-            className="shrink-0 rounded-full bg-[#CC4E00] px-5 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25"
+            className="shrink-0 rounded-full bg-[#FF6A00] px-5 py-3 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/25"
           >
             Get Free Quote
           </a>

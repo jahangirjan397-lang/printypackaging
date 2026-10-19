@@ -35,7 +35,7 @@ export default function DielineDirectDownload({ gen, name }: { gen: { style: Gen
   return (
     <>
       <div className="mt-5 flex flex-wrap gap-2">
-        <button type="button" onClick={() => ask("pdf")} className="rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 hover:bg-[#e65f00]">
+        <button type="button" onClick={() => ask("pdf")} className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/25 hover:bg-[#e65f00]">
           Download PDF
         </button>
         {(["svg", "dxf"] as const).map((f) => (

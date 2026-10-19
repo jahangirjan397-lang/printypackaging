@@ -56,7 +56,7 @@ export default function CustomPackagingPage() {
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#CC4E00] px-7 py-4 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-4 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
               >
                 Get Custom Quote
               </Link>
@@ -128,7 +128,7 @@ export default function CustomPackagingPage() {
               >
                 <div
                   aria-hidden="true"
-                  className="mb-5 h-11 w-11 rounded-2xl bg-[#CC4E00] transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] transition group-hover:bg-[#007C91] hover:text-white flex items-center justify-center text-[#07111F]"
                 >
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
                 </div>
@@ -182,7 +182,7 @@ export default function CustomPackagingPage() {
 
           <Link
             href="/#quote"
-            className="rounded-full bg-[#CC4E00] px-8 py-4 text-center font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+            className="rounded-full bg-[#FF6A00] px-8 py-4 text-center font-black text-[#07111F] transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
           >
             Request Custom Quote
           </Link>

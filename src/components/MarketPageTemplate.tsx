@@ -190,7 +190,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
               <div className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
                 <a
                   href="#market-products"
-                  className="rounded-full bg-[#CC4E00] px-7 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91] sm:px-8 sm:py-4"
+                  className="rounded-full bg-[#FF6A00] px-7 py-3 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white sm:px-8 sm:py-4"
                 >
                   View Products
                 </a>
@@ -332,7 +332,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                     <Link
                       href={`/?product=${product.slug}#quote`}
                       prefetch={false}
-                      className="rounded-full bg-[#CC4E00] px-5 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
+                      className="rounded-full bg-[#FF6A00] px-5 py-3 text-sm font-black text-[#07111F] transition hover:bg-[#007C91] hover:text-white"
                     >
                       Quote
                     </Link>
@@ -419,7 +419,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
               >
                 <div
                   aria-hidden="true"
-                  className="mb-5 h-11 w-11 rounded-2xl bg-[#CC4E00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] flex items-center justify-center text-white"
+                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 transition group-hover:bg-[#007C91] hover:text-white flex items-center justify-center text-[#07111F]"
                 >
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z" /><path d="M4 21.5V5.5" /><path d="M9 8h7M9 12h5" /></svg>
                 </div>
@@ -502,7 +502,7 @@ export default function MarketPageTemplate({ market }: { market: Market }) {
                   key={step}
                   className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#CC4E00] font-black text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FF6A00] font-black text-[#07111F]">
                     <span aria-hidden="true">&#10003;</span>
                   </div>
                   <p className="font-black text-[#07111F]">{step}</p>

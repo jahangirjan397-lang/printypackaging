@@ -138,7 +138,7 @@ export default async function DielinePage({ params }: PageProps) {
                   <Link href={genLink(d)} className="mt-4 inline-block text-sm font-black text-cyan-300 hover:text-white">Need another size? Change it here →</Link>
                 </>
               ) : (
-                <Link href={genLink(d)} className="mt-5 inline-block rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 hover:bg-[#007C91]">
+                <Link href={genLink(d)} className="mt-5 inline-block rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/25 hover:bg-[#007C91] hover:text-white">
                   Open generator →
                 </Link>
               )}

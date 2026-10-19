@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { isLiveHostname, readAnalyticsConsent } from "@/lib/analyticsConsent";
 import { readLeadSource } from "@/lib/leadSource";
+import { formatSize, isFlatProduct } from "@/lib/flatProduct";
 
 const quantities = ["100", "250", "500", "1,000", "2,500", "5,000", "10,000+"];
 const countries = ["USA", "UK", "Canada", "Europe", "UAE", "Australia", "Other"];
@@ -32,9 +33,9 @@ export default function ProductQuickQuote({
   const [errorMessage, setErrorMessage] = useState("");
   const [size, setSize] = useState({ length: "", width: "", height: "", unit: "in" });
 
-  const sizeValue = [size.length, size.width, size.height].some(Boolean)
-    ? `${size.length || "?"} x ${size.width || "?"} x ${size.height || "?"} ${size.unit}`
-    : "";
+  const flat = isFlatProduct(productName);
+  const sizeSides = flat ? (["width", "height"] as const) : (["length", "width", "height"] as const);
+  const sizeValue = formatSize(size, flat);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -138,10 +139,17 @@ export default function ProductQuickQuote({
         </label>
         <fieldset className="col-span-2 lg:col-span-1">
           <legend className="mb-1 text-xs font-black">
-            Size <span className="font-bold text-slate-400">(L × W × H, optional)</span>
+            Size{" "}
+            <span className="font-bold text-slate-400">
+              ({flat ? "W × H" : "L × W × H"}, optional)
+            </span>
           </legend>
-          <div className="grid grid-cols-[1fr_1fr_1fr_3.6rem] gap-1.5">
-            {(["length", "width", "height"] as const).map((side) => (
+          <div
+            className={`grid gap-1.5 ${
+              flat ? "grid-cols-[1fr_1fr_3.6rem]" : "grid-cols-[1fr_1fr_1fr_3.6rem]"
+            }`}
+          >
+            {sizeSides.map((side) => (
               <input
                 key={side}
                 inputMode="decimal"
@@ -176,7 +184,7 @@ export default function ProductQuickQuote({
         <button
           type="submit"
           disabled={isSending}
-          className="rounded-full bg-[#CC4E00] px-7 py-3.5 font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] disabled:cursor-wait disabled:opacity-70"
+          className="rounded-full bg-[#FF6A00] px-7 py-3.5 font-black text-[#07111F] shadow-lg shadow-orange-500/25 transition hover:-translate-y-0.5 hover:bg-[#007C91] hover:text-white disabled:cursor-wait disabled:opacity-70"
         >
           {isSending ? "Sending…" : "Get My Free Quote →"}
         </button>

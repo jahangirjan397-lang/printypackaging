@@ -136,7 +136,7 @@ export default function CategoriesPage() {
                 <Link
                   href="/products"
                   prefetch={false}
-                  className="rounded-full bg-[#CC4E00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-[#07111F] transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
                 >
                   View Products
                 </Link>
@@ -214,7 +214,7 @@ export default function CategoriesPage() {
                       <div className="absolute inset-0 bg-gradient-to-br from-[#07111F] via-[#007C91] to-[#00C2E8]" />
                     )}
 
-                    <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#CC4E00] text-xs font-black text-white">
+                    <span className="absolute bottom-5 right-5 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-[#07111F]">
                       {index + 1}
                     </span>
                   </div>

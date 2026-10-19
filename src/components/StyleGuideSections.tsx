@@ -120,7 +120,7 @@ export default function StyleGuideSections({ guide }: { guide: StyleGuide }) {
             <ol className="space-y-3">
               {guide.costFactors.map((factor, index) => (
                 <li key={factor.title} className="flex gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#CC4E00] text-xs font-black text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-[#07111F]">
                     {index + 1}
                   </span>
                   <div>
@@ -196,7 +196,7 @@ export default function StyleGuideSections({ guide }: { guide: StyleGuide }) {
             </ol>
             <a
               href="#product-quote"
-              className="mt-5 inline-flex rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
+              className="mt-5 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] transition hover:bg-[#007C91] hover:text-white"
             >
               Get {guide.name} pricing
             </a>

@@ -114,7 +114,7 @@ export default function DielineLeadGate({
         {error && <p role="alert" className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-sm font-bold text-red-700">{error}</p>}
         <div className="mt-5 flex items-center justify-between gap-3">
           <button type="button" onClick={onClose} className="text-sm font-black text-slate-500 hover:text-[#07111F]">Cancel</button>
-          <button type="submit" disabled={sending} className="rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:bg-[#007C91] disabled:opacity-70">
+          <button type="submit" disabled={sending} className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/25 transition hover:bg-[#007C91] hover:text-white disabled:opacity-70">
             {sending ? "Sending…" : `Get my ${what} →`}
           </button>
         </div>

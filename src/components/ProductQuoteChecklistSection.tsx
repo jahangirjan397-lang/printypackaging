@@ -42,7 +42,7 @@ export default function ProductQuoteChecklistSection({
               <Link
                 href={quoteLink}
                 prefetch={false}
-                className="rounded-full bg-[#CC4E00] px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-4 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:bg-[#007C91] hover:text-white"
               >
                 Request Quote
               </Link>

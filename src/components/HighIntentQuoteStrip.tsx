@@ -42,7 +42,7 @@ export default function HighIntentQuoteStrip() {
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/#quote"
-                className="inline-flex items-center justify-center rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
+                className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
               >
                 Get Quote Now
               </Link>

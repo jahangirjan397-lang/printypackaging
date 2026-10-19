@@ -158,7 +158,7 @@ export default function Header() {
             <Link
               href="/#quote"
               prefetch={false}
-              className="hidden rounded-full bg-[#CC4E00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] sm:inline-flex"
+              className="hidden rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white sm:inline-flex"
             >
               Get Quote
             </Link>
@@ -237,7 +237,7 @@ export default function Header() {
                 href="/#quote"
                 prefetch={false}
                 onClick={closeMobile}
-                className="mt-2 rounded-2xl bg-[#CC4E00] px-4 py-3 text-center text-white shadow-lg shadow-orange-500/20"
+                className="mt-2 rounded-2xl bg-[#FF6A00] px-4 py-3 text-center text-[#07111F] shadow-lg shadow-orange-500/20"
               >
                 Get Custom Quote
               </Link>

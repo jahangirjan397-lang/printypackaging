@@ -240,7 +240,7 @@ export default function ProductsPage() {
                   <Link
                     href="/#quote"
                     prefetch={false}
-                    className="rounded-full bg-[#CC4E00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-[#007C91]"
+                    className="rounded-full bg-[#FF6A00] px-8 py-4 font-black text-[#07111F] transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
                   >
                     Get Custom Quote
                   </Link>
@@ -275,7 +275,7 @@ export default function ProductsPage() {
                     className="object-cover"
                   />
 
-                  <div className="absolute right-5 top-5 rounded-full bg-[#CC4E00] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white shadow-lg">
+                  <div className="absolute right-5 top-5 rounded-full bg-[#FF6A00] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#07111F] shadow-lg">
                     Made To Order
                   </div>
                 </div>
@@ -398,7 +398,7 @@ export default function ProductsPage() {
             <Link
               href="/#quote"
               prefetch={false}
-              className="mt-8 inline-flex rounded-full bg-[#CC4E00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
+              className="mt-8 inline-flex rounded-full bg-[#FF6A00] px-8 py-4 font-black text-[#07111F] transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
             >
               Request Packaging Guidance
             </Link>
@@ -498,7 +498,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           <Link
             href={quoteLink}
             prefetch={false}
-            className="inline-flex rounded-full bg-[#CC4E00] px-5 py-3 text-sm font-black text-white transition hover:bg-[#007C91]"
+            className="inline-flex rounded-full bg-[#FF6A00] px-5 py-3 text-sm font-black text-[#07111F] transition hover:bg-[#007C91] hover:text-white"
           >
             Quote
           </Link>
@@ -535,7 +535,7 @@ function ProductVisual({
 
 
 
-      <span className="absolute right-4 top-4 flex h-8 min-w-8 items-center justify-center rounded-full bg-[#CC4E00] px-2 text-xs font-black text-white shadow-lg">
+      <span className="absolute right-4 top-4 flex h-8 min-w-8 items-center justify-center rounded-full bg-[#FF6A00] px-2 text-xs font-black text-[#07111F] shadow-lg">
         {String(index + 1).padStart(2, "0")}
       </span>
 

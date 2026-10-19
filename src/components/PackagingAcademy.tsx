@@ -48,7 +48,7 @@ export default function PackagingAcademy() {
 
                 <div className="absolute bottom-5 left-5 h-16 w-24 rotate-[-8deg] rounded-2xl bg-white shadow-2xl transition duration-300 group-hover:rotate-[-3deg]" />
 
-                <div className="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-[#CC4E00] text-xs font-black text-white">
+                <div className="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-[#07111F]">
                   {index + 1}
                 </div>
 

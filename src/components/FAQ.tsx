@@ -92,7 +92,7 @@ export default function FAQ() {
                   {item.q}
                 </h3>
 
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#CC4E00] text-lg font-black leading-none text-white transition group-open:rotate-45">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FF6A00] text-lg font-black leading-none text-[#07111F] transition group-open:rotate-45">
                   +
                 </span>
               </summary>

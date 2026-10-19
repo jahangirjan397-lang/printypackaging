@@ -93,7 +93,7 @@ export default function SiteFooter() {
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/#quote"
-                className="rounded-full bg-[#CC4E00] px-6 py-3 text-center text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-6 py-3 text-center text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91] hover:text-white"
               >
                 Get Quote
               </Link>

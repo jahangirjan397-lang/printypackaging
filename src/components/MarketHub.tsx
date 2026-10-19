@@ -34,7 +34,7 @@ export default function MarketHub() {
 
                 <div className="absolute bottom-5 left-5 h-20 w-28 rotate-[-8deg] rounded-2xl bg-white shadow-2xl transition duration-300 group-hover:rotate-[-3deg]" />
 
-                <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#CC4E00] text-xs font-black text-white shadow-xl">
+                <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#FF6A00] text-xs font-black text-[#07111F] shadow-xl">
                   {index + 1}
                 </div>
 

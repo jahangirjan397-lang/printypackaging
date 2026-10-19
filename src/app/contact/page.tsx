@@ -114,7 +114,7 @@ export default function ContactPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#quote"
-                className="rounded-full bg-[#CC4E00] px-7 py-4 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-4 text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
               >
                 Request Custom Quote
               </a>
@@ -304,7 +304,7 @@ export default function ContactPage() {
                   key={step}
                   className="flex gap-4 rounded-2xl border border-slate-100 bg-[#F7FAFC] p-4"
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#CC4E00] text-sm font-black text-white">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF6A00] text-sm font-black text-[#07111F]">
                     {index + 1}
                   </div>
 
