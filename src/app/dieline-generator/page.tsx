@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import DielineGenerator from "@/components/DielineGenerator";
+import DielineReviews from "@/components/DielineReviews";
 import { generatorStyles } from "@/lib/dielineGeometry";
 
 const url = "https://printypackaging.com/dieline-generator";
@@ -110,6 +111,7 @@ export default function DielineGeneratorPage() {
         <Suspense fallback={<div className="min-h-[30rem] rounded-2xl border border-slate-300 bg-white p-8 font-bold text-slate-500">Loading the dieline generator…</div>}>
           <DielineGenerator />
         </Suspense>
+        <DielineReviews />
       </section>
 
       <section className="border-t border-slate-200 bg-white">

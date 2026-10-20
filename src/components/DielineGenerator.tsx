@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import type { GeneratorStyle } from "@/data/dielines";
 import { buildDieline, dielineToDxf, dielineToPdf, dielineToSvg, formatLength, generatorStyles, loadBrandLogo, unitToMm, type Unit } from "@/lib/dielineGeometry";
 import DielineLeadGate, { readDielineLead, trackDieline } from "@/components/DielineLeadGate";
+import DielineReview from "@/components/DielineReview";
 import Box3DStudio from "@/components/Box3DStudio";
 import NavIcon from "@/components/NavIcon";
 
@@ -148,6 +149,8 @@ export default function DielineGenerator() {
   const [view, setView] = useState<"2d" | "3d">("2d");
   const [pending, setPending] = useState<Format | null>(null);
   const [registered, setRegistered] = useState(() => Boolean(readDielineLead()));
+  // rating box: after a download, or straight away from the follow-up email link (?review=1)
+  const [askReview, setAskReview] = useState(params.get("review") === "1");
 
   const meta = generatorStyles.find((s) => s.id === style)!;
   const boardInfo = boards.find((b) => b.id === board)!;
@@ -213,6 +216,7 @@ export default function DielineGenerator() {
       if (png) download(`${fileBase}.png`, png, "image/png");
     } else download(`${fileBase}.pdf`, dielineToPdf(result.dl, title, unit, brand) as BlobPart, "application/pdf");
     trackDieline("dieline_download", { style, format: kind });
+    setAskReview(true);
   }
 
   const askDownload = (kind: Format) => (registered ? doDownload(kind) : setPending(kind));
@@ -425,6 +429,7 @@ export default function DielineGenerator() {
           </div>
           <Link href={printQuoteHref} prefetch={false} className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black text-[#07111F] hover:bg-[#e65f00]">Print this box →</Link>
         </div>
+        {askReview && <DielineReview styleName={meta.name} sizeText={sizeText} />}
       </section>
 
       {pending && (
