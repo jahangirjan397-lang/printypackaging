@@ -5,6 +5,7 @@ import HeaderGate from "@/components/HeaderGate";
 import SiteFooterGate from "@/components/SiteFooterGate";
 import LiveChatWidget from "@/components/LiveChatWidget";
 import FloatingActions from "@/components/FloatingActions";
+import WhatsAppRegion from "@/components/WhatsAppRegion";
 import "./globals.css";
 import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
 import { activeSocialLinks } from "@/data/socialLinks";
@@ -225,6 +226,7 @@ export default function RootLayout({
         <SiteFooterGate />
         <LiveChatWidget />
         <FloatingActions />
+        <WhatsAppRegion />
         <AnalyticsClickTracker />
         <LeadSourceTracker />
         <AnalyticsConsent />

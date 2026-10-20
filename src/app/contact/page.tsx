@@ -28,7 +28,7 @@ const contactOptions = [
     value: "Chat with our team",
     detail:
       "Fast support for packaging questions, artwork guidance, quote details and order discussion.",
-    href: "https://wa.me/923338889954",
+    href: "https://wa.me/306985024723",
     action: "Open WhatsApp",
   },
   {

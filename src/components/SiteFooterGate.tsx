@@ -76,7 +76,7 @@ export default function SiteFooter() {
               </a>
 
               <a
-                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                href="https://wa.me/306985024723?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                 target="_blank"
                 rel="noreferrer"
                 className="block transition hover:text-[#FF6A00]"

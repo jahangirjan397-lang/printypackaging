@@ -30,7 +30,7 @@ export default function BoxSizePicker() {
     const b = fromLink ?? groups[0].sizes[6] ?? groups[0].base;
     return { base: b, L: b.L, W: b.W, H: b.H, unit: "in", fits: b.fits, custom: false };
   });
-  const [own, setOwn] = useState({ L: "", W: "", H: "", unit: "in" as Unit });
+  const [own, setOwn] = useState({ L: String(pick.L), W: String(pick.W), H: String(pick.H), unit: "in" as Unit });
   const [error, setError] = useState("");
 
   // the size chart below links to ?size=…; show that size up here when it changes
@@ -42,6 +42,7 @@ export default function BoxSizePicker() {
     if (b) {
       setGroup(b.styleName);
       setPick({ base: b, L: b.L, W: b.W, H: b.H, unit: "in", fits: b.fits, custom: false });
+      setOwn({ L: String(b.L), W: String(b.W), H: String(b.H), unit: "in" });
     }
   }
 
@@ -64,6 +65,7 @@ export default function BoxSizePicker() {
 
   function choose(b: BoxSize) {
     setPick({ base: b, L: b.L, W: b.W, H: b.H, unit: "in", fits: b.fits, custom: false });
+    setOwn({ L: String(b.L), W: String(b.W), H: String(b.H), unit: "in" });
     setError("");
   }
 
@@ -79,61 +81,58 @@ export default function BoxSizePicker() {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Box style">
-        {groups.map((x) => (
-          <button
-            key={x.name}
-            type="button"
-            role="tab"
-            aria-selected={x.name === group}
-            onClick={() => { setGroup(x.name); choose(x.sizes[0]); }}
-            className={`rounded-full px-4 py-2 text-sm font-black ${x.name === group ? "bg-[#07111F] text-white" : "border border-slate-300 bg-white text-[#07111F] hover:border-[#07111F]"}`}
-          >
-            {x.name}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-2">
-        {g.sizes.map((b) => {
-          const on = !pick.custom && pick.base.slug === b.slug;
-          return (
-            <button
-              key={b.slug}
-              type="button"
-              onClick={() => choose(b)}
-              aria-pressed={on}
-              className={`rounded-lg px-3 py-2 text-sm font-bold ${on ? "bg-[#FF6A00] text-[#07111F]" : "border border-slate-300 bg-white hover:border-[#07111F]"}`}
-            >
-              {sizeLabel(b)}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="mt-4 rounded-xl border-2 border-dashed border-[#FF6A00] bg-white p-3">
-        <p className="text-sm font-black">Your size is not in the list? Add it ({g.name.toLowerCase()}):</p>
-        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-[repeat(3,1fr)_5rem_auto]">
-          {(["L", "W", "H"] as const).map((k) => (
-            <input
-              key={k}
-              inputMode="decimal"
-              aria-label={{ L: "Length", W: "Width", H: "Height" }[k]}
-              placeholder={{ L: "Length", W: "Width", H: "Height" }[k]}
-              value={own[k]}
-              onChange={(e) => setOwn((s) => ({ ...s, [k]: e.target.value.replace(/[^0-9.]/g, "") }))}
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-[1.3fr_1.4fr_repeat(3,1fr)_5.5rem_auto] lg:items-end">
+          <label className="col-span-2 block lg:col-span-1">
+            <span className="mb-1 block text-xs font-black text-slate-600">Box style</span>
+            <select
+              value={group}
+              onChange={(e) => { const x = groups.find((y) => y.name === e.target.value) ?? groups[0]; setGroup(x.name); choose(x.sizes[0]); }}
               className="field-input field-compact"
-            />
+            >
+              {groups.map((x) => (
+                <option key={x.name} value={x.name}>{x.name}</option>
+              ))}
+            </select>
+          </label>
+          <label className="col-span-2 block lg:col-span-1">
+            <span className="mb-1 block text-xs font-black text-slate-600">Popular size <span className="font-bold text-slate-400">(optional)</span></span>
+            <select
+              value={pick.custom ? "" : pick.base.slug}
+              onChange={(e) => { const b = g.sizes.find((x) => x.slug === e.target.value); if (b) choose(b); }}
+              className="field-input field-compact"
+            >
+              <option value="">Your own size</option>
+              {g.sizes.map((b) => (
+                <option key={b.slug} value={b.slug}>{sizeLabel(b)}</option>
+              ))}
+            </select>
+          </label>
+          {(["L", "W", "H"] as const).map((k) => (
+            <label key={k} className="block">
+              <span className="mb-1 block text-xs font-black text-slate-600">{{ L: "Length", W: "Width", H: "Height" }[k]}</span>
+              <input
+                inputMode="decimal"
+                value={own[k]}
+                onChange={(e) => setOwn((s) => ({ ...s, [k]: e.target.value.replace(/[^0-9.]/g, "") }))}
+                onKeyDown={(e) => { if (e.key === "Enter") addOwn(); }}
+                className="field-input field-compact"
+              />
+            </label>
           ))}
-          <select aria-label="Unit" value={own.unit} onChange={(e) => setOwn((s) => ({ ...s, unit: e.target.value as Unit }))} className="field-input field-compact">
-            <option value="in">in</option>
-            <option value="cm">cm</option>
-            <option value="mm">mm</option>
-          </select>
-          <button type="button" onClick={addOwn} className="col-span-2 rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black text-[#07111F] hover:bg-[#e65f00] sm:col-span-1">
-            Show my dieline
+          <label className="block">
+            <span className="mb-1 block text-xs font-black text-slate-600">Unit</span>
+            <select value={own.unit} onChange={(e) => setOwn((s) => ({ ...s, unit: e.target.value as Unit }))} className="field-input field-compact">
+              <option value="in">in</option>
+              <option value="cm">cm</option>
+              <option value="mm">mm</option>
+            </select>
+          </label>
+          <button type="button" onClick={addOwn} className="col-span-2 rounded-lg bg-[#FF6A00] px-5 py-2.5 text-sm font-black text-[#07111F] hover:bg-[#e65f00] lg:col-span-1">
+            Show dieline
           </button>
         </div>
+        <p className="mt-2 text-xs font-bold text-slate-500">Enter the inside size of your box, or pick a popular size to start from.</p>
         {error && <p role="alert" className="mt-2 text-xs font-bold text-red-700">{error}</p>}
       </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Board, BoxLook, Finish } from "@/lib/box3d";
+import type { Board, BoxLook, Finish } from "@/lib/boxFold3d";
 
 const swatches = [
   { name: "No print", value: null },
@@ -16,15 +16,19 @@ const swatches = [
 
 type SceneApi = {
   build: (d: { L: number; W: number; H: number; t: number }, look: BoxLook) => void;
-  setOpen: (o: boolean) => void;
-  view: (kind: "top" | "bottom") => void;
+  foldTo: (f: number, instant?: boolean) => void;
+  readonly progress: number;
   snapshot: () => string;
   dispose: () => void;
-  autoRotate: boolean;
+  spin: boolean;
 };
 
-// Realistic 3D preview: bleach card or kraft board, matte or gloss, any print
-// colour and the buyer's own logo (kept in the browser, never uploaded).
+// fold stages: flat sheet, walls up with the lid open, closed box
+const STAGES = [["Flat dieline", 0], ["Lid open", 0.72], ["Closed box", 1]] as const;
+
+// 3D fold preview: the flat dieline folds on its creases into the box (glue
+// flap, walls, dust flaps, lid and tuck), in bleach card or kraft, matte or
+// gloss, any print colour and the buyer's own logo (kept in the browser).
 export default function Box3DStudio({ L, W, H, t, title, base = "reverse" }: { L: number; W: number; H: number; t: number; title: string; base?: "reverse" | "straight" | "crash" }) {
   const host = useRef<HTMLDivElement>(null);
   const scene = useRef<SceneApi | null>(null);
@@ -37,22 +41,24 @@ export default function Box3DStudio({ L, W, H, t, title, base = "reverse" }: { L
   const [logoName, setLogoName] = useState("Printy logo");
   const [logoSize, setLogoSize] = useState(0.62);
   const [printAll, setPrintAll] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [fold, setFold] = useState(0);
   const [spin, setSpin] = useState(true);
-  const [angle, setAngle] = useState<"top" | "bottom">("top");
 
   // load three.js and the default logo once
   useEffect(() => {
     let alive = true;
     (async () => {
       try {
-        const { Box3DScene } = await import("@/lib/box3d");
+        const { BoxFoldScene } = await import("@/lib/boxFold3d");
         if (!alive || !host.current) return;
-        scene.current = new Box3DScene(host.current) as unknown as SceneApi;
+        scene.current = new BoxFoldScene(host.current) as unknown as SceneApi;
+        setReady(true);
+        // show it folding up once, like a fold animation in a packaging CAD
+        setTimeout(() => { if (alive) setFold(1); }, 700);
+        // the sample logo goes on when it has loaded; the box never waits for it
         const img = new Image();
+        img.onload = () => { if (alive) setLogo((l) => l ?? img); };
         img.src = "/email/printy-logo.png";
-        await img.decode().catch(() => undefined);
-        if (alive) { setLogo(img); setReady(true); }
       } catch {
         if (alive) setFailed(true);
       }
@@ -65,8 +71,8 @@ export default function Box3DStudio({ L, W, H, t, title, base = "reverse" }: { L
     scene.current.build({ L, W, H, t }, { board, finish, printColor, logo, logoSize, printAll, base });
   }, [ready, L, W, H, t, board, finish, printColor, logo, logoSize, printAll, base]);
 
-  useEffect(() => { scene.current?.setOpen(open); }, [open, ready]);
-  useEffect(() => { if (scene.current) scene.current.autoRotate = spin; }, [spin, ready]);
+  useEffect(() => { scene.current?.foldTo(fold); }, [fold, ready]);
+  useEffect(() => { if (scene.current) scene.current.spin = spin; }, [spin, ready]);
 
   async function onLogo(f: File | undefined) {
     if (!f) return;
@@ -92,22 +98,34 @@ export default function Box3DStudio({ L, W, H, t, title, base = "reverse" }: { L
 
   return (
     <div className="grid gap-4 xl:grid-cols-[1fr_15rem]">
-      <div className="relative h-[28rem] overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_50%_35%,#ffffff,#e9f1f6)]">
+      <div>
+      <div className="relative h-[28rem] overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_50%_30%,#f7f9fb,#d5dee6)]">
         <div ref={host} className="absolute inset-0" />
         {!ready && <p className="absolute inset-0 flex items-center justify-center font-bold text-slate-500">Building your 3D box…</p>}
-        <div className="absolute bottom-3 left-3 flex flex-wrap gap-2">
-          <button type="button" onClick={() => setOpen((o) => !o)} className="rounded-full bg-[#07111F] px-4 py-2 text-xs font-black text-white shadow hover:bg-[#007C91]">
-            {open ? "Close the box" : "Open the box"}
-          </button>
-          <button type="button" onClick={() => setSpin((s) => !s)} className="rounded-full bg-white/90 px-4 py-2 text-xs font-black text-[#07111F] shadow">
-            {spin ? "Stop turning" : "Turn"}
-          </button>
-          <button type="button" onClick={() => { const next = angle === "top" ? "bottom" : "top"; setAngle(next); setSpin(false); scene.current?.view(next); }} className="rounded-full bg-white/90 px-4 py-2 text-xs font-black text-[#07111F] shadow">
-            {angle === "top" ? "See the bottom" : "See the top"}
-          </button>
-          <button type="button" onClick={saveImage} className="rounded-full bg-white/90 px-4 py-2 text-xs font-black text-[#07111F] shadow">Save image</button>
-        </div>
         <p className="pointer-events-none absolute right-3 top-3 rounded-full bg-white/80 px-3 py-1 text-[11px] font-black text-slate-500">Drag to turn · scroll to zoom</p>
+      </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <div className="flex rounded-full bg-white/95 p-1 shadow">
+            {STAGES.map(([name, f]) => (
+              <button key={name} type="button" onClick={() => setFold(f)}
+                className={`rounded-full px-3 py-1.5 text-xs font-black ${fold === f ? "bg-[#07111F] text-white" : "text-[#07111F] hover:bg-slate-100"}`}>
+                {name}
+              </button>
+            ))}
+          </div>
+          <label className="flex min-w-[9rem] flex-1 items-center gap-2 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-black text-slate-500 shadow">
+            Flat
+            <input type="range" min={0} max={1} step={0.01} value={fold} onChange={(e) => setFold(Number(e.target.value))} className="w-full accent-[#FF6A00]" aria-label="Fold the box" />
+            Box
+          </label>
+          <button type="button" onClick={() => { setFold(0); setTimeout(() => setFold(1), 6800); }} className="rounded-full bg-[#FF6A00] px-4 py-2 text-xs font-black text-[#07111F] shadow hover:bg-[#e65f00]">
+            ▶ Play fold
+          </button>
+          <button type="button" onClick={() => setSpin((s) => !s)} className="rounded-full bg-white/90 px-3 py-2 text-xs font-black text-[#07111F] shadow">
+            {spin ? "Stop 360° view" : "360° view"}
+          </button>
+          <button type="button" onClick={saveImage} className="rounded-full bg-white/90 px-3 py-2 text-xs font-black text-[#07111F] shadow">Save image</button>
+        </div>
       </div>
 
       <div className="space-y-4 text-sm">

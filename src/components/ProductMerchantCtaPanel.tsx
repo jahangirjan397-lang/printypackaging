@@ -41,7 +41,7 @@ export default function ProductMerchantCtaPanel({
                 </Link>
 
                 <a
-                  href={`https://wa.me/923338889954?text=${encodeURIComponent(
+                  href={`https://wa.me/306985024723?text=${encodeURIComponent(
                     whatsappMessage,
                   )}`}
                   target="_blank"

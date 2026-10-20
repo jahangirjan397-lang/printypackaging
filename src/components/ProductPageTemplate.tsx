@@ -329,7 +329,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               ))}
             </ul>
             <a
-              href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20quote."
+              href="https://wa.me/306985024723?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20quote."
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 inline-flex rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-black text-[#07111F] transition hover:bg-[#1ebe5b]"

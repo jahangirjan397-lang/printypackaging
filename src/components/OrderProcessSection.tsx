@@ -49,7 +49,7 @@ export default function OrderProcessSection() {
               Request a Custom Quote
             </Link>
             <a
-              href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20help%20with%20custom%20packaging."
+              href="https://wa.me/306985024723?text=Hello%20Printy%20Packaging%2C%20I%20need%20help%20with%20custom%20packaging."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-black text-[#07111F] transition hover:border-[#007C91] hover:text-[#007C91]"

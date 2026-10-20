@@ -140,7 +140,7 @@ export default function PolicyPage({
               </a>{" "}
               with your order number, or{" "}
               <a
-                href="https://wa.me/923338889954"
+                href="https://wa.me/306985024723"
                 target="_blank"
                 rel="noreferrer"
                 className="font-bold text-cyan-300 hover:text-[#FF6A00]"

@@ -55,7 +55,7 @@ export default function BoxSizesPage() {
           here with its flat size. Download it free, or get a printed price for that size {businessPromises.quoteResponse}.
         </p>
         <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold text-slate-700">
-          <li>✓ {boxSizes.length} popular sizes, or any size you need</li>
+          <li>✓ Any size you need, in inches, cm or mm</li>
           <li>✓ Exact 1:1 dielines (PDF, SVG, DXF)</li>
           <li>✓ Price for your size {businessPromises.quoteResponse}</li>
         </ul>
@@ -68,11 +68,15 @@ export default function BoxSizesPage() {
 
       <section className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-black sm:text-3xl">Box size chart</h2>
-          <p className="mt-2 max-w-3xl text-sm text-slate-600">
-            Inside sizes in inches and millimetres, the flat size of each dieline on our production rules, and what the
-            size is usually used for. Click a size to see its dieline above.
-          </p>
+          <details className="group">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 hover:border-[#07111F]">
+            <span>
+              <h2 className="text-xl font-black sm:text-2xl">Box size chart</h2>
+              <span className="mt-1 block text-sm text-slate-600">Popular sizes with their flat dieline size and what they are used for.</span>
+            </span>
+            <span className="shrink-0 rounded-full bg-[#07111F] px-4 py-2 text-xs font-black text-white group-open:hidden">See full size chart</span>
+            <span className="hidden shrink-0 rounded-full border border-slate-300 px-4 py-2 text-xs font-black group-open:inline">Hide chart</span>
+          </summary>
           {groups.map((g) => (
             <div key={g.name} className="mt-8">
               <h3 className="text-lg font-black">{g.name}</h3>
@@ -112,6 +116,7 @@ export default function BoxSizesPage() {
               </div>
             </div>
           ))}
+          </details>
         </div>
       </section>
 

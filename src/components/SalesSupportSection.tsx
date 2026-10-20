@@ -48,7 +48,7 @@ export default function SalesSupportSection() {
                 </Link>
 
                 <a
-                  href="https://wa.me/923338889954?text=Hello%20Printy Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                  href="https://wa.me/306985024723?text=Hello%20Printy Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/15"

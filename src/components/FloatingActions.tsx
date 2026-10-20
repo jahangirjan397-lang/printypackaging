@@ -1,4 +1,4 @@
-const whatsappNumber = "923338889954";
+const whatsappNumber = "306985024723";
 
 const whatsappMessage =
   "Hello Printy Packaging, I need a custom packaging quote. Please guide me about box style, size, material and pricing.";

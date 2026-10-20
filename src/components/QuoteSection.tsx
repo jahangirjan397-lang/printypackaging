@@ -579,7 +579,7 @@ export default function QuoteSection() {
             <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl bg-[#07111F] px-4 py-3 text-white">
               <p className="text-sm font-bold text-slate-300">Prefer to chat?</p>
               <a
-                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                href="https://wa.me/306985024723?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full bg-[#25D366] px-4 py-2 text-sm font-black text-[#07111F] transition hover:bg-[#1ebe5b]"

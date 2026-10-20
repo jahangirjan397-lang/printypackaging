@@ -11,7 +11,7 @@ const contactCards = [
     title: "WhatsApp Support",
     value: "Chat with our team",
     detail: "Fast support for packaging questions, artwork and quote guidance.",
-    href: "https://wa.me/923338889954",
+    href: "https://wa.me/306985024723",
   },
   {
     title: "USA Quote Support",

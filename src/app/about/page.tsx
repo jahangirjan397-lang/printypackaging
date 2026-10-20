@@ -341,7 +341,7 @@ export default function AboutPage() {
 
             <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
               <a
-                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                href="https://wa.me/306985024723?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full border border-white/15 px-7 py-3 text-center text-sm font-black text-white transition hover:border-cyan-300 hover:text-cyan-300"
