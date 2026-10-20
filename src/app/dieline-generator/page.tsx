@@ -118,7 +118,7 @@ export default function DielineGeneratorPage() {
           <ul className="mt-4 flex flex-wrap gap-2">
             {boxSizes.filter((_, i) => i % 4 === 0).map((b) => (
               <li key={b.slug}>
-                <Link href={`/box-sizes/${b.slug}`} className="inline-block rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-[#07111F] hover:border-[#07111F]">
+                <Link href={`/box-sizes?size=${b.slug}`} className="inline-block rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-[#07111F] hover:border-[#07111F]">
                   {b.styleName} {sizeLabel(b)}
                 </Link>
               </li>
