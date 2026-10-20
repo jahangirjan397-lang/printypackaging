@@ -125,12 +125,17 @@ export default function DielineGenerator() {
   const linked = generatorStyles.find((s) => s.id === (params.get("style") ?? saved?.style));
   const startFlute = linked?.board === "flute";
   const [style, setStyle] = useState<GeneratorStyle>(linked?.id ?? "reverse-tuck-end");
-  const [unit, setUnit] = useState<Unit>(saved?.unit ?? "mm");
+  // a link may say which unit to show its size in (sizes in the link are always mm)
+  const linkUnit = (["mm", "cm", "in"] as Unit[]).find((u) => u === params.get("unit"));
+  const [unit, setUnit] = useState<Unit>(saved?.unit ?? linkUnit ?? "mm");
   const [dims, setDims] = useState(() => {
     if (saved?.dims) return saved.dims;
     // a library page can open the generator at an exact size (mm)
     const q = ["L", "W", "H"].map((k) => Number(params.get(k)));
-    if (q.every((n) => n >= 10 && n <= 1500)) return { L: String(q[0]), W: String(q[1]), H: String(q[2]) };
+    if (q.every((n) => n >= 10 && n <= 1500)) {
+      const u = linkUnit ?? "mm";
+      return { L: show(q[0], u), W: show(q[1], u), H: show(q[2], u) };
+    }
     const p = presets[startFlute ? "flute" : "card"][startFlute ? 0 : 1].mm;
     return { L: String(p[0]), W: String(p[1]), H: String(p[2]) };
   });

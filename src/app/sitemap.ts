@@ -6,6 +6,7 @@ import { categories } from "@/data/categories";
 import { markets } from "@/data/markets";
 import { isDraftPolicy } from "@/data/policyStatus";
 import { dielines } from "@/data/dielines";
+import { boxSizes } from "@/data/boxSizes";
 
 const siteUrl = "https://printypackaging.com";
 
@@ -124,6 +125,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const dielineRoutes: MetadataRoute.Sitemap = [
     { url: `${siteUrl}/dieline-generator`, changeFrequency: "monthly", priority: 0.84 },
+    { url: `${siteUrl}/box-sizes`, changeFrequency: "monthly", priority: 0.8 },
+    ...boxSizes.map((b) => ({ url: `${siteUrl}/box-sizes/${b.slug}`, changeFrequency: "monthly" as const, priority: 0.7 })),
     { url: `${siteUrl}/dielines`, changeFrequency: "monthly", priority: 0.8 },
     ...dielines.map((d) => ({
       url: `${siteUrl}/dielines/${d.slug}`,

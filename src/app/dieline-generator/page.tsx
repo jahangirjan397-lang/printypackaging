@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import DielineGenerator from "@/components/DielineGenerator";
 import DielineReviews from "@/components/DielineReviews";
+import { boxSizes, sizeLabel } from "@/data/boxSizes";
 import { generatorStyles } from "@/lib/dielineGeometry";
 
 const url = "https://printypackaging.com/dieline-generator";
@@ -112,6 +113,21 @@ export default function DielineGeneratorPage() {
           <DielineGenerator />
         </Suspense>
         <DielineReviews />
+        <div className="mt-10">
+          <h2 className="text-2xl font-black text-[#07111F]">Popular box sizes</h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {boxSizes.filter((_, i) => i % 4 === 0).map((b) => (
+              <li key={b.slug}>
+                <Link href={`/box-sizes/${b.slug}`} className="inline-block rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-[#07111F] hover:border-[#07111F]">
+                  {b.styleName} {sizeLabel(b)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm font-bold">
+            <Link href="/box-sizes" className="text-[#007C91] hover:text-[#FF6A00]">All box sizes with free dielines →</Link>
+          </p>
+        </div>
       </section>
 
       <section className="border-t border-slate-200 bg-white">
