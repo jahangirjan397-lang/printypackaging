@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const DONE_KEY = "pp-dieline-reviewed";
 
 // Shown after a dieline download (or from the follow-up email link ?review=1).
 // The review goes to the owner; it is published only after approval.
-export default function DielineReview({ styleName, sizeText }: { styleName: string; sizeText: string }) {
+export default function DielineReview({ styleName, sizeText, downloaded = false }: { styleName: string; sizeText: string; downloaded?: boolean }) {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [comment, setComment] = useState("");
@@ -21,6 +21,13 @@ export default function DielineReview({ styleName, sizeText }: { styleName: stri
     }
   });
   const [error, setError] = useState("");
+  const box = useRef<HTMLElement>(null);
+
+  // bring the stars into view right after a download, so visitors see them
+  useEffect(() => {
+    if (state !== "done") box.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function send() {
     if (!rating) {
@@ -59,9 +66,11 @@ export default function DielineReview({ styleName, sizeText }: { styleName: stri
 
   const shown = hover || rating;
   return (
-    <section aria-labelledby="dieline-review-title" className="mt-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-4">
-      <h3 id="dieline-review-title" className="text-sm font-black text-[#07111F]">How was your {styleName} dieline?</h3>
-      <div className="mt-2 flex items-center gap-1" role="radiogroup" aria-label="Your rating">
+    <section ref={box} aria-labelledby="dieline-review-title" className="mt-4 rounded-2xl border-2 border-[#FF6A00] bg-orange-50 px-4 py-5 text-center sm:px-6">
+      {downloaded && <p className="text-xs font-black uppercase tracking-wide text-emerald-700">✓ Your dieline is downloading</p>}
+      <h3 id="dieline-review-title" className="mt-1 text-lg font-black text-[#07111F] sm:text-xl">How was your {styleName} dieline?</h3>
+      <p className="mt-0.5 text-xs font-bold text-slate-600">Tap a star. It takes 5 seconds and helps other designers.</p>
+      <div className="mt-3 flex items-center justify-center gap-1.5" role="radiogroup" aria-label="Your rating">
         {[1, 2, 3, 4, 5].map((n) => (
           <button
             key={n}
@@ -72,14 +81,14 @@ export default function DielineReview({ styleName, sizeText }: { styleName: stri
             onClick={() => setRating(n)}
             onMouseEnter={() => setHover(n)}
             onMouseLeave={() => setHover(0)}
-            className={`text-3xl leading-none transition ${n <= shown ? "text-[#FF6A00]" : "text-slate-300"}`}
+            className={`text-5xl leading-none transition hover:scale-110 ${n <= shown ? "text-[#FF6A00]" : "text-slate-300"}`}
           >
             ★
           </button>
         ))}
       </div>
       {rating > 0 && (
-        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+        <div className="mx-auto mt-4 grid max-w-xl gap-2.5 text-left sm:grid-cols-2">
           <label className="block sm:col-span-2">
             <span className="mb-1 block text-xs font-black text-[#07111F]">Your review <span className="font-bold text-slate-400">(optional)</span></span>
             <textarea

@@ -157,6 +157,7 @@ export default function DielineGenerator() {
   const [registered, setRegistered] = useState(() => Boolean(readDielineLead()));
   // rating box: after a download, or straight away from the follow-up email link (?review=1)
   const [askReview, setAskReview] = useState(params.get("review") === "1");
+  const [downloaded, setDownloaded] = useState(false);
 
   const meta = generatorStyles.find((s) => s.id === style)!;
   const boardInfo = boards.find((b) => b.id === board)!;
@@ -216,6 +217,7 @@ export default function DielineGenerator() {
       if (png) download(`${fileBase}.png`, png, "image/png");
     } else download(`${fileBase}.pdf`, dielineToPdf(result.dl, title, unit, brand) as BlobPart, "application/pdf");
     trackDieline("dieline_download", { style, format: kind });
+    setDownloaded(true);
     setAskReview(true);
   }
 
@@ -422,6 +424,7 @@ export default function DielineGenerator() {
             </button>
           ))}
         </div>
+        {askReview && <DielineReview styleName={meta.name} sizeText={sizeText} downloaded={downloaded} />}
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-orange-200 bg-orange-50 px-4 py-3">
           <div className="max-w-xl">
             <p className="text-sm font-black text-[#07111F]">Print this exact box: {meta.name}, {sizeText}</p>
@@ -429,7 +432,6 @@ export default function DielineGenerator() {
           </div>
           <a href="#get-price" className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black text-[#07111F] hover:bg-[#e65f00]">Get my price ↓</a>
         </div>
-        {askReview && <DielineReview styleName={meta.name} sizeText={sizeText} />}
       </section>
 
       <div id="get-price" className="scroll-mt-28">
