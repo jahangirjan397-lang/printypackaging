@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ArtworkGuideVisual, { type ArtworkVisualKind } from "@/components/ArtworkGuideVisual";
 
 export const metadata: Metadata = {
   alternates: {
@@ -10,37 +11,45 @@ export const metadata: Metadata = {
     "Learn what artwork details are needed for custom packaging including dieline, bleed, safe area, CMYK, Pantone, barcode, logo, text and final approval.",
 };
 
-const checklist = [
+const checklist: { title: string; text: string; visual: ArtworkVisualKind }[] = [
   {
     title: "Correct Dieline",
+    visual: "dieline",
     text: "A dieline shows the final box structure, cut lines, crease lines, bleed area and safe area. It should match the approved box size and style.",
   },
   {
     title: "Bleed Area",
+    visual: "bleed",
     text: "Artwork should extend beyond the cut line so printing can be trimmed cleanly without white edges.",
   },
   {
     title: "Safe Area",
+    visual: "safe",
     text: "Important text, logo, barcode and design elements should stay inside the safe area to avoid trimming or folding issues.",
   },
   {
     title: "CMYK / Pantone",
+    visual: "color",
     text: "Print artwork should use correct color setup. CMYK is common for full color printing, while Pantone may be used for specific brand colors.",
   },
   {
     title: "High Resolution",
+    visual: "resolution",
     text: "Images and artwork should be high resolution for clean printing. Low quality files can affect final packaging appearance.",
   },
   {
     title: "Barcode Check",
+    visual: "barcode",
     text: "Barcode size, placement and contrast should be checked before final approval.",
   },
   {
     title: "Text Proofreading",
+    visual: "proof",
     text: "Spelling, product details, ingredients, address, claims and legal text should be checked by the customer before production approval.",
   },
   {
     title: "Final Approval",
+    visual: "approval",
     text: "Production should move forward only after artwork, size, material, finishing and order details are approved.",
   },
 ];
@@ -142,11 +151,8 @@ export default function ArtworkGuidePage() {
                 key={item.title}
                 className="rounded-3xl border border-slate-200 bg-white p-7 shadow-lg shadow-slate-200/60"
               >
-                <div
-                  aria-hidden="true"
-                  className="mb-5 h-11 w-11 rounded-2xl bg-[#FF6A00] shadow-lg shadow-orange-500/20 flex items-center justify-center text-[#07111F]"
-                >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                <div className="-mx-2 -mt-2 mb-5 overflow-hidden rounded-2xl border border-slate-100 bg-gradient-to-br from-slate-50 to-cyan-50/40 p-2">
+                  <ArtworkGuideVisual kind={item.visual} title={item.title} />
                 </div>
                 <h3 className="text-xl font-black tracking-tight">
                   {item.title}
