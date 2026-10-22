@@ -18,6 +18,7 @@ export type SocialPlatform =
   | "tiktok"
   | "pinterest"
   | "x"
+  | "threads"
   | "googleBusiness";
 
 export type SocialLink = {
@@ -63,6 +64,11 @@ const platformDetails: Omit<SocialLink, "url">[] = [
     platform: "x",
     label: "X (Twitter)",
     purpose: "News and quick updates",
+  },
+  {
+    platform: "threads",
+    label: "Threads",
+    purpose: "Behind-the-scenes posts and packaging tips",
   },
   {
     platform: "googleBusiness",

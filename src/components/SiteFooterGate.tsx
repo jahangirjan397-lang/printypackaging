@@ -133,7 +133,7 @@ export default function SiteFooter() {
                                     <p>Copyright {year} Printy Packaging. All rights reserved.</p>
 
             <SocialIcons
-              platforms={["linkedin", "instagram", "facebook", "youtube", "x"]}
+              platforms={["linkedin", "instagram", "facebook", "youtube", "x", "threads"]}
             />
           </div>
         </div>

@@ -9,6 +9,7 @@ const referrerPlatforms: Array<[RegExp, string]> = [
   [/(^|\.)tiktok\.com$/, "tiktok"],
   [/(^|\.)pinterest\.[a-z.]+$|(^|\.)pin\.it$/, "pinterest"],
   [/(^|\.)x\.com$|(^|\.)twitter\.com$|(^|\.)t\.co$/, "x"],
+  [/(^|\.)threads\.net$|(^|\.)threads\.com$/, "threads"],
   [/(^|\.)google\.[a-z.]+$/, "google"],
   [/(^|\.)bing\.com$/, "bing"],
   [/(^|\.)whatsapp\.com$|(^|\.)wa\.me$/, "whatsapp"],

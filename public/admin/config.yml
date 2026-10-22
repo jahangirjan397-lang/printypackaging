@@ -422,6 +422,7 @@ collections:
           - { label: TikTok, name: tiktok, widget: string, required: false }
           - { label: Pinterest, name: pinterest, widget: string, required: false }
           - { label: X (Twitter), name: x, widget: string, required: false }
+          - { label: Threads, name: threads, widget: string, required: false }
           - { label: Google Business Profile, name: googleBusiness, widget: string, required: false }
 
   # ------------------------------------------------------ BACKLINK TRACKER
