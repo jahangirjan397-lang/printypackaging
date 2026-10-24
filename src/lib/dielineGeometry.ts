@@ -37,14 +37,16 @@ const allGeneratorStyles: {
   { id: "pillow", name: "Pillow Box", hint: "Curved press-in ends", dims: ["Width", "Depth", "Length"], board: "card", library: "pillow-box" },
   { id: "rigid-two-piece", name: "Rigid Lid & Base", hint: "Two-piece rigid box · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "two-piece-rigid-box" },
   { id: "rigid-magnetic", name: "Rigid Magnetic Box", hint: "Book-style flap · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "magnetic-closure-box" },
+  { id: "rigid-collapsible", name: "Collapsible Magnetic Box", hint: "Ships flat · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "collapsible-magnetic-box" },
+  { id: "rigid-drawer", name: "Rigid Drawer / Sleeve & Tray", hint: "Slide-out drawer · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "two-piece-rigid-box" },
 ];
 
 // Only styles checked line by line against our own production dielines are
 // offered on the site. Others stay in the code until they are matched to our
 // CorelDRAW files and approved (shipping box, tray, sleeve, pillow).
 // Rigid wraps (owner 2026-10-24) are paid downloads; prepress checks each one.
-export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer", "six-corner", "snap-lock", "rigid-two-piece", "rigid-magnetic"];
-export const PAID_STYLES: GeneratorStyle[] = ["rigid-two-piece", "rigid-magnetic"];
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer", "six-corner", "snap-lock", "rigid-two-piece", "rigid-magnetic", "rigid-collapsible", "rigid-drawer"];
+export const PAID_STYLES: GeneratorStyle[] = ["rigid-two-piece", "rigid-magnetic", "rigid-collapsible", "rigid-drawer"];
 export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -728,104 +730,244 @@ function pillow(d: DielineInput): Dieline {
 }
 
 // ---------- rigid boxes: the printed wrap paper ----------
-// Rigid boxes are grey board (t thick) covered with printed paper. The dieline is
-// the wrap: board panels, the paper over the board edge (t) and a turn-in that
-// folds inside. Panels are drawn at the outside of the board.
-const TURN_IN = 15;
+// Rigid boxes are grey board (t thick) covered with printed paper. The dielines
+// follow our production files (2 mm board).
 
-// Wrap of an open tray (base or lid) with inside size L x W and wall height H.
-// Corner tabs on the long walls wrap round the corners under the short walls.
-function trayWrap(L: number, W: number, H: number, t: number, ox: number, oy: number, name: string) {
-  const Lb = L + 2 * t, Wb = W + 2 * t, Hb = H + t, T = TURN_IN, tab = Math.min(12, Wb / 4);
-  const rects: Rect[] = [{ x0: ox, y0: oy, x1: ox + Lb, y1: oy + Wb }];
-  for (const s of [-1, 1]) {
-    // long walls above (s = -1) and below the base: wall, board edge, turn-in
-    const y = s < 0 ? oy : oy + Wb;
-    const band = (a: number, b: number, x0: number, x1: number): Rect => ({ x0, x1, y0: Math.min(y + s * a, y + s * b), y1: Math.max(y + s * a, y + s * b) });
-    rects.push(band(0, Hb, ox, ox + Lb), band(Hb, Hb + t, ox, ox + Lb), band(Hb + t, Hb + t + T, ox + t + 1, ox + Lb - t - 1));
-    const ty0 = Math.min(y + s, y + s * (Hb - 1)), ty1 = Math.max(y + s, y + s * (Hb - 1));
-    rects.push({ x0: ox - tab, x1: ox, y0: ty0, y1: ty1, r: { tl: 2, bl: 2 } }, { x0: ox + Lb, x1: ox + Lb + tab, y0: ty0, y1: ty1, r: { tr: 2, br: 2 } });
-    // short walls left (s = -1) and right
-    const x = s < 0 ? ox : ox + Lb;
-    const side = (a: number, b: number, y0: number, y1: number): Rect => ({ y0, y1, x0: Math.min(x + s * a, x + s * b), x1: Math.max(x + s * a, x + s * b) });
-    rects.push(side(0, Hb, oy, oy + Wb), side(Hb, Hb + t, oy, oy + Wb), side(Hb + t, Hb + t + T, oy + t + 1, oy + Wb - t - 1));
-  }
-  const reach = Hb + t + T;
-  const labels: DLabel[] = [
-    { at: [ox + Lb / 2, oy + Wb * 0.55], text: name },
-    { at: [ox + Lb / 2, oy - Hb / 2], text: "WALL", size: 0.7 },
-    { at: [ox + Lb / 2, oy - Hb - t - T / 2], text: "TURN-IN", size: 0.5 },
+// Wrap paper of an open rigid tray with a board base of L x W and walls H: a cross
+// with flaps 2H + 2t deep (outer wall, rim, and down the inside wall) over a base of
+// L + 3.2t x W + 3.2t, and tapered corner tabs (12.7 + t wide, H + t long, 2.4 mm
+// taper) on the long flaps.
+function rigidTrayWrap(L: number, W: number, H: number, t: number, ox: number, oy: number, name: string) {
+  const F = 2 * H + 2 * t, Bx = L + 3.2 * t, By = W + 3.2 * t, tabW = 12.7 + t, tabH = H + t, taper = 2.4;
+  const outline: Seg[] = [
+    { M: [ox, oy - F] }, { L: [ox + Bx, oy - F] }, { L: [ox + Bx, oy - tabH] },
+    { L: [ox + Bx + tabW, oy - tabH + taper] }, { L: [ox + Bx + tabW, oy] }, { L: [ox + Bx + F, oy] },
+    { L: [ox + Bx + F, oy + By] }, { L: [ox + Bx + tabW, oy + By] }, { L: [ox + Bx + tabW, oy + By + tabH - taper] },
+    { L: [ox + Bx, oy + By + tabH] }, { L: [ox + Bx, oy + By + F] }, { L: [ox, oy + By + F] },
+    { L: [ox, oy + By + tabH] }, { L: [ox - tabW, oy + By + tabH - taper] }, { L: [ox - tabW, oy + By] },
+    { L: [ox - F, oy + By] }, { L: [ox - F, oy] }, { L: [ox - tabW, oy] }, { L: [ox - tabW, oy - tabH + taper] },
+    { L: [ox, oy - tabH] }, { L: [ox, oy - F] },
   ];
-  const dims = [hd(ox, ox + Lb, oy + Wb * 0.25), vd(oy, oy + Wb, ox + Lb * 0.2), vd(oy - Hb, oy, ox + Lb * 0.75)];
-  return { rects, labels, dims, Lb, Wb, Hb, reach };
+  const paths: DPath[] = [{ kind: "cut", segs: outline, closed: true }];
+  const fold = (a: Pt, b: Pt) => paths.push({ kind: "fold", segs: [{ M: a }, { L: b }] });
+  // base edges, then the rim (outer wall H + t, board edge t) on every flap
+  fold([ox, oy], [ox + Bx, oy]); fold([ox, oy + By], [ox + Bx, oy + By]);
+  fold([ox, oy], [ox, oy + By]); fold([ox + Bx, oy], [ox + Bx, oy + By]);
+  for (const k of [H + t, H + 2 * t]) {
+    fold([ox, oy - k], [ox + Bx, oy - k]); fold([ox, oy + By + k], [ox + Bx, oy + By + k]);
+    fold([ox - k, oy], [ox - k, oy + By]); fold([ox + Bx + k, oy], [ox + Bx + k, oy + By]);
+  }
+  fold([ox, oy - tabH], [ox, oy]); fold([ox + Bx, oy - tabH], [ox + Bx, oy]);
+  fold([ox, oy + By], [ox, oy + By + tabH]); fold([ox + Bx, oy + By], [ox + Bx, oy + By + tabH]);
+  const labels: DLabel[] = [{ at: [ox + Bx / 2, oy + By * 0.55], text: name }, { at: [ox + Bx / 2, oy - H / 2], text: "WALL", size: 0.6 }];
+  const dims: DDim[] = [hd(ox, ox + Bx, oy + By * 0.25), vd(oy, oy + By, ox + Bx * 0.2), vd(oy - F, oy, ox + Bx * 0.75)];
+  return { paths, outline, labels, dims, Bx, By, F };
 }
 
+// Lid & base: the lid board is the base plus 5.1 mm each way, 6.3 mm shallower
+// than the base (finger room), as on our production files.
 function rigidTwoPiece(d: DielineInput): Dieline {
   const { L, W, H } = d;
   const t = Math.max(d.t, 1);
-  const lidH = Math.min(H, Math.max(20, Math.round(H * 0.4)));
-  const baseR = H + 2 * t + TURN_IN;
-  const base = trayWrap(L, W, H, t, baseR, baseR, "BASE");
-  // the lid slides over the base: 0.5 mm play each side
-  const Ll = base.Lb + 1, Wl = base.Wb + 1;
-  const lidR = lidH + 2 * t + TURN_IN;
-  const lid = trayWrap(Ll, Wl, lidH, t, base.Lb + 2 * baseR + 25 + lidR, baseR - (Wl + 2 * t - base.Wb) / 2, "LID");
-  const paths = rectsToPaths([...base.rects, ...lid.rects]);
+  const lidH = Math.max(10, H - 6.3);
+  const base = rigidTrayWrap(L, W, H, t, 2 * H + 2 * t, 2 * H + 2 * t, "BASE");
+  const lidF = 2 * lidH + 2 * t;
+  const lid = rigidTrayWrap(L + 5.1, W + 5.1, lidH, t, base.Bx + 2 * base.F + 25 + lidF + 13, lidF, "LID");
+  lastAreas = [{ x0: 0, y0: 0, x1: 0, y1: 0, shape: base.outline }, { x0: 0, y0: 0, x1: 0, y1: 0, shape: lid.outline }];
+  const paths = [...base.paths, ...lid.paths];
   return {
     paths,
     labels: [...base.labels, ...lid.labels],
     dims: [...base.dims, ...lid.dims],
     bbox: bboxOf(paths),
     notes: [
-      `Base wrap for ${r1(base.Lb)} × ${r1(base.Wb)} × ${r1(base.Hb)} mm outside, lid wrap ${r1(lid.Lb)} × ${r1(lid.Wb)} × ${r1(lid.Hb)} mm outside`,
-      `Rigid lid & base on ${t} mm grey board: base and lid wraps with ${TURN_IN} mm turn-ins and corner tabs, lid depth ${r1(lidH)} mm`,
+      `Base board ${r1(L)} × ${r1(W)}, walls ${r1(H)} mm; lid board ${r1(L + 5.1)} × ${r1(W + 5.1)}, walls ${r1(lidH)} mm`,
+      `Rigid lid & base on ${t} mm grey board: base and lid wraps with full turn-ins and corner tabs, to our production rules`,
     ],
   };
 }
 
+// Magnetic closure box, measured from our production files (2 mm board; tray base
+// 114 x 75.5, walls 16): case boards bottom W+5.1 / spine H+5.1 / lid W+5.1 / flap
+// H+3.6, all L+5.1 wide with t gaps; case wrap 12.7 mm past the boards with 12.7 mm
+// corner chamfers; liner 2t smaller than the case; tray wrap is a cross with
+// flaps 2H+2t deep over a base of L+3.2t x W+3.2t, and tapered corner tabs
+// (12.7+t wide, H+t long, 2.4 mm taper) on the long flaps.
 function rigidMagnetic(d: DielineInput): Dieline {
   const { L, W, H } = d;
-  const t = Math.max(d.t, 1), T = TURN_IN;
-  // tray that holds the product
-  const Lt = L + 2 * t, Wt = W + 2 * t, Ht = H + t;
-  // case boards: bottom, spine (back), lid, front flap with the magnet
-  const Lc = Lt + 2, Wc = Wt + 1, Hs = Ht + t, Hf = Ht, gap = 2 * t + 1;
-  const boards: [string, number][] = [["FLAP", Hf], ["LID", Wc], ["SPINE", Hs], ["BOTTOM", Wc]];
-  const e = t + T; // paper over the board edge plus turn-in
+  const t = Math.max(d.t, 1), e = 12.7;
+  const Lc = L + 5.1;
+  const boards: [string, number][] = [["BOTTOM", W + 5.1], ["SPINE", H + 5.1], ["LID", W + 5.1], ["FLAP", H + 3.6]];
   const ys: number[] = [0];
-  boards.forEach(([, h], i) => { ys.push(ys[ys.length - 1] + h); if (i < boards.length - 1) ys.push(ys[ys.length - 1] + gap); });
+  boards.forEach(([, h], i) => { ys.push(ys[ys.length - 1] + h); if (i < boards.length - 1) ys.push(ys[ys.length - 1] + t); });
   const Y = ys[ys.length - 1];
-  // outline with 45° corner cuts 1.5 board thicknesses off each board corner
-  const m = e - 1.5 * t * Math.SQRT2;
   const outline: Seg[] = [
-    { M: [-e, m] }, { L: [m, -e] }, { L: [Lc - m, -e] }, { L: [Lc + e, m] },
-    { L: [Lc + e, Y - m] }, { L: [Lc - m, Y + e] }, { L: [m, Y + e] }, { L: [-e, Y - m] }, { L: [-e, m] },
+    { M: [-e, 0] }, { L: [0, -e] }, { L: [Lc, -e] }, { L: [Lc + e, 0] },
+    { L: [Lc + e, Y] }, { L: [Lc, Y + e] }, { L: [0, Y + e] }, { L: [-e, Y] }, { L: [-e, 0] },
   ];
   const paths: DPath[] = [{ kind: "cut", segs: outline, closed: true }];
   const fold = (a: Pt, b: Pt) => paths.push({ kind: "fold", segs: [{ M: a }, { L: b }] });
-  for (const x of [0, -t, Lc, Lc + t]) fold([x, 0], [x, Y]);
-  for (const y of [0, -t, Y, Y + t]) fold([0, y], [Lc, y]);
-  ys.slice(1, -1).forEach((y) => fold([0, y], [Lc, y]));
-  // tray wrap beside the case
-  const trayR = Ht + 2 * t + T;
-  const tray = trayWrap(L, W, H, t, Lc + e + 25 + trayR, trayR, "TRAY");
-  paths.push(...rectsToPaths(tray.rects));
-  lastAreas = [...lastAreas, { x0: 0, y0: 0, x1: 0, y1: 0, shape: outline }];
-  const labels: DLabel[] = [...tray.labels];
-  const dims: DDim[] = [...tray.dims, hd(0, Lc, ys[2] + Wc * 0.25)];
+  for (const x of [0, Lc]) fold([x, 0], [x, Y]);
+  for (const y of ys) fold([0, y], [Lc, y]);
+  const labels: DLabel[] = [];
+  const dims: DDim[] = [hd(0, Lc, ys[4] + (W + 5.1) * 0.3)];
   boards.forEach(([name, h], i) => {
     const y0 = ys[i * 2];
     labels.push({ at: [Lc / 2, y0 + h * 0.55], text: name, size: h < 30 ? 0.6 : 1 });
     dims.push(vd(y0, y0 + h, Lc * 0.85));
   });
+  labels.push({ at: [Lc / 2, -e / 2], text: "CASE WRAP · TURN-IN", size: 0.45 });
+
+  // inside liner of the case
+  const lx = Lc + e + 20;
+  const liner: Seg[] = [{ M: [lx, t] }, { L: [lx + Lc - 2 * t, t] }, { L: [lx + Lc - 2 * t, Y - t] }, { L: [lx, Y - t] }, { L: [lx, t] }];
+  paths.push({ kind: "cut", segs: liner, closed: true });
+  labels.push({ at: [lx + Lc / 2 - t, Y / 2], text: "CASE LINER", size: 0.7 });
+  dims.push(hd(lx, lx + Lc - 2 * t, Y * 0.2));
+
+  // tray wrap
+  const F = 2 * H + 2 * t;
+  const tray = rigidTrayWrap(L, W, H, t, lx + Lc + 20 + F, F, "TRAY");
+  paths.push(...tray.paths);
+  labels.push(...tray.labels);
+  dims.push(...tray.dims);
+  lastAreas = [{ x0: 0, y0: 0, x1: 0, y1: 0, shape: outline }, { x0: 0, y0: 0, x1: 0, y1: 0, shape: liner }, { x0: 0, y0: 0, x1: 0, y1: 0, shape: tray.outline }];
+
   return {
     paths,
     labels,
     dims,
     bbox: bboxOf(paths),
     notes: [
-      `Tray ${r1(Lt)} × ${r1(Wt)} × ${r1(Ht)} mm outside, case boards ${r1(Lc)} mm wide: flap ${r1(Hf)}, lid ${r1(Wc)}, spine ${r1(Hs)}, bottom ${r1(Wc)} mm`,
-      `Rigid magnetic box on ${t} mm grey board: case wrap with ${T} mm turn-ins, ${r1(gap)} mm hinge gaps and 45° corners, plus the tray wrap; magnets go under the flap and the front wall`,
+      `Case boards ${r1(Lc)} mm wide: bottom ${r1(W + 5.1)}, spine ${r1(H + 5.1)}, lid ${r1(W + 5.1)}, flap ${r1(H + 3.6)} mm with ${t} mm gaps; tray base ${r1(L)} × ${r1(W)}, walls ${r1(H)} mm`,
+      `Rigid magnetic box on ${t} mm grey board: case wrap (12.7 mm turn-ins, mitred corners), case liner and tray wrap, to our production rules; magnets go under the flap and the front wall`,
+    ],
+  };
+}
+
+// Collapsible magnetic box (folds flat), measured from our production files
+// (197.6 x 157.5 x 82.6 mm): case boards flap / lid / spine / bottom = H+5.1 / W+5.1 /
+// H+5.1 / W+5.1, L+5.1 wide, butted; case wrap 20.3 mm past the ends and 19.05 mm
+// past the sides with 12.7 mm chamfers; liner 3 mm longer and 2 mm narrower than
+// the boards; tray wrap a cross over L x W with flaps 2H - 3.2 deep and 12.7 mm tabs
+// along the first H of the long flaps, tapered 3.1 mm at both ends.
+function rigidCollapsible(d: DielineInput): Dieline {
+  const { L, W, H } = d;
+  const t = Math.max(d.t, 1);
+  const Lc = L + 5.1, c = 12.7, eEnd = 20.3, eSide = 19.05;
+  const boards: [string, number][] = [["FLAP", H + 5.1], ["LID", W + 5.1], ["SPINE", H + 5.1], ["BOTTOM", W + 5.1]];
+  const ys: number[] = [0];
+  boards.forEach(([, h]) => ys.push(ys[ys.length - 1] + h));
+  const Y = ys[ys.length - 1];
+  const x0 = -eSide, x1 = Lc + eSide, y0 = -eEnd, y1 = Y + eEnd;
+  const outline: Seg[] = [
+    { M: [x0, y0 + c] }, { L: [x0 + c, y0] }, { L: [x1 - c, y0] }, { L: [x1, y0 + c] },
+    { L: [x1, y1 - c] }, { L: [x1 - c, y1] }, { L: [x0 + c, y1] }, { L: [x0, y1 - c] }, { L: [x0, y0 + c] },
+  ];
+  const paths: DPath[] = [{ kind: "cut", segs: outline, closed: true }];
+  const fold = (a: Pt, b: Pt) => paths.push({ kind: "fold", segs: [{ M: a }, { L: b }] });
+  for (const x of [0, Lc]) fold([x, 0], [x, Y]);
+  for (const y of ys) fold([0, y], [Lc, y]);
+  const labels: DLabel[] = [{ at: [Lc / 2, y0 / 2], text: "CASE WRAP · TURN-IN", size: 0.45 }];
+  const dims: DDim[] = [hd(0, Lc, ys[1] + (W + 5.1) * 0.3)];
+  boards.forEach(([name, h], i) => {
+    labels.push({ at: [Lc / 2, ys[i] + h * 0.55], text: name, size: h < 30 ? 0.6 : 1 });
+    dims.push(vd(ys[i], ys[i] + h, Lc * 0.85));
+  });
+
+  // liner inside the case
+  const lx = x1 + 20, lw = Lc - 2, lh = Y + 3;
+  const liner: Seg[] = [{ M: [lx, -1.5] }, { L: [lx + lw, -1.5] }, { L: [lx + lw, lh - 1.5] }, { L: [lx, lh - 1.5] }, { L: [lx, -1.5] }];
+  paths.push({ kind: "cut", segs: liner, closed: true });
+  labels.push({ at: [lx + lw / 2, Y / 2], text: "CASE LINER", size: 0.7 });
+
+  // tray wrap: cross with deep flaps and tabs on the long flaps
+  const D = 2 * H - 3.2, tab = 12.7, tp = 3.1;
+  const ox = lx + lw + 20 + D, oy = D;
+  const tray: Seg[] = [
+    { M: [ox, oy - D] }, { L: [ox + L, oy - D] }, { L: [ox + L, oy - H] },
+    { L: [ox + L + tab, oy - H + tp] }, { L: [ox + L + tab, oy - tp] }, { L: [ox + L, oy] }, { L: [ox + L + D, oy] },
+    { L: [ox + L + D, oy + W] }, { L: [ox + L, oy + W] }, { L: [ox + L + tab, oy + W + tp] }, { L: [ox + L + tab, oy + W + H - tp] },
+    { L: [ox + L, oy + W + H] }, { L: [ox + L, oy + W + D] }, { L: [ox, oy + W + D] }, { L: [ox, oy + W + H] },
+    { L: [ox - tab, oy + W + H - tp] }, { L: [ox - tab, oy + W + tp] }, { L: [ox, oy + W] }, { L: [ox - D, oy + W] },
+    { L: [ox - D, oy] }, { L: [ox, oy] }, { L: [ox - tab, oy - tp] }, { L: [ox - tab, oy - H + tp] }, { L: [ox, oy - H] }, { L: [ox, oy - D] },
+  ];
+  paths.push({ kind: "cut", segs: tray, closed: true });
+  fold([ox, oy], [ox + L, oy]); fold([ox, oy + W], [ox + L, oy + W]); fold([ox, oy], [ox, oy + W]); fold([ox + L, oy], [ox + L, oy + W]);
+  for (const k of [H]) {
+    fold([ox, oy - k], [ox + L, oy - k]); fold([ox, oy + W + k], [ox + L, oy + W + k]);
+    fold([ox - k, oy], [ox - k, oy + W]); fold([ox + L + k, oy], [ox + L + k, oy + W]);
+  }
+  fold([ox, oy - H], [ox, oy]); fold([ox + L, oy - H], [ox + L, oy]); fold([ox, oy + W], [ox, oy + W + H]); fold([ox + L, oy + W], [ox + L, oy + W + H]);
+  labels.push({ at: [ox + L / 2, oy + W * 0.55], text: "TRAY" }, { at: [ox + L / 2, oy - H / 2], text: "WALL", size: 0.6 });
+  dims.push(hd(ox, ox + L, oy + W * 0.25), vd(oy, oy + W, ox + L * 0.2), vd(oy - D, oy, ox + L * 0.75));
+  lastAreas = [{ x0: 0, y0: 0, x1: 0, y1: 0, shape: outline }, { x0: 0, y0: 0, x1: 0, y1: 0, shape: liner }, { x0: 0, y0: 0, x1: 0, y1: 0, shape: tray }];
+
+  return {
+    paths,
+    labels,
+    dims,
+    bbox: bboxOf(paths),
+    notes: [
+      `Case boards ${r1(Lc)} mm wide: flap ${r1(H + 5.1)}, lid ${r1(W + 5.1)}, spine ${r1(H + 5.1)}, bottom ${r1(W + 5.1)} mm; tray ${r1(L)} × ${r1(W)} × ${r1(H)} mm`,
+      `Collapsible rigid magnetic box (ships flat) on ${t} mm grey board: case wrap with mitred corners, case liner and tray wrap, to our production rules`,
+    ],
+  };
+}
+
+// Drawer (slide) box, measured from our production files (drawer board 130 x 53.8,
+// walls 16.5): drawer wrap over a base of L+2 x W+2, walls H, 1 mm rim, 11.5 mm
+// turn-in, 9.1 mm corner tabs on the long walls; sleeve panels top / side / bottom /
+// side = W+5.1 / H+5 / W+5.1 / H+5 with 3 mm hinge gaps, L+5.1 long, a closed back
+// panel (H+5) on the bottom panel, and a 12.7 mm turn-in round the sleeve wrap.
+function rigidDrawer(d: DielineInput): Dieline {
+  const { L, W, H } = d;
+  const t = Math.max(d.t, 1);
+  const g = 3, e = 12.7, Ls = L + 5.1, Pw = W + 5.1, Ph = H + 5;
+  const xs = [0, Pw, Pw + g, Pw + g + Ph, Pw + 2 * g + Ph, 2 * Pw + 2 * g + Ph, 2 * Pw + 3 * g + Ph, 2 * Pw + 3 * g + 2 * Ph];
+  const X = xs[7], bx0 = xs[4], bx1 = xs[5], back = Ls + g + Ph;
+  const sleeve: Seg[] = [
+    { M: [-e, -e] }, { L: [X + e, -e] }, { L: [X + e, Ls + e] }, { L: [bx1, Ls + e] },
+    { L: [bx1, back + e] }, { L: [bx0, back + e] }, { L: [bx0, Ls + e] }, { L: [-e, Ls + e] }, { L: [-e, -e] },
+  ];
+  const paths: DPath[] = [{ kind: "cut", segs: sleeve, closed: true }];
+  const fold = (a: Pt, b: Pt) => paths.push({ kind: "fold", segs: [{ M: a }, { L: b }] });
+  xs.forEach((x) => fold([x, 0], [x, Ls]));
+  fold([0, 0], [X, 0]); fold([0, Ls], [X, Ls]);
+  for (const y of [Ls + g, back]) fold([bx0, y], [bx1, y]);
+  fold([bx0, Ls], [bx0, back]); fold([bx1, Ls], [bx1, back]);
+  const names = ["TOP", "SIDE", "BOTTOM", "SIDE"];
+  const labels: DLabel[] = names.map((n, i): DLabel => ({ at: [(xs[i * 2] + xs[i * 2 + 1]) / 2, Ls * 0.55], text: n, size: i % 2 ? 0.6 : 1 }));
+  labels.push({ at: [(bx0 + bx1) / 2, Ls + g + Ph / 2], text: "BACK", size: 0.6 }, { at: [X / 2, -e / 2], text: "SLEEVE WRAP · TURN-IN", size: 0.45 });
+  const dims: DDim[] = [hd(xs[0], xs[1], Ls * 0.2), hd(xs[2], xs[3], Ls * 0.2), vd(0, Ls, xs[1] * 0.8)];
+
+  // drawer wrap
+  const Bx = L + 2, By = W + 2, T = 11.5, r = 1, tw = 9.1;
+  const ox = X + e + 25 + H + r + T, oy = H + r + T;
+  const rects: Rect[] = [{ x0: ox, y0: oy, x1: ox + Bx, y1: oy + By }];
+  for (const s of [-1, 1]) {
+    const y = s < 0 ? oy : oy + By;
+    const band = (a: number, b: number, x0: number, x1: number): Rect => ({ x0, x1, y0: Math.min(y + s * a, y + s * b), y1: Math.max(y + s * a, y + s * b) });
+    rects.push(band(0, H, ox, ox + Bx), band(H, H + r + T, ox + r, ox + Bx - r));
+    const ty0 = Math.min(y + s * r, y + s * (H - r)), ty1 = Math.max(y + s * r, y + s * (H - r));
+    rects.push({ x0: ox - tw, x1: ox, y0: ty0, y1: ty1 }, { x0: ox + Bx, x1: ox + Bx + tw, y0: ty0, y1: ty1 });
+    const x = s < 0 ? ox : ox + Bx;
+    const side = (a: number, b: number, y0: number, y1: number): Rect => ({ y0, y1, x0: Math.min(x + s * a, x + s * b), x1: Math.max(x + s * a, x + s * b) });
+    rects.push(side(0, H, oy, oy + By), side(H, H + r + T, oy + r, oy + By - r));
+  }
+  const tray = rectsToPaths(rects);
+  paths.push(...tray);
+  lastAreas = [...lastAreas, { x0: 0, y0: 0, x1: 0, y1: 0, shape: sleeve }];
+  labels.push({ at: [ox + Bx / 2, oy + By * 0.55], text: "DRAWER" }, { at: [ox + Bx / 2, oy - H / 2], text: "WALL", size: 0.6 });
+  dims.push(hd(ox, ox + Bx, oy + By * 0.25), vd(oy, oy + By, ox + Bx * 0.2), vd(oy - H, oy, ox + Bx * 0.75));
+  return {
+    paths,
+    labels,
+    dims,
+    bbox: bboxOf(paths),
+    notes: [
+      `Sleeve ${r1(Pw)} × ${r1(Ph)} mm inside, ${r1(Ls)} mm long with a closed back; drawer ${r1(L)} × ${r1(W)} × ${r1(H)} mm`,
+      `Rigid drawer box on grey board (${t} mm sleeve boards): sleeve wrap with 3 mm hinge gaps and 12.7 mm turn-ins, drawer wrap with corner tabs, to our production rules`,
     ],
   };
 }
@@ -851,6 +993,8 @@ function buildRaw(style: GeneratorStyle, input: DielineInput): Dieline {
     case "snap-lock": return snapLock(input);
     case "rigid-two-piece": return rigidTwoPiece(input);
     case "rigid-magnetic": return rigidMagnetic(input);
+    case "rigid-collapsible": return rigidCollapsible(input);
+    case "rigid-drawer": return rigidDrawer(input);
   }
 }
 

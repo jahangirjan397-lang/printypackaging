@@ -32,7 +32,9 @@ export type GeneratorStyle =
   | "sleeve"
   | "pillow"
   | "rigid-two-piece"
-  | "rigid-magnetic";
+  | "rigid-magnetic"
+  | "rigid-collapsible"
+  | "rigid-drawer";
 
 export type Dieline = {
   slug: string;
