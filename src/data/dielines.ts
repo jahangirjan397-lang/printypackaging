@@ -30,7 +30,9 @@ export type GeneratorStyle =
   | "shipping-box"
   | "tray"
   | "sleeve"
-  | "pillow";
+  | "pillow"
+  | "rigid-two-piece"
+  | "rigid-magnetic";
 
 export type Dieline = {
   slug: string;

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { GeneratorStyle } from "@/data/dielines";
-import { buildDieline, dielineToDxf, dielineToPdf, dielineToSvg, formatLength, generatorStyles, loadBrandLogo, unitToMm, type Unit } from "@/lib/dielineGeometry";
+import { buildDieline, dielineToDxf, dielineToPdf, dielineToSvg, formatLength, generatorStyles, loadBrandLogo, PAID_STYLES, unitToMm, type Unit } from "@/lib/dielineGeometry";
 import DielineLeadGate, { readDielineLead, trackDieline } from "@/components/DielineLeadGate";
 import DielineReview from "@/components/DielineReview";
 import DielinePriceForm from "@/components/DielinePriceForm";
@@ -16,10 +16,22 @@ const boards = [
   { id: "kraft", name: "Kraft card 350 gsm", t: 0.5 },
   { id: "e-flute", name: "E-flute corrugated", t: 1.5 },
   { id: "b-flute", name: "B-flute corrugated", t: 3 },
+  { id: "greyboard", name: "Grey board, paper wrapped", t: 2 },
 ];
+const boardsFor = (kind: "card" | "flute" | "rigid") => boards.filter((b) => (kind === "rigid") === (b.id === "greyboard"));
+const defaultBoard = { card: "card", flute: "e-flute", rigid: "greyboard" } as const;
+
+// Rigid dielines are sold (owner 2026-10-24). One payment unlocks one style and size
+// in this browser; the Stripe Payment Link sends the buyer back with a session id.
+const RIGID_PRICE = "$12";
+const PAY_LINK = process.env.NEXT_PUBLIC_RIGID_DIELINE_PAY_LINK || "";
+const UNLOCK_KEY = "printy-rigid-unlocked";
+const readUnlocked = (): string[] => {
+  try { return JSON.parse(localStorage.getItem(UNLOCK_KEY) || "[]") as string[]; } catch { return []; }
+};
 
 // Common starting sizes in mm (L, W, H)
-const presets: Record<"card" | "flute", { name: string; mm: [number, number, number] }[]> = {
+const presets: Record<"card" | "flute" | "rigid", { name: string; mm: [number, number, number] }[]> = {
   card: [
     { name: "Lip balm", mm: [30, 30, 90] },
     { name: "Perfume", mm: [55, 45, 120] },
@@ -31,6 +43,12 @@ const presets: Record<"card" | "flute", { name: string; mm: [number, number, num
     { name: "Medium", mm: [300, 220, 100] },
     { name: "Large", mm: [400, 300, 150] },
     { name: "Shoe box", mm: [330, 210, 120] },
+  ],
+  rigid: [
+    { name: "Jewelry", mm: [90, 90, 40] },
+    { name: "Perfume", mm: [110, 70, 150] },
+    { name: "Gift set", mm: [250, 200, 80] },
+    { name: "Watch", mm: [120, 120, 90] },
   ],
 };
 
@@ -125,6 +143,7 @@ export default function DielineGenerator() {
   });
   const linked = generatorStyles.find((s) => s.id === (params.get("style") ?? saved?.style));
   const startFlute = linked?.board === "flute";
+  const startKind = linked?.board ?? "card";
   const [style, setStyle] = useState<GeneratorStyle>(linked?.id ?? "reverse-tuck-end");
   // a link may say which unit to show its size in (sizes in the link are always mm)
   const linkUnit = (["mm", "cm", "in"] as Unit[]).find((u) => u === params.get("unit"));
@@ -137,7 +156,7 @@ export default function DielineGenerator() {
       const u = linkUnit ?? "mm";
       return { L: show(q[0], u), W: show(q[1], u), H: show(q[2], u) };
     }
-    const p = presets[startFlute ? "flute" : "card"][startFlute ? 0 : 1].mm;
+    const p = presets[startKind][startFlute ? 0 : 1].mm;
     return { L: String(p[0]), W: String(p[1]), H: String(p[2]) };
   });
   const [slitLock, setSlitLock] = useState(params.get("slit") === "1" || Boolean(saved?.slit));
@@ -145,7 +164,7 @@ export default function DielineGenerator() {
   const [ears, setEars] = useState(params.get("ears") === "1" || Boolean(saved?.ears));
   const [board, setBoard] = useState(() => {
     const b = params.get("board") ?? saved?.board;
-    return b && boards.some((x) => x.id === b) ? b : startFlute ? "e-flute" : "card";
+    return b && boardsFor(startKind).some((x) => x.id === b) ? b : defaultBoard[startKind];
   });
   const [mode, setMode] = useState<"inside" | "outside">(saved?.mode ?? "inside");
   const [showDims, setShowDims] = useState(true);
@@ -158,6 +177,9 @@ export default function DielineGenerator() {
   // rating box: after a download, or straight away from the follow-up email link (?review=1)
   const [askReview, setAskReview] = useState(params.get("review") === "1");
   const [downloaded, setDownloaded] = useState(false);
+  const [payOpen, setPayOpen] = useState(false);
+  const [unlocked, setUnlocked] = useState<string[]>(readUnlocked);
+  const [payNote, setPayNote] = useState("");
 
   const meta = generatorStyles.find((s) => s.id === style)!;
   const boardInfo = boards.find((b) => b.id === board)!;
@@ -202,10 +224,34 @@ export default function DielineGenerator() {
     if (s.board !== meta.board) {
       const p = presets[s.board][s.board === "flute" ? 0 : 1].mm;
       setDims({ L: show(p[0], unit), W: show(p[1], unit), H: show(p[2], unit) });
-      setBoard(s.board === "flute" ? "e-flute" : "card");
+      setBoard(defaultBoard[s.board]);
     }
     setStyle(id);
   }
+
+  // ---------- paid rigid dielines ----------
+  const paid = PAID_STYLES.includes(style);
+  const payKey = `${style}_${Math.round(nums.L)}x${Math.round(nums.W)}x${Math.round(nums.H)}`;
+  const isUnlocked = !paid || unlocked.includes(payKey);
+
+  // back from Stripe: check the payment on our server, then unlock that box here
+  useEffect(() => {
+    const session = params.get("session_id");
+    if (!session) return;
+    fetch(`/api/dieline-unlock?session_id=${encodeURIComponent(session)}`)
+      .then((r) => r.json())
+      .then((out: { ok?: boolean; ref?: string; message?: string }) => {
+        if (out.ok && out.ref) {
+          const next = Array.from(new Set([...readUnlocked(), out.ref]));
+          try { localStorage.setItem(UNLOCK_KEY, JSON.stringify(next)); } catch { /* private mode */ }
+          setUnlocked(next);
+          setPayNote("Payment received. Your rigid dieline is unlocked: download it below.");
+          trackDieline("rigid_dieline_paid", { style });
+        } else setPayNote(out.message || "We could not confirm the payment yet. Email sales@printypackaging.com and we will send your file.");
+      })
+      .catch(() => setPayNote("We could not confirm the payment yet. Email sales@printypackaging.com and we will send your file."));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function doDownload(kind: Format) {
     if (!result) return;
@@ -221,7 +267,7 @@ export default function DielineGenerator() {
     setAskReview(true);
   }
 
-  const askDownload = (kind: Format) => (registered ? doDownload(kind) : setPending(kind));
+  const askDownload = (kind: Format) => (!isUnlocked ? setPayOpen(true) : registered ? doDownload(kind) : setPending(kind));
   const zoomBy = (d: number) => setZoom((z) => Math.min(3, Math.max(0.6, Math.round((z + d) * 10) / 10)));
 
   // a link that opens this exact box (sizes in mm)
@@ -325,7 +371,7 @@ export default function DielineGenerator() {
                 <span className="mb-1 block text-xs font-black text-slate-600">Material</span>
                 <select value={board} onChange={(e) => setBoard(e.target.value)}
                   className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-bold text-[#07111F] outline-none focus:border-[#007C91]">
-                  {boards.map((b) => <option key={b.id} value={b.id}>{b.name} ({b.t} mm)</option>)}
+                  {boardsFor(meta.board).map((b) => <option key={b.id} value={b.id}>{b.name} ({b.t} mm)</option>)}
                 </select>
               </label>
               <div className="mt-3">
@@ -408,10 +454,21 @@ export default function DielineGenerator() {
           <div>
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#07111F] text-[11px] font-black text-white">4</span>
             <h2 className="mt-1.5 text-lg font-black text-[#07111F]">Download your dieline</h2>
-            <p className="mt-1 max-w-xl text-sm text-slate-600">A clean template to put your artwork on, with the Printy footer. Add your email once and every format stays unlocked in this browser.</p>
+            <p className="mt-1 max-w-xl text-sm text-slate-600">
+              {paid
+                ? `Rigid box wraps are a paid download: ${RIGID_PRICE} per style and size, checked by our prepress team. Order your boxes with us and the fee comes off your order.`
+                : "A clean template to put your artwork on, with the Printy footer. Add your email once and every format stays unlocked in this browser."}
+            </p>
           </div>
           <Link href={`/dielines/${meta.library}`} className="text-sm font-black text-[#007C91] hover:text-[#FF6A00]">About this style →</Link>
         </div>
+        {payNote && <p role="status" className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-black text-emerald-800">{payNote}</p>}
+        {paid && !isUnlocked && (
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#07111F] bg-[#07111F] px-4 py-3 text-white">
+            <p className="text-sm font-bold">🔒 {meta.name} {sizeText}: <span className="font-black text-[#FFB27A]">{RIGID_PRICE}</span> · PDF, SVG, DXF and PNG</p>
+            <button type="button" onClick={() => setPayOpen(true)} className="rounded-lg bg-[#FF6A00] px-4 py-2 text-sm font-black text-[#07111F] hover:bg-[#e65f00]">Unlock this dieline</button>
+          </div>
+        )}
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {formats.map((f) => (
             <button key={f.id} type="button" disabled={!result} onClick={() => askDownload(f.id)}
@@ -435,8 +492,34 @@ export default function DielineGenerator() {
       </section>
 
       <div id="get-price" className="scroll-mt-28">
-        <DielinePriceForm styleName={meta.name} flute={board !== "card"} sizeText={sizeText} />
+        <DielinePriceForm styleName={meta.name} flute={board !== "card"} rigid={meta.board === "rigid"} sizeText={sizeText} />
       </div>
+
+      {payOpen && (
+        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-[#07111F]/60 p-4" role="dialog" aria-modal="true" aria-labelledby="pay-title">
+          <div className="w-full max-w-md rounded-[1.5rem] border-t-4 border-[#FF6A00] bg-white p-6 text-[#07111F] shadow-2xl">
+            <h2 id="pay-title" className="text-xl font-black">Unlock your rigid dieline · {RIGID_PRICE}</h2>
+            <p className="mt-2 text-sm font-bold text-slate-600">{meta.name}, {sizeText}. Wrap paper with turn-ins and board sizes, 1:1 in PDF, SVG, DXF and PNG.</p>
+            <ul className="mt-3 space-y-1 text-sm font-bold text-slate-700">
+              <li>✓ Instant download after payment</li>
+              <li>✓ Our prepress team checks it free if you print with us</li>
+              <li>✓ Fee credited when you order your boxes</li>
+            </ul>
+            {PAY_LINK ? (
+              <a href={`${PAY_LINK}?client_reference_id=${encodeURIComponent(payKey)}`} onClick={() => trackDieline("rigid_dieline_checkout", { style })}
+                className="mt-5 block rounded-full bg-[#FF6A00] px-6 py-3 text-center text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/25 hover:bg-[#e65f00]">
+                Pay {RIGID_PRICE} securely →
+              </a>
+            ) : (
+              <a href="#get-price" onClick={() => setPayOpen(false)}
+                className="mt-5 block rounded-full bg-[#FF6A00] px-6 py-3 text-center text-sm font-black text-[#07111F] hover:bg-[#e65f00]">
+                Request this dieline →
+              </a>
+            )}
+            <button type="button" onClick={() => setPayOpen(false)} className="mt-3 w-full text-sm font-black text-slate-500 hover:text-[#07111F]">Not now</button>
+          </div>
+        </div>
+      )}
 
       {pending && (
         <DielineLeadGate

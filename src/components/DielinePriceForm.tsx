@@ -9,6 +9,7 @@ const COUNTRIES = ["USA", "UK", "Europe", "Australia", "Canada", "UAE", "Other"]
 const MATERIALS = {
   card: ["SBS / Bleach Card 350 GSM", "SBS / Bleach Card 300 GSM", "SBS / Bleach Card 400 GSM", "Kraft Card 350 GSM", "Art Card 350 GSM", "Not sure, suggest for me"],
   flute: ["E-flute corrugated, white", "E-flute corrugated, kraft", "B-flute corrugated (heavier items)", "Not sure, suggest for me"],
+  rigid: ["Rigid 2 mm grey board, printed art paper wrap", "Rigid 2 mm grey board, kraft paper wrap", "Rigid 2 mm grey board, specialty paper wrap", "Not sure, suggest for me"],
 };
 const PRINTING = ["CMYK Full Color Printing (outside)", "CMYK inside + outside", "1 Color logo (outside)", "2 Color (outside)", "No printing / plain", "Not sure, suggest for me"];
 const FINISHES = ["Matte Lamination", "Gloss Lamination", "Soft Touch Lamination", "Foil logo + Matte Lamination", "Spot UV + Matte Lamination", "No lamination (aqueous coating)", "Not sure, suggest for me"];
@@ -18,8 +19,8 @@ const WHATSAPP = "306985024723";
 // generator, the buyer adds material, printing, finish and quantity. It posts to
 // the same /api/quote as the website form, so the lead lands in the ERP and the
 // auto quote (estimation sheet) emails the price within 10-15 minutes.
-export default function DielinePriceForm({ styleName, flute, sizeText }: { styleName: string; flute: boolean; sizeText: string }) {
-  const materials = MATERIALS[flute ? "flute" : "card"];
+export default function DielinePriceForm({ styleName, flute, rigid = false, sizeText }: { styleName: string; flute: boolean; rigid?: boolean; sizeText: string }) {
+  const materials = MATERIALS[rigid ? "rigid" : flute ? "flute" : "card"];
   const [state, setState] = useState<"idle" | "sending" | "done">("idle");
   const [error, setError] = useState("");
   const [email, setEmail] = useState(() => readDielineLead());

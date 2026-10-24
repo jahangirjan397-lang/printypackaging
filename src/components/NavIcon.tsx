@@ -620,6 +620,9 @@ const aliases: Record<string, string> = {
   "jewelry-packaging": "jewelry-boxes",
   "health-pharma-packaging": "pharmaceutical-boxes",
   "cosmetic-packaging": "cosmetic-boxes",
+  // dieline generator styles
+  "rigid-two-piece": "two-piece-rigid-boxes",
+  "rigid-magnetic": "magnetic-boxes",
 };
 
 export function hasNavIcon(name: string) {

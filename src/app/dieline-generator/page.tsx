@@ -34,7 +34,7 @@ const faqs = [
 ];
 
 const stats = [
-  { k: "Structures", v: String(generatorStyles.length), t: "Tuck ends · auto and snap lock bottoms · four and six corner · mailer" },
+  { k: "Structures", v: String(generatorStyles.length), t: "Tuck ends · auto and snap lock bottoms · four and six corner · mailer · rigid lid & base and magnetic box" },
   { k: "Exports", v: "4", t: "PDF · SVG · DXF · PNG" },
   { k: "Geometry", v: "1:1", t: "mm, cm or inches, cut & crease layers" },
 ];
