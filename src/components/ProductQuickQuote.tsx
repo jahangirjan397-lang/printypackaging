@@ -117,6 +117,12 @@ export default function ProductQuickQuote({
           </span>
           <input name="whatsapp" type="tel" autoComplete="tel" placeholder="+1 555 000 0000" className="field-input field-compact" />
         </label>
+        <label className="col-span-2 block lg:col-span-1">
+          <span className="mb-1 block text-xs font-black">
+            Your website <span className="font-bold text-slate-400">(optional)</span>
+          </span>
+          <input name="companyWebsite" inputMode="url" autoComplete="url" maxLength={200} placeholder="brand.com or @instagram" className="field-input field-compact" />
+        </label>
         <label className="block">
           <span className="mb-1 block text-xs font-black">Quantity</span>
           <select name="quantity" defaultValue="1,000" className="field-input field-compact">

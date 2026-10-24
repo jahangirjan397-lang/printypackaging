@@ -62,6 +62,8 @@ export default function DielineLeadGate({
           email: String(f.get("email") || ""),
           whatsapp: String(f.get("whatsapp") || ""),
           country: String(f.get("country") || ""),
+          role: String(f.get("role") || ""),
+          companyWebsite: String(f.get("companyWebsite") || ""),
           product: `Free dieline: ${styleName}`,
           size: sizeText || "",
           quantity: wantsQuote ? String(f.get("quantity") || "") : "",
@@ -100,6 +102,11 @@ export default function DielineLeadGate({
           <select name="country" className="field-input field-compact" defaultValue="USA">
             {["USA", "UK", "Canada", "Europe", "Australia", "UAE", "Other"].map((c) => <option key={c}>{c}</option>)}
           </select>
+          <select name="role" required className="field-input field-compact" defaultValue="">
+            <option value="" disabled>I am a… *</option>
+            {["Brand / business owner", "Graphic designer", "Design or marketing agency", "Packaging buyer / reseller", "Student / personal project"].map((r) => <option key={r}>{r}</option>)}
+          </select>
+          <input name="companyWebsite" type="text" inputMode="url" autoComplete="url" maxLength={200} placeholder="Your website or Instagram (optional)" className="field-input field-compact" />
           <label className="flex items-start gap-2 text-sm font-bold text-slate-700">
             <input name="wantsQuote" type="checkbox" className="mt-1" checked={wantsPrice} onChange={(e) => setWantsPrice(e.target.checked)} />
             Also send me a price to print this box

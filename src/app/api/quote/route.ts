@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { promises as dns } from "node:dns";
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
@@ -35,7 +36,9 @@ type QuoteRequest = {
   message?: string;
   turnaround?: string;
   leadSource?: string;
-  website?: string;
+  website?: string; // honeypot, real visitors never fill it
+  companyWebsite?: string;
+  role?: string;
 };
 
 type LeadData = {
@@ -54,6 +57,9 @@ type LeadData = {
   artworkStatus: string;
   message: string;
   leadSource: string;
+  companyWebsite: string;
+  role: string;
+  check: string;
 };
 
 type ServiceResult = {
@@ -164,7 +170,93 @@ function buildLead(body: QuoteRequest): LeadData {
     message: [/^rush/i.test(clean(body.turnaround)) ? `RUSH ORDER (${clean(body.turnaround)})` : "", clean(body.message)].filter(Boolean).join(" — "),
     // Optional: where the buyer came from (utm_source / referrer)
     leadSource: clean(body.leadSource).slice(0, 200),
+    companyWebsite: clean(body.companyWebsite).slice(0, 200),
+    role: clean(body.role).slice(0, 60),
+    check: "",
   };
+}
+
+// ---------- Lead check (owner 2026-10-24): is the buyer real, and really where they say? ----------
+// The ERP copies the part of "Lead Source" after " ‖ " into the lead's Notes.
+
+const FREE_MAIL = /^(gmail|googlemail|yahoo|ymail|hotmail|outlook|live|msn|icloud|me|mac|aol|proton|protonmail|pm|gmx|mail|zoho|yandex|qq|163)\./;
+const CLAIMED_COUNTRY: Record<string, string[]> = {
+  usa: ["US"], "united states": ["US"], uk: ["GB"], "united kingdom": ["GB"], canada: ["CA"],
+  australia: ["AU"], uae: ["AE"],
+  europe: ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "NO", "CH", "IS"],
+};
+
+function bareHost(value: string) {
+  try {
+    const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+    return url.hostname.toLowerCase().replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
+async function siteIsLive(host: string) {
+  try {
+    const res = await fetch(`https://${host}`, { redirect: "follow", signal: AbortSignal.timeout(4_000), headers: { "User-Agent": "Mozilla/5.0 PrintyLeadCheck" } });
+    return res.status < 500;
+  } catch {
+    return false;
+  }
+}
+
+async function hasMx(domain: string) {
+  try {
+    const records = await Promise.race([
+      dns.resolveMx(domain),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 3_000)),
+    ]);
+    return records.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+async function checkLead(lead: LeadData, request: Request) {
+  const flags: string[] = [];
+  const parts: string[] = [];
+
+  const ipCountry = (request.headers.get("x-vercel-ip-country") || "").toUpperCase();
+  const ipCity = decodeURIComponent(request.headers.get("x-vercel-ip-city") || "");
+  const ipRegion = request.headers.get("x-vercel-ip-country-region") || "";
+  const expected = CLAIMED_COUNTRY[lead.country.toLowerCase()];
+  if (ipCountry) {
+    const where = [ipCountry, ipCity, ipRegion].filter(Boolean).join(" ");
+    if (!expected) parts.push(`IP ${where}`);
+    else if (expected.includes(ipCountry)) parts.push(`IP ${where} (matches ${lead.country})`);
+    else { parts.push(`IP ${where} (says ${lead.country})`); flags.push("country"); }
+  }
+
+  const emailDomain = lead.email.split("@")[1] || "";
+  const free = FREE_MAIL.test(emailDomain);
+  const mx = await hasMx(emailDomain);
+  if (!mx) flags.push("email");
+  parts.push(`Email ${free ? "free" : "business"} ${emailDomain}${mx ? "" : " NO MAIL SERVER"}`);
+
+  const instagram = lead.companyWebsite.match(/^@([\w.]+)$|instagram\.com\/([\w.]+)/i);
+  const site = instagram ? "" : bareHost(lead.companyWebsite);
+  if (instagram) {
+    parts.push(`Instagram @${instagram[1] || instagram[2]}`);
+  } else if (site) {
+    const live = await siteIsLive(site);
+    if (!live) flags.push("website");
+    const sameAsEmail = !free && (emailDomain === site || emailDomain.endsWith(`.${site}`) || site.endsWith(`.${emailDomain}`));
+    parts.push(`Site ${site} ${live ? "live" : "NOT REACHABLE"}${sameAsEmail ? ", matches email" : ""}`);
+  } else if (!free) {
+    parts.push(`Site guess ${emailDomain}`);
+  }
+  if (lead.role) parts.push(`Role ${lead.role}`);
+
+  const verdict = flags.length >= 2 || flags.includes("email")
+    ? "CHECK ✗ suspicious"
+    : flags.length === 1 || (free && !site && !instagram)
+      ? "CHECK ? verify"
+      : "CHECK ✓ looks real";
+  return `${verdict} | ${parts.join(" | ")}`.slice(0, 400);
 }
 
 function validateLead(lead: LeadData) {
@@ -336,7 +428,9 @@ async function saveLeadToGoogleSheet(
           uploadedFiles.map((file) => file.filename).join(", " )
         ),
         message: safeSpreadsheetCell(lead.message),
-        leadSource: safeSpreadsheetCell(lead.leadSource),
+        leadSource: safeSpreadsheetCell(
+          [lead.leadSource, lead.check].filter(Boolean).join(" ‖ ")
+        ),
       }),
     });
 
@@ -460,6 +554,9 @@ function getEmailHtml(lead: LeadData) {
         <p><strong>WhatsApp / Phone:</strong> ${safeWhatsapp}</p>
         <p><strong>Country:</strong> ${safeCountry}</p>
         <p><strong>Lead Source:</strong> ${safeLeadSource}</p>
+        <p><strong>Company website:</strong> ${escapeHtml(lead.companyWebsite || "-")}</p>
+        <p><strong>Role:</strong> ${escapeHtml(lead.role || "-")}</p>
+        <p><strong>Lead check:</strong> ${escapeHtml(lead.check || "-")}</p>
 
         <h3>Packaging Details</h3>
         <p><strong>Product Type:</strong> ${safeProduct}</p>
@@ -550,6 +647,9 @@ Email: ${lead.email}
 WhatsApp / Phone: ${lead.whatsapp}
 Country: ${lead.country}
 Lead Source: ${lead.leadSource}
+Company website: ${lead.companyWebsite}
+Role: ${lead.role}
+Lead check: ${lead.check}
 
 Product Type: ${lead.product}
 Quantity: ${lead.quantity}
@@ -695,6 +795,8 @@ export async function POST(request: Request) {
         message: formValue(formData, "message"), website: formValue(formData, "website"),
         turnaround: formValue(formData, "turnaround"),
         leadSource: formValue(formData, "leadSource"),
+        companyWebsite: formValue(formData, "companyWebsite"),
+        role: formValue(formData, "role"),
       };
 
       const realFiles = formData.getAll("artworkFiles").filter(
@@ -752,6 +854,8 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    lead.check = await checkLead(lead, request);
 
     // Artwork is delivered through the admin email attachment. Reject before
     // saving a CRM row if that channel cannot carry the files.

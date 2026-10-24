@@ -135,6 +135,9 @@ export default function DielinePriceForm({ styleName, flute, sizeText }: { style
             <Field label="WhatsApp">
               <input name="whatsapp" type="tel" autoComplete="tel" className="field-input field-compact" />
             </Field>
+            <Field label="Your website">
+              <input name="companyWebsite" inputMode="url" autoComplete="url" maxLength={200} placeholder="brand.com or @instagram" className="field-input field-compact" />
+            </Field>
             <Field label="Artwork">
               <input type="file" name="artworkFiles" multiple accept=".pdf,.ai,.eps,.psd,.svg,.png,.jpg,.jpeg,.webp,.tif,.tiff,.cdr" className="block w-full text-xs font-bold text-slate-600 file:mr-2 file:rounded-full file:border-0 file:bg-slate-100 file:px-3 file:py-2 file:font-black" />
             </Field>

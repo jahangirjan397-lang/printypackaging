@@ -685,6 +685,17 @@ export default function QuoteSection() {
                   ))}
                 </select>
               </FormField>
+
+              <FormField label="Your website">
+                <input
+                  name="companyWebsite"
+                  inputMode="url"
+                  autoComplete="url"
+                  maxLength={200}
+                  placeholder="brand.com or @instagram"
+                  className="field-input field-compact"
+                />
+              </FormField>
             </div>
 
             <div className="mt-2.5 grid gap-2.5 lg:grid-cols-3">
