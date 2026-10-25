@@ -623,6 +623,7 @@ const aliases: Record<string, string> = {
   // dieline generator styles
   "rigid-two-piece": "two-piece-rigid-boxes",
   "rigid-magnetic": "magnetic-boxes",
+  "rigid-book": "magnetic-boxes",
   "rigid-collapsible": "magnetic-boxes",
   "rigid-drawer": "drawer-boxes",
 };

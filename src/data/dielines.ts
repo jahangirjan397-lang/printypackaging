@@ -33,6 +33,7 @@ export type GeneratorStyle =
   | "pillow"
   | "rigid-two-piece"
   | "rigid-magnetic"
+  | "rigid-book"
   | "rigid-collapsible"
   | "rigid-drawer";
 

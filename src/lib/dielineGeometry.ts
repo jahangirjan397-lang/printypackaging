@@ -37,6 +37,7 @@ const allGeneratorStyles: {
   { id: "pillow", name: "Pillow Box", hint: "Curved press-in ends", dims: ["Width", "Depth", "Length"], board: "card", library: "pillow-box" },
   { id: "rigid-two-piece", name: "Rigid Lid & Base", hint: "Two-piece rigid box · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "two-piece-rigid-box" },
   { id: "rigid-magnetic", name: "Rigid Magnetic Box", hint: "Book-style flap · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "magnetic-closure-box" },
+  { id: "rigid-book", name: "Rigid Book Box", hint: "Hinged lid, no magnet · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "magnetic-closure-box" },
   { id: "rigid-collapsible", name: "Collapsible Magnetic Box", hint: "Ships flat · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "collapsible-magnetic-box" },
   { id: "rigid-drawer", name: "Rigid Drawer / Sleeve & Tray", hint: "Slide-out drawer · paid", dims: ["Length", "Width", "Height"], board: "rigid", library: "two-piece-rigid-box" },
 ];
@@ -45,8 +46,8 @@ const allGeneratorStyles: {
 // offered on the site. Others stay in the code until they are matched to our
 // CorelDRAW files and approved (shipping box, tray, sleeve, pillow).
 // Rigid wraps (owner 2026-10-24) are paid downloads; prepress checks each one.
-export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer", "six-corner", "snap-lock", "rigid-two-piece", "rigid-magnetic", "rigid-collapsible", "rigid-drawer"];
-export const PAID_STYLES: GeneratorStyle[] = ["rigid-two-piece", "rigid-magnetic", "rigid-collapsible", "rigid-drawer"];
+export const VERIFIED_STYLES: GeneratorStyle[] = ["reverse-tuck-end", "straight-tuck-end", "auto-bottom", "four-corner", "mailer", "six-corner", "snap-lock", "rigid-two-piece", "rigid-magnetic", "rigid-book", "rigid-collapsible", "rigid-drawer"];
+export const PAID_STYLES: GeneratorStyle[] = ["rigid-two-piece", "rigid-magnetic", "rigid-book", "rigid-collapsible", "rigid-drawer"];
 export const generatorStyles = allGeneratorStyles.filter((s) => VERIFIED_STYLES.includes(s.id));
 
 export const unitToMm: Record<Unit, number> = { mm: 1, cm: 10, in: 25.4 };
@@ -793,11 +794,12 @@ function rigidTwoPiece(d: DielineInput): Dieline {
 // corner chamfers; liner 2t smaller than the case; tray wrap is a cross with
 // flaps 2H+2t deep over a base of L+3.2t x W+3.2t, and tapered corner tabs
 // (12.7+t wide, H+t long, 2.4 mm taper) on the long flaps.
-function rigidMagnetic(d: DielineInput): Dieline {
+// Book box (hinged lid, no flap or magnet) is the same case without the flap.
+function rigidMagnetic(d: DielineInput, flap = true): Dieline {
   const { L, W, H } = d;
   const t = Math.max(d.t, 1), e = 12.7;
   const Lc = L + 5.1;
-  const boards: [string, number][] = [["BOTTOM", W + 5.1], ["SPINE", H + 5.1], ["LID", W + 5.1], ["FLAP", H + 3.6]];
+  const boards: [string, number][] = [["BOTTOM", W + 5.1], ["SPINE", H + 5.1], ["LID", W + 5.1], ...(flap ? [["FLAP", H + 3.6] as [string, number]] : [])];
   const ys: number[] = [0];
   boards.forEach(([, h], i) => { ys.push(ys[ys.length - 1] + h); if (i < boards.length - 1) ys.push(ys[ys.length - 1] + t); });
   const Y = ys[ys.length - 1];
@@ -822,8 +824,10 @@ function rigidMagnetic(d: DielineInput): Dieline {
   const lx = Lc + e + 20;
   const liner: Seg[] = [{ M: [lx, t] }, { L: [lx + Lc - 2 * t, t] }, { L: [lx + Lc - 2 * t, Y - t] }, { L: [lx, Y - t] }, { L: [lx, t] }];
   paths.push({ kind: "cut", segs: liner, closed: true });
-  labels.push({ at: [lx + Lc / 2 - t, Y / 2], text: "CASE LINER", size: 0.7 });
-  dims.push(hd(lx, lx + Lc - 2 * t, Y * 0.2));
+  // the liner folds at the same hinges; name what each part shows inside the box
+  ys.slice(1, -1).forEach((y) => fold([lx, y], [lx + Lc - 2 * t, y]));
+  boards.forEach(([name, h], i) => labels.push({ at: [lx + Lc / 2 - t, ys[i * 2] + h * 0.55], text: `INSIDE ${name}`, size: h < 30 ? 0.5 : 0.7 }));
+  dims.push(hd(lx, lx + Lc - 2 * t, ys[1] * 0.2));
 
   // tray wrap
   const F = 2 * H + 2 * t;
@@ -839,8 +843,10 @@ function rigidMagnetic(d: DielineInput): Dieline {
     dims,
     bbox: bboxOf(paths),
     notes: [
-      `Case boards ${r1(Lc)} mm wide: bottom ${r1(W + 5.1)}, spine ${r1(H + 5.1)}, lid ${r1(W + 5.1)}, flap ${r1(H + 3.6)} mm with ${t} mm gaps; tray base ${r1(L)} × ${r1(W)}, walls ${r1(H)} mm`,
-      `Rigid magnetic box on ${t} mm grey board: case wrap (12.7 mm turn-ins, mitred corners), case liner and tray wrap, to our production rules; magnets go under the flap and the front wall`,
+      `Case boards ${r1(Lc)} mm wide: bottom ${r1(W + 5.1)}, spine ${r1(H + 5.1)}, lid ${r1(W + 5.1)}${flap ? `, flap ${r1(H + 3.6)}` : ""} mm with ${t} mm gaps; tray base ${r1(L)} × ${r1(W)}, walls ${r1(H)} mm`,
+      flap
+        ? `Rigid magnetic box on ${t} mm grey board: case wrap (12.7 mm turn-ins, mitred corners), case liner and tray wrap, to our production rules; magnets go under the flap and the front wall`
+        : `Rigid book box (hinged lid) on ${t} mm grey board: case wrap (12.7 mm turn-ins, mitred corners), case liner and tray wrap, to our production rules`,
     ],
   };
 }
@@ -993,6 +999,7 @@ function buildRaw(style: GeneratorStyle, input: DielineInput): Dieline {
     case "snap-lock": return snapLock(input);
     case "rigid-two-piece": return rigidTwoPiece(input);
     case "rigid-magnetic": return rigidMagnetic(input);
+    case "rigid-book": return rigidMagnetic(input, false);
     case "rigid-collapsible": return rigidCollapsible(input);
     case "rigid-drawer": return rigidDrawer(input);
   }
