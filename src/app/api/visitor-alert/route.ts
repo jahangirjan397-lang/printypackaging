@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   const ip = (request.headers.get("x-forwarded-for") ?? "").split(",")[0].trim() || "unknown";
   if (limited(ip)) return done("limited");
 
-  let body: { type?: string; path?: string; referrer?: string } = {};
+  let body: { type?: string; path?: string; referrer?: string; line?: string } = {};
   try {
     body = JSON.parse(await request.text());
   } catch {
@@ -83,6 +83,7 @@ export async function POST(request: Request) {
   const path = clean(body.path, 120) || "/";
   if (!path.startsWith("/")) return done("bad-path");
   const chat = body.type === "chat";
+  const whatsapp = body.type === "whatsapp";
 
   const decode = (v: string | null) => {
     try {
@@ -97,7 +98,11 @@ export async function POST(request: Request) {
   const device = /mobile|android|iphone/i.test(ua) ? "Mobile" : /ipad|tablet/i.test(ua) ? "Tablet" : "Desktop";
 
   const text = [
-    chat ? "💬 A visitor opened the chat" : "👀 Visitor on the website",
+    whatsapp
+      ? body.line === "usa"
+        ? "📲 WhatsApp click → 🇺🇸 USA line +1 516-550-1638"
+        : "📲 WhatsApp click → main line +30 698 502 4723"
+      : chat ? "💬 A visitor opened the chat" : "👀 Visitor on the website",
     `🌍 ${place}`,
     `📄 printypackaging.com${path}`,
     `↪️ From: ${sourceOf(clean(body.referrer, 300))}`,

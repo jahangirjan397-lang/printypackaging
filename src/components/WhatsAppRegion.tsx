@@ -7,7 +7,7 @@ import { useEffect } from "react";
 // browser's time zone, so pages stay static and nothing is sent anywhere)
 // are switched to it instead.
 export const WHATSAPP_MAIN = "306985024723";
-export const WHATSAPP_USA = ""; // e.g. "1XXXXXXXXXX" once the owner has a US WhatsApp number
+export const WHATSAPP_USA = "15165501638"; // owner's US number (2026-10-26)
 
 export function isAmericasVisitor() {
   try {
@@ -18,6 +18,22 @@ export function isAmericasVisitor() {
 }
 
 export default function WhatsAppRegion() {
+  // Every WhatsApp click tells the owner (Telegram) which line the visitor went to
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href*="wa.me/"]') : null;
+      if (!link) return;
+      const line = link.href.includes(`wa.me/${WHATSAPP_USA}`) && WHATSAPP_USA ? "usa" : "main";
+      const body = JSON.stringify({ type: "whatsapp", line, path: location.pathname, referrer: document.referrer });
+      const blob = new Blob([body], { type: "application/json" });
+      if (!navigator.sendBeacon?.("/api/visitor-alert", blob)) {
+        fetch("/api/visitor-alert", { method: "POST", body, keepalive: true }).catch(() => {});
+      }
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
+
   useEffect(() => {
     if (!WHATSAPP_USA || !isAmericasVisitor()) return;
     const swap = (root: ParentNode) => {
