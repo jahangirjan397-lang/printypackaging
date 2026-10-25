@@ -1,3 +1,4 @@
+import { salesPhone } from "@/data/businessInfo";
 import { activeSocialLinks } from "@/data/socialLinks";
 
 export default function OrganizationSchema() {
@@ -41,6 +42,9 @@ export default function OrganizationSchema() {
         areaServed: ["US", "GB", "EU", "AE"],
         availableLanguage: ["English"],
       },
+      ...(salesPhone.tel
+        ? [{ "@type": "ContactPoint", telephone: salesPhone.tel, contactType: "sales", areaServed: ["US"], availableLanguage: ["English"] }]
+        : []),
     ],
     makesOffer: [
       {
