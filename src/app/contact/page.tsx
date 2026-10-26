@@ -23,6 +23,16 @@ const contactOptions = [
     href: "mailto:sales@printypackaging.com",
     action: "Email Us",
   },
+  ...(salesPhone.tel
+    ? [{
+        title: "Call or Text (USA)",
+        value: salesPhone.display.replace(/^USA\s*/, ""),
+        detail:
+          "US buyers: call or text our US line for quotes and order questions. Leave a message after hours and we reply within 10-15 minutes.",
+        href: `tel:${salesPhone.tel}`,
+        action: "Call Us",
+      }]
+    : []),
   {
     title: "WhatsApp Support",
     value: "Chat with our team",
@@ -153,7 +163,7 @@ export default function ContactPage() {
 
       <section className="px-4 py-16 sm:px-5 md:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className={`grid gap-5 md:grid-cols-2 ${contactOptions.length > 3 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
             {contactOptions.map((item) => (
               <a
                 key={item.title}
