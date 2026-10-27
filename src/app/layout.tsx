@@ -9,6 +9,7 @@ import WhatsAppRegion from "@/components/WhatsAppRegion";
 import "./globals.css";
 import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
 import { activeSocialLinks } from "@/data/socialLinks";
+import { reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
 import LeadSourceTracker from "@/components/LeadSourceTracker";
 
 const siteUrl = "https://printypackaging.com";
@@ -98,6 +99,8 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+  // Real social profiles and the public reviews page
+  const sameAs = [...activeSocialLinks.map((link) => link.url), reviewsProfileUrl].filter(Boolean);
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -107,9 +110,7 @@ export default function RootLayout({
     url: siteUrl,
     logo: `${siteUrl}/logo-icon.svg`,
     email: brandEmail,
-    ...(activeSocialLinks.length > 0
-      ? { sameAs: activeSocialLinks.map((link) => link.url) }
-      : {}),
+    ...(sameAs.length > 0 ? { sameAs } : {}),
     description:
       "Printy Packaging provides custom printed packaging boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels, stickers and luxury packaging for USA, UK, Europe, UAE and worldwide brands.",
     areaServed: [
@@ -142,6 +143,9 @@ export default function RootLayout({
         areaServed: ["US", "GB", "EU", "AE"],
         availableLanguage: ["English"],
       },
+      ...(salesPhone.tel
+        ? [{ "@type": "ContactPoint", telephone: salesPhone.tel, contactType: "sales", areaServed: ["US"], availableLanguage: ["English"] }]
+        : []),
     ],
     makesOffer: [
       {
