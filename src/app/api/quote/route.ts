@@ -256,8 +256,13 @@ async function checkLead(lead: LeadData, request: Request) {
     : flags.length === 1 || (free && !site && !instagram)
       ? "CHECK ? verify"
       : "CHECK ✓ looks real";
-  return `${verdict} | ${parts.join(" | ")}`.slice(0, 400);
+  // Pakistan / India leads (by IP or stated country) are mostly students and
+  // designers: they stay welcome, but the ERP skips alerts and follow-ups for them
+  const low = ["PK", "IN"].includes(ipCountry) || /^(pakistan|india)$/i.test(lead.country.trim());
+  return `${low ? `${LOW_PRIORITY} | ` : ""}${verdict} | ${parts.join(" | ")}`.slice(0, 400);
 }
+
+const LOW_PRIORITY = "LOW PRIORITY (PK/IN)";
 
 function validateLead(lead: LeadData) {
   if (lead.name.length < 2) {
@@ -635,7 +640,7 @@ async function sendAdminEmail(
       from: `"Printy Packaging Website" <${emailService.config.fromEmail}>`,
       to: emailService.config.receiverEmail,
       replyTo: lead.email,
-      subject: `New Quote Request ${lead.quoteId} - ${productSubject}`,
+      subject: `${lead.check.startsWith(LOW_PRIORITY) ? "[Low priority PK/IN] " : ""}New Quote Request ${lead.quoteId} - ${productSubject}`,
       html: adminHtml,
       text: `
 New Quote Request

@@ -94,6 +94,8 @@ export async function POST(request: Request) {
   };
   const city = decode(request.headers.get("x-vercel-ip-city"));
   const country = request.headers.get("x-vercel-ip-country") ?? "";
+  // Plain visits from Pakistan / India are mostly students and designers: no alert
+  if (!chat && !whatsapp && ["PK", "IN"].includes(country.toUpperCase())) return done("low-priority");
   const place = [city, country].filter(Boolean).join(", ") || "Unknown location";
   const device = /mobile|android|iphone/i.test(ua) ? "Mobile" : /ipad|tablet/i.test(ua) ? "Tablet" : "Desktop";
 
