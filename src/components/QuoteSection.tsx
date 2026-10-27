@@ -667,11 +667,14 @@ export default function QuoteSection() {
                 </select>
               </FormField>
 
-              <FormField label="Quantity">
+              <FormField label="Quantity *">
                 <input
                   name="quantity"
                   inputMode="numeric"
-                  placeholder="e.g. 1000"
+                  placeholder="e.g. 1000 (min 100)"
+                  required
+                  pattern="\s*[0-9][0-9,.\s]*(pcs|pieces|boxes)?\s*"
+                  title="Enter how many pieces you need, e.g. 500"
                   className="field-input field-compact"
                 />
               </FormField>
