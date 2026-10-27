@@ -161,6 +161,7 @@ export const navMenus: NavMenu[] = [
       { name: "Finishing Options", href: "/finishing-options", icon: "finishes", text: "Foil, spot UV, lamination" },
       { name: "Dieline Library", href: "/dielines", icon: "artwork", text: "50+ box styles, free in your size" },
       { name: "Dieline Generator", href: "/dieline-generator", icon: "process", text: "Free PDF/SVG template in seconds" },
+      { name: "Nutrition Label Generator", href: "/nutrition-label-generator", icon: "artwork", text: "Free FDA & UK/EU nutrition labels" },
       { name: "Artwork & Dielines", href: "/artwork-guide", icon: "artwork", text: "Get your files print-ready" },
       { name: "Design Services", href: "/design-services", icon: "artwork", text: "Packaging, labels, logos, Amazon" },
       { name: "Sample Kit", href: "/sample-kit", icon: "sample-kit", text: "Feel materials before ordering" },

@@ -52,6 +52,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: `${siteUrl}/nutrition-label-generator`,
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: `${siteUrl}/design-services`,
       changeFrequency: "monthly",
       priority: 0.8,
