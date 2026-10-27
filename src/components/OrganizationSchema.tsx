@@ -1,4 +1,4 @@
-import { salesPhone } from "@/data/businessInfo";
+import { reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
 import { activeSocialLinks } from "@/data/socialLinks";
 
 export default function OrganizationSchema() {
@@ -93,8 +93,8 @@ export default function OrganizationSchema() {
         },
       },
     ],
-    // Real social profiles only (empty ones are filtered out)
-    sameAs: activeSocialLinks.map((link) => link.url),
+    // Real social profiles and the public reviews page (empty ones are filtered out)
+    sameAs: [...activeSocialLinks.map((link) => link.url), reviewsProfileUrl].filter(Boolean),
   };
 
   return (
