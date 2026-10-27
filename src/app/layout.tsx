@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
 import HeaderGate from "@/components/HeaderGate";
 import SiteFooterGate from "@/components/SiteFooterGate";
+import HideOnRoutes from "@/components/HideOnRoutes";
 import LiveChatWidget from "@/components/LiveChatWidget";
 import FloatingActions from "@/components/FloatingActions";
 import WhatsAppRegion from "@/components/WhatsAppRegion";
@@ -227,7 +228,9 @@ export default function RootLayout({
 
         <HeaderGate />
         {children}
-        <SiteFooterGate />
+        <HideOnRoutes routes={["/design-services"]}>
+          <SiteFooterGate />
+        </HideOnRoutes>
         <LiveChatWidget />
         <FloatingActions />
         <WhatsAppRegion />

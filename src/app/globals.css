@@ -198,3 +198,33 @@ body {
     display: none;
   }
 }
+/* Printy Studio (design services): its own look, separate from the packaging pages */
+@keyframes studio-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes studio-float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(0, -18px) rotate(6deg); }
+}
+@keyframes studio-pop {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes studio-spin {
+  to { transform: rotate(360deg); }
+}
+.studio-marquee { animation: studio-marquee 28s linear infinite; }
+.studio-float { animation: studio-float 7s ease-in-out infinite; }
+.studio-float-slow { animation: studio-float 11s ease-in-out infinite; }
+.studio-spin { animation: studio-spin 18s linear infinite; }
+.studio-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.studio-reveal.is-in { opacity: 1; transform: none; }
+.studio-tilt { transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease; }
+.studio-tilt:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 30px 60px -20px rgba(43, 22, 120, 0.35); }
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-marquee, .studio-float, .studio-float-slow, .studio-spin { animation: none; }
+  .studio-reveal { opacity: 1; transform: none; transition: none; }
+  .studio-tilt:hover { transform: none; }
+}

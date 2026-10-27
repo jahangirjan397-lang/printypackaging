@@ -162,6 +162,7 @@ export const navMenus: NavMenu[] = [
       { name: "Dieline Library", href: "/dielines", icon: "artwork", text: "50+ box styles, free in your size" },
       { name: "Dieline Generator", href: "/dieline-generator", icon: "process", text: "Free PDF/SVG template in seconds" },
       { name: "Artwork & Dielines", href: "/artwork-guide", icon: "artwork", text: "Get your files print-ready" },
+      { name: "Design Services", href: "/design-services", icon: "artwork", text: "Packaging, labels, logos, Amazon" },
       { name: "Sample Kit", href: "/sample-kit", icon: "sample-kit", text: "Feel materials before ordering" },
       { name: "How Ordering Works", href: "/custom-packaging", icon: "process", text: "From quote to delivery" },
       { name: "FAQ", href: "/faq", icon: "faq", text: "MOQ, timing, shipping, payment" },

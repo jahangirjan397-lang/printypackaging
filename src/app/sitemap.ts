@@ -52,6 +52,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: `${siteUrl}/design-services`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/why-printy-packaging`,
       changeFrequency: "monthly",
       priority: 0.78,
