@@ -1,3 +1,5 @@
+import NavIcon, { hasNavIcon } from "@/components/NavIcon";
+
 type CategoryIconProps = {
   slug: string;
   size?: "sm" | "md" | "lg";
@@ -99,6 +101,9 @@ function renderCategoryIcon(slug: string) {
       );
 
     default:
+      if (hasNavIcon(slug)) {
+        return <NavIcon name={slug} className="h-full w-full" />;
+      }
       return (
         <svg {...commonProps}>
           <path d="M10 21L32 10L54 21L32 32L10 21Z" />

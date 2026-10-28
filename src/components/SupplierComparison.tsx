@@ -11,7 +11,7 @@ const comparisonRows = [
   {
     point: "Material Guidance",
     printy:
-      "SBS, art card, kraft, rigid board, corrugated, butter paper and food-grade options are explained.",
+      "SBS, art card, kraft, rigid board, corrugated, butter paper and greaseproof options are explained.",
     common:
       "Customer may need to select material without proper packaging support.",
   },
@@ -137,7 +137,7 @@ export default function SupplierComparison() {
 
             <Link
               href="/#quote"
-              className="inline-flex rounded-full bg-[#FF6A00] px-8 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
+              className="inline-flex rounded-full bg-[#FF6A00] px-8 py-4 font-black text-[#07111F] transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
             >
               Get Quote
             </Link>

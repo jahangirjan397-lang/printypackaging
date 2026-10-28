@@ -72,7 +72,7 @@ export default function PortfolioPreview() {
                   {item.tag}
                 </span>
 
-                <span className="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-white">
+                <span className="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6A00] text-xs font-black text-[#07111F]">
                   {index + 1}
                 </span>
               </div>

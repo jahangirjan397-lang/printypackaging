@@ -46,7 +46,7 @@ export default function Process() {
               key={step.title}
               className="relative rounded-3xl border border-slate-200 bg-[#F7FAFC] p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-xl md:p-6"
             >
-              <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-white shadow-lg shadow-orange-500/20">
+              <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20">
                 {index + 1}
               </div>
 

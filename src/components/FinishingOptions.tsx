@@ -72,7 +72,7 @@ export default function FinishingOptions() {
               className="group rounded-[1.7rem] border border-white/10 bg-white/[0.05] p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#00C2E8]/30 hover:bg-white/[0.08] hover:shadow-xl md:p-7"
             >
               <div className="mb-6 flex items-center justify-between gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-white transition duration-300 group-hover:bg-[#00C2E8] group-hover:text-[#07111F] md:h-14 md:w-14">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-[#07111F] transition duration-300 group-hover:bg-[#00C2E8] group-hover:text-[#07111F] md:h-14 md:w-14">
                   {index + 1}
                 </div>
 

@@ -42,13 +42,13 @@ export default function SalesSupportSection() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/#quote"
-                  className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
+                  className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
                 >
                   Request Quote
                 </Link>
 
                 <a
-                  href="https://wa.me/923338889954?text=Hello%20Printy Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                  href="https://wa.me/306985024723?text=Hello%20Printy Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-6 py-3 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/15"
@@ -67,7 +67,7 @@ export default function SalesSupportSection() {
                   className="rounded-3xl border border-white/10 bg-white/[0.06] p-6"
                 >
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-white">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-[#07111F]">
                       0{index + 1}
                     </span>
 

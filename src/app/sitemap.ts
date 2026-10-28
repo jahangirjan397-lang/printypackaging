@@ -4,6 +4,8 @@ import { blogPosts } from "@/data/blogs";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { markets } from "@/data/markets";
+import { isDraftPolicy } from "@/data/policyStatus";
+import { dielines } from "@/data/dielines";
 
 const siteUrl = "https://printypackaging.com";
 
@@ -30,6 +32,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${siteUrl}/portfolio`,
+      changeFrequency: "monthly",
+      priority: 0.76,
+    },
+    {
       url: `${siteUrl}/blog`,
       changeFrequency: "weekly",
       priority: 0.82,
@@ -45,6 +52,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: `${siteUrl}/design-services`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/why-printy-packaging`,
       changeFrequency: "monthly",
       priority: 0.78,
@@ -58,6 +70,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteUrl}/resources`,
     changeFrequency: "monthly",
     priority: 0.72,
+  },
+  {
+    url: `${siteUrl}/terms`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/artwork-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/payment-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/shipping-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/refund-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
+  {
+    url: `${siteUrl}/privacy-policy`,
+    changeFrequency: "yearly",
+    priority: 0.3,
   },
 ];
 
@@ -85,8 +127,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.78,
   }));
 
+  const dielineRoutes: MetadataRoute.Sitemap = [
+    { url: `${siteUrl}/dieline-generator`, changeFrequency: "monthly", priority: 0.84 },
+    { url: `${siteUrl}/box-sizes`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/dielines`, changeFrequency: "monthly", priority: 0.8 },
+    ...dielines.map((d) => ({
+      url: `${siteUrl}/dielines/${d.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.66,
+    })),
+  ];
+
   const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
+    // Tells Google when a post last changed, so updates get recrawled
+    lastModified: post.updatedAt || post.publishedAt,
     changeFrequency: "monthly",
     priority: 0.72,
   }));
@@ -98,11 +153,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...categoryRoutes,
     ...marketRoutes,
     ...blogRoutes,
+    ...dielineRoutes,
   ];
 
   return allRoutes.filter(
     (route, index) =>
-      allRoutes.findIndex((item) => item.url === route.url) === index
+      allRoutes.findIndex((item) => item.url === route.url) === index &&
+      // Draft policy pages are not listed until their wording is approved
+      !isDraftPolicy(route.url.replace(`${siteUrl}/`, ""))
   );
 }
 

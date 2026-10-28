@@ -3,10 +3,15 @@ import type { ReactNode } from "react";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
 import HeaderGate from "@/components/HeaderGate";
 import SiteFooterGate from "@/components/SiteFooterGate";
+import HideOnRoutes from "@/components/HideOnRoutes";
 import LiveChatWidget from "@/components/LiveChatWidget";
 import FloatingActions from "@/components/FloatingActions";
+import WhatsAppRegion from "@/components/WhatsAppRegion";
 import "./globals.css";
 import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
+import { activeSocialLinks } from "@/data/socialLinks";
+import { reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
+import LeadSourceTracker from "@/components/LeadSourceTracker";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -54,10 +59,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${siteUrl}/images/hero/hero-packaging.webp`,
-        width: 1600,
-        height: 900,
-        alt: "Premium custom printed packaging boxes by Printy Packaging",
+        url: `${siteUrl}/images/products/mailer-boxes/mailer-boxes-hero-brand.webp`,
+        width: 1448,
+        height: 1086,
+        alt: "Branded mailer boxes for ecommerce and retail packaging",
       },
     ],
   },
@@ -66,7 +71,7 @@ export const metadata: Metadata = {
     title: "Printy Packaging | Premium Custom Printing & Packaging",
     description:
       "Premium custom boxes, rigid boxes, food packaging, paper bags, labels, stickers and luxury packaging for global brands.",
-    images: [`${siteUrl}/images/hero/hero-packaging.webp`],
+    images: [`${siteUrl}/images/products/mailer-boxes/mailer-boxes-hero-brand.webp`],
   },
   robots: {
     index: true,
@@ -95,6 +100,8 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+  // Real social profiles and the public reviews page
+  const sameAs = [...activeSocialLinks.map((link) => link.url), reviewsProfileUrl].filter(Boolean);
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -104,6 +111,7 @@ export default function RootLayout({
     url: siteUrl,
     logo: `${siteUrl}/logo-icon.svg`,
     email: brandEmail,
+    ...(sameAs.length > 0 ? { sameAs } : {}),
     description:
       "Printy Packaging provides custom printed packaging boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels, stickers and luxury packaging for USA, UK, Europe, UAE and worldwide brands.",
     areaServed: [
@@ -136,6 +144,9 @@ export default function RootLayout({
         areaServed: ["US", "GB", "EU", "AE"],
         availableLanguage: ["English"],
       },
+      ...(salesPhone.tel
+        ? [{ "@type": "ContactPoint", telephone: salesPhone.tel, contactType: "sales", areaServed: ["US"], availableLanguage: ["English"] }]
+        : []),
     ],
     makesOffer: [
       {
@@ -217,10 +228,14 @@ export default function RootLayout({
 
         <HeaderGate />
         {children}
-        <SiteFooterGate />
+        <HideOnRoutes routes={["/design-services"]}>
+          <SiteFooterGate />
+        </HideOnRoutes>
         <LiveChatWidget />
         <FloatingActions />
+        <WhatsAppRegion />
         <AnalyticsClickTracker />
+        <LeadSourceTracker />
         <AnalyticsConsent />
       </body>
     </html>

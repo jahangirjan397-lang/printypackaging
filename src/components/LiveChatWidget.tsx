@@ -7,13 +7,63 @@ type TawkWindow = Window &
     Tawk_API?: {
       customStyle?: {
         zIndex?: number;
+        visibility?: Record<
+          "desktop" | "mobile" | "bubble",
+          { position?: string; xOffset?: number; yOffset?: number; rotate?: string }
+        >;
       };
       [key: string]: unknown;
     };
     Tawk_LoadStart?: Date;
   };
 
+// The owner's own devices: open any page once with ?owner=1 (undo with
+// ?owner=0) and that browser no longer loads the chat or sends visitor
+// alerts, so the owner's visits are not counted as visitors
+function isOwnerDevice() {
+  try {
+    const flag = new URLSearchParams(window.location.search).get("owner");
+    if (flag === "1") localStorage.setItem("pp-owner", "1");
+    if (flag === "0") localStorage.removeItem("pp-owner");
+    return localStorage.getItem("pp-owner") === "1";
+  } catch {
+    return false;
+  }
+}
+
+// Tell the owner (Telegram, via /api/visitor-alert) about a real visitor:
+// once per visit after 10 seconds on the site, and when the chat is opened
+function sendVisitorAlert(type: "visit" | "chat") {
+  try {
+    const key = `pp-alert-${type}`;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+  } catch {
+    // Storage blocked: send anyway
+  }
+  const body = JSON.stringify({
+    type,
+    path: window.location.pathname,
+    referrer: document.referrer,
+  });
+  const blob = new Blob([body], { type: "application/json" });
+  if (!navigator.sendBeacon?.("/api/visitor-alert", blob)) {
+    fetch("/api/visitor-alert", { method: "POST", body, keepalive: true }).catch(() => {});
+  }
+}
+
 export default function LiveChatWidget() {
+  useEffect(() => {
+    const host = window.location.hostname;
+    if (host !== "printypackaging.com" && host !== "www.printypackaging.com") return;
+    if (isOwnerDevice()) return;
+    // Only count visitors who actually look at the page for 10 seconds
+    const timer = window.setTimeout(() => {
+      if (document.visibilityState === "visible") sendVisitorAlert("visit");
+    }, 10000);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const propertyId = process.env.NEXT_PUBLIC_TAWK_PROPERTY_ID;
     const widgetId = process.env.NEXT_PUBLIC_TAWK_WIDGET_ID || "default";
@@ -35,6 +85,10 @@ export default function LiveChatWidget() {
       return;
     }
 
+    if (isOwnerDevice()) {
+      return;
+    }
+
     if (document.getElementById("tawk-live-chat-script")) {
       return;
     }
@@ -44,16 +98,73 @@ export default function LiveChatWidget() {
 
     tawkWindow.Tawk_API.customStyle = {
       zIndex: 999998,
+      // Keep the chat button and its message preview clear of the screen
+      // edge and the scrollbar so they are never cut off
+      visibility: {
+        desktop: { position: "br", xOffset: 28, yOffset: 24 },
+        mobile: { position: "br", xOffset: 14, yOffset: 18 },
+        bubble: { rotate: "0deg", xOffset: -18, yOffset: 0 },
+      },
     };
 
-    const script = document.createElement("script");
-    script.id = "tawk-live-chat-script";
-    script.async = true;
-    script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
-    script.charset = "UTF-8";
-    script.crossOrigin = "anonymous";
+    if (isLiveWebsite) {
+      tawkWindow.Tawk_API.onChatStarted = () => sendVisitorAlert("chat");
+    }
 
-    document.body.appendChild(script);
+    // Open the chat window by itself once per visit, 10 seconds after the
+    // page loads (desktop and mobile), so the welcome message and quick
+    // questions are seen. Not on the contact/thank-you pages, and never while
+    // the visitor is typing in a form.
+    tawkWindow.Tawk_API.onLoad = () => {
+      window.setTimeout(() => {
+        const api = tawkWindow.Tawk_API as {
+          maximize?: () => void;
+          isChatMaximized?: () => boolean;
+        };
+        const typing = document.activeElement?.matches("input, textarea, select");
+        const quietPage = /^\/(contact|thank-you)/.test(window.location.pathname);
+        let alreadyOpened = false;
+        try {
+          alreadyOpened = sessionStorage.getItem("pp-chat-auto-opened") === "1";
+          sessionStorage.setItem("pp-chat-auto-opened", "1");
+        } catch {
+          // Storage blocked: still open once for this page view
+        }
+        if (
+          !typing &&
+          !quietPage &&
+          !alreadyOpened &&
+          !api.isChatMaximized?.()
+        ) {
+          api.maximize?.();
+        }
+      }, 10000);
+    };
+
+    // The chat script is heavy (~240 KB), so it loads after the page is up:
+    // on the visitor's first scroll, tap, mouse move or key press, or after
+    // 6 seconds, whichever comes first.
+    const events = ["scroll", "pointerdown", "pointermove", "keydown", "touchstart"] as const;
+    let timer = 0;
+    const load = () => {
+      window.clearTimeout(timer);
+      events.forEach((name) => window.removeEventListener(name, load));
+      if (document.getElementById("tawk-live-chat-script")) return;
+      const script = document.createElement("script");
+      script.id = "tawk-live-chat-script";
+      script.async = true;
+      script.src = `https://embed.tawk.to/${propertyId}/${widgetId}`;
+      script.charset = "UTF-8";
+      script.crossOrigin = "anonymous";
+      document.body.appendChild(script);
+    };
+    events.forEach((name) => window.addEventListener(name, load, { once: true, passive: true }));
+    timer = window.setTimeout(load, 6000);
+
+    return () => {
+      window.clearTimeout(timer);
+      events.forEach((name) => window.removeEventListener(name, load));
+    };
   }, []);
 
   return null;

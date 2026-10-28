@@ -50,7 +50,7 @@ export default function ProductBuyerJourneySection({
               <Link
                 href={quoteLink}
                 prefetch={false}
-                className="rounded-full bg-[#FF6A00] px-7 py-4 text-center text-sm font-black text-white shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91]"
+                className="rounded-full bg-[#FF6A00] px-7 py-4 text-center text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/25 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
               >
                 Start Quote
               </Link>
@@ -71,7 +71,7 @@ export default function ProductBuyerJourneySection({
                 key={step.title}
                 className="rounded-[1.7rem] border border-white/10 bg-white/[0.05] p-6 shadow-xl shadow-black/10"
               >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-white shadow-lg shadow-orange-500/20">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6A00] text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20">
                   {index + 1}
                 </div>
 

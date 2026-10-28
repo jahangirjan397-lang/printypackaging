@@ -9,9 +9,9 @@ const contactCards = [
   },
   {
     title: "WhatsApp Support",
-    value: "+92 333 888 9954",
+    value: "Chat with our team",
     detail: "Fast support for packaging questions, artwork and quote guidance.",
-    href: "https://wa.me/923338889954",
+    href: "https://wa.me/306985024723",
   },
   {
     title: "USA Quote Support",
@@ -45,7 +45,7 @@ export default function ContactTrustSection() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="#quote"
-                  className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91]"
+                  className="rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white"
                 >
                   Start Quote Request
                 </a>

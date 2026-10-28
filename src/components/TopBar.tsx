@@ -1,5 +1,5 @@
 const salesEmail = "sales@printypackaging.com";
-const supportText = "USA • UK • Europe Quote Support";
+const supportText = "USA â€¢ UK â€¢ Europe Quote Support";
 
 export default function TopBar() {
   return (

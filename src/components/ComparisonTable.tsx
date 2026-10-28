@@ -26,7 +26,7 @@ const rows = [
   },
   {
     feature: "AI Quote System",
-    printy: "Coming soon",
+    printy: "Instant price by email, usually within minutes",
     others: "Not available",
   },
 ];

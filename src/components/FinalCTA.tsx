@@ -44,7 +44,7 @@ export default function FinalCTA() {
             <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href="#quote"
-                className="rounded-full bg-[#FF6A00] px-7 py-4 text-sm font-black text-white shadow-xl shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91] md:px-8"
+                className="rounded-full bg-[#FF6A00] px-7 py-4 text-sm font-black text-[#07111F] shadow-xl shadow-orange-500/20 transition hover:-translate-y-1 hover:bg-[#007C91] hover:text-white md:px-8"
               >
                 Get Custom Quote
               </a>
@@ -67,7 +67,7 @@ export default function FinalCTA() {
 
                 <div className="absolute bottom-5 left-5 h-16 w-24 rotate-[-8deg] rounded-2xl bg-white shadow-2xl" />
 
-                <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#FF6A00] text-xs font-black text-white">
+                <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-2xl bg-[#FF6A00] text-xs font-black text-[#07111F]">
                   PP
                 </div>
               </div>

@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Third-party minified libraries (pdf.js for the dieline checker)
+    "public/vendor/**",
+    // Local working files, not part of the site
+    "Claude outputs/**",
+    ".claude/**",
   ]),
 ]);
 

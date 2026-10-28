@@ -40,7 +40,7 @@ export const marketSeoPages = {
     points: [
       "Mailer boxes and shipping boxes for online brands",
       "Rigid boxes and folding cartons for retail products",
-      "Food-safe packaging and wrapping paper options",
+      "Food packaging and wrapping paper options",
       "Clear quote support for multiple quantities",
     ],
   },

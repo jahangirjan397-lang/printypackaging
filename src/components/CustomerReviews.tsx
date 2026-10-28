@@ -15,7 +15,7 @@ const reviews = [
     client: "Food Packaging Buyer",
     country: "UK",
     product: "Butter Paper & Food Boxes",
-    text: "Material selection is very important for food packaging. Clear options like food grade SBS, kraft, butter paper and greaseproof paper help buyers make better decisions.",
+    text: "Material selection is very important for food packaging. Clear options like SBS, kraft, butter paper and greaseproof paper help buyers make better decisions.",
   },
   {
     rating: "★★★★★",
@@ -166,7 +166,7 @@ export default function CustomerReviews() {
 
             <Link
               href="/#quote"
-              className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-4 font-black text-white transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
+              className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-7 py-4 font-black text-[#07111F] transition hover:-translate-y-1 hover:bg-white hover:text-[#07111F]"
             >
               Request Quote
             </Link>

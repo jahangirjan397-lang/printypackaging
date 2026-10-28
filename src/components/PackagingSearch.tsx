@@ -395,7 +395,7 @@ export default function PackagingSearch() {
                     href="/#quote"
                     prefetch={false}
                     onClick={closeSearch}
-                    className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-white"
+                    className="mt-6 inline-flex rounded-full bg-[#FF6A00] px-6 py-3 text-sm font-black text-[#07111F]"
                   >
                     Request Custom Guidance
                   </Link>

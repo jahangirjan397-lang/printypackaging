@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { metaDescription, metaTitle } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
 import ProductPageTemplate from "../../../components/ProductPageTemplate";
@@ -38,8 +39,16 @@ export async function generateMetadata({
   }
 
   const productUrl = `${siteUrl}/products/${product.slug}`;
-  const title = `${product.name} | Custom ${product.name} Packaging | ${brandName}`;
-  const description = product.description;
+  // Buyer-intent title (e.g. "Custom Kraft Mailer Boxes with Logo"), kept under 60 characters
+  const title = metaTitle(
+    `Custom ${product.name} with Logo | ${brandName}`,
+    `Custom ${product.name} | ${brandName}`
+  );
+  const description = metaDescription(
+    product.description,
+    155,
+    "Free dieline & proof, low MOQ."
+  );
   const primaryImage = product.images?.[0];
 
   const socialImage = primaryImage

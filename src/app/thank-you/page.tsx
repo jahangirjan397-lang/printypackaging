@@ -40,7 +40,7 @@ export default function ThankYouPage() {
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/"
-              className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-8 py-4 text-sm font-black text-white shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
+              className="inline-flex items-center justify-center rounded-full bg-[#FF6A00] px-8 py-4 text-sm font-black text-[#07111F] shadow-[0_18px_45px_rgba(255,106,0,0.30)] transition hover:-translate-y-0.5 hover:bg-[#E85F00]"
             >
               Back to Home
             </Link>
@@ -53,7 +53,7 @@ export default function ThankYouPage() {
             </Link>
 
             <a
-              href="https://wa.me/923338889954?text=Hello%20Printy Packaging%2C%20I%20submitted%20a%20quote%20request%20on%20your%20website."
+              href="https://wa.me/306985024723?text=Hello%20Printy Packaging%2C%20I%20submitted%20a%20quote%20request%20on%20your%20website."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/10 px-8 py-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-white/15"

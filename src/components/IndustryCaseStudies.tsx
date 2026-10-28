@@ -13,13 +13,13 @@ const caseStudies = [
   },
   {
     industry: "Food & Restaurants",
-    title: "Food-safe packaging for restaurants, bakeries and cafes",
+    title: "Branded packaging for restaurants, bakeries and cafes",
     challenge:
       "Food businesses need packaging that is clean, practical, food-friendly and suitable for takeaway, delivery and brand presentation.",
     solution:
-      "Food packaging can use food grade SBS, kraft, butter paper, greaseproof paper and corrugated board depending on product type.",
+      "Food packaging can use SBS, kraft, butter paper, greaseproof paper and corrugated board depending on product type.",
     products: ["Burger Boxes", "Bakery Boxes", "Butter Paper"],
-    materials: ["Food Grade SBS", "Kraft Paper", "Butter Paper"],
+    materials: ["SBS Board", "Kraft Paper", "Butter Paper"],
   },
   {
     industry: "E-commerce & Shipping",

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import BrandLogo from "@/components/BrandLogo";
+import SocialIcons from "@/components/SocialIcons";
+import { isDraftPolicy } from "@/data/policyStatus";
 
 const productLinks = [
   { label: "Rigid Boxes", href: "/products/rigid-boxes" },
@@ -11,13 +13,24 @@ const productLinks = [
 ];
 
 const companyLinks = [
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Packaging Gallery", href: "/portfolio" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
   { label: "Why Printy Packaging", href: "/why-printy-packaging" },
+  { label: "Packaging Blog", href: "/blog" },
   { label: "FAQ", href: "/faq" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms / Quote Policy", href: "/terms" },
 ];
+
+// Draft policies stay out of the footer until approved (Terms is always
+// linked because the page already existed before the rewrite)
+const policyLinks = [
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Refund Policy", href: "/refund-policy" },
+  { label: "Shipping Policy", href: "/shipping-policy" },
+  { label: "Artwork Policy", href: "/artwork-policy" },
+  { label: "Payment Policy", href: "/payment-policy" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+].filter((link) => link.href === "/terms" || !isDraftPolicy(link.href.slice(1)));
 
 const guideLinks = [
   { label: "Resources Hub", href: "/resources" },
@@ -25,6 +38,7 @@ const guideLinks = [
   { label: "Finishing Options", href: "/finishing-options" },
   { label: "Artwork & Dieline Guide", href: "/artwork-guide" },
   { label: "Sample & Material Guide", href: "/sample-kit" },
+  { label: "Packaging Buying Guide", href: "/packaging-guide" },
 ];
 
 const marketLinks = [
@@ -62,24 +76,24 @@ export default function SiteFooter() {
               </a>
 
               <a
-                href="https://wa.me/923338889954?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
+                href="https://wa.me/306985024723?text=Hello%20Printy%20Packaging%2C%20I%20need%20a%20custom%20packaging%20quote."
                 target="_blank"
                 rel="noreferrer"
                 className="block transition hover:text-[#FF6A00]"
               >
-                               WhatsApp: +92 333 888 9954
+                Chat on WhatsApp
               </a>
 
-                                          <p>
-                Lahore, Pakistan - Serving USA | UK | Europe | UAE and worldwide
-                packaging buyers
+              <p>
+                Serving USA | UK | Canada | Europe | UAE | Australia and
+                worldwide packaging buyers
               </p>
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/?product=mailer-boxes#quote"
-                className="rounded-full bg-[#FF6A00] px-6 py-3 text-center text-sm font-black text-white shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91]"
+                href="/#quote"
+                className="rounded-full bg-[#FF6A00] px-6 py-3 text-center text-sm font-black text-[#07111F] shadow-lg shadow-orange-500/20 transition hover:bg-[#007C91] hover:text-white"
               >
                 Get Quote
               </Link>
@@ -100,13 +114,27 @@ export default function SiteFooter() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6">
+          <nav
+            aria-label="Policies"
+            className="mb-5 flex flex-wrap gap-x-5 gap-y-2 text-xs font-bold text-slate-300 sm:text-sm"
+          >
+            {policyLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="transition hover:text-[#FF6A00]"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
           <div className="flex flex-col gap-3 text-xs text-slate-400 sm:text-sm md:flex-row md:items-center md:justify-between">
                                     <p>Copyright {year} Printy Packaging. All rights reserved.</p>
 
-            <p>
-              Custom boxes, printed packaging, premium finishes and quote
-              support.
-            </p>
+            <SocialIcons
+              platforms={["linkedin", "instagram", "facebook", "youtube", "x", "threads"]}
+            />
           </div>
         </div>
       </div>

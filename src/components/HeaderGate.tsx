@@ -8,6 +8,7 @@ const pagesWithOwnHeader = [
   "/products",
   "/categories",
   "/markets",
+  "/design-services", // Printy Studio has its own header
 ];
 
 export default function HeaderGate() {

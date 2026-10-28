@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
 import CategoryPageTemplate from "../../../components/CategoryPageTemplate";
 import { categories, getCategoryBySlug } from "../../../data/categories";
+import { products } from "../../../data/products";
+import { metaDescription, metaTitle } from "@/lib/seo";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -38,8 +40,22 @@ export async function generateMetadata({
   }
 
   const categoryUrl = `${siteUrl}/categories/${category.slug}`;
-  const title = `${category.name} | Custom Packaging Category | ${brandName}`;
-  const description = category.description;
+  const title = metaTitle(
+    `${category.name}: Box Styles & Ideas | ${brandName}`,
+    `${category.name} | ${brandName}`
+  );
+  const description = metaDescription(
+    category.description,
+    155,
+    "Get a free custom quote."
+  );
+  // Share image: first photo of the first product in this category
+  const coverImage = category.productSlugs
+    .map((productSlug) => products.find((product) => product.slug === productSlug)?.images?.[0])
+    .find(Boolean);
+  const socialImages = coverImage
+    ? [{ url: `${siteUrl}${coverImage.src}`, alt: coverImage.alt }]
+    : undefined;
 
   return {
     title: { absolute: title },
@@ -55,11 +71,13 @@ export async function generateMetadata({
       siteName: brandName,
       type: "website",
       locale: "en_US",
+      images: socialImages,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: socialImages?.map((image) => image.url),
     },
     robots: {
       index: true,
