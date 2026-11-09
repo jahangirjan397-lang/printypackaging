@@ -924,7 +924,12 @@ export async function POST(request: Request) {
       `auto-reply:${lead.email}`,
       MAX_AUTO_REPLIES_PER_EMAIL
     );
-    const clientEmailResult: ServiceResult = autoReplyLimit.allowed
+    // Dieline download with no price asked: record only, no email to the visitor (owner 2026-11-09)
+    const dielineOnly =
+      /^Free dieline:/i.test(lead.product) && /No price requested/i.test(lead.message);
+    const clientEmailResult: ServiceResult = dielineOnly
+      ? { success: false, skipped: true, message: "Dieline download only: no client email." }
+      : autoReplyLimit.allowed
       ? await sendClientAutoReply(lead)
       : {
           success: false,
