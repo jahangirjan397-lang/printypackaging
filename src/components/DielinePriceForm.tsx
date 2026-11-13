@@ -18,7 +18,7 @@ const WHATSAPP = "306985024723";
 // "Get my price" under the generator: the box style and size come from the
 // generator, the buyer adds material, printing, finish and quantity. It posts to
 // the same /api/quote as the website form, so the lead lands in the ERP and the
-// auto quote (estimation sheet) emails the price within 10-15 minutes.
+// the lead gets a confirm-details email first; the price follows within 10-15 minutes of their reply (owner 2026-11-13).
 export default function DielinePriceForm({ styleName, flute, rigid = false, sizeText }: { styleName: string; flute: boolean; rigid?: boolean; sizeText: string }) {
   const materials = MATERIALS[rigid ? "rigid" : flute ? "flute" : "card"];
   const [state, setState] = useState<"idle" | "sending" | "done">("idle");
@@ -72,7 +72,7 @@ export default function DielinePriceForm({ styleName, flute, rigid = false, size
       <section className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
         <h2 className="text-lg font-black text-emerald-900">Your price is on its way</h2>
         <p className="mt-1 text-sm font-bold text-emerald-900">
-          We are pricing your {styleName} {sizeText} now. It will reach {sentTo || "your inbox"} within 10-15 minutes, with shipping included.
+          Thanks! Within 10-15 minutes we&apos;ll email {sentTo || "your inbox"} to confirm the details of your {styleName} {sizeText}. Once you confirm, your exact price (shipping included) follows within 10-15 minutes.
         </p>
         {contact}
       </section>
@@ -83,7 +83,7 @@ export default function DielinePriceForm({ styleName, flute, rigid = false, size
     <section aria-labelledby="price-title" className="mt-6 rounded-2xl border-2 border-[#FF6A00] bg-white p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id="price-title" className="text-lg font-black text-[#07111F]">Get the price for this box</h2>
-        <p className="text-xs font-bold text-slate-500">{styleName}, {sizeText} · price by email within 10-15 minutes, shipping included</p>
+        <p className="text-xs font-bold text-slate-500">{styleName}, {sizeText} · we confirm your details, then price by email within 10-15 minutes, shipping included</p>
       </div>
       <form onSubmit={submit} className="mt-3">
         <div aria-hidden="true" className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden">
