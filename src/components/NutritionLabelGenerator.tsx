@@ -304,8 +304,8 @@ function AfterDownload({ mode, productName, onClose }: { mode: Mode; productName
       <button type="button" onClick={onClose} aria-label="Close" className="absolute right-4 top-3 text-xl font-black text-slate-400 hover:text-[#07111F]">×</button>
       {state === "done" ? (
         <>
-          <h3 className="text-xl font-black text-[#07111F]">Thanks! Your price is on its way</h3>
-          <p className="mt-2 text-sm leading-6 text-slate-600">We&apos;ll email it within 10-15 minutes, shipping included.</p>
+          <h3 className="text-xl font-black text-[#07111F]">Thanks! We&apos;ll be in touch shortly</h3>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Within 10-15 minutes we&apos;ll email you to confirm your label details. Once you confirm, your exact price (shipping included) follows within 10-15 minutes.</p>
           <Review />
         </>
       ) : (
