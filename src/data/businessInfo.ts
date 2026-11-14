@@ -97,13 +97,13 @@ export const officeAddress: OfficeAddress | null = rawAddress?.street
     }
   : null;
 
-// One line, e.g. "1 Morris Pkwy, Valley Stream, NY 11580, USA"
+// One line, e.g. "1 Morris Pkwy, Valley Stream, NY 11580, United States"
 export const officeAddressLine = officeAddress
   ? [
       officeAddress.street,
       officeAddress.city,
       [officeAddress.region, officeAddress.postalCode].filter(Boolean).join(" "),
-      officeAddress.country === "US" ? "USA" : officeAddress.country,
+      officeAddress.country === "US" ? "United States" : officeAddress.country,
     ]
       .filter(Boolean)
       .join(", ")
