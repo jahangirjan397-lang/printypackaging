@@ -13,8 +13,9 @@ const siteUrl = "https://printypackaging.com";
 
 function productLine(slug: string, name: string, tagline: string) {
   const startingPrice = getStartingPrice(slug);
-  const price = startingPrice
-    ? ` Estimated from ${formatStartingPrice(startingPrice).amount}${formatStartingPrice(startingPrice).per} for a standard size (rough guide, exact price quoted per order).`
+  const p = startingPrice ? formatStartingPrice(startingPrice) : null;
+  const price = p
+    ? ` Estimated from ${p.amount}${p.per} ${p.basis} for a standard size (${p.ladder.map((s) => `${s.label} ${s.amount}`).join(", ")}; rough guide, exact price quoted per order).`
     : "";
   return `- [Custom ${name}](${siteUrl}/products/${slug}): ${tagline}.${price}`;
 }

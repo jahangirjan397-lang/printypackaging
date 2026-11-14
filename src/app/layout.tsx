@@ -10,7 +10,7 @@ import WhatsAppRegion from "@/components/WhatsAppRegion";
 import "./globals.css";
 import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
 import { activeSocialLinks } from "@/data/socialLinks";
-import { reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
+import { officePostalAddress, reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
 import LeadSourceTracker from "@/components/LeadSourceTracker";
 
 const siteUrl = "https://printypackaging.com";
@@ -111,6 +111,7 @@ export default function RootLayout({
     url: siteUrl,
     logo: `${siteUrl}/logo-icon.svg`,
     email: brandEmail,
+    ...(officePostalAddress ? { address: officePostalAddress } : {}),
     ...(sameAs.length > 0 ? { sameAs } : {}),
     description:
       "Printy Packaging provides custom printed packaging boxes, rigid boxes, mailer boxes, folding cartons, food packaging, butter paper, paper bags, labels, stickers and luxury packaging for USA, UK, Europe, UAE and worldwide brands.",

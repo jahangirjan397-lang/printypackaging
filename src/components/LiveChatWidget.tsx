@@ -102,7 +102,9 @@ export default function LiveChatWidget() {
       // edge and the scrollbar so they are never cut off
       visibility: {
         desktop: { position: "br", xOffset: 28, yOffset: 24 },
-        mobile: { position: "br", xOffset: 14, yOffset: 18 },
+        // On phones, sit above the pinned "Get Free Quote" bar (MobileQuoteBar)
+        // so the chat button never covers the quote button
+        mobile: { position: "br", xOffset: 14, yOffset: 84 },
         bubble: { rotate: "0deg", xOffset: -18, yOffset: 0 },
       },
     };
@@ -112,7 +114,7 @@ export default function LiveChatWidget() {
     }
 
     // Open the chat window by itself once per visit, 10 seconds after the
-    // page loads (desktop and mobile), so the welcome message and quick
+    // page loads (desktop only, see below), so the welcome message and quick
     // questions are seen. Not on the contact/thank-you pages, and never while
     // the visitor is typing in a form.
     tawkWindow.Tawk_API.onLoad = () => {
@@ -123,6 +125,9 @@ export default function LiveChatWidget() {
         };
         const typing = document.activeElement?.matches("input, textarea, select");
         const quietPage = /^\/(contact|thank-you)/.test(window.location.pathname);
+        // On phones the open chat covers the whole screen, so it never opens
+        // by itself there; the chat button stays one tap away
+        const phone = window.matchMedia("(max-width: 767px)").matches;
         let alreadyOpened = false;
         try {
           alreadyOpened = sessionStorage.getItem("pp-chat-auto-opened") === "1";
@@ -133,6 +138,7 @@ export default function LiveChatWidget() {
         if (
           !typing &&
           !quietPage &&
+          !phone &&
           !alreadyOpened &&
           !api.isChatMaximized?.()
         ) {

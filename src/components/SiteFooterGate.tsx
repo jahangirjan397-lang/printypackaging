@@ -2,6 +2,7 @@ import Link from "next/link";
 import BrandLogo from "@/components/BrandLogo";
 import SocialIcons from "@/components/SocialIcons";
 import { isDraftPolicy } from "@/data/policyStatus";
+import { officeAddress, officeAddressLine, salesPhone } from "@/data/businessInfo";
 
 const productLinks = [
   { label: "Rigid Boxes", href: "/products/rigid-boxes" },
@@ -83,6 +84,18 @@ export default function SiteFooter() {
               >
                 Chat on WhatsApp
               </a>
+
+              {salesPhone.tel && (
+                <a href={`tel:${salesPhone.tel}`} className="block transition hover:text-[#FF6A00]">
+                  {salesPhone.display}
+                </a>
+              )}
+
+              {officeAddress && (
+                <p>
+                  <span className="text-slate-400">{officeAddress.label}:</span> {officeAddressLine}
+                </p>
+              )}
 
               <p>
                 Serving USA | UK | Canada | Europe | UAE | Australia and

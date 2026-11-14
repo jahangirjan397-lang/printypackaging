@@ -17,14 +17,29 @@ export type StartingPrice = {
   unit: string;
   // Reference size the cost is based on (internal, not shown to buyers)
   size: string;
+  // Price at 500 and 1,000 pcs as a share of the 100 pcs price, so buyers
+  // see that bigger orders cost less per unit
+  tiers?: Tiers;
 };
 
+type Tiers = readonly [at500: number, at1000: number];
+
+// Drop in unit price from 100 to 500 and 1,000 pcs, taken from the estimation
+// sheet (Nov 2026, USA, shipping included): tuck end, burger and pillow boxes
+// for card, mailer for corrugated, two-piece and magnetic for rigid, bag, cake.
+const CARD: Tiers = [0.5, 0.42];
+const CORRUGATED: Tiers = [0.85, 0.65];
+const RIGID: Tiers = [0.62, 0.6];
+const BAG: Tiers = [0.9, 0.85];
+const CAKE: Tiers = [0.8, 0.75];
+
 // Boxes are priced at our 100-piece minimum order
-const box = (cost: number, size: string, quantity = 100): StartingPrice => ({
+const box = (cost: number, size: string, tiers?: Tiers): StartingPrice => ({
   cost,
-  quantity,
+  quantity: 100,
   unit: "box",
   size,
+  tiers,
 });
 
 const piece = (
@@ -32,55 +47,56 @@ const piece = (
   size: string,
   quantity: number,
   unit: string,
-): StartingPrice => ({ cost, quantity, unit, size });
+  tiers?: Tiers,
+): StartingPrice => ({ cost, quantity, unit, size, tiers });
 
 export const startingPrices: Record<string, StartingPrice> = {
   // Luxury packaging (rigid board, heavier to ship)
-  "rigid-boxes": box(10, "8 × 6 × 3 in"),
-  "luxury-packaging": box(10, "8 × 6 × 3 in"),
-  "perfume-boxes": box(7, "3 × 3 × 5 in"),
-  "jewelry-boxes": box(6, "3 × 3 × 1.5 in"),
-  "magnetic-boxes": box(11, "8 × 6 × 3 in"),
-  "drawer-boxes": box(10.5, "7 × 5 × 2 in"),
-  "two-piece-rigid-boxes": box(10, "8 × 6 × 3 in"),
-  "gift-boxes": box(9.5, "8 × 6 × 3 in"),
+  "rigid-boxes": box(10, "8 × 6 × 3 in", RIGID),
+  "luxury-packaging": box(10, "8 × 6 × 3 in", RIGID),
+  "perfume-boxes": box(7, "3 × 3 × 5 in", RIGID),
+  "jewelry-boxes": box(6, "3 × 3 × 1.5 in", RIGID),
+  "magnetic-boxes": box(11, "8 × 6 × 3 in", RIGID),
+  "drawer-boxes": box(10.5, "7 × 5 × 2 in", RIGID),
+  "two-piece-rigid-boxes": box(10, "8 × 6 × 3 in", RIGID),
+  "gift-boxes": box(9.5, "8 × 6 × 3 in", RIGID),
 
   // Folding cartons
-  "folding-cartons": box(1.8, "4 × 2 × 6 in"),
-  "tuck-end-boxes": box(1.8, "4 × 2 × 6 in"),
+  "folding-cartons": box(1.8, "4 × 2 × 6 in", CARD),
+  "tuck-end-boxes": box(1.8, "4 × 2 × 6 in", CARD),
 
   // Corrugated
-  "mailer-boxes": box(6.5, "9 × 6 × 3 in"),
-  "kraft-mailer-boxes": box(6, "9 × 6 × 3 in"),
-  "black-mailer-boxes": box(7, "9 × 6 × 3 in"),
-  "white-mailer-boxes": box(7, "9 × 6 × 3 in"),
-  "shipping-boxes": box(7.5, "12 × 9 × 4 in"),
-  "subscription-boxes": box(7, "10 × 8 × 3 in"),
+  "mailer-boxes": box(6.5, "9 × 6 × 3 in", CORRUGATED),
+  "kraft-mailer-boxes": box(6, "9 × 6 × 3 in", CORRUGATED),
+  "black-mailer-boxes": box(7, "9 × 6 × 3 in", CORRUGATED),
+  "white-mailer-boxes": box(7, "9 × 6 × 3 in", CORRUGATED),
+  "shipping-boxes": box(7.5, "12 × 9 × 4 in", CORRUGATED),
+  "subscription-boxes": box(7, "10 × 8 × 3 in", CORRUGATED),
 
   // Food
   "butter-paper": piece(0.25, "12 × 12 in", 1000, "sheet"),
-  "food-packaging": box(2, "6 × 6 × 3 in"),
-  "bakery-boxes": box(2.5, "8 × 8 × 4 in"),
-  "burger-boxes": box(2, "5 × 5 × 3 in"),
-  "pizza-boxes": box(3.5, "12 × 12 × 2 in"),
-  "cake-boxes": box(3.2, "10 × 10 × 5 in"),
-  "cupcake-boxes": box(2.6, "9 × 9 × 4 in"),
-  "cookie-boxes": box(2.2, "8 × 4 × 2 in"),
-  "gable-boxes": box(2.4, "6 × 4 × 4 in"),
+  "food-packaging": box(2, "6 × 6 × 3 in", CARD),
+  "bakery-boxes": box(2.5, "8 × 8 × 4 in", CAKE),
+  "burger-boxes": box(2, "5 × 5 × 3 in", CARD),
+  "pizza-boxes": box(3.5, "12 × 12 × 2 in", CAKE),
+  "cake-boxes": box(3.2, "10 × 10 × 5 in", CAKE),
+  "cupcake-boxes": box(2.6, "9 × 9 × 4 in", CAKE),
+  "cookie-boxes": box(2.2, "8 × 4 × 2 in", CARD),
+  "gable-boxes": box(2.4, "6 × 4 × 4 in", CARD),
 
   // Retail
-  "paper-bags": piece(2.5, "10 × 5 × 13 in", 100, "bag"),
-  "candle-boxes": box(2, "4 × 4 × 4 in"),
-  "soap-boxes": box(1.6, "3.5 × 2.5 × 1.5 in"),
-  "display-boxes": box(4, "10 × 6 × 4 in"),
-  "window-boxes": box(2.2, "5 × 5 × 3 in"),
-  "sleeve-boxes": box(2, "6 × 4 × 2 in"),
-  "pillow-boxes": box(1.6, "6 × 3 × 1.5 in"),
-  "hang-tab-boxes": box(1.8, "4 × 1.5 × 6 in"),
-  "cosmetic-boxes": box(1.8, "2 × 2 × 6 in"),
-  "pharmaceutical-boxes": box(1.5, "3 × 1.5 × 5 in"),
-  "apparel-boxes": box(4.5, "12 × 9 × 2 in"),
-  "kraft-boxes": box(2, "5 × 5 × 3 in"),
+  "paper-bags": piece(2.5, "10 × 5 × 13 in", 100, "bag", BAG),
+  "candle-boxes": box(2, "4 × 4 × 4 in", CARD),
+  "soap-boxes": box(1.6, "3.5 × 2.5 × 1.5 in", CARD),
+  "display-boxes": box(4, "10 × 6 × 4 in", CARD),
+  "window-boxes": box(2.2, "5 × 5 × 3 in", CARD),
+  "sleeve-boxes": box(2, "6 × 4 × 2 in", CARD),
+  "pillow-boxes": box(1.6, "6 × 3 × 1.5 in", CARD),
+  "hang-tab-boxes": box(1.8, "4 × 1.5 × 6 in", CARD),
+  "cosmetic-boxes": box(1.8, "2 × 2 × 6 in", CARD),
+  "pharmaceutical-boxes": box(1.5, "3 × 1.5 × 5 in", CARD),
+  "apparel-boxes": box(4.5, "12 × 9 × 2 in", CORRUGATED),
+  "kraft-boxes": box(2, "5 × 5 × 3 in", CARD),
 
   // Branding
   "labels-stickers": piece(0.1, "3 × 3 in", 1000, "label"),
@@ -113,18 +129,39 @@ export const startingPrices: Record<string, StartingPrice> = {
   tickets: piece(0.08, "2 × 5.5 in", 1000, "ticket"),
 };
 
+// Prices are hidden on the site (owner 2026-11-14): competitors show no prices
+// and every buyer should ask for a quote, so the lead is captured. Set to true
+// to show the "from" prices and the 100 / 500 / 1,000 pcs ladder again.
+export const SHOW_PRICES = false;
+
 export function getStartingPrice(slug: string): StartingPrice | undefined {
-  return startingPrices[slug];
+  return SHOW_PRICES ? startingPrices[slug] : undefined;
 }
 
-export function formatStartingPrice({ cost, quantity, unit }: StartingPrice) {
-  const amount = (cost * MARGIN).toFixed(2);
+const usd = (n: number) => `$${n.toFixed(2)}`;
+
+export function formatStartingPrice({ cost, quantity, unit, tiers }: StartingPrice) {
+  const base = cost * MARGIN;
+  // Price per unit at each quantity, smallest order first
+  const ladder = [
+    { quantity, amount: usd(base) },
+    ...(tiers
+      ? [
+          { quantity: 500, amount: usd(base * tiers[0]) },
+          { quantity: 1000, amount: usd(base * tiers[1]) },
+        ]
+      : []),
+  ].map((step) => ({ ...step, label: `${step.quantity.toLocaleString("en-US")} pcs` }));
+  // "From" is the lowest unit price, at the largest quantity shown
+  const lowest = ladder[ladder.length - 1];
   return {
-    amount: `$${amount}`,
+    amount: lowest.amount,
     per: `/${unit}`,
-    basis: `at ${quantity.toLocaleString("en-US")} pcs`,
+    quantity: lowest.quantity,
+    basis: `at ${lowest.label}`,
+    ladder,
     // A rough guide only, never a fixed price (the reference size stays internal)
-    reference: `Rough estimate for a standard size at about ${quantity.toLocaleString("en-US")} pcs. Your real price can be lower or higher.`,
+    reference: `Rough estimate for a standard size at about ${lowest.label}. Your real price can be lower or higher.`,
   };
 }
 

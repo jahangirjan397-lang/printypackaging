@@ -138,7 +138,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
             price: price.amount.replace("$", ""),
             eligibleQuantity: {
               "@type": "QuantitativeValue",
-              minValue: startingPrice.quantity,
+              minValue: price.quantity,
               unitText: startingPrice.unit,
             },
             description: `Estimated price only. ${price.reference} The exact quote depends on size, quantity, material and finish.`,
@@ -232,10 +232,37 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
                     <span className="text-sm font-bold text-slate-300">Estimated from</span>
                     <span className="text-3xl font-black text-white">{price.amount}</span>
                     <span className="text-sm font-black text-white">{price.per}</span>
+                    {price.ladder.length > 1 && (
+                      <span className="text-sm font-bold text-slate-300">{price.basis}</span>
+                    )}
                   </p>
-                  <p className="mt-1 text-sm font-bold text-slate-200">{price.reference}</p>
+                  {price.ladder.length > 1 && (
+                    <ul aria-label="Estimated price per unit by quantity" className="mt-2 flex flex-wrap gap-2">
+                      {price.ladder.map((step) => (
+                        <li key={step.quantity} className="rounded-lg bg-white/10 px-2.5 py-1 text-xs font-bold text-slate-200">
+                          {step.label}: <span className="font-black text-white">{step.amount}</span>
+                          {price.per}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <p className="mt-2 text-sm font-bold text-slate-200">{price.reference}</p>
                   <p className="mt-1 text-xs leading-5 text-slate-400">{startingPriceNote}</p>
                 </div>
+              )}
+
+              {!price && (
+                <a
+                  href="#product-quote"
+                  className="mt-5 block max-w-xl rounded-2xl border border-[#00C2E8]/30 bg-[#00C2E8]/10 px-4 py-3 transition hover:border-[#FF6A00]"
+                >
+                  <p className="text-lg font-black text-white">
+                    Get your exact price in 10-15 minutes
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-slate-200">
+                    Priced for your size, quantity and finish, shipping included. Free dieline and PDF proof, from 100 pcs.
+                  </p>
+                </a>
               )}
 
               <p className="mt-6 line-clamp-3 max-w-2xl text-base leading-7 text-slate-300 md:line-clamp-none md:text-lg md:leading-8">

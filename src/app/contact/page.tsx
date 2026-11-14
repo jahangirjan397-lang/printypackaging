@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { SocialIcon, brandBackground } from "@/components/SocialIcons";
 import { activeSocialLinks } from "@/data/socialLinks";
-import { salesPhone, salesTeam, teamEmails } from "@/data/businessInfo";
+import { officeAddress, officeAddressLine, officePostalAddress, salesPhone, salesTeam, teamEmails } from "@/data/businessInfo";
 import QuoteSection from "@/components/QuoteSection";
 
 export const metadata: Metadata = {
@@ -49,6 +49,16 @@ const contactOptions = [
     href: `mailto:${teamEmails.support}`,
     action: "Email Support",
   },
+  ...(officeAddress
+    ? [{
+        title: officeAddress.label,
+        value: officeAddressLine,
+        detail:
+          "Our US office for US buyers. Every order ships to your door with tracking.",
+        href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(officeAddressLine)}`,
+        action: "Open in Maps",
+      }]
+    : []),
 ];
 
 const supportSteps = [
@@ -71,6 +81,7 @@ export default function ContactPage() {
       name: "Printy Packaging",
       url: "https://printypackaging.com",
       email: "sales@printypackaging.com",
+      ...(officePostalAddress ? { address: officePostalAddress } : {}),
       contactPoint: [
         {
           "@type": "ContactPoint",

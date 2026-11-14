@@ -7,5 +7,13 @@
   "sampleOffer": "Free digital proof (PDF) before production",
   "salesPhoneDisplay": "USA +1 (516) 550-1638",
   "salesPhoneTel": "+15165501638",
-  "reviewsProfileUrl": "https://www.trustpilot.com/review/printypackaging.com"
+  "reviewsProfileUrl": "https://www.trustpilot.com/review/printypackaging.com",
+  "officeAddress": {
+    "label": "US Office",
+    "street": "1 Morris Pkwy",
+    "city": "Valley Stream",
+    "region": "NY",
+    "postalCode": "11580",
+    "country": "US"
+  }
 }

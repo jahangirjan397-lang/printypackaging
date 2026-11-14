@@ -74,5 +74,52 @@ export const customerReviews: CustomerReview[] = (
   rating: Math.min(5, Math.max(1, Math.round(Number(review.rating)))) as CustomerReview["rating"],
 }));
 
+export type OfficeAddress = {
+  label: string;
+  street: string;
+  city: string;
+  region: string;
+  postalCode: string;
+  country: string;
+};
+
+// Public office address shown in the footer, on the contact page and in the
+// Organization schema. Leave `street` empty to hide it everywhere.
+const rawAddress = (business as { officeAddress?: Partial<OfficeAddress> }).officeAddress;
+export const officeAddress: OfficeAddress | null = rawAddress?.street
+  ? {
+      label: rawAddress.label || "Office",
+      street: rawAddress.street,
+      city: rawAddress.city || "",
+      region: rawAddress.region || "",
+      postalCode: rawAddress.postalCode || "",
+      country: rawAddress.country || "",
+    }
+  : null;
+
+// One line, e.g. "1 Morris Pkwy, Valley Stream, NY 11580, USA"
+export const officeAddressLine = officeAddress
+  ? [
+      officeAddress.street,
+      officeAddress.city,
+      [officeAddress.region, officeAddress.postalCode].filter(Boolean).join(" "),
+      officeAddress.country === "US" ? "USA" : officeAddress.country,
+    ]
+      .filter(Boolean)
+      .join(", ")
+  : "";
+
+// schema.org PostalAddress for structured data
+export const officePostalAddress = officeAddress
+  ? {
+      "@type": "PostalAddress",
+      streetAddress: officeAddress.street,
+      addressLocality: officeAddress.city,
+      addressRegion: officeAddress.region,
+      postalCode: officeAddress.postalCode,
+      addressCountry: officeAddress.country,
+    }
+  : null;
+
 // Public link to your Trustpilot or Google reviews page (optional)
 export const reviewsProfileUrl: string = business.reviewsProfileUrl ?? "";

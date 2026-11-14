@@ -5,6 +5,7 @@ import {
   formatStartingPrice,
   getStartingPrice,
   startingPriceNote,
+  SHOW_PRICES,
 } from "../data/startingPrices";
 
 const featuredProducts = products.slice(0, 8);
@@ -75,9 +76,14 @@ export default function FeaturedProducts() {
                         Est. from{" "}
                         <span className="text-lg font-black text-[#07111F]">{price.amount}</span>
                         {price.per}
+                        {price.ladder.length > 1 && (
+                          <span className="block text-xs font-bold text-slate-400">{price.basis}</span>
+                        )}
                       </p>
                     ) : (
-                      <span />
+                      <p className="text-sm font-black text-[#07111F]">
+                        Price in 10-15 min
+                      </p>
                     )}
                     <span className="inline-flex font-black text-[#D95500] transition group-hover:text-[#007C91]">
                       View Details →
@@ -90,7 +96,9 @@ export default function FeaturedProducts() {
         </div>
 
         <p className="mt-6 text-center text-sm leading-6 text-slate-500">
-          Prices shown are rough estimates for a standard size, not fixed prices. {startingPriceNote}
+          {SHOW_PRICES
+            ? <>Prices shown are rough estimates for a standard size, not fixed prices. {startingPriceNote}</>
+            : "Every order is priced for your exact size, quantity and finish. Send your details and get your exact price, shipping included, within 10-15 minutes."}
         </p>
       </div>
     </section>
