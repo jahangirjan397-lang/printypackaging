@@ -2,7 +2,7 @@ import Link from "next/link";
 import BrandLogo from "@/components/BrandLogo";
 import SocialIcons from "@/components/SocialIcons";
 import { isDraftPolicy } from "@/data/policyStatus";
-import { officeAddress, officeAddressLine, salesPhone } from "@/data/businessInfo";
+import { officeAddress, officeAddressLine, reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
 
 const productLinks = [
   { label: "Rigid Boxes", href: "/products/rigid-boxes" },
@@ -95,6 +95,17 @@ export default function SiteFooter() {
                 <p>
                   <span className="text-slate-400">{officeAddress.label}:</span> {officeAddressLine}
                 </p>
+              )}
+
+              {reviewsProfileUrl && (
+                <a
+                  href={reviewsProfileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block transition hover:text-[#FF6A00]"
+                >
+                  <span className="text-[#00B67A]">★</span> Review us on Trustpilot
+                </a>
               )}
 
               <p>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { SocialIcon, brandBackground } from "@/components/SocialIcons";
 import { activeSocialLinks } from "@/data/socialLinks";
-import { officeAddress, officeAddressLine, officePostalAddress, salesPhone, salesTeam, teamEmails } from "@/data/businessInfo";
+import { officeAddress, officeAddressLine, officePostalAddress, reviewsProfileUrl, salesPhone, salesTeam, teamEmails } from "@/data/businessInfo";
 import QuoteSection from "@/components/QuoteSection";
 
 export const metadata: Metadata = {
@@ -57,6 +57,16 @@ const contactOptions = [
           "Our US office for US buyers. Every order ships to your door with tracking.",
         href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(officeAddressLine)}`,
         action: "Open in Maps",
+      }]
+    : []),
+  ...(reviewsProfileUrl
+    ? [{
+        title: "Reviews on Trustpilot",
+        value: "Read or write a review",
+        detail:
+          "Ordered from us? Tell other buyers how it went. Reviews are public on Trustpilot and come only from real customers.",
+        href: reviewsProfileUrl,
+        action: "Open Trustpilot",
       }]
     : []),
 ];
