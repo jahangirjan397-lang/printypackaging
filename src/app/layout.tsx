@@ -12,6 +12,7 @@ import AnalyticsClickTracker from "@/components/AnalyticsClickTracker";
 import { activeSocialLinks } from "@/data/socialLinks";
 import { officePostalAddress, reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
 import LeadSourceTracker from "@/components/LeadSourceTracker";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -237,6 +238,7 @@ export default function RootLayout({
         <WhatsAppRegion />
         <AnalyticsClickTracker />
         <LeadSourceTracker />
+        <ExitIntentPopup />
         <AnalyticsConsent />
       </body>
     </html>
