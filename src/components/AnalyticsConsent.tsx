@@ -12,8 +12,9 @@ import {
 
 const measurementId = "G-MLLCT7GVJM";
 // Microsoft Clarity project ID (session recordings and heatmaps).
-// Set NEXT_PUBLIC_CLARITY_ID in the hosting environment to enable it.
-const clarityId = (process.env.NEXT_PUBLIC_CLARITY_ID ?? "").replace(/[^a-z0-9]/gi, "");
+// Project "Printy Packaging" (created 2026-11-18 on the owner's Google login);
+// NEXT_PUBLIC_CLARITY_ID in the hosting environment overrides it.
+const clarityId = (process.env.NEXT_PUBLIC_CLARITY_ID || "zf8k3n6q1p").replace(/[^a-z0-9]/gi, "");
 
 type ConsentStatus = "granted" | "denied" | null;
 
