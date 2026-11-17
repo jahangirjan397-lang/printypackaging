@@ -28,7 +28,7 @@ const searchEngines = /^(google|bing|yahoo|duckduckgo)$/;
 const socialSites = /^(linkedin|instagram|facebook|youtube|tiktok|pinterest|x|threads|reddit)$/;
 
 // Channel buckets the sheet reports on: SEO, Ads, Social, Email, WhatsApp,
-// AI chat, Referral (another website), Direct.
+// AI search (ChatGPT etc.), Referral (another website), Direct.
 function channelFor(source: string, medium: string, params: URLSearchParams) {
   const m = medium.toLowerCase();
   const s = source.toLowerCase();
@@ -42,7 +42,7 @@ function channelFor(source: string, medium: string, params: URLSearchParams) {
   if (m === "email" || /cold[-_ ]?email|newsletter|outreach/.test(s) || s === "email") return "Email";
   if (m === "social" || m === "social_share" || socialSites.test(s)) return "Social";
   if (s === "whatsapp") return "WhatsApp";
-  if (s === "ai-chat") return "AI chat";
+  if (s === "ai-chat") return "AI search";
   if (m === "organic" || searchEngines.test(s)) return "SEO";
   if (!s || s === "direct") return "Direct";
   return "Referral";
