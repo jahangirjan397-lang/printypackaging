@@ -6,6 +6,7 @@ import { categories } from "@/data/categories";
 import { markets } from "@/data/markets";
 import { isDraftPolicy } from "@/data/policyStatus";
 import { dielines } from "@/data/dielines";
+import { getClientStories } from "@/data/clientStories";
 
 const siteUrl = "https://printypackaging.com";
 
@@ -158,6 +159,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...categoryRoutes,
     ...marketRoutes,
     ...blogRoutes,
+    // Client stories: only listed once a real story (client said yes) exists
+    ...(() => {
+      const stories = getClientStories().filter((st) => !st.demo);
+      if (!stories.length) return [];
+      return [
+        { url: `${siteUrl}/client-stories`, changeFrequency: "monthly" as const, priority: 0.8 },
+        ...stories.map((st) => ({ url: `${siteUrl}/client-stories/${st.slug}`, lastModified: st.publishedAt, changeFrequency: "yearly" as const, priority: 0.7 })),
+      ];
+    })(),
     ...dielineRoutes,
   ];
 

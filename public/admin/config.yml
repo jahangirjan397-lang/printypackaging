@@ -283,6 +283,69 @@ collections:
           - { label: Question, name: question, widget: string }
           - { label: Answer, name: answer, widget: text }
 
+  # ------------------------------------------------------- CLIENT STORIES
+  - name: client_stories
+    label: Client Stories
+    label_singular: Client Story
+    description: >-
+      Asli client ki video aur kahani. Sirf tab publish karein jab client ne
+      likh kar haan kahi ho. Price, payment, invoice, factory/shipping ki jagah
+      aur client ka email/phone KABHI na likhein.
+    folder: content/client-stories
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: brand
+    summary: "{{publishedAt}} — {{brand}}"
+    fields:
+      - { label: "Client ne likh kar ijazat di? (zaroori)", name: consent, widget: boolean, default: false, hint: "Off ho to story website par nahi aayegi" }
+      - { label: "Ijazat kaise mili (sirf record, website par nahi dikhta)", name: consentNote, widget: string, required: false }
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Brand name, name: brand, widget: string }
+      - { label: "Slug (url)", name: slug, widget: string, hint: "chhote harf aur dash, jaise your-blessing-boxes" }
+      - { label: "Client (first name, role)", name: person, widget: string, required: false, hint: "Jaise: Jen, founder. Surname/email/phone nahi" }
+      - { label: "Location (City, Country)", name: location, widget: string, required: false }
+      - { label: Industry, name: industry, widget: string }
+      - { label: Headline, name: headline, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - { label: "Client ke apne alfaz (approved)", name: quote, widget: text, required: false }
+      - { label: "Video (YouTube/Shorts link ya upload .mp4)", name: videoUrl, widget: string, required: false }
+      - { label: Poster image, name: poster, widget: image }
+      - { label: Poster alt text, name: posterAlt, widget: string }
+      - { label: Product, name: product, widget: string }
+      - { label: "Product slug (optional)", name: productSlug, widget: string, required: false }
+      - label: Specs (no prices)
+        name: specs
+        widget: list
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: Value, name: value, widget: string }
+      - { label: What they needed, name: challenge, widget: text }
+      - { label: What we made, name: solution, widget: text }
+      - label: Steps
+        name: steps
+        widget: list
+        fields:
+          - { label: Step, name: label, widget: string }
+          - { label: Detail, name: detail, widget: string }
+      - label: Questions they asked
+        name: questions
+        widget: list
+        required: false
+        fields:
+          - { label: Question, name: question, widget: string }
+          - { label: Answer, name: answer, widget: text }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Image, name: src, widget: image }
+          - { label: Alt text, name: alt, widget: string }
+      - { label: Published date, name: publishedAt, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+
   # ------------------------------------------------------- PRODUCT IMAGES
   - name: product_images
     label: Product Images

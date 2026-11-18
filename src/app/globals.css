@@ -228,3 +228,31 @@ body {
   .studio-reveal { opacity: 1; transform: none; transition: none; }
   .studio-tilt:hover { transform: none; }
 }
+
+/* ---------- Client stories (2026-11-18) ---------- */
+/* visible by default; hidden only after the script arms it, so content never depends on JS */
+.cs-reveal.cs-armed { opacity: 0; transform: translateY(28px) scale(0.985); transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1); }
+.cs-reveal.cs-armed.cs-in { opacity: 1; transform: none; }
+@keyframes cs-drift { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(3%,-4%,0) scale(1.08); } }
+@keyframes cs-spin-slow { to { transform: rotate(360deg); } }
+@keyframes cs-pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(255,106,0,0.55); } 80%,100% { box-shadow: 0 0 0 26px rgba(255,106,0,0); } }
+@keyframes cs-shine { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+@keyframes cs-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes cs-bob { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-14px) rotate(var(--r,0deg)); } }
+.cs-blob { animation: cs-drift 14s ease-in-out infinite; }
+.cs-pulse { animation: cs-pulse-ring 2.2s ease-out infinite; }
+.cs-shine-text { background: linear-gradient(90deg,#FF6A00 0%,#FFD29A 25%,#FF6A00 50%,#00C2E8 75%,#FF6A00 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: cs-shine 7s linear infinite; }
+.cs-bob { animation: cs-bob 6s ease-in-out infinite; }
+.cs-ring { animation: cs-spin-slow 40s linear infinite; }
+.cs-in .cs-line { transform-origin: left; animation: cs-line 1.6s cubic-bezier(.2,.7,.2,1) 0.2s both; }
+.cs-card { transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s; }
+.cs-card:hover { transform: translateY(-10px) rotate(-0.6deg); box-shadow: 0 40px 80px rgba(7,17,31,0.28); }
+.cs-card:hover .cs-card-img { transform: scale(1.07); }
+.cs-card-img { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.cs-qa[open] .cs-qa-icon { transform: rotate(45deg); }
+.cs-qa .cs-qa-body { animation: ppFadeUp .45s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  .cs-reveal.cs-armed { opacity: 1; transform: none; transition: none; }
+  .cs-blob, .cs-pulse, .cs-shine-text, .cs-bob, .cs-ring, .cs-in .cs-line { animation: none; }
+  .cs-card, .cs-card-img { transition: none; }
+}
