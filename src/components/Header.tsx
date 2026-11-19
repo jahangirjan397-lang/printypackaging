@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import PackagingSearch from "@/components/PackagingSearch";
 import NavIcon from "@/components/NavIcon";
@@ -16,57 +16,18 @@ const simpleLinks = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
-  const [hideTopBar, setHideTopBar] = useState(false);
-  const ticking = useRef(false);
-
-  useEffect(() => {
-    function updateHeader() {
-      const currentScrollY = window.scrollY;
-
-      setHideTopBar((current) => {
-        // Separate thresholds prevent the top bar from oscillating.
-        if (!current && currentScrollY > 140) {
-          return true;
-        }
-
-        if (current && currentScrollY < 24) {
-          return false;
-        }
-
-        return current;
-      });
-
-      ticking.current = false;
-    }
-
-    function onScroll() {
-      if (!ticking.current) {
-        window.requestAnimationFrame(updateHeader);
-        ticking.current = true;
-      }
-    }
-
-    updateHeader();
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
   function closeMobile() {
     setMobileOpen(false);
     setOpenSection(null);
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
-      <div
-        className={`grid overflow-hidden bg-[#07111F] text-white transition-[grid-template-rows,opacity] duration-300 ease-out ${
-          hideTopBar ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100"
-        }`}
-      >
-        <div className="min-h-0">
+    <>
+      {/* The top bar scrolls away with the page and only the menu bar sticks.
+          (It used to fold shut on scroll, which moved the whole page and failed
+          Google's layout-shift test, CLS 0.23 for real visitors.) */}
+      <div className="bg-[#07111F] text-white">
+        <div>
           <div className="border-b border-[#0B1B2A]">
             <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-xs font-bold sm:px-5 md:gap-6 md:px-8 md:text-[13px] 2xl:max-w-[1520px] 2xl:px-10">
               {/* Buyer benefits read better than a product list */}
@@ -118,6 +79,7 @@ export default function Header() {
         </div>
       </div>
 
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
       <div className="border-b border-slate-200 bg-white/95">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-5 sm:py-4 md:px-8 md:py-5 2xl:max-w-[1520px] 2xl:px-10">
           <div className="shrink-0">
@@ -246,6 +208,7 @@ export default function Header() {
         )}
       </div>
     </header>
+    </>
   );
 }
 

@@ -48,7 +48,7 @@ export default function DielineLeadGate({
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const f = new FormData(event.currentTarget);
-    if (String(f.get("website") || "")) return;
+    if (String(f.get("hp_leave_empty") || "")) return;
     setSending(true);
     setError("");
     const wantsQuote = f.get("wantsQuote") === "on";
@@ -91,7 +91,7 @@ export default function DielineLeadGate({
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-[#07111F]/60 p-4" role="dialog" aria-modal="true" aria-labelledby="dl-gate-title">
       <form onSubmit={submit} className="relative w-full max-w-md rounded-[1.5rem] border-t-4 border-[#FF6A00] bg-white p-6 text-[#07111F] shadow-2xl">
         <div aria-hidden="true" className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden">
-          <input name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+          <input name="hp_leave_empty" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
         </div>
         <h2 id="dl-gate-title" className="text-xl font-black">Where should we send updates?</h2>
         <p className="mt-1 text-sm font-bold text-slate-600">Your {what} downloads right after. One time only, all future downloads are instant.</p>

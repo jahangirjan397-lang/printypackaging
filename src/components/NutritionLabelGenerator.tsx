@@ -326,7 +326,7 @@ function AfterDownload({ mode, productName, onClose }: { mode: Mode; productName
           ) : (
             <form onSubmit={submit} className="mt-4 grid grid-cols-2 gap-3">
               <div aria-hidden="true" className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden">
-                <input name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+                <input name="hp_leave_empty" tabIndex={-1} autoComplete="off" defaultValue="" />
               </div>
               <Small label="Print it as">
                 <select name="product" className="field-input field-compact">

@@ -609,7 +609,7 @@ export default function QuoteSection() {
               className="pointer-events-none absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
             >
               <input
-                name="website"
+                name="hp_leave_empty"
                 type="text"
                 tabIndex={-1}
                 autoComplete="off"

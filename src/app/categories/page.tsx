@@ -48,6 +48,14 @@ export const metadata: Metadata = {
     siteName: brandName,
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: `${siteUrl}/images/products/mailer-boxes/mailer-boxes-hero-brand.webp`,
+        width: 1448,
+        height: 1086,
+        alt: "Branded mailer boxes for ecommerce and retail packaging",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

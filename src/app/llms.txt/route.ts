@@ -55,7 +55,7 @@ export function GET() {
 - Shipping: worldwide, including the USA, UK, Canada, Europe, UAE and Australia; standard shipping to one address is included in the quoted price unless the quote lists it separately
 - Samples: ${businessPromises.sampleOffer}
 - Quality: if a printing or production error is ours, we reprint (claims within 10 days of delivery)
-- Prices: every order is quoted for its exact size, quantity, material and finish; the "From" prices below are starting prices, and larger quantities lower the price per unit
+- Prices: there is no fixed price list; every order is quoted for its exact size, quantity, material and finish, and the exact price is emailed within 10-15 minutes of a quote request. Larger quantities lower the price per unit
 
 ## How to order
 
@@ -67,7 +67,7 @@ export function GET() {
 - Sales email: ${teamEmails.sales}
 - Support email: ${teamEmails.support}
 
-## Products and starting prices (USD)
+## Products
 
 ${productSections}
 

@@ -170,7 +170,7 @@ export default function ExitIntentPopup() {
         </p>
 
         <form onSubmit={submit} className="mt-5 space-y-3">
-          <input name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" className="hidden" aria-hidden="true" />
+          <input name="hp_leave_empty" type="text" tabIndex={-1} autoComplete="off" defaultValue="" className="hidden" aria-hidden="true" />
           <div className="grid grid-cols-2 gap-3">
             <input ref={firstField} name="name" required minLength={2} autoComplete="name" placeholder="Your name" className="field-input field-compact" />
             <input name="email" type="email" required autoComplete="email" placeholder="you@company.com" className="field-input field-compact" />

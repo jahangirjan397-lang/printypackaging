@@ -797,7 +797,7 @@ export async function POST(request: Request) {
         size: formValue(formData, "size"), material: formValue(formData, "material"),
         gsm: formValue(formData, "gsm"), printing: formValue(formData, "printing"),
         finishing: formValue(formData, "finishing"), artworkStatus: formValue(formData, "artworkStatus"),
-        message: formValue(formData, "message"), website: formValue(formData, "website"),
+        message: formValue(formData, "message"), website: formValue(formData, "hp_leave_empty"),
         turnaround: formValue(formData, "turnaround"),
         leadSource: formValue(formData, "leadSource"),
         companyWebsite: formValue(formData, "companyWebsite"),

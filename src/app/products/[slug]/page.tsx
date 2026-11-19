@@ -63,7 +63,6 @@ export async function generateMetadata({
   return {
     title: { absolute: title },
     description,
-    keywords: product.keywords,
     alternates: {
       canonical: productUrl,
     },

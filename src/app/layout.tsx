@@ -13,6 +13,7 @@ import { activeSocialLinks } from "@/data/socialLinks";
 import { officePostalAddress, reviewsProfileUrl, salesPhone } from "@/data/businessInfo";
 import LeadSourceTracker from "@/components/LeadSourceTracker";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import PageBreadcrumbSchema from "@/components/PageBreadcrumbSchema";
 
 const siteUrl = "https://printypackaging.com";
 const brandName = "Printy Packaging";
@@ -28,25 +29,6 @@ export const metadata: Metadata = {
   },
   description:
     "Printy Packaging provides premium custom boxes, rigid boxes, folding cartons, butter paper, paper bags, labels, stickers, food packaging and luxury printed packaging for USA, UK, Europe, UAE and worldwide brands.",
-  keywords: [
-    "custom packaging",
-    "custom boxes",
-    "custom printed boxes",
-    "rigid boxes",
-    "mailer boxes",
-    "folding cartons",
-    "food packaging",
-    "butter paper",
-    "paper bags",
-    "labels and stickers",
-    "luxury packaging",
-    "packaging manufacturer",
-    "custom packaging USA",
-    "custom boxes USA",
-    "custom packaging UK",
-    "custom packaging Europe",
-    "custom packaging UAE",
-  ],
   applicationName: brandName,
   creator: brandName,
   publisher: brandName,
@@ -238,6 +220,7 @@ export default function RootLayout({
         <WhatsAppRegion />
         <AnalyticsClickTracker />
         <LeadSourceTracker />
+        <PageBreadcrumbSchema />
         <ExitIntentPopup />
         <AnalyticsConsent />
       </body>

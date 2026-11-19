@@ -91,7 +91,6 @@ export async function generateMetadata({
   return {
     title: { absolute: seoTitle(post) },
     description,
-    keywords: post.keywords,
     authors: [{ name: post.author || defaultAuthor }],
     alternates: {
       canonical: `${siteUrl}/blog/${post.slug}`,

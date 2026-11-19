@@ -175,9 +175,9 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h2 className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
+      <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
         {title}
-      </h2>
+      </p>
 
       <div className="mt-4 space-y-2.5">
         {links.map((link) => (

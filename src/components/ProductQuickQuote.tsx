@@ -86,7 +86,7 @@ export default function ProductQuickQuote({
       className="relative scroll-mt-28 rounded-[1.5rem] border-t-4 border-[#FF6A00] bg-white p-5 text-[#07111F] shadow-xl md:p-6"
     >
       <div aria-hidden="true" className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden">
-        <input name="website" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
+        <input name="hp_leave_empty" type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
       </div>
       <input type="hidden" name="product" value={productName} />
       <input type="hidden" name="size" value={sizeValue} />

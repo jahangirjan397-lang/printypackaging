@@ -219,7 +219,7 @@ export default function ProductPageTemplate({ product }: { product: Product }) {
               </p>
 
               <h1 className="mt-3 text-4xl font-black leading-tight md:mt-5 md:text-6xl">
-                {product.name}
+                {/^custom/i.test(product.name) ? product.name : `Custom ${product.name}`}
               </h1>
 
               <p className="mt-4 text-xl font-black text-[#FF6A00] md:mt-5 md:text-2xl">

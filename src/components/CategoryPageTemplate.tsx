@@ -193,6 +193,7 @@ export default function CategoryPageTemplate({
 
               <h1 className="mt-5 text-4xl font-black leading-tight md:text-7xl">
                 {category.name}
+                {" "}<span className="block text-2xl text-white/80 md:text-4xl">Ideas &amp; Box Styles</span>
               </h1>
 
               <p className="mt-5 text-2xl font-black text-[#FF6A00]">

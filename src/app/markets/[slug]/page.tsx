@@ -56,7 +56,6 @@ export async function generateMetadata({
   return {
     title: { absolute: title },
     description,
-    keywords: market.keywords,
     alternates: {
       canonical: marketUrl,
     },

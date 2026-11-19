@@ -8,6 +8,24 @@ export type ProductImage = {
   title: string;
 };
 
+// Older gallery alts read "Candle Boxes - hero view (concept mockup)". Search
+// engines and buyers get a plain description instead: "Custom printed candle
+// boxes with logo". Alts written by hand are left as they are.
+const altViews: Record<string, string> = {
+  "hero view": "with logo",
+  "open view": "shown open",
+  "front view": "front view",
+  "material and finish detail": "material and print finish close-up",
+  "in use": "in use",
+};
+function describeAlt(alt: string) {
+  const match = alt.match(/^(.+?) - (.+?) \(concept mockup\)$/i);
+  if (!match) return alt.replace(/\s*\(concept mockup\)/i, "");
+  const [, name, view] = match;
+  const product = name.replace(/^custom\s+/i, "").toLowerCase();
+  return `Custom printed ${product} ${altViews[view.toLowerCase()] ?? view}`;
+}
+
 // Product galleries are edited from /admin (content/product-images.json).
 // A product listed there with at least one image uses exactly that gallery.
 const galleryBySlug = new Map<string, ProductImage[]>(
@@ -17,7 +35,7 @@ const galleryBySlug = new Map<string, ProductImage[]>(
       entry.slug,
       entry.images.map((image) => ({
         src: image.src,
-        alt: image.alt ?? "",
+        alt: describeAlt(image.alt ?? ""),
         title: image.title ?? "",
       })),
     ]),

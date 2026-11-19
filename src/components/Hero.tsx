@@ -227,14 +227,18 @@ export default function Hero() {
           </p>
 
           <h1 className="mt-5 text-4xl font-black leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.4rem] xl:text-6xl 2xl:text-7xl">
-            Packaging That
+            Custom Packaging{" "}
             <br />
-            Makes Brands
+            Boxes with{" "}
             <br />
             <span className="bg-gradient-to-r from-[#FF6A00] to-[#00C2E8] bg-clip-text text-transparent">
-              Unforgettable.
+              Your Logo.
             </span>
           </h1>
+
+          <p className="mt-4 text-lg font-black text-white/90 sm:text-xl">
+            Packaging that makes brands unforgettable.
+          </p>
 
           <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base md:leading-7 lg:mx-0">
             Premium rigid boxes, folding cartons, food packaging, butter paper,
@@ -409,12 +413,12 @@ export default function Hero() {
                 {activeSlide.href ? (
                   <Link
                     href={activeSlide.href}
-                    className="inline-flex rounded-full bg-[#FF6A00] px-5 py-1.5 text-xs font-black text-[#07111F] shadow-lg transition hover:bg-[#007C91] hover:text-white"
+                    className="inline-flex h-8 items-center rounded-full border border-transparent bg-[#FF6A00] px-5 text-xs font-black text-[#07111F] shadow-lg transition hover:bg-[#007C91] hover:text-white"
                   >
                     View Product
                   </Link>
                 ) : (
-                  <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-black text-white">
+                  <span className="inline-flex h-8 items-center rounded-full border border-white/15 bg-white/10 px-5 text-xs font-black text-white">
                     Showcase
                   </span>
                 )}

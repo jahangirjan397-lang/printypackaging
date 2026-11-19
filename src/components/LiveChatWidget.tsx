@@ -113,39 +113,9 @@ export default function LiveChatWidget() {
       tawkWindow.Tawk_API.onChatStarted = () => sendVisitorAlert("chat");
     }
 
-    // Open the chat window by itself once per visit, 10 seconds after the
-    // page loads (desktop only, see below), so the welcome message and quick
-    // questions are seen. Not on the contact/thank-you pages, and never while
-    // the visitor is typing in a form.
-    tawkWindow.Tawk_API.onLoad = () => {
-      window.setTimeout(() => {
-        const api = tawkWindow.Tawk_API as {
-          maximize?: () => void;
-          isChatMaximized?: () => boolean;
-        };
-        const typing = document.activeElement?.matches("input, textarea, select");
-        const quietPage = /^\/(contact|thank-you)/.test(window.location.pathname);
-        // On phones the open chat covers the whole screen, so it never opens
-        // by itself there; the chat button stays one tap away
-        const phone = window.matchMedia("(max-width: 767px)").matches;
-        let alreadyOpened = false;
-        try {
-          alreadyOpened = sessionStorage.getItem("pp-chat-auto-opened") === "1";
-          sessionStorage.setItem("pp-chat-auto-opened", "1");
-        } catch {
-          // Storage blocked: still open once for this page view
-        }
-        if (
-          !typing &&
-          !quietPage &&
-          !phone &&
-          !alreadyOpened &&
-          !api.isChatMaximized?.()
-        ) {
-          api.maximize?.();
-        }
-      }, 10000);
-    };
+    // The chat stays a small bubble and never opens by itself: an open chat
+    // window covered the products on load (SEO audit, Nov 2026), and the exit
+    // popup now catches visitors who are about to leave.
 
     // The chat script is heavy (~240 KB), so it loads after the page is up:
     // on the visitor's first scroll, tap, mouse move or key press, or after

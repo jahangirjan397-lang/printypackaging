@@ -87,7 +87,7 @@ export default function DielinePriceForm({ styleName, flute, rigid = false, size
       </div>
       <form onSubmit={submit} className="mt-3">
         <div aria-hidden="true" className="pointer-events-none absolute left-[-10000px] h-px w-px overflow-hidden">
-          <input name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+          <input name="hp_leave_empty" tabIndex={-1} autoComplete="off" defaultValue="" />
         </div>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-[7rem_8rem_1fr_1.3fr_auto] lg:items-end">
           <Field label="Quantity">
